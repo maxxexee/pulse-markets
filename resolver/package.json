@@ -1,0 +1,20 @@
+{
+  "name": "@pulse/resolver",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Defines attention markets and settles them against signed epoch snapshots.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "create": "node src/cli.ts create",
+    "resolve": "node src/cli.ts resolve",
+    "test": "node --test 'test/*.test.ts'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
