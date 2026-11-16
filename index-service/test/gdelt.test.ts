@@ -189,8 +189,37 @@ describe('fetchArticles', () => {
         : new Response(body);
     }) as typeof fetch;
 
-    const fetched = await fetchArticles('Nvidia', START, END, { fetchImpl, spacingMs: 0 });
+    const fetched = await fetchArticles('Nvidia', START, END, {
+      fetchImpl,
+      spacingMs: 0,
+      throttleWaitMs: 0,
+    });
     assert.equal(calls, 2);
+    assert.equal(fetched.observations.at(-1)?.value, 3);
+  });
+
+  it('waits out an HTTP 429 instead of failing the build', async () => {
+    let calls = 0;
+    const body = JSON.stringify(
+      timeline([
+        { date: '20261113T000000Z', value: 1 },
+        { date: '20261114T000000Z', value: 2 },
+        { date: '20261115T000000Z', value: 3 },
+      ]),
+    );
+    const fetchImpl = (async () => {
+      calls += 1;
+      return calls <= 2
+        ? new Response('Please limit requests to one every 5 seconds', { status: 429 })
+        : new Response(body);
+    }) as typeof fetch;
+
+    const fetched = await fetchArticles('Nvidia', START, END, {
+      fetchImpl,
+      spacingMs: 0,
+      throttleWaitMs: 0,
+    });
+    assert.equal(calls, 3);
     assert.equal(fetched.observations.at(-1)?.value, 3);
   });
 

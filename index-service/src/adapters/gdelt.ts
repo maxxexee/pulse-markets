@@ -16,6 +16,16 @@ const MIN_REQUEST_SPACING_MS = 6_000;
 const RATE_LIMIT_TEXT = /^\s*Please limit requests/i;
 
 /**
+ * Wait before re-requesting a throttled GDELT call, doubled per attempt.
+ *
+ * GDELT's 429 does not mean "wait five seconds": once an IP is throttled the
+ * refusal lasted well over ten minutes in testing, so short backoff spends the
+ * quota on requests that cannot succeed. A build runs once a day, so waiting
+ * minutes is cheaper than losing the epoch.
+ */
+const MIN_THROTTLE_WAIT_MS = 60_000;
+
+/**
  * Share of a requested range that must come back before the series is usable.
  *
  * GDELT drops days from its own timeline (six consecutive days were missing in
@@ -164,37 +174,44 @@ export function parseTimeline(
 }
 
 /**
- * GETs one timeline, retrying the throttle.
+ * GETs one timeline, waiting out a throttle.
  *
- * A throttled GDELT response can arrive as an HTTP 429 or as a 200 carrying
- * plain text, so both are handled: the first by the HTTP helper's backoff, the
- * second by re-requesting after the interval GDELT asks for.
+ * A throttled GDELT call arrives as an HTTP 429, a dropped connection, or a 200
+ * carrying plain text, and all three clear on the same timescale, so one loop
+ * owns the wait and the HTTP helper is asked for a single attempt. Errors the
+ * server will not reconsider (a 404, a bad query) are raised at once.
  */
 async function requestTimeline(
   url: string,
   fetchImpl: typeof fetch,
-  spacingMs: number,
+  throttleWaitMs: number,
 ): Promise<string> {
   const attempts = 3;
+  let lastError = `throttled after ${attempts} attempts: ${url}`;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    let text: string;
     try {
-      text = await fetchText(url, fetchImpl, { attempts: 3, baseDelayMs: 5_000 });
-    } catch (error) {
-      if (error instanceof HttpError) {
-        throw new GdeltError('request-failed', error.message);
+      const text = await fetchText(url, fetchImpl, { attempts: 1 });
+      if (!RATE_LIMIT_TEXT.test(text)) {
+        return text;
       }
-      throw error;
+      lastError = `GDELT answered the throttle as plain text: ${url}`;
+    } catch (error) {
+      const retriable =
+        error instanceof HttpError &&
+        (error.status === 0 || error.status === 429 || error.status >= 500);
+      if (!retriable) {
+        if (error instanceof HttpError) {
+          throw new GdeltError('request-failed', error.message);
+        }
+        throw error;
+      }
+      lastError = error instanceof Error ? error.message : String(error);
     }
-    if (!RATE_LIMIT_TEXT.test(text)) {
-      return text;
+    if (attempt < attempts) {
+      await sleep(throttleWaitMs * attempt);
     }
-    if (attempt === attempts) {
-      break;
-    }
-    await sleep(spacingMs * attempt);
   }
-  throw new GdeltError('request-failed', `throttled after ${attempts} attempts: ${url}`);
+  throw new GdeltError('request-failed', lastError);
 }
 
 /**
@@ -208,7 +225,12 @@ export async function fetchArticles(
   query: string,
   startDay: string,
   endDay: string,
-  options: { fetchImpl?: typeof fetch; now?: () => Date; spacingMs?: number } = {},
+  options: {
+    fetchImpl?: typeof fetch;
+    now?: () => Date;
+    spacingMs?: number;
+    throttleWaitMs?: number;
+  } = {},
 ): Promise<ArticlesFetch> {
   const url = gdeltUrl(query, startDay, endDay);
   const span =
@@ -219,8 +241,9 @@ export async function fetchArticles(
   }
 
   const spacingMs = options.spacingMs ?? MIN_REQUEST_SPACING_MS;
+  const throttleWaitMs = options.throttleWaitMs ?? MIN_THROTTLE_WAIT_MS;
   const text = await serialized(
-    () => requestTimeline(url, options.fetchImpl ?? fetch, spacingMs),
+    () => requestTimeline(url, options.fetchImpl ?? fetch, throttleWaitMs),
     spacingMs,
   );
 

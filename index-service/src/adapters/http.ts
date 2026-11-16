@@ -51,7 +51,13 @@ export async function fetchText(
       });
     } catch (error) {
       // A reset or refused connection is as transient as a 5xx, so it retries.
-      const detail = error instanceof Error ? error.message : String(error);
+      // Undici hides the real reason in `cause`, and "fetch failed" alone does
+      // not say whether the host refused, reset or timed out.
+      const message = error instanceof Error ? error.message : String(error);
+      const cause = (error as { cause?: unknown }).cause;
+      const causeText =
+        cause instanceof Error ? cause.message : cause === undefined ? '' : String(cause);
+      const detail = causeText === '' ? message : `${message}: ${causeText}`;
       lastError = new HttpError(0, `network error for ${url}: ${detail}`);
       if (attempt < attempts) {
         await sleep(baseDelayMs * 2 ** (attempt - 1));
