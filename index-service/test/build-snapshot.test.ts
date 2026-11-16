@@ -8,8 +8,20 @@ import type { DailyObservation } from '../src/domain/observation.ts';
 import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
 
 const ENTITIES: readonly EntityDefinition[] = [
-  { id: 'nvidia', label: 'Nvidia', wikipediaArticle: 'Nvidia', hackerNewsQuery: 'Nvidia' },
-  { id: 'openai', label: 'OpenAI', wikipediaArticle: 'OpenAI', hackerNewsQuery: 'OpenAI' },
+  {
+    id: 'nvidia',
+    label: 'Nvidia',
+    wikipediaArticle: 'Nvidia',
+    hackerNewsQuery: 'Nvidia',
+    gdeltQuery: 'Nvidia',
+  },
+  {
+    id: 'openai',
+    label: 'OpenAI',
+    wikipediaArticle: 'OpenAI',
+    hackerNewsQuery: 'OpenAI',
+    gdeltQuery: 'OpenAI',
+  },
 ];
 
 const TARGET = '2026-11-15';

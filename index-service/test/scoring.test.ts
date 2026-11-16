@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { addDays } from '../src/domain/dates.ts';
 import {
-  PULSE_SCORING_MENTIONS_V1,
+  PULSE_SCORING_COUNTS_V1,
   PULSE_SCORING_V1,
   aggregateIndex,
   baselineOf,
@@ -60,7 +60,7 @@ describe('baselineOf', () => {
   });
 
   it('uses the smoothed mean for sparse series', () => {
-    assert.equal(baselineOf([0, 0, 0, 0], PULSE_SCORING_MENTIONS_V1), 0.2);
+    assert.equal(baselineOf([0, 0, 0, 0], PULSE_SCORING_COUNTS_V1), 0.2);
   });
 });
 
@@ -136,7 +136,7 @@ describe('scoreEntity', () => {
       'solana',
       withTarget(2, baselineHistory(0, 10)),
       TARGET,
-      PULSE_SCORING_MENTIONS_V1,
+      PULSE_SCORING_COUNTS_V1,
     );
     assert.equal(score.status, 'insufficient-data');
     assert.equal(score.status === 'insufficient-data' && score.reason, 'below-minimum-volume');
@@ -145,7 +145,7 @@ describe('scoreEntity', () => {
   it('scores a sparse mention spike once the volume floor is met', () => {
     const history = baselineHistory(0, 10);
     history[history.length - 1] = { day: addDays(TARGET, -1), value: 1 };
-    const score = scoreEntity('solana', withTarget(5, history), TARGET, PULSE_SCORING_MENTIONS_V1);
+    const score = scoreEntity('solana', withTarget(5, history), TARGET, PULSE_SCORING_COUNTS_V1);
     assert.equal(score.status, 'scored');
     // Baseline (1 + 1) / 11 = 0.1818, level 27.5, which clamps to 100.
     assert.equal(score.status === 'scored' && score.score, 100);

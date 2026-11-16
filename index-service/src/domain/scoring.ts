@@ -60,9 +60,13 @@ export const PULSE_SCORING_V1: ScoringConfig = {
   minTargetValue: 0,
 };
 
-/** Mention scoring. Sparse and frequently zero, so the baseline is smoothed. */
-export const PULSE_SCORING_MENTIONS_V1: ScoringConfig = {
-  name: 'pulse-level-mentions-v1',
+/**
+ * Count scoring, shared by every signal that counts discrete items per day
+ * (stories, news articles). Sparse and frequently zero, so the baseline is
+ * smoothed rather than taken as a median.
+ */
+export const PULSE_SCORING_COUNTS_V1: ScoringConfig = {
+  name: 'pulse-level-counts-v1',
   baselineWindowDays: 30,
   minBaselineDays: 7,
   midpoint: 50,

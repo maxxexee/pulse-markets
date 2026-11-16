@@ -39,12 +39,20 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
   const fetched = await mapWithConcurrency(
     tasks,
     input.concurrency ?? 2,
-    ({ signal, entity }) =>
-      signal.fetchSeries(
-        entity,
-        addDays(input.targetDay, -signal.scoring.baselineWindowDays),
-        input.targetDay,
-      ),
+    async ({ signal, entity }) => {
+      try {
+        return await signal.fetchSeries(
+          entity,
+          addDays(input.targetDay, -signal.scoring.baselineWindowDays),
+          input.targetDay,
+        );
+      } catch (error) {
+        // Name the failing source: a bare "fetch failed" does not say which of
+        // the signals or entities needs attention.
+        const detail = error instanceof Error ? error.message : String(error);
+        throw new Error(`${signal.id}/${entity.id}: ${detail}`, { cause: error });
+      }
+    },
   );
 
   const built = signals.map((signal, signalIndex) => {

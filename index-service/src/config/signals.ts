@@ -1,8 +1,9 @@
+import { fetchArticles } from '../adapters/gdelt.ts';
 import { fetchMentions } from '../adapters/hacker-news.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import type { DailyObservation } from '../domain/observation.ts';
 import {
-  PULSE_SCORING_MENTIONS_V1,
+  PULSE_SCORING_COUNTS_V1,
   PULSE_SCORING_V1,
   type ScoringConfig,
 } from '../domain/scoring.ts';
@@ -54,8 +55,16 @@ export const SIGNALS: readonly SignalDefinition[] = [
     id: 'hacker-news-stories',
     label: 'Hacker News stories',
     unit: 'stories',
-    scoring: PULSE_SCORING_MENTIONS_V1,
+    scoring: PULSE_SCORING_COUNTS_V1,
     fetchSeries: (entity, startDay, endDay) =>
       fetchMentions(entity.hackerNewsQuery, startDay, endDay),
+  },
+  {
+    id: 'gdelt-articles',
+    label: 'GDELT news articles',
+    unit: 'articles',
+    scoring: PULSE_SCORING_COUNTS_V1,
+    fetchSeries: (entity, startDay, endDay) =>
+      fetchArticles(entity.gdeltQuery, startDay, endDay),
   },
 ];

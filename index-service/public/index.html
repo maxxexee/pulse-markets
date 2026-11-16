@@ -81,11 +81,13 @@
       <h2>How the number is made</h2>
       <div class="panel">
         <p>
-          Two independent attention sources are scored separately. Each entity is
+          Independent attention sources are scored separately. Each entity is
           measured against its own trailing baseline in each source, never against
           the other entities. Wikipedia uses the median daily pageview count over the
-          30 days before the epoch day. Hacker News uses the smoothed mean daily story
-          count over the same window, because mention counts are small and often zero.
+          30 days before the epoch day. Hacker News and GDELT use the smoothed mean
+          daily story and article count over the same window, because those counts are
+          small and often zero. GDELT omits some days from its own timeline, so those
+          days are left out of the baseline rather than counted as zero.
         </p>
         <p>
           <code>score = clamp(50 + 12.5 * log2(value / baseline), 0, 100)</code>

@@ -79,6 +79,7 @@ export async function startServer(options: ServerOptions): Promise<Server> {
       label: entity.label,
       wikipediaUrl: basketUrl(entity.wikipediaArticle),
       hackerNewsQuery: entity.hackerNewsQuery,
+      gdeltQuery: entity.gdeltQuery,
     })),
   });
 

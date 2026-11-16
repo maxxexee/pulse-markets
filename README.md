@@ -44,16 +44,21 @@ docs/            index definition, snapshot format, resolution rules
 The index service is implemented and publishes signed daily snapshots. The
 resolver, the market factory and the trade app are not built yet.
 
-Index definition, version `pulse-attention-v2`:
+Index definition, version `pulse-attention-v3`:
 
-- Basket of seven entities, each anchored to a fixed Wikipedia article and a
-  fixed Hacker News query.
-- Two independent signals, each scored on its own trailing baseline:
+- Basket of seven entities, each anchored to a fixed Wikipedia article, a fixed
+  Hacker News query and a fixed GDELT phrase.
+- Three independent signals, each scored on its own trailing baseline:
   - `wikipedia-pageviews` (`pulse-level-v1`): daily pageviews, median baseline
     over the 30 days before the epoch day.
-  - `hacker-news-stories` (`pulse-level-mentions-v1`): daily story mentions
-    from the public Algolia API, smoothed mean baseline (prior of 1) over the
-    same window, and no score below 3 stories where a unit is noise.
+  - `hacker-news-stories` (`pulse-level-counts-v1`): daily story mentions from
+    the public Algolia API, smoothed mean baseline (prior of 1) over the same
+    window, and no score below 3 stories where a unit is noise.
+  - `gdelt-articles` (`pulse-level-counts-v1`): daily news article counts from
+    the public GDELT DOC API, same baseline and floor. GDELT omits days from its
+    own timeline, so a series is accepted only if the epoch day is present and
+    at least 70 percent of the window came back; omitted days are excluded from
+    the baseline, never counted as zero.
 - Score: `clamp(50 + 12.5 * log2(value / baseline), 0, 100)` per entity.
 - Signal index: mean of that signal's entity scores. An entity without at least
   7 baseline days is reported as unscored and excluded, never guessed.
@@ -75,6 +80,11 @@ npm install
 node src/cli.ts build     # compute, sign and publish the previous UTC day
 node src/cli.ts serve     # public index page and JSON API on :8080
 ```
+
+A build publishes nothing unless every source answered, so a throttled source
+(most often GDELT, which rate limits per IP) leaves the previous snapshot in
+place and exits non-zero with the source and entity named. Retry later; snapshots
+are never written with a source silently left out.
 
 Devnet only. Nothing here handles real funds.
 
