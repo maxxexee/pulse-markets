@@ -1,5 +1,6 @@
 import type { EntityDefinition } from '../config/entities.ts';
 import { SIGNALS, type SeriesFetch, type SignalDefinition } from '../config/signals.ts';
+import { mapWithConcurrency } from '../domain/concurrency.ts';
 import { addDays } from '../domain/dates.ts';
 import { aggregateIndex, combineIndices, scoreEntity, type EntityScore } from '../domain/scoring.ts';
 import {
@@ -16,45 +17,66 @@ export interface BuildSnapshotInput {
   readonly now: Date;
   /** Signal set to score. Defaults to the published set. */
   readonly signals?: readonly SignalDefinition[];
+  /** Entity-series fetches allowed in flight at once. Defaults to 2. */
+  readonly concurrency?: number;
 }
 
 /**
  * Builds one epoch snapshot from a fixed basket across every configured signal.
  *
- * Fetches run one at a time rather than in parallel. The work is small enough
- * that speed does not matter, and serial requests keep the index a polite
- * consumer of free public APIs that throttle bursts.
+ * Entity-series fetches run with bounded concurrency instead of one after
+ * another: the basket is 7 entities across 2 signals, and done serially the
+ * build spends minutes waiting on round trips. The ceiling stays low because
+ * these are free public APIs that throttle bursts, and each series is one
+ * request (pageviews) or one request per day (Hacker News), so the in-flight
+ * count is the outer limit times the adapter's own.
  */
 export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSnapshot> {
   const signals = input.signals ?? SIGNALS;
-  const series: SignalSeries[] = [];
-  const sources: SourceRecord[] = [];
+  const tasks = signals.flatMap((signal) =>
+    input.entities.map((entity) => ({ signal, entity })),
+  );
+  const fetched = await mapWithConcurrency(
+    tasks,
+    input.concurrency ?? 2,
+    ({ signal, entity }) =>
+      signal.fetchSeries(
+        entity,
+        addDays(input.targetDay, -signal.scoring.baselineWindowDays),
+        input.targetDay,
+      ),
+  );
 
-  for (const signal of signals) {
-    const startDay = addDays(input.targetDay, -signal.scoring.baselineWindowDays);
+  const built = signals.map((signal, signalIndex) => {
     const entities: EntityScore[] = [];
-    for (const entity of input.entities) {
-      const fetched = await signal.fetchSeries(entity, startDay, input.targetDay);
-      entities.push(scoreEntity(entity.id, fetched.observations, input.targetDay, signal.scoring));
-      sources.push(toSourceRecord(signal.id, entity.id, fetched));
-    }
-    series.push({
+    const records: SourceRecord[] = [];
+    input.entities.forEach((entity, entityIndex) => {
+      const series = fetched[signalIndex * input.entities.length + entityIndex];
+      if (series === undefined) {
+        throw new Error(`missing ${signal.id} fetch for ${entity.id}`);
+      }
+      entities.push(scoreEntity(entity.id, series.observations, input.targetDay, signal.scoring));
+      records.push(toSourceRecord(signal.id, entity.id, series));
+    });
+    const entry: SignalSeries = {
       id: signal.id,
       label: signal.label,
       unit: signal.unit,
       scoring: signal.scoring,
       index: aggregateIndex(entities),
       entities,
-    });
-  }
+    };
+    return { entry, records };
+  });
 
+  const series = built.map((item) => item.entry);
   return {
     schema: SNAPSHOT_SCHEMA,
     epochDay: input.targetDay,
     generatedAt: input.now.toISOString(),
     index: combineIndices(series.map((entry) => entry.index)),
     series,
-    sources,
+    sources: built.flatMap((item) => item.records),
   };
 }
 

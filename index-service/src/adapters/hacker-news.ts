@@ -1,4 +1,5 @@
 import type { DailyObservation } from '../domain/observation.ts';
+import { mapWithConcurrency } from '../domain/concurrency.ts';
 import { addDays } from '../domain/dates.ts';
 import { sha256Hex } from '../domain/snapshot.ts';
 import { HttpError, fetchText } from './http.ts';
@@ -63,13 +64,15 @@ export function parseMentionCount(payload: unknown): number {
  *
  * One request per day rather than one request per range: the range endpoint
  * caps pagination, so a busy day could silently truncate, and a per-day URL
- * lets a skeptic check a single number without trusting the total.
+ * lets a skeptic check a single number without trusting the total. Days are
+ * fetched a few at a time; the results keep day order, so the payload hash is
+ * the same hash the serial version produced.
  */
 export async function fetchMentions(
   query: string,
   startDay: string,
   endDay: string,
-  options: { fetchImpl?: typeof fetch; now?: () => Date } = {},
+  options: { fetchImpl?: typeof fetch; now?: () => Date; concurrency?: number } = {},
 ): Promise<MentionsFetch> {
   const start = Date.parse(`${startDay}T00:00:00Z`);
   const end = Date.parse(`${endDay}T00:00:00Z`);
@@ -81,25 +84,35 @@ export async function fetchMentions(
     throw new HackerNewsError('request-failed', `range of ${span} days exceeds ${MAX_DAYS}`);
   }
 
-  const urls: string[] = [];
-  const bodies: string[] = [];
-  const observations: DailyObservation[] = [];
+  const days: string[] = [];
   for (let offset = 0; offset < span; offset += 1) {
-    const day = addDays(startDay, offset);
+    days.push(addDays(startDay, offset));
+  }
+
+  const pages = await mapWithConcurrency(days, options.concurrency ?? 4, async (day) => {
     const url = mentionsUrl(query, day);
-    let text: string;
     try {
-      text = await fetchText(url, options.fetchImpl);
+      return { url, text: await fetchText(url, options.fetchImpl) };
     } catch (error) {
       if (error instanceof HttpError) {
         throw new HackerNewsError('request-failed', error.message);
       }
       throw error;
     }
-    urls.push(url);
-    bodies.push(text);
-    observations.push({ day, value: parseMentionCount(JSON.parse(text)) });
-  }
+  });
+
+  const urls: string[] = [];
+  const bodies: string[] = [];
+  const observations: DailyObservation[] = [];
+  pages.forEach((page, offset) => {
+    const day = days[offset];
+    if (day === undefined) {
+      throw new HackerNewsError('request-failed', `missing day at offset ${offset}`);
+    }
+    urls.push(page.url);
+    bodies.push(page.text);
+    observations.push({ day, value: parseMentionCount(JSON.parse(page.text)) });
+  });
 
   const now = options.now?.() ?? new Date();
   return {

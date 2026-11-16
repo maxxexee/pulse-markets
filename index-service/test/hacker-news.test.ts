@@ -63,6 +63,25 @@ describe('fetchMentions', () => {
     assert.match(fetched.payloadSha256, /^[0-9a-f]{64}$/);
   });
 
+  it('keeps day order when responses arrive out of order', async () => {
+    const fetchImpl = (async (input: string | URL | Request) => {
+      const filters = new URL(String(input)).searchParams.get('numericFilters') ?? '';
+      const earliest = filters.includes(String(Date.parse('2026-11-13T00:00:00Z') / 1000));
+      await new Promise((resolve) => setTimeout(resolve, earliest ? 20 : 0));
+      return new Response(JSON.stringify({ nbHits: earliest ? 9 : 3 }));
+    }) as typeof fetch;
+
+    const fetched = await fetchMentions('Nvidia', '2026-11-13', '2026-11-15', {
+      fetchImpl,
+      concurrency: 3,
+    });
+    assert.deepEqual(fetched.observations, [
+      { day: '2026-11-13', value: 9 },
+      { day: '2026-11-14', value: 3 },
+      { day: '2026-11-15', value: 3 },
+    ]);
+  });
+
   it('rejects a range longer than the day cap', async () => {
     await assert.rejects(
       fetchMentions('Solana', '2026-08-01', '2026-11-15'),

@@ -122,6 +122,42 @@ describe('buildSnapshot', () => {
     assert.equal(openai?.status, 'insufficient-data');
   });
 
+  it('keeps series and source order when fetches finish out of order', async () => {
+    const { signals } = twoSignals(150);
+    const outOfOrder = signals.map((signal) => ({
+      ...signal,
+      fetchSeries: async (entity: EntityDefinition, startDay: string, endDay: string) => {
+        const position = ENTITIES.findIndex((entry) => entry.id === entity.id);
+        await new Promise((resolve) => setTimeout(resolve, (2 - position) * 10));
+        return signal.fetchSeries(entity, startDay, endDay);
+      },
+    }));
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      targetDay: TARGET,
+      signals: outOfOrder,
+      now: NOW,
+      concurrency: 4,
+    });
+    assert.deepEqual(
+      snapshot.series.map((entry) => entry.id),
+      ['wikipedia-pageviews', 'hacker-news-stories'],
+    );
+    assert.deepEqual(
+      snapshot.series[0]?.entities.map((entry) => entry.entityId),
+      ['nvidia', 'openai'],
+    );
+    assert.deepEqual(
+      snapshot.sources.map((record) => `${record.signal}/${record.entityId}`),
+      [
+        'wikipedia-pageviews/nvidia',
+        'wikipedia-pageviews/openai',
+        'hacker-news-stories/nvidia',
+        'hacker-news-stories/openai',
+      ],
+    );
+  });
+
   it('keeps a signal that scored nothing out of the headline mean', async () => {
     const { pageviews, signals } = twoSignals(200);
     const silent: SignalDefinition = {
