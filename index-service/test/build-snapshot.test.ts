@@ -2,10 +2,13 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { buildSnapshot } from '../src/app/build-snapshot.ts';
 import type { EntityDefinition } from '../src/config/entities.ts';
+import { INDEX_DEFINITION_ID } from '../src/config/index-definition.ts';
 import type { SeriesFetch, SignalDefinition } from '../src/config/signals.ts';
 import { addDays } from '../src/domain/dates.ts';
+import { MOMENTUM_WINDOW_DAYS } from '../src/domain/momentum.ts';
 import type { DailyObservation } from '../src/domain/observation.ts';
 import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../src/domain/snapshot.ts';
 
 const ENTITIES: readonly EntityDefinition[] = [
   {
@@ -13,14 +16,12 @@ const ENTITIES: readonly EntityDefinition[] = [
     label: 'Nvidia',
     wikipediaArticle: 'Nvidia',
     hackerNewsQuery: 'Nvidia',
-    gdeltQuery: 'Nvidia',
   },
   {
     id: 'openai',
     label: 'OpenAI',
     wikipediaArticle: 'OpenAI',
     hackerNewsQuery: 'OpenAI',
-    gdeltQuery: 'OpenAI',
   },
 ];
 
@@ -192,4 +193,125 @@ describe('buildSnapshot', () => {
     assert.equal(snapshot.series[2]?.index.score, null);
     assert.equal(snapshot.index.score, 62.5);
   });
+
+  it('names the published definition and reports coverage beside the score', async () => {
+    const { signals } = twoSignals(200);
+    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    assert.equal(snapshot.definitionId, INDEX_DEFINITION_ID);
+    assert.equal(snapshot.schema, SNAPSHOT_SCHEMA);
+    assert.deepEqual(
+      {
+        signalsScored: snapshot.coverage.signalsScored,
+        signalsTotal: snapshot.coverage.signalsTotal,
+        seriesScored: snapshot.coverage.seriesScored,
+        seriesExpected: snapshot.coverage.seriesExpected,
+        confidence: snapshot.coverage.confidence,
+      },
+      { signalsScored: 2, signalsTotal: 2, seriesScored: 4, seriesExpected: 4, confidence: 1 },
+    );
+    assert.equal(snapshot.coverage.oldestSourceAt, NOW.toISOString());
+  });
+
+  it('halves confidence when half the series cannot be scored', async () => {
+    const { pageviews } = twoSignals(100);
+    const fetchSeries = pageviews.signal.fetchSeries;
+    const oneScored: SignalDefinition = {
+      ...pageviews.signal,
+      fetchSeries: async (entity, startDay, endDay) => {
+        const fetched = await fetchSeries(entity, startDay, endDay);
+        return entity.id === 'openai'
+          ? { ...fetched, observations: fetched.observations.slice(0, 2) }
+          : fetched;
+      },
+    };
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      targetDay: TARGET,
+      signals: [oneScored],
+      now: NOW,
+    });
+    assert.equal(snapshot.coverage.seriesScored, 1);
+    assert.equal(snapshot.coverage.seriesExpected, 2);
+    assert.equal(snapshot.coverage.confidence, 0.5);
+  });
+
+  it('publishes null momentum when no reference snapshot was published', async () => {
+    const { signals } = twoSignals(200);
+    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    assert.equal(snapshot.momentum, null);
+    for (const series of snapshot.series) {
+      assert.equal(series.momentum, null);
+    }
+  });
+
+  it('measures momentum against the snapshot seven days earlier', async () => {
+    const { signals } = twoSignals(200);
+    const referenceDay = addDays(TARGET, -MOMENTUM_WINDOW_DAYS);
+    const reference = priorSnapshot(referenceDay, 40, {
+      'wikipedia-pageviews': 60,
+      'hacker-news-stories': 30,
+    });
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      targetDay: TARGET,
+      signals,
+      now: NOW,
+      history: [reference],
+    });
+    assert.deepEqual(snapshot.momentum, {
+      windowDays: MOMENTUM_WINDOW_DAYS,
+      referenceDay,
+      delta: 22.5,
+      score: 72.5,
+    });
+    assert.equal(snapshot.series[0]?.momentum?.delta, 2.5);
+    assert.equal(snapshot.series[1]?.momentum?.delta, 32.5);
+  });
+
+  it('ignores a reference snapshot for a different day', async () => {
+    const { signals } = twoSignals(200);
+    const reference = priorSnapshot(addDays(TARGET, -6), 10, {});
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      targetDay: TARGET,
+      signals,
+      now: NOW,
+      history: [reference],
+    });
+    assert.equal(snapshot.momentum, null);
+  });
 });
+
+/** Minimal published snapshot used only to derive momentum in these tests. */
+function priorSnapshot(
+  epochDay: string,
+  indexScore: number,
+  seriesScores: Record<string, number>,
+): IndexSnapshot {
+  return {
+    schema: SNAPSHOT_SCHEMA,
+    epochDay,
+    generatedAt: `${epochDay}T00:10:00.000Z`,
+    definitionId: INDEX_DEFINITION_ID,
+    index: { score: indexScore, scoredEntities: 2, totalEntities: 2 },
+    momentum: null,
+    coverage: {
+      signalsScored: 0,
+      signalsTotal: 0,
+      seriesScored: 0,
+      seriesExpected: 0,
+      confidence: 0,
+      oldestSourceAt: null,
+    },
+    series: Object.entries(seriesScores).map(([id, score]) => ({
+      id,
+      label: id,
+      unit: 'units',
+      scoring: PULSE_SCORING_V1,
+      index: { score, scoredEntities: 2, totalEntities: 2 },
+      momentum: null,
+      entities: [],
+    })),
+    sources: [],
+  };
+}

@@ -8,13 +8,6 @@ export const DEFAULT_USER_AGENT =
 const MAX_ATTEMPTS = 4;
 const BASE_DELAY_MS = 1_000;
 
-export interface FetchTextOptions {
-  /** Total attempts, including the first. */
-  readonly attempts?: number;
-  /** First backoff step; later steps double. */
-  readonly baseDelayMs?: number;
-}
-
 export class HttpError extends Error {
   readonly status: number;
 
@@ -31,19 +24,13 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  * GETs a URL as text, retrying throttling and server errors with exponential
  * backoff. Client errors other than 429 are raised immediately: retrying a
  * request the server has rejected on its merits only wastes the quota.
- *
- * Backoff is adjustable because sources differ in how long they mean by
- * "slow down": GDELT asks for seconds between requests, not fractions.
  */
 export async function fetchText(
   url: string,
   fetchImpl: typeof fetch = fetch,
-  options: FetchTextOptions = {},
 ): Promise<string> {
-  const attempts = options.attempts ?? MAX_ATTEMPTS;
-  const baseDelayMs = options.baseDelayMs ?? BASE_DELAY_MS;
   let lastError = new HttpError(0, `no attempt made for ${url}`);
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     let response: Response;
     try {
       response = await fetchImpl(url, {
@@ -59,8 +46,8 @@ export async function fetchText(
         cause instanceof Error ? cause.message : cause === undefined ? '' : String(cause);
       const detail = causeText === '' ? message : `${message}: ${causeText}`;
       lastError = new HttpError(0, `network error for ${url}: ${detail}`);
-      if (attempt < attempts) {
-        await sleep(baseDelayMs * 2 ** (attempt - 1));
+      if (attempt < MAX_ATTEMPTS) {
+        await sleep(BASE_DELAY_MS * 2 ** (attempt - 1));
       }
       continue;
     }
@@ -71,8 +58,8 @@ export async function fetchText(
     if (response.status !== 429 && response.status < 500) {
       throw lastError;
     }
-    if (attempt < attempts) {
-      await sleep(baseDelayMs * 2 ** (attempt - 1));
+    if (attempt < MAX_ATTEMPTS) {
+      await sleep(BASE_DELAY_MS * 2 ** (attempt - 1));
     }
   }
   throw lastError;

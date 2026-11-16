@@ -48,6 +48,9 @@ async function route(
     }
     return readPublished(join(options.snapshotsDir, `${day}.json`));
   }
+  if (pathname === '/api/social/latest') {
+    return readPublished(join(options.snapshotsDir, 'social.json'));
+  }
   if (pathname === '/api/basket') {
     return json(200, basketPayload);
   }
@@ -79,7 +82,6 @@ export async function startServer(options: ServerOptions): Promise<Server> {
       label: entity.label,
       wikipediaUrl: basketUrl(entity.wikipediaArticle),
       hackerNewsQuery: entity.hackerNewsQuery,
-      gdeltQuery: entity.gdeltQuery,
     })),
   });
 

@@ -63,8 +63,8 @@ export function parseMentionCount(payload: unknown): number {
  * Fetches daily story counts for one query over an inclusive day range.
  *
  * One request per day rather than one request per range: the range endpoint
- * caps pagination, so a busy day could silently truncate, and a per-day URL
- * lets a skeptic check a single number without trusting the total. Days are
+ * caps pagination, so a busy day could silently truncate, and one request per
+ * day keeps every count verifiable from its own URL. Days are
  * fetched a few at a time; the results keep day order, so the payload hash is
  * the same hash the serial version produced.
  */

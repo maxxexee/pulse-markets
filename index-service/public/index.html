@@ -84,10 +84,8 @@
           Independent attention sources are scored separately. Each entity is
           measured against its own trailing baseline in each source, never against
           the other entities. Wikipedia uses the median daily pageview count over the
-          30 days before the epoch day. Hacker News and GDELT use the smoothed mean
-          daily story and article count over the same window, because those counts are
-          small and often zero. GDELT omits some days from its own timeline, so those
-          days are left out of the baseline rather than counted as zero.
+          30 days before the epoch day. Hacker News uses the smoothed mean daily story
+          count over the same window, because those counts are small and often zero.
         </p>
         <p>
           <code>score = clamp(50 + 12.5 * log2(value / baseline), 0, 100)</code>
@@ -107,6 +105,9 @@
 
       <h2>Raw sources</h2>
       <ul id="sources"></ul>
+
+      <h2>Social talk &middot; display only</h2>
+      <div class="panel" id="social"></div>
 
       <footer>
         Every input on this page is a public API response from Wikimedia or Hacker
@@ -163,10 +164,28 @@
       }
 
       function renderProvenance(snapshot, attestation) {
+        const coverage = snapshot.coverage;
+        const momentum = snapshot.momentum;
         const rows = [
           ['Epoch day', snapshot.epochDay],
           ['Generated', snapshot.generatedAt],
+          ['Definition', snapshot.definitionId ?? 'unversioned'],
           ['Formulas', snapshot.series.map((series) => series.scoring.name).join(', ')],
+          [
+            'Coverage',
+            coverage
+              ? `${coverage.seriesScored}/${coverage.seriesExpected} series across ` +
+                `${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}`
+              : '--',
+          ],
+          ['Oldest source', coverage?.oldestSourceAt ?? '--'],
+          [
+            'Momentum',
+            momentum
+              ? `${momentum.score.toFixed(2)} (${momentum.delta >= 0 ? '+' : ''}${momentum.delta.toFixed(2)} over ` +
+                `${momentum.windowDays}d against ${momentum.referenceDay})`
+              : '--',
+          ],
           ['Signer', `<code>${attestation.publicKey}</code>`],
           ['Payload SHA-256', `<code>${attestation.payloadSha256}</code>`],
           ['Snapshot', `<a href="/api/index/snapshot/${snapshot.epochDay}" style="color:var(--accent)">JSON</a>`],
@@ -186,8 +205,34 @@
           .join('');
       }
 
+      async function loadSocial() {
+        const target = document.getElementById('social');
+        const response = await fetch('/api/social/latest');
+        if (!response.ok) {
+          target.innerHTML =
+            '<div class="empty">Social panel is not configured. It never affects the score.</div>';
+          return;
+        }
+        const panel = await response.json();
+        const items = panel.posts
+          .slice(0, 20)
+          .map((post) => {
+            const views =
+              post.views === null ? '' : ` &middot; ${format.format(post.views)} views`;
+            const when = post.createdAt.slice(0, 16).replace('T', ' ');
+            return `<li><a href="${post.url}">@${post.author}</a> ${when} UTC &middot; ${format.format(post.likes)} likes${views}</li>`;
+          })
+          .join('');
+        target.innerHTML =
+          `<p class="reason">Display only, settlement weight ${panel.settlementWeight}. ` +
+          `These posts are not an input to the index.</p><ul>${items}</ul>`;
+      }
+
       async function main() {
         await loadBasket();
+        loadSocial().catch(() => {
+          document.getElementById('social').textContent = 'Social panel unavailable.';
+        });
         const response = await fetch('/api/index/latest');
         if (!response.ok) {
           document.getElementById('epoch').textContent = 'no snapshot';
@@ -200,8 +245,13 @@
         document.getElementById('epoch').textContent = `epoch ${snapshot.epochDay} UTC`;
         document.getElementById('index-score').innerHTML =
           snapshot.index.score === null ? '--' : snapshot.index.score.toFixed(2);
+        const momentum = snapshot.momentum;
+        const momentumText = momentum
+          ? `momentum ${momentum.score.toFixed(2)} (${momentum.delta >= 0 ? '+' : ''}${momentum.delta.toFixed(2)} over ${momentum.windowDays}d)`
+          : 'momentum not yet available';
         document.getElementById('coverage').textContent =
-          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entity series scored`;
+          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entity series scored` +
+          `, confidence ${snapshot.coverage?.confidence ?? '--'}, ${momentumText}`;
         document.getElementById('content').innerHTML = snapshot.series.map(renderSeries).join('');
         document.getElementById('provenance').innerHTML =
           renderProvenance(snapshot, signed.attestation);

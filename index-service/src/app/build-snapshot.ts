@@ -1,8 +1,17 @@
 import type { EntityDefinition } from '../config/entities.ts';
+import { INDEX_DEFINITION_ID } from '../config/index-definition.ts';
 import { SIGNALS, type SeriesFetch, type SignalDefinition } from '../config/signals.ts';
 import { mapWithConcurrency } from '../domain/concurrency.ts';
+import { summarizeCoverage } from '../domain/coverage.ts';
 import { addDays } from '../domain/dates.ts';
-import { aggregateIndex, combineIndices, scoreEntity, type EntityScore } from '../domain/scoring.ts';
+import { MOMENTUM_WINDOW_DAYS, momentumFrom, type Momentum } from '../domain/momentum.ts';
+import {
+  aggregateIndex,
+  combineIndices,
+  scoreEntity,
+  type EntityScore,
+  type IndexAggregate,
+} from '../domain/scoring.ts';
 import {
   SNAPSHOT_SCHEMA,
   type IndexSnapshot,
@@ -19,41 +28,79 @@ export interface BuildSnapshotInput {
   readonly signals?: readonly SignalDefinition[];
   /** Entity-series fetches allowed in flight at once. Defaults to 2. */
   readonly concurrency?: number;
+  /**
+   * Earlier published snapshots, consulted only to measure momentum.
+   *
+   * Momentum is the change in a published number, so recomputing it from raw
+   * sources would make it a different metric. History is optional: an epoch
+   * without a reference snapshot publishes null momentum rather than a guess.
+   */
+  readonly history?: readonly IndexSnapshot[];
+}
+
+/**
+ * Fetches every entity-series pair for every signal with bounded concurrency.
+ *
+ * The basket is 7 entities across 2 signals, and done serially the build spends
+ * minutes waiting on round trips. The ceiling stays low because these are free
+ * public APIs that throttle bursts, and each series is one request (pageviews)
+ * or one request per day (Hacker News), so the in-flight count is the outer
+ * limit times the adapter's own.
+ */
+async function fetchAll(
+  input: BuildSnapshotInput,
+  signals: readonly SignalDefinition[],
+): Promise<readonly SeriesFetch[]> {
+  const tasks = signals.flatMap((signal) => input.entities.map((entity) => ({ signal, entity })));
+  return mapWithConcurrency(tasks, input.concurrency ?? 2, async ({ signal, entity }) => {
+    try {
+      return await signal.fetchSeries(
+        entity,
+        addDays(input.targetDay, -signal.scoring.baselineWindowDays),
+        input.targetDay,
+      );
+    } catch (error) {
+      // Name the failing source: a bare "fetch failed" does not say which of
+      // the signals or entities needs attention.
+      const detail = error instanceof Error ? error.message : String(error);
+      throw new Error(`${signal.id}/${entity.id}: ${detail}`, { cause: error });
+    }
+  });
+}
+
+/** Published index for one signal in the reference snapshot, if it scored. */
+function priorScore(
+  reference: IndexSnapshot | null,
+  seriesId: string | null,
+): IndexAggregate | null {
+  if (reference === null) {
+    return null;
+  }
+  if (seriesId === null) {
+    return reference.index;
+  }
+  return reference.series.find((entry) => entry.id === seriesId)?.index ?? null;
+}
+
+function momentumFor(
+  reference: IndexSnapshot | null,
+  seriesId: string | null,
+  referenceDay: string,
+  current: IndexAggregate,
+): Momentum | null {
+  const prior = priorScore(reference, seriesId);
+  return momentumFrom(current.score, prior?.score ?? null, referenceDay);
 }
 
 /**
  * Builds one epoch snapshot from a fixed basket across every configured signal.
  *
- * Entity-series fetches run with bounded concurrency instead of one after
- * another: the basket is 7 entities across 2 signals, and done serially the
- * build spends minutes waiting on round trips. The ceiling stays low because
- * these are free public APIs that throttle bursts, and each series is one
- * request (pageviews) or one request per day (Hacker News), so the in-flight
- * count is the outer limit times the adapter's own.
+ * A source that fails aborts the build instead of publishing a partial index,
+ * so an epoch always describes the full definition it names.
  */
 export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSnapshot> {
   const signals = input.signals ?? SIGNALS;
-  const tasks = signals.flatMap((signal) =>
-    input.entities.map((entity) => ({ signal, entity })),
-  );
-  const fetched = await mapWithConcurrency(
-    tasks,
-    input.concurrency ?? 2,
-    async ({ signal, entity }) => {
-      try {
-        return await signal.fetchSeries(
-          entity,
-          addDays(input.targetDay, -signal.scoring.baselineWindowDays),
-          input.targetDay,
-        );
-      } catch (error) {
-        // Name the failing source: a bare "fetch failed" does not say which of
-        // the signals or entities needs attention.
-        const detail = error instanceof Error ? error.message : String(error);
-        throw new Error(`${signal.id}/${entity.id}: ${detail}`, { cause: error });
-      }
-    },
-  );
+  const fetched = await fetchAll(input, signals);
 
   const built = signals.map((signal, signalIndex) => {
     const entities: EntityScore[] = [];
@@ -72,19 +119,31 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
       unit: signal.unit,
       scoring: signal.scoring,
       index: aggregateIndex(entities),
+      momentum: null,
       entities,
     };
     return { entry, records };
   });
 
-  const series = built.map((item) => item.entry);
+  const sources = built.flatMap((item) => item.records);
+  const index = combineIndices(built.map((item) => item.entry.index));
+  const referenceDay = addDays(input.targetDay, -MOMENTUM_WINDOW_DAYS);
+  const reference = input.history?.find((entry) => entry.epochDay === referenceDay) ?? null;
+  const series = built.map((item) => ({
+    ...item.entry,
+    momentum: momentumFor(reference, item.entry.id, referenceDay, item.entry.index),
+  }));
+
   return {
     schema: SNAPSHOT_SCHEMA,
     epochDay: input.targetDay,
     generatedAt: input.now.toISOString(),
-    index: combineIndices(series.map((entry) => entry.index)),
+    definitionId: INDEX_DEFINITION_ID,
+    index,
+    momentum: momentumFor(reference, null, referenceDay, index),
+    coverage: summarizeCoverage(series, sources),
     series,
-    sources: built.flatMap((item) => item.records),
+    sources,
   };
 }
 

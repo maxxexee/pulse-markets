@@ -10,7 +10,17 @@ function fixtureSnapshot(): IndexSnapshot {
     schema: SNAPSHOT_SCHEMA,
     epochDay: '2026-11-15',
     generatedAt: '2026-11-16T00:05:00.000Z',
+    definitionId: 'pulse-attention-v4',
     index: { score: 75, scoredEntities: 1, totalEntities: 1 },
+    momentum: null,
+    coverage: {
+      signalsScored: 1,
+      signalsTotal: 1,
+      seriesScored: 1,
+      seriesExpected: 1,
+      confidence: 1,
+      oldestSourceAt: '2026-11-16T00:05:00.000Z',
+    },
     series: [
       {
         id: 'wikipedia-pageviews',
@@ -18,6 +28,7 @@ function fixtureSnapshot(): IndexSnapshot {
         unit: 'views',
         scoring: PULSE_SCORING_V1,
         index: { score: 75, scoredEntities: 1, totalEntities: 1 },
+        momentum: null,
         entities: [
           {
             status: 'scored',

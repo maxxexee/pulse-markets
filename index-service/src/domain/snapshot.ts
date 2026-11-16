@@ -1,8 +1,10 @@
 import { createHash } from 'node:crypto';
+import type { Coverage } from './coverage.ts';
+import type { Momentum } from './momentum.ts';
 import type { EntityScore, IndexAggregate, ScoringConfig } from './scoring.ts';
 
 /** Identifies the snapshot layout, so old snapshots stay readable after upgrades. */
-export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/2';
+export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/3';
 
 /**
  * Provenance for one entity's raw inputs.
@@ -33,6 +35,8 @@ export interface SignalSeries {
   /** Formula parameters that produced this series. */
   readonly scoring: ScoringConfig;
   readonly index: IndexAggregate;
+  /** Change in this series' index over the momentum window, null if unmeasured. */
+  readonly momentum: Momentum | null;
   readonly entities: readonly EntityScore[];
 }
 
@@ -42,8 +46,13 @@ export interface IndexSnapshot {
   /** UTC day the index describes, YYYY-MM-DD. */
   readonly epochDay: string;
   readonly generatedAt: string;
+  /** Published definition this snapshot was computed under. */
+  readonly definitionId: string;
   /** Headline index: the mean of the signal indices that scored. */
   readonly index: IndexAggregate;
+  /** Change in the headline index over the momentum window, null if unmeasured. */
+  readonly momentum: Momentum | null;
+  readonly coverage: Coverage;
   readonly series: readonly SignalSeries[];
   readonly sources: readonly SourceRecord[];
 }
