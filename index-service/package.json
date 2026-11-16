@@ -1,0 +1,20 @@
+{
+  "name": "@pulse/index-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Computes the PULSE attention index and publishes signed epoch snapshots.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build": "node src/cli.ts build",
+    "serve": "node src/cli.ts serve",
+    "test": "node --test 'test/*.test.ts'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

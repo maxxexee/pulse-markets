@@ -22,3 +22,6 @@ npm-debug.log*
 
 keypair*.json
 *-keypair.json
+
+# Index signing key. Losing it breaks snapshot continuity, so back it up.
+.keys/

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PULSE attention index</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0c0e;
+        --panel: #131518;
+        --line: #23262b;
+        --text: #e8eaed;
+        --muted: #8b9099;
+        --accent: #5eead4;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 24px 64px;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-variant-numeric: tabular-nums;
+      }
+      main { max-width: 880px; margin: 0 auto; }
+      header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+      h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
+      .epoch { color: var(--muted); font-size: 13px; }
+      .hero { margin: 36px 0 28px; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+      .score { font-size: 76px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+      .score small { font-size: 20px; color: var(--muted); font-weight: 400; }
+      .coverage { color: var(--muted); font-size: 13px; padding-bottom: 10px; }
+      table { width: 100%; border-collapse: collapse; }
+      th {
+        text-align: right; font-weight: 500; font-size: 12px; letter-spacing: 0.06em;
+        text-transform: uppercase; color: var(--muted);
+        padding: 0 0 10px; border-bottom: 1px solid var(--line);
+      }
+      th:first-child, td:first-child { text-align: left; }
+      td { padding: 13px 0; border-bottom: 1px solid var(--line); text-align: right; }
+      td.name { font-weight: 500; }
+      .bar { width: 132px; height: 6px; background: var(--panel); border-radius: 99px; overflow: hidden; }
+      .bar span { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+      .cell-score { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+      .reason { color: var(--muted); font-size: 13px; }
+      h2 {
+        font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); font-weight: 500; margin: 44px 0 14px;
+      }
+      p { margin: 0 0 12px; }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px; color: var(--accent); word-break: break-all;
+      }
+      .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+      dl { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 8px 16px; font-size: 13px; }
+      dt { color: var(--muted); }
+      dd { margin: 0; }
+      ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
+      ul a { color: var(--accent); text-decoration: none; }
+      ul a:hover { text-decoration: underline; }
+      footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+      .empty { padding: 40px 0; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PULSE attention index</h1>
+        <div class="epoch" id="epoch">loading</div>
+      </header>
+
+      <div class="hero">
+        <div class="score" id="index-score">--</div>
+        <div class="coverage" id="coverage"></div>
+      </div>
+
+      <div id="content"></div>
+
+      <h2>How the number is made</h2>
+      <div class="panel">
+        <p>
+          Each entity is measured against its own trailing baseline, never against
+          the other entities. The baseline is the median daily Wikipedia pageview
+          count over the 30 days before the epoch day.
+        </p>
+        <p>
+          <code>score = clamp(50 + 12.5 * log2(views / baseline), 0, 100)</code>
+        </p>
+        <p>
+          Attention exactly at baseline scores 50. Every doubling adds 12.5 points,
+          so the scale runs from a sixteenth of baseline at 0 to sixteen times
+          baseline at 100. The published index is the mean of the entity scores.
+        </p>
+      </div>
+
+      <h2>Provenance</h2>
+      <div class="panel">
+        <dl id="provenance"></dl>
+      </div>
+
+      <h2>Raw sources</h2>
+      <ul id="sources"></ul>
+
+      <footer>
+        Every input on this page is a public Wikipedia API response. The URLs above
+        return the same numbers to anyone, so the score can be recomputed without
+        access to this server.
+      </footer>
+    </main>
+
+    <script>
+      const labels = new Map();
+      const format = new Intl.NumberFormat('en-US');
+
+      async function loadBasket() {
+        const response = await fetch('/api/basket');
+        if (!response.ok) return;
+        const body = await response.json();
+        for (const entity of body.entities) {
+          labels.set(entity.id, entity);
+        }
+      }
+
+      function renderUnscored(entity) {
+        return `<span class="reason">${entity.reason}</span>`;
+      }
+
+      function renderRow(entity) {
+        const label = labels.get(entity.entityId)?.label ?? entity.entityId;
+        const isScored = entity.status === 'scored';
+        const scoreCell = isScored
+          ? `<div class="cell-score">
+               <div class="bar"><span style="width:${entity.score}%"></span></div>
+               <span>${entity.score.toFixed(2)}</span>
+             </div>`
+          : renderUnscored(entity);
+        return `<tr>
+          <td class="name">${label}</td>
+          <td>${isScored ? format.format(entity.views) : "--"}</td>
+          <td>${isScored ? format.format(entity.baseline) : "--"}</td>
+          <td>${isScored ? entity.level.toFixed(2) + "x" : "--"}</td>
+          <td>${scoreCell}</td>
+        </tr>`;
+      }
+
+      function renderTable(snapshot) {
+        const rows = snapshot.entities.map(renderRow).join('');
+        return `<table>
+          <thead><tr>
+            <th>Entity</th><th>Views</th><th>Baseline</th><th>Level</th><th>Score</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      }
+
+      function renderProvenance(snapshot, attestation) {
+        const rows = [
+          ['Epoch day', snapshot.epochDay],
+          ['Generated', snapshot.generatedAt],
+          ['Formula', snapshot.scoring.name],
+          ['Signer', `<code>${attestation.publicKey}</code>`],
+          ['Payload SHA-256', `<code>${attestation.payloadSha256}</code>`],
+          ['Snapshot', `<a href="/api/index/snapshot/${snapshot.epochDay}" style="color:var(--accent)">JSON</a>`],
+        ];
+        return rows.map(([key, value]) => `<dt>${key}</dt><dd>${value}</dd>`).join('');
+      }
+
+      function renderSources(snapshot) {
+        return snapshot.sources
+          .map((source) => {
+            const label = labels.get(source.entityId)?.label ?? source.entityId;
+            return `<li>${label}: <a href="${source.url}">${source.url}</a></li>`;
+          })
+          .join('');
+      }
+
+      async function main() {
+        await loadBasket();
+        const response = await fetch('/api/index/latest');
+        if (!response.ok) {
+          document.getElementById('epoch').textContent = 'no snapshot';
+          document.getElementById('content').innerHTML =
+            '<div class="empty">No snapshot has been published yet. Run the build command.</div>';
+          return;
+        }
+        const signed = await response.json();
+        const snapshot = signed.snapshot;
+        document.getElementById('epoch').textContent = `epoch ${snapshot.epochDay} UTC`;
+        document.getElementById('index-score').innerHTML =
+          snapshot.index.score === null ? '--' : snapshot.index.score.toFixed(2);
+        document.getElementById('coverage').textContent =
+          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entities scored`;
+        document.getElementById('content').innerHTML = renderTable(snapshot);
+        document.getElementById('provenance').innerHTML =
+          renderProvenance(snapshot, signed.attestation);
+        document.getElementById('sources').innerHTML = renderSources(snapshot);
+      }
+
+      main().catch((error) => {
+        document.getElementById('content').innerHTML =
+          `<div class="empty">Could not load the index: ${error.message}</div>`;
+      });
+    </script>
+  </body>
+</html>
