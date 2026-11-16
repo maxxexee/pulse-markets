@@ -81,17 +81,20 @@
       <h2>How the number is made</h2>
       <div class="panel">
         <p>
-          Each entity is measured against its own trailing baseline, never against
-          the other entities. The baseline is the median daily Wikipedia pageview
-          count over the 30 days before the epoch day.
+          Two independent attention sources are scored separately. Each entity is
+          measured against its own trailing baseline in each source, never against
+          the other entities. Wikipedia uses the median daily pageview count over the
+          30 days before the epoch day. Hacker News uses the smoothed mean daily story
+          count over the same window, because mention counts are small and often zero.
         </p>
         <p>
-          <code>score = clamp(50 + 12.5 * log2(views / baseline), 0, 100)</code>
+          <code>score = clamp(50 + 12.5 * log2(value / baseline), 0, 100)</code>
         </p>
         <p>
           Attention exactly at baseline scores 50. Every doubling adds 12.5 points,
           so the scale runs from a sixteenth of baseline at 0 to sixteen times
-          baseline at 100. The published index is the mean of the entity scores.
+          baseline at 100. Each source publishes the mean of its entity scores, and
+          the headline index is the mean of the source indices that scored.
         </p>
       </div>
 
@@ -104,9 +107,9 @@
       <ul id="sources"></ul>
 
       <footer>
-        Every input on this page is a public Wikipedia API response. The URLs above
-        return the same numbers to anyone, so the score can be recomputed without
-        access to this server.
+        Every input on this page is a public API response from Wikimedia or Hacker
+        News. The URLs above return the same numbers to anyone, so the score can be
+        recomputed without access to this server.
       </footer>
     </main>
 
@@ -138,18 +141,20 @@
           : renderUnscored(entity);
         return `<tr>
           <td class="name">${label}</td>
-          <td>${isScored ? format.format(entity.views) : "--"}</td>
+          <td>${isScored ? format.format(entity.value) : "--"}</td>
           <td>${isScored ? format.format(entity.baseline) : "--"}</td>
           <td>${isScored ? entity.level.toFixed(2) + "x" : "--"}</td>
           <td>${scoreCell}</td>
         </tr>`;
       }
 
-      function renderTable(snapshot) {
-        const rows = snapshot.entities.map(renderRow).join('');
-        return `<table>
+      function renderSeries(series) {
+        const unit = series.unit.charAt(0).toUpperCase() + series.unit.slice(1);
+        const rows = series.entities.map(renderRow).join('');
+        return `<h2>${series.label} &middot; index ${series.index.score === null ? '--' : series.index.score.toFixed(2)}</h2>
+        <table>
           <thead><tr>
-            <th>Entity</th><th>Views</th><th>Baseline</th><th>Level</th><th>Score</th>
+            <th>Entity</th><th>${unit}</th><th>Baseline</th><th>Level</th><th>Score</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>`;
@@ -159,7 +164,7 @@
         const rows = [
           ['Epoch day', snapshot.epochDay],
           ['Generated', snapshot.generatedAt],
-          ['Formula', snapshot.scoring.name],
+          ['Formulas', snapshot.series.map((series) => series.scoring.name).join(', ')],
           ['Signer', `<code>${attestation.publicKey}</code>`],
           ['Payload SHA-256', `<code>${attestation.payloadSha256}</code>`],
           ['Snapshot', `<a href="/api/index/snapshot/${snapshot.epochDay}" style="color:var(--accent)">JSON</a>`],
@@ -171,7 +176,10 @@
         return snapshot.sources
           .map((source) => {
             const label = labels.get(source.entityId)?.label ?? source.entityId;
-            return `<li>${label}: <a href="${source.url}">${source.url}</a></li>`;
+            const links = source.urls
+              .map((url) => `<a href="${url}">${url}</a>`)
+              .join('<br />');
+            return `<li>${label} (${source.signal}):<br />${links}</li>`;
           })
           .join('');
       }
@@ -191,8 +199,8 @@
         document.getElementById('index-score').innerHTML =
           snapshot.index.score === null ? '--' : snapshot.index.score.toFixed(2);
         document.getElementById('coverage').textContent =
-          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entities scored`;
-        document.getElementById('content').innerHTML = renderTable(snapshot);
+          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entity series scored`;
+        document.getElementById('content').innerHTML = snapshot.series.map(renderSeries).join('');
         document.getElementById('provenance').innerHTML =
           renderProvenance(snapshot, signed.attestation);
         document.getElementById('sources').innerHTML = renderSources(snapshot);

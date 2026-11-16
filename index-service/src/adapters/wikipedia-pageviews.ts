@@ -1,15 +1,11 @@
 import type { DailyObservation } from '../domain/observation.ts';
 import { toCompact } from '../domain/dates.ts';
 import { sha256Hex } from '../domain/snapshot.ts';
+import { HttpError, fetchText } from './http.ts';
+
+export { DEFAULT_USER_AGENT } from './http.ts';
 
 const API_ROOT = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article';
-const MAX_ATTEMPTS = 4;
-const BASE_DELAY_MS = 1_000;
-
-/** Wikimedia requires a descriptive agent; a generic one is throttled. */
-export const DEFAULT_USER_AGENT =
-  process.env['PULSE_USER_AGENT'] ??
-  'pulse-index/0.1 (https://github.com/maxxexee/pulse-markets; index-service)';
 
 export type WikipediaErrorKind = 'unknown-article' | 'request-failed' | 'malformed-response';
 
@@ -25,7 +21,7 @@ export class WikipediaError extends Error {
 
 /** One successful fetch, including the provenance needed to audit it. */
 export interface PageviewsFetch {
-  readonly url: string;
+  readonly urls: readonly string[];
   readonly retrievedAt: string;
   readonly payloadSha256: string;
   readonly observations: readonly DailyObservation[];
@@ -58,33 +54,8 @@ export function parsePageviews(payload: unknown): DailyObservation[] {
     byDay.set(day, (byDay.get(day) ?? 0) + record.views);
   }
   return [...byDay.entries()]
-    .map(([day, views]) => ({ day, views }))
+    .map(([day, value]) => ({ day, value }))
     .sort((a, b) => a.day.localeCompare(b.day));
-}
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function getText(url: string, fetchImpl: typeof fetch): Promise<string> {
-  let lastError = new WikipediaError('request-failed', `no attempt made for ${url}`);
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
-    const response = await fetchImpl(url, {
-      headers: { 'user-agent': DEFAULT_USER_AGENT, accept: 'application/json' },
-    });
-    if (response.ok) {
-      return response.text();
-    }
-    lastError = new WikipediaError('request-failed', `HTTP ${response.status} for ${url}`);
-    if (response.status === 404) {
-      throw new WikipediaError('unknown-article', `no pageviews for ${url}`);
-    }
-    if (response.status !== 429 && response.status < 500) {
-      throw lastError;
-    }
-    if (attempt < MAX_ATTEMPTS) {
-      await sleep(BASE_DELAY_MS * 2 ** (attempt - 1));
-    }
-  }
-  throw lastError;
 }
 
 /** Fetches daily pageviews for one article over an inclusive day range. */
@@ -95,10 +66,21 @@ export async function fetchPageviews(
   options: { fetchImpl?: typeof fetch; now?: () => Date } = {},
 ): Promise<PageviewsFetch> {
   const url = pageviewsUrl(article, startDay, endDay);
-  const text = await getText(url, options.fetchImpl ?? fetch);
+  let text: string;
+  try {
+    text = await fetchText(url, options.fetchImpl);
+  } catch (error) {
+    if (error instanceof HttpError) {
+      throw new WikipediaError(
+        error.status === 404 ? 'unknown-article' : 'request-failed',
+        error.message,
+      );
+    }
+    throw error;
+  }
   const now = options.now?.() ?? new Date();
   return {
-    url,
+    urls: [url],
     retrievedAt: now.toISOString(),
     payloadSha256: sha256Hex(text),
     observations: parsePageviews(JSON.parse(text)),

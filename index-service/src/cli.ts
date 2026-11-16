@@ -2,7 +2,6 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
-import { fetchPageviews } from './adapters/wikipedia-pageviews.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { startServer } from './app/server.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
@@ -29,8 +28,6 @@ async function build(day: string): Promise<void> {
     entities: ENTITY_BASKET,
     targetDay: day,
     now: new Date(),
-    fetchEntity: (entity, startDay, endDay) =>
-      fetchPageviews(entity.wikipediaArticle, startDay, endDay),
   });
 
   const signed = signSnapshot(snapshot, loadOrCreateSigner(KEY_PATH));
@@ -45,14 +42,17 @@ async function build(day: string): Promise<void> {
 
   console.log(`epoch ${day}  index ${snapshot.index.score ?? 'n/a'}`);
   console.log(`scored ${snapshot.index.scoredEntities}/${snapshot.index.totalEntities} entities`);
-  for (const entity of snapshot.entities) {
-    if (entity.status === 'scored') {
-      console.log(
-        `  ${entity.entityId.padEnd(14)} score ${String(entity.score).padStart(6)}` +
-          `  level ${String(entity.level).padStart(8)}  views ${entity.views}`,
-      );
-    } else {
-      console.log(`  ${entity.entityId.padEnd(14)} unscored: ${entity.reason}`);
+  for (const series of snapshot.series) {
+    console.log(`${series.id}  index ${series.index.score ?? 'n/a'}`);
+    for (const entity of series.entities) {
+      if (entity.status === 'scored') {
+        console.log(
+          `  ${entity.entityId.padEnd(14)} score ${String(entity.score).padStart(6)}` +
+            `  level ${String(entity.level).padStart(8)}  ${series.unit} ${entity.value}`,
+        );
+      } else {
+        console.log(`  ${entity.entityId.padEnd(14)} unscored: ${entity.reason}`);
+      }
     }
   }
   console.log(`signer ${signed.attestation.publicKey}`);

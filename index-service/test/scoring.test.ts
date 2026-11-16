@@ -2,27 +2,31 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { addDays } from '../src/domain/dates.ts';
 import {
+  PULSE_SCORING_MENTIONS_V1,
   PULSE_SCORING_V1,
   aggregateIndex,
+  baselineOf,
+  combineIndices,
   median,
   scoreEntity,
   scoreFromLevel,
+  smoothedMean,
 } from '../src/domain/scoring.ts';
 import type { DailyObservation } from '../src/domain/observation.ts';
 
 const TARGET = '2026-11-15';
 
 /** Builds `count` consecutive days ending on the day before TARGET. */
-function baselineHistory(views: number, count = 20): DailyObservation[] {
+function baselineHistory(value: number, count = 20): DailyObservation[] {
   const out: DailyObservation[] = [];
   for (let offset = count; offset >= 1; offset -= 1) {
-    out.push({ day: addDays(TARGET, -offset), views });
+    out.push({ day: addDays(TARGET, -offset), value });
   }
   return out;
 }
 
-function withTarget(views: number, history = baselineHistory(100)): DailyObservation[] {
-  return [...history, { day: TARGET, views }];
+function withTarget(value: number, history = baselineHistory(100)): DailyObservation[] {
+  return [...history, { day: TARGET, value }];
 }
 
 describe('median', () => {
@@ -36,6 +40,27 @@ describe('median', () => {
 
   it('rejects an empty list', () => {
     assert.throws(() => median([]), /at least one value/);
+  });
+});
+
+describe('smoothedMean', () => {
+  it('adds the prior to both the total and the day count', () => {
+    assert.equal(smoothedMean([0, 0, 0, 0], 1), 0.2);
+    assert.equal(smoothedMean([1, 1], 1), 1);
+  });
+
+  it('rejects an empty list', () => {
+    assert.throws(() => smoothedMean([], 1), /at least one value/);
+  });
+});
+
+describe('baselineOf', () => {
+  it('uses the median for dense series', () => {
+    assert.equal(baselineOf([100, 100, 100, 10_000], PULSE_SCORING_V1), 100);
+  });
+
+  it('uses the smoothed mean for sparse series', () => {
+    assert.equal(baselineOf([0, 0, 0, 0], PULSE_SCORING_MENTIONS_V1), 0.2);
   });
 });
 
@@ -105,6 +130,27 @@ describe('scoreEntity', () => {
     assert.equal(score.status, 'insufficient-data');
     assert.equal(score.status === 'insufficient-data' && score.reason, 'zero-baseline');
   });
+
+  it('refuses to score a sparse day below the minimum volume', () => {
+    const score = scoreEntity(
+      'solana',
+      withTarget(2, baselineHistory(0, 10)),
+      TARGET,
+      PULSE_SCORING_MENTIONS_V1,
+    );
+    assert.equal(score.status, 'insufficient-data');
+    assert.equal(score.status === 'insufficient-data' && score.reason, 'below-minimum-volume');
+  });
+
+  it('scores a sparse mention spike once the volume floor is met', () => {
+    const history = baselineHistory(0, 10);
+    history[history.length - 1] = { day: addDays(TARGET, -1), value: 1 };
+    const score = scoreEntity('solana', withTarget(5, history), TARGET, PULSE_SCORING_MENTIONS_V1);
+    assert.equal(score.status, 'scored');
+    // Baseline (1 + 1) / 11 = 0.1818, level 27.5, which clamps to 100.
+    assert.equal(score.status === 'scored' && score.score, 100);
+    assert.equal(score.status === 'scored' && score.value, 5);
+  });
 });
 
 describe('aggregateIndex', () => {
@@ -123,5 +169,30 @@ describe('aggregateIndex', () => {
     const index = aggregateIndex([missing]);
     assert.equal(index.score, null);
     assert.equal(index.scoredEntities, 0);
+  });
+});
+
+describe('combineIndices', () => {
+  it('weights each signal equally rather than by entity count', () => {
+    const combined = combineIndices([
+      { score: 80, scoredEntities: 7, totalEntities: 7 },
+      { score: 40, scoredEntities: 1, totalEntities: 7 },
+    ]);
+    assert.equal(combined.score, 60);
+    assert.equal(combined.scoredEntities, 8);
+    assert.equal(combined.totalEntities, 14);
+  });
+
+  it('skips a signal that scored nothing instead of counting it as zero', () => {
+    const combined = combineIndices([
+      { score: 80, scoredEntities: 7, totalEntities: 7 },
+      { score: null, scoredEntities: 0, totalEntities: 7 },
+      null,
+    ]);
+    assert.equal(combined.score, 80);
+  });
+
+  it('reports a null score when no signal scored', () => {
+    assert.equal(combineIndices([null, { score: null, scoredEntities: 0, totalEntities: 7 }]).score, null);
   });
 });

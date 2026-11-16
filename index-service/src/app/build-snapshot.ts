@@ -1,66 +1,73 @@
 import type { EntityDefinition } from '../config/entities.ts';
-import type { PageviewsFetch } from '../adapters/wikipedia-pageviews.ts';
+import { SIGNALS, type SeriesFetch, type SignalDefinition } from '../config/signals.ts';
 import { addDays } from '../domain/dates.ts';
+import { aggregateIndex, combineIndices, scoreEntity, type EntityScore } from '../domain/scoring.ts';
 import {
-  PULSE_SCORING_V1,
-  aggregateIndex,
-  scoreEntity,
-  type EntityScore,
-  type ScoringConfig,
-} from '../domain/scoring.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SourceRecord } from '../domain/snapshot.ts';
-
-/** Fetches one entity's raw observations for an inclusive day range. */
-export type EntityFetcher = (
-  entity: EntityDefinition,
-  startDay: string,
-  endDay: string,
-) => Promise<PageviewsFetch>;
+  SNAPSHOT_SCHEMA,
+  type IndexSnapshot,
+  type SignalSeries,
+  type SourceRecord,
+} from '../domain/snapshot.ts';
 
 export interface BuildSnapshotInput {
   readonly entities: readonly EntityDefinition[];
   /** UTC day the index describes; must be a complete day. */
   readonly targetDay: string;
-  readonly fetchEntity: EntityFetcher;
   readonly now: Date;
-  readonly scoring?: ScoringConfig;
+  /** Signal set to score. Defaults to the published set. */
+  readonly signals?: readonly SignalDefinition[];
 }
 
 /**
- * Builds one epoch snapshot from a fixed basket.
+ * Builds one epoch snapshot from a fixed basket across every configured signal.
  *
- * Entities are fetched one at a time rather than in parallel. The basket is
- * small, and serial requests keep the index a polite consumer of a free public
- * API that throttles bursts.
+ * Fetches run one at a time rather than in parallel. The work is small enough
+ * that speed does not matter, and serial requests keep the index a polite
+ * consumer of free public APIs that throttle bursts.
  */
 export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSnapshot> {
-  const scoring = input.scoring ?? PULSE_SCORING_V1;
-  const startDay = addDays(input.targetDay, -scoring.baselineWindowDays);
-  const entities: EntityScore[] = [];
+  const signals = input.signals ?? SIGNALS;
+  const series: SignalSeries[] = [];
   const sources: SourceRecord[] = [];
 
-  for (const entity of input.entities) {
-    const fetched = await input.fetchEntity(entity, startDay, input.targetDay);
-    entities.push(scoreEntity(entity.id, fetched.observations, input.targetDay, scoring));
-    sources.push(toSourceRecord(entity.id, fetched));
+  for (const signal of signals) {
+    const startDay = addDays(input.targetDay, -signal.scoring.baselineWindowDays);
+    const entities: EntityScore[] = [];
+    for (const entity of input.entities) {
+      const fetched = await signal.fetchSeries(entity, startDay, input.targetDay);
+      entities.push(scoreEntity(entity.id, fetched.observations, input.targetDay, signal.scoring));
+      sources.push(toSourceRecord(signal.id, entity.id, fetched));
+    }
+    series.push({
+      id: signal.id,
+      label: signal.label,
+      unit: signal.unit,
+      scoring: signal.scoring,
+      index: aggregateIndex(entities),
+      entities,
+    });
   }
 
   return {
     schema: SNAPSHOT_SCHEMA,
     epochDay: input.targetDay,
     generatedAt: input.now.toISOString(),
-    index: aggregateIndex(entities),
-    scoring,
-    entities,
+    index: combineIndices(series.map((entry) => entry.index)),
+    series,
     sources,
   };
 }
 
-function toSourceRecord(entityId: string, fetched: PageviewsFetch): SourceRecord {
+function toSourceRecord(
+  signalId: string,
+  entityId: string,
+  fetched: SeriesFetch,
+): SourceRecord {
   const observations = fetched.observations;
   return {
     entityId,
-    url: fetched.url,
+    signal: signalId,
+    urls: fetched.urls,
     retrievedAt: fetched.retrievedAt,
     payloadSha256: fetched.payloadSha256,
     observations: observations.length,

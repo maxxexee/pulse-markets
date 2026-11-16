@@ -44,16 +44,26 @@ docs/            index definition, snapshot format, resolution rules
 The index service is implemented and publishes signed daily snapshots. The
 resolver, the market factory and the trade app are not built yet.
 
-Index definition, version `pulse-level-v1`:
+Index definition, version `pulse-attention-v2`:
 
-- Basket of seven entities, each anchored to a fixed Wikipedia article.
-- Input: daily Wikipedia pageviews per article, from a public API, no key.
-- Baseline: median daily views over the 30 days before the epoch day.
-- Score: `clamp(50 + 12.5 * log2(views / baseline), 0, 100)` per entity.
-- Index: mean of the entity scores. An entity without at least 7 baseline days
-  is reported as unscored and excluded, never guessed.
+- Basket of seven entities, each anchored to a fixed Wikipedia article and a
+  fixed Hacker News query.
+- Two independent signals, each scored on its own trailing baseline:
+  - `wikipedia-pageviews` (`pulse-level-v1`): daily pageviews, median baseline
+    over the 30 days before the epoch day.
+  - `hacker-news-stories` (`pulse-level-mentions-v1`): daily story mentions
+    from the public Algolia API, smoothed mean baseline (prior of 1) over the
+    same window, and no score below 3 stories where a unit is noise.
+- Score: `clamp(50 + 12.5 * log2(value / baseline), 0, 100)` per entity.
+- Signal index: mean of that signal's entity scores. An entity without at least
+  7 baseline days is reported as unscored and excluded, never guessed.
+- Headline index: mean of the signal indices that scored, so each signal is
+  weighted equally rather than by how many entities it happened to score.
 - Snapshot: canonical JSON, SHA-256, signed with Ed25519. The signing key is a
   Solana address, so snapshot signatures can be checked on chain later.
+
+Source survey, including the social platforms tested and rejected, is in
+[`docs/attention-sources.md`](docs/attention-sources.md).
 
 Every input is a public URL recorded in the snapshot, so a third party can
 refetch it and recompute the score without access to this server. The formula

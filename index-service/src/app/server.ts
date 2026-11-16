@@ -78,6 +78,7 @@ export async function startServer(options: ServerOptions): Promise<Server> {
       id: entity.id,
       label: entity.label,
       wikipediaUrl: basketUrl(entity.wikipediaArticle),
+      hackerNewsQuery: entity.hackerNewsQuery,
     })),
   });
 

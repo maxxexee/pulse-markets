@@ -1,5 +1,8 @@
 import type { DailyObservation } from './observation.ts';
 
+/** How the trailing baseline is derived from the window. */
+export type BaselineMethod = 'median' | 'smoothed-mean';
+
 /**
  * Fixed parameters of the scoring formula.
  *
@@ -25,21 +28,55 @@ export interface ScoringConfig {
    * leave the published index unable to distinguish them.
    */
   readonly pointsPerDoubling: number;
+  /**
+   * Median resists a single viral day inside the baseline window, but for
+   * sparse counts it collapses to zero and makes the entity unscoreable. The
+   * smoothed mean is used where counts are small and many days are zero.
+   */
+  readonly baselineMethod: BaselineMethod;
+  /**
+   * Prior count added to the smoothed mean, equivalent to pretending the entity
+   * had `baselinePrior` mentions spread over `baselinePrior` days. Keeps a
+   * single quiet day from producing an infinite ratio.
+   */
+  readonly baselinePrior: number;
+  /**
+   * Minimum target-day count before the day is scored. Below this, a one or two
+   * unit change is noise rather than attention, and a sparse series would emit
+   * large scores from meaningless differences.
+   */
+  readonly minTargetValue: number;
 }
 
-/** Scoring parameters for index version 1. Frozen once a market exists on it. */
+/** Pageview scoring. Dense daily data, so a median baseline is meaningful. */
 export const PULSE_SCORING_V1: ScoringConfig = {
   name: 'pulse-level-v1',
   baselineWindowDays: 30,
   minBaselineDays: 7,
   midpoint: 50,
   pointsPerDoubling: 12.5,
+  baselineMethod: 'median',
+  baselinePrior: 0,
+  minTargetValue: 0,
+};
+
+/** Mention scoring. Sparse and frequently zero, so the baseline is smoothed. */
+export const PULSE_SCORING_MENTIONS_V1: ScoringConfig = {
+  name: 'pulse-level-mentions-v1',
+  baselineWindowDays: 30,
+  minBaselineDays: 7,
+  midpoint: 50,
+  pointsPerDoubling: 12.5,
+  baselineMethod: 'smoothed-mean',
+  baselinePrior: 1,
+  minTargetValue: 3,
 };
 
 export type InsufficientReason =
   | 'missing-target-day'
   | 'too-few-baseline-days'
-  | 'zero-baseline';
+  | 'zero-baseline'
+  | 'below-minimum-volume';
 
 /**
  * Result of scoring one entity for one day.
@@ -53,7 +90,8 @@ export type EntityScore =
       readonly status: 'scored';
       readonly entityId: string;
       readonly day: string;
-      readonly views: number;
+      /** Raw target-day count: pageviews or mentions, depending on the signal. */
+      readonly value: number;
       readonly baseline: number;
       readonly baselineDays: number;
       /** Attention relative to baseline, where 1.0 means exactly on baseline. */
@@ -65,7 +103,7 @@ export type EntityScore =
       readonly status: 'insufficient-data';
       readonly entityId: string;
       readonly day: string;
-      readonly views: number | null;
+      readonly value: number | null;
       readonly baselineDays: number;
       readonly reason: InsufficientReason;
     };
@@ -88,6 +126,22 @@ export function median(values: readonly number[]): number {
     return sorted[middle] ?? 0;
   }
   return ((sorted[middle - 1] ?? 0) + (sorted[middle] ?? 0)) / 2;
+}
+
+/** Mean with an additive prior, used for sparse count series. */
+export function smoothedMean(values: readonly number[], prior: number): number {
+  if (values.length === 0) {
+    throw new Error('smoothedMean requires at least one value');
+  }
+  const total = values.reduce((sum, value) => sum + value, 0);
+  return (total + prior) / (values.length + prior);
+}
+
+/** Trailing baseline for one entity, using the method named in the config. */
+export function baselineOf(values: readonly number[], config: ScoringConfig): number {
+  return config.baselineMethod === 'median'
+    ? median(values)
+    : smoothedMean(values, config.baselinePrior);
 }
 
 /**
@@ -113,11 +167,11 @@ export function round2(value: number): number {
 function unscored(
   entityId: string,
   day: string,
-  views: number | null,
+  value: number | null,
   baselineDays: number,
   reason: InsufficientReason,
 ): EntityScore {
-  return { status: 'insufficient-data', entityId, day, views, baselineDays, reason };
+  return { status: 'insufficient-data', entityId, day, value, baselineDays, reason };
 }
 
 /**
@@ -138,26 +192,29 @@ export function scoreEntity(
   const baselineWindow = ordered
     .filter((entry) => entry.day < targetDay)
     .slice(-config.baselineWindowDays)
-    .map((entry) => entry.views);
+    .map((entry) => entry.value);
 
   if (target === undefined) {
     return unscored(entityId, targetDay, null, baselineWindow.length, 'missing-target-day');
   }
   if (baselineWindow.length < config.minBaselineDays) {
-    return unscored(entityId, targetDay, target.views, baselineWindow.length, 'too-few-baseline-days');
+    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'too-few-baseline-days');
+  }
+  if (target.value < config.minTargetValue) {
+    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'below-minimum-volume');
   }
 
-  const baseline = median(baselineWindow);
+  const baseline = baselineOf(baselineWindow, config);
   if (baseline <= 0) {
-    return unscored(entityId, targetDay, target.views, baselineWindow.length, 'zero-baseline');
+    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'zero-baseline');
   }
 
-  const level = target.views / baseline;
+  const level = target.value / baseline;
   return {
     status: 'scored',
     entityId,
     day: targetDay,
-    views: target.views,
+    value: target.value,
     baseline: round2(baseline),
     baselineDays: baselineWindow.length,
     level: round2(level),
@@ -176,5 +233,27 @@ export function aggregateIndex(scores: readonly EntityScore[]): IndexAggregate {
     score: round2(total / scored.length),
     scoredEntities: scored.length,
     totalEntities: scores.length,
+  };
+}
+
+/**
+ * Combines independent signal indices into the headline index.
+ *
+ * Each signal index is the mean of its own scored entities, so this weights the
+ * signals equally rather than weighting by how many entities each happened to
+ * score. A signal that scored nothing is skipped instead of contributing a zero.
+ */
+export function combineIndices(indices: readonly (IndexAggregate | null)[]): IndexAggregate {
+  const usable = indices.filter(
+    (index): index is IndexAggregate => index !== null && index.score !== null,
+  );
+  if (usable.length === 0) {
+    return { score: null, scoredEntities: 0, totalEntities: 0 };
+  }
+  const total = usable.reduce((sum, index) => sum + (index.score ?? 0), 0);
+  return {
+    score: round2(total / usable.length),
+    scoredEntities: usable.reduce((sum, index) => sum + index.scoredEntities, 0),
+    totalEntities: usable.reduce((sum, index) => sum + index.totalEntities, 0),
   };
 }

@@ -2,24 +2,38 @@ import { createHash } from 'node:crypto';
 import type { EntityScore, IndexAggregate, ScoringConfig } from './scoring.ts';
 
 /** Identifies the snapshot layout, so old snapshots stay readable after upgrades. */
-export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/1';
+export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/2';
 
 /**
  * Provenance for one entity's raw inputs.
  *
- * A snapshot is only an oracle if a third party can refetch the same URL and
- * arrive at the same numbers. The URL, retrieval time and payload hash are
- * published so a disagreement can be traced to a specific fetch.
+ * A snapshot is only an oracle if a third party can refetch the same URLs and
+ * arrive at the same numbers. Every URL fetched for the series is listed, in
+ * order, and the payload hash covers those responses in that same order.
  */
 export interface SourceRecord {
   readonly entityId: string;
-  readonly url: string;
+  readonly signal: string;
+  /** Every URL fetched, in request order. */
+  readonly urls: readonly string[];
   readonly retrievedAt: string;
-  /** SHA-256 of the exact response bytes, hex encoded. */
+  /** SHA-256 of the concatenated response bodies, joined with newlines, hex encoded. */
   readonly payloadSha256: string;
   readonly observations: number;
   readonly firstDay: string | null;
   readonly lastDay: string | null;
+}
+
+/** One source's view of the basket: its own index and its own per-entity scores. */
+export interface SignalSeries {
+  readonly id: string;
+  readonly label: string;
+  /** Unit of the raw counts, used for display. */
+  readonly unit: string;
+  /** Formula parameters that produced this series. */
+  readonly scoring: ScoringConfig;
+  readonly index: IndexAggregate;
+  readonly entities: readonly EntityScore[];
 }
 
 /** The complete published record for one epoch. */
@@ -28,9 +42,9 @@ export interface IndexSnapshot {
   /** UTC day the index describes, YYYY-MM-DD. */
   readonly epochDay: string;
   readonly generatedAt: string;
+  /** Headline index: the mean of the signal indices that scored. */
   readonly index: IndexAggregate;
-  readonly scoring: ScoringConfig;
-  readonly entities: readonly EntityScore[];
+  readonly series: readonly SignalSeries[];
   readonly sources: readonly SourceRecord[];
 }
 

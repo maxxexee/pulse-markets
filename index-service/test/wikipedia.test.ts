@@ -31,9 +31,9 @@ describe('pageviewsUrl', () => {
 describe('parsePageviews', () => {
   it('converts timestamps to days and sorts ascending', () => {
     assert.deepEqual(parsePageviews(RESPONSE), [
-      { day: '2026-11-05', views: 4819 },
-      { day: '2026-11-06', views: 6023 },
-      { day: '2026-11-12', views: 1072168 },
+      { day: '2026-11-05', value: 4819 },
+      { day: '2026-11-06', value: 6023 },
+      { day: '2026-11-12', value: 1072168 },
     ]);
   });
 
@@ -44,7 +44,7 @@ describe('parsePageviews', () => {
         { timestamp: '2026110513', views: 5 },
       ],
     };
-    assert.deepEqual(parsePageviews(payload), [{ day: '2026-11-05', views: 15 }]);
+    assert.deepEqual(parsePageviews(payload), [{ day: '2026-11-05', value: 15 }]);
   });
 
   it('throws a typed error when the shape is wrong', () => {
