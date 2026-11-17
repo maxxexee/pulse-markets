@@ -35,6 +35,30 @@ laptop asleep for two nights heals itself rather than leaving a hole in the
 momentum reference. A published day is skipped unless `--force` is passed, so a
 rerun can never replace a signed epoch.
 
+## Publishing the site
+
+Live at <https://maxxexee.github.io/pulse-markets/> and
+<https://maxxexee.github.io/pulse-markets/markets.html>.
+
+```
+ops/deploy-pages.sh
+```
+
+`node src/cli.ts export --out DIR` writes the pages and every JSON route as
+plain files, and the deploy script force-pushes that directory to `gh-pages`,
+which GitHub Pages serves. The pages ask for `./api/...`, so the same build works
+served from this machine and from the project subpath on Pages.
+
+The daily run deploys after a successful build, so the site follows the index.
+Set `DEPLOY_ON_BUILD=0` to stop that. Two consequences worth knowing: the site is
+a copy from deploy time, so a failed build leaves the live page showing the last
+successful epoch until the next one lands, and `/api/health` exists on the local
+server but not on the static site. Check freshness on a static deployment by
+reading `api/index/latest` and comparing its `epochDay`.
+
+Because `gh-pages` is replaced wholesale, anything committed there by hand is
+lost on the next deploy.
+
 ## Checking it works
 
 ```

@@ -1,12 +1,13 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { startServer } from './app/server.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
+import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { socialQuery } from './config/social.ts';
 import { MIN_PUBLISH_CONFIDENCE } from './domain/coverage.ts';
@@ -19,11 +20,13 @@ const SERVICE_ROOT = resolve(import.meta.dirname, '..');
 const SNAPSHOTS_DIR = join(SERVICE_ROOT, 'snapshots');
 const KEY_PATH = join(SERVICE_ROOT, '.keys', 'index-signer.pem');
 const PUBLIC_DIR = join(SERVICE_ROOT, 'public');
+const MARKETS_DIR = join(SERVICE_ROOT, '..', 'markets');
 
 const USAGE = `pulse index-service
 
   build [--day YYYY-MM-DD] [--catch-up N] [--force]
                              compute, sign and publish an epoch snapshot
+  export --out DIR          write the site and its JSON as plain files
   health [--max-age-days N]  report whether the latest snapshot is current
   social                     fetch the display-only social panel, if configured
   serve [--port N] [--max-age-days N]
@@ -178,12 +181,66 @@ async function health(maxAgeDays: number): Promise<void> {
   process.exitCode = 1;
 }
 
+/**
+ * Writes the site and every JSON route as static files.
+ *
+ * The page asks for the same relative paths either way, so one build serves both
+ * from this server and from a plain file host. No route here does per-request
+ * work, which is why the export cannot fall behind the server.
+ */
+async function exportStatic(outDir: string): Promise<void> {
+  const files = new Map<string, string>();
+  const page = async (name: string) => {
+    try {
+      return await readFile(join(PUBLIC_DIR, name), 'utf8');
+    } catch {
+      return null;
+    }
+  };
+  const indexPage = await page('index.html');
+  const marketsPage = await page('markets.html');
+  if (indexPage === null) {
+    throw new Error(`missing page: ${join(PUBLIC_DIR, 'index.html')}`);
+  }
+  files.set('index.html', indexPage);
+  if (marketsPage !== null) {
+    files.set('markets.html', marketsPage);
+  }
+  files.set('api/basket', basketPayload(ENTITY_BASKET));
+  files.set('api/markets', await marketsPayload(MARKETS_DIR));
+  files.set('api/index/history', await historyPayload(SNAPSHOTS_DIR));
+
+  for (const day of await publishedDays()) {
+    const body = await readFile(join(SNAPSHOTS_DIR, `${day}.json`), 'utf8');
+    files.set(`api/index/snapshot/${day}`, body);
+  }
+  const optional: ReadonlyArray<readonly [string, string]> = [
+    ['api/index/latest', 'latest.json'],
+    ['api/social/latest', 'social.json'],
+  ];
+  for (const [target, name] of optional) {
+    try {
+      files.set(target, await readFile(join(SNAPSHOTS_DIR, name), 'utf8'));
+    } catch {
+      continue;
+    }
+  }
+
+  for (const [path, body] of files) {
+    const target = join(outDir, path);
+    await mkdir(dirname(target), { recursive: true });
+    await writeFile(target, body);
+  }
+  console.log(`exported ${files.size} files to ${outDir}`);
+}
+
 async function serve(port: number, maxAgeDays: number): Promise<void> {
   const server = await startServer({
     port,
     publicDir: PUBLIC_DIR,
     snapshotsDir: SNAPSHOTS_DIR,
     basket: ENTITY_BASKET,
+    marketsDir: MARKETS_DIR,
     maxAgeDays,
   });
   console.log(`serving on http://127.0.0.1:${port}`);
@@ -204,6 +261,7 @@ async function main(): Promise<void> {
       port: { type: 'string' },
       'catch-up': { type: 'string' },
       'max-age-days': { type: 'string' },
+      out: { type: 'string' },
       force: { type: 'boolean' },
       help: { type: 'boolean' },
     },
@@ -232,6 +290,14 @@ async function main(): Promise<void> {
     for (const day of days) {
       await build(day, force);
     }
+    return;
+  }
+  if (command === 'export') {
+    const outDir = values.out;
+    if (typeof outDir !== 'string' || outDir.trim() === '') {
+      throw new Error('--out DIR is required');
+    }
+    await exportStatic(resolve(outDir));
     return;
   }
   if (command === 'health') {

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PULSE markets</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0c0e;
+        --panel: #131518;
+        --line: #23262b;
+        --text: #e8eaed;
+        --muted: #8b9099;
+        --accent: #5eead4;
+        --yes: #5eead4;
+        --no: #fca5a5;
+        --wait: #fcd34d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 24px 64px;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-variant-numeric: tabular-nums;
+      }
+      main { max-width: 880px; margin: 0 auto; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+      h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
+      .nav { font-size: 13px; color: var(--muted); }
+      .hero { margin: 32px 0 8px; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+      .score { font-size: 64px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+      .aside { color: var(--muted); font-size: 13px; padding-bottom: 8px; }
+      .chart { margin-top: 18px; }
+      .chart svg { display: block; width: 100%; height: 96px; overflow: visible; }
+      .chart-caption { color: var(--muted); font-size: 12px; margin-top: 6px; }
+      h2 {
+        font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); font-weight: 500; margin: 40px 0 14px;
+      }
+      .market {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        padding: 18px 18px 14px; margin-bottom: 12px;
+      }
+      .market-top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+      .question { font-size: 16px; font-weight: 500; max-width: 62ch; }
+      .badge {
+        flex: none; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+        border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; color: var(--muted);
+      }
+      .badge.yes { color: var(--yes); border-color: #1f4f49; }
+      .badge.no { color: var(--no); border-color: #502626; }
+      .badge.wait { color: var(--wait); border-color: #4f4520; }
+      .terms { margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 18px; font-size: 13px; }
+      .terms div span { display: block; color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+      .note { margin-top: 12px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+      .note strong { color: var(--text); font-weight: 500; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; word-break: break-all; }
+      .empty { padding: 28px 18px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+      footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+      .warn { color: var(--wait); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PULSE markets</h1>
+        <div class="nav"><a href="./index.html">index method and sources</a></div>
+      </header>
+
+      <div class="hero">
+        <div class="score" id="index-score">--</div>
+        <div class="aside" id="index-aside">loading the published index</div>
+      </div>
+      <div class="chart">
+        <svg id="chart" viewBox="0 0 600 96" preserveAspectRatio="none" role="img" aria-label="published index history"></svg>
+        <div class="chart-caption" id="chart-caption"></div>
+      </div>
+
+      <h2>Markets</h2>
+      <div id="markets"><div class="empty">Loading markets.</div></div>
+
+      <footer>
+        Settlement preview only. A market settles when the resolver checks the
+        signed snapshot for its epoch; nothing on this page can settle it.
+      </footer>
+    </main>
+
+    <script>
+      const fmt = (value, digits = 2) =>
+        value === null || value === undefined ? '--' : Number(value).toFixed(digits);
+
+      const esc = (value) =>
+        String(value).replace(/[&<>"']/g, (character) => `&#${character.charCodeAt(0)};`);
+
+      async function getJson(path) {
+        const response = await fetch(path, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} for ${path}`);
+        }
+        return response.json();
+      }
+
+      function drawChart(days) {
+        const points = days.filter((day) => typeof day.index === 'number');
+        const caption = document.getElementById('chart-caption');
+        if (points.length < 2) {
+          document.getElementById('chart').style.display = 'none';
+          caption.textContent = points.length === 0
+            ? 'No published epochs yet.'
+            : `One published epoch (${points[0].day}). A line needs two.`;
+          return;
+        }
+        const width = 600;
+        const height = 96;
+        const pad = 6;
+        const values = points.map((day) => day.index);
+        const low = Math.min(...values);
+        const high = Math.max(...values);
+        const span = high - low || 1;
+        const step = points.length === 1 ? width : width / (points.length - 1);
+        const coords = points.map((day, offset) => {
+          const x = offset * step;
+          const y = height - pad - ((day.index - low) / span) * (height - pad * 2);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+        const svg = document.getElementById('chart');
+        svg.innerHTML =
+          `<polyline fill="none" stroke="#5eead4" stroke-width="1.5" points="${coords.join(' ')}" />` +
+          points
+            .map((day, offset) => {
+              const [x, y] = coords[offset].split(',');
+              return `<circle cx="${x}" cy="${y}" r="1.8" fill="#5eead4"><title>${esc(day.day)}: ${fmt(day.index)}</title></circle>`;
+            })
+            .join('');
+        const last = points[points.length - 1];
+        caption.textContent =
+          `${points.length} published epochs, ${points[0].day} to ${last.day}. ` +
+          `Low ${fmt(low)}, high ${fmt(high)}, latest ${fmt(last.index)}.`;
+      }
+
+      function question(market) {
+        const side = market.comparison === 'below' ? 'below' : 'above';
+        return `Will the PULSE attention index close ${side} ${fmt(market.threshold)} at the epoch ending ${esc(market.epochDay)}?`;
+      }
+
+      /**
+       * Mirrors the resolver's order without reimplementing settlement: the
+       * signature is not verified here, so a preview is a convenience for a
+       * market whose snapshot exists, never a settlement.
+       */
+      function preview(market, snapshot) {
+        if (snapshot === null || snapshot.snapshot === undefined) {
+          return { label: 'awaiting snapshot', kind: 'wait', note: `No snapshot published for ${esc(market.epochDay)} yet.` };
+        }
+        const published = snapshot.snapshot;
+        if (published.epochDay !== market.epochDay) {
+          return { label: 'wrong epoch', kind: 'wait', note: `Latest snapshot is ${esc(published.epochDay)}.` };
+        }
+        if (published.definitionId !== market.definitionId) {
+          return { label: 'wrong definition', kind: 'wait', note: `Snapshot is ${esc(published.definitionId)}.` };
+        }
+        if (snapshot.attestation && snapshot.attestation.publicKey !== market.signer) {
+          return { label: 'wrong signer', kind: 'wait', note: 'Snapshot was signed by a different key.' };
+        }
+        const score = published.index && published.index.score;
+        if (typeof score !== 'number') {
+          return { label: 'no score', kind: 'wait', note: 'The snapshot has no headline index score.' };
+        }
+        const confidence = (published.coverage && published.coverage.confidence) ?? 0;
+        if (confidence < market.minConfidence) {
+          return {
+            label: 'below coverage floor',
+            kind: 'wait',
+            note: `Confidence ${fmt(confidence, 4)} is under the market floor ${fmt(market.minConfidence, 2)}.`,
+          };
+        }
+        const above = market.comparison !== 'below';
+        const yes = above ? score > market.threshold : score < market.threshold;
+        const tie = score === market.threshold;
+        return {
+          label: yes ? 'would resolve yes' : 'would resolve no',
+          kind: yes ? 'yes' : 'no',
+          note:
+            `Index ${fmt(score)} against ${fmt(market.threshold)}` +
+            (tie ? ', exactly on the threshold, and a tie resolves NO.' : '.') +
+            ` Confidence ${fmt(confidence, 4)}.`,
+        };
+      }
+
+      function renderMarkets(markets, unreadable, snapshots) {
+        const root = document.getElementById('markets');
+        if (!Array.isArray(markets) || markets.length === 0) {
+          root.innerHTML =
+            '<div class="empty">No market specs published yet. Create one with ' +
+            '<code>resolver/src/cli.ts create</code> and write it to <code>markets/</code>.</div>';
+          return;
+        }
+        const cards = markets.map((market) => {
+          const snapshot = snapshots[market.epochDay] ?? null;
+          const state = preview(market, snapshot);
+          return (
+            `<article class="market">` +
+            `<div class="market-top"><div class="question">${question(market)}</div>` +
+            `<div class="badge ${state.kind}">${esc(state.label)}</div></div>` +
+            `<div class="terms">` +
+            `<div><span>epoch</span>${esc(market.epochDay)}</div>` +
+            `<div><span>threshold</span>${fmt(market.threshold)} ${esc(market.comparison)}</div>` +
+            `<div><span>coverage floor</span>${fmt(market.minConfidence, 2)}</div>` +
+            `<div><span>definition</span>${esc(market.definitionId)}</div>` +
+            `<div><span>market id</span><code title="${esc(market.id)}">${esc(String(market.id).slice(0, 16))}&hellip;</code></div>` +
+            `</div>` +
+            `<div class="note">${state.note}</div>` +
+            `</article>`
+          );
+        });
+        const warning = unreadable.length
+          ? `<div class="note warn">Unreadable market files: ${unreadable.map(esc).join(', ')}</div>`
+          : '';
+        root.innerHTML = cards.join('') + warning;
+      }
+
+      async function loadSnapshot(day) {
+        try {
+          return await getJson(`./api/index/snapshot/${encodeURIComponent(day)}`);
+        } catch {
+          return null;
+        }
+      }
+
+      async function main() {
+        const [latest, history, marketList] = await Promise.all([
+          getJson('./api/index/latest').catch(() => null),
+          getJson('./api/index/history').catch(() => ({ days: [] })),
+          getJson('./api/markets').catch(() => ({ markets: [], unreadable: [] })),
+        ]);
+        drawChart(history.days || []);
+
+        if (latest === null) {
+          document.getElementById('index-aside').textContent =
+            'No snapshot has been published yet.';
+          document.getElementById('markets').innerHTML =
+            '<div class="empty">No index yet, so no market can be previewed.</div>';
+          return;
+        }
+        const snapshot = latest.snapshot;
+        document.getElementById('index-score').textContent = fmt(snapshot.index.score);
+        const momentum = snapshot.momentum;
+        document.getElementById('index-aside').textContent =
+          `epoch ${snapshot.epochDay} · confidence ${fmt(snapshot.coverage.confidence, 4)}` +
+          (momentum === null ? ' · momentum n/a' : ` · momentum ${fmt(momentum.score)}`);
+
+        const markets = marketList.markets || [];
+        const uniqueDays = [...new Set(markets.map((market) => market.epochDay))];
+        const loaded = await Promise.all(
+          uniqueDays.map(async (day) => [day, await loadSnapshot(day)]),
+        );
+        const snapshots = Object.fromEntries(loaded.filter(([, value]) => value !== null));
+        renderMarkets(markets, marketList.unreadable || [], snapshots);
+      }
+
+      main().catch((error) => {
+        document.getElementById('markets').innerHTML =
+          `<div class="empty">Could not load markets: ${esc(error.message)}</div>`;
+      });
+    </script>
+  </body>
+</html>

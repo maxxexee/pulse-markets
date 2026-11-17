@@ -27,17 +27,22 @@ Example market:
    markets on the pm-AMM program and resolves them from the published snapshot
    once the epoch closes. Resolution rules and the dispute window are written
    into the market metadata at creation time.
-3. **Trade app.** Wallet connect, market list, quotes, and buy/sell against
-   devnet.
+3. **Markets UI.** The market list with each spec's terms and a settlement
+   preview against the published snapshot. Read only in this version: no wallet,
+   no orders, because there is nothing on chain to trade against yet.
 
 ## Repo layout
 
 ```
-index-service/   index computation and signed epoch snapshots
+index-service/   index computation, signed epoch snapshots, public pages
 resolver/        market factory and settlement
-app/             trade UI
-docs/            index definition, snapshot format, resolution rules
+markets/         published market specs, one JSON file each
+docs/            index definition, snapshot format, resolution rules, operations
+ops/             daily build job and static deploy
 ```
+
+Live: [index](https://maxxexee.github.io/pulse-markets/) ·
+[markets](https://maxxexee.github.io/pulse-markets/markets.html)
 
 ## Status
 
@@ -83,6 +88,7 @@ npm install
 node src/cli.ts build     # compute, sign and publish the previous UTC day
 node src/cli.ts social    # optional display-only social panel
 node src/cli.ts health    # exits 1 unless the latest snapshot is current
+node src/cli.ts export --out .site   # same pages and JSON as plain files
 node src/cli.ts serve     # public index page and JSON API on :8080
 ```
 

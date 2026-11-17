@@ -68,7 +68,7 @@
     <main>
       <header>
         <h1>PULSE attention index</h1>
-        <div class="epoch" id="epoch">loading</div>
+        <div class="epoch"><a href="./markets.html" style="color: inherit">markets</a> &middot; <span id="epoch">loading</span></div>
       </header>
 
       <div class="hero">
@@ -121,7 +121,7 @@
       const format = new Intl.NumberFormat('en-US');
 
       async function loadBasket() {
-        const response = await fetch('/api/basket');
+        const response = await fetch('./api/basket', { cache: 'no-store' });
         if (!response.ok) return;
         const body = await response.json();
         for (const entity of body.entities) {
@@ -207,7 +207,7 @@
 
       async function loadSocial() {
         const target = document.getElementById('social');
-        const response = await fetch('/api/social/latest');
+        const response = await fetch('./api/social/latest', { cache: 'no-store' });
         if (!response.ok) {
           target.innerHTML =
             '<div class="empty">Social panel is not configured. It never affects the score.</div>';
@@ -233,7 +233,7 @@
         loadSocial().catch(() => {
           document.getElementById('social').textContent = 'Social panel unavailable.';
         });
-        const response = await fetch('/api/index/latest');
+        const response = await fetch('./api/index/latest', { cache: 'no-store' });
         if (!response.ok) {
           document.getElementById('epoch').textContent = 'no snapshot';
           document.getElementById('content').innerHTML =

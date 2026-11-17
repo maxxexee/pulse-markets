@@ -1,0 +1,10 @@
+{
+  "definitionId": "pulse-attention-v4",
+  "signer": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
+  "threshold": 55,
+  "comparison": "above",
+  "epochDay": "2026-11-15",
+  "minConfidence": 0.5,
+  "createdAt": "2026-11-13T09:00:00Z",
+  "id": "e5a03d597118ae60b2df57dada5e5312ce596fbbc1a525f3dd28f9a19ed60967"
+}

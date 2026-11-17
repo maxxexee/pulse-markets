@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from '../adapters/health.ts';
+import { basketPayload, historyPayload, marketsPayload } from './payloads.ts';
 import { isValidDay } from '../domain/dates.ts';
 import { isHealthy } from '../domain/health.ts';
 
@@ -11,6 +12,8 @@ export interface ServerOptions {
   readonly publicDir: string;
   readonly snapshotsDir: string;
   readonly basket: readonly EntityDefinition[];
+  /** Directory of published market specs, normally markets/ at the repo root. */
+  readonly marketsDir: string;
   /** Days of lag tolerated before /api/health reports stale. */
   readonly maxAgeDays?: number;
 }
@@ -20,6 +23,14 @@ interface RouteResult {
   readonly body: string;
   readonly contentType: string;
 }
+
+/** URL path to the page file it renders. */
+const PAGES: Readonly<Record<string, string>> = {
+  '/': 'index.html',
+  '/index.html': 'index.html',
+  '/markets': 'markets.html',
+  '/markets.html': 'markets.html',
+};
 
 const JSON_TYPE = 'application/json; charset=utf-8';
 const JSON_HEADERS = { 'content-type': JSON_TYPE, 'cache-control': 'no-store' };
@@ -40,7 +51,7 @@ async function readPublished(path: string): Promise<RouteResult> {
 async function route(
   pathname: string,
   options: ServerOptions,
-  basketPayload: string,
+  basket: string,
 ): Promise<RouteResult> {
   if (pathname === '/api/index/latest') {
     return readPublished(join(options.snapshotsDir, 'latest.json'));
@@ -64,12 +75,19 @@ async function route(
     return json(isHealthy(report) ? 200 : 503, JSON.stringify(report));
   }
   if (pathname === '/api/basket') {
-    return json(200, basketPayload);
+    return json(200, basket);
   }
-  if (pathname === '/' || pathname === '/index.html') {
+  if (pathname === '/api/markets') {
+    return json(200, await marketsPayload(options.marketsDir));
+  }
+  if (pathname === '/api/index/history') {
+    return json(200, await historyPayload(options.snapshotsDir));
+  }
+  const page = PAGES[pathname];
+  if (page !== undefined) {
     try {
-      const page = await readFile(join(options.publicDir, 'index.html'));
-      return { status: 200, body: page.toString('utf8'), contentType: 'text/html; charset=utf-8' };
+      const body = await readFile(join(options.publicDir, page));
+      return { status: 200, body: body.toString('utf8'), contentType: 'text/html; charset=utf-8' };
     } catch {
       return json(500, JSON.stringify({ error: 'page-missing' }));
     }
@@ -85,17 +103,7 @@ async function route(
  * uncached, because a cached score would defeat the point of an oracle.
  */
 export async function startServer(options: ServerOptions): Promise<Server> {
-  const basketUrl = (article: string) =>
-    `https://en.wikipedia.org/wiki/${encodeURIComponent(article.replaceAll(' ', '_'))}`;
-
-  const basketPayload = JSON.stringify({
-    entities: options.basket.map((entity) => ({
-      id: entity.id,
-      label: entity.label,
-      wikipediaUrl: basketUrl(entity.wikipediaArticle),
-      hackerNewsQuery: entity.hackerNewsQuery,
-    })),
-  });
+  const basket = basketPayload(options.basket);
 
   const server = createServer(async (request, response) => {
     const url = new URL(request.url ?? '/', 'http://localhost');
@@ -105,7 +113,7 @@ export async function startServer(options: ServerOptions): Promise<Server> {
       return;
     }
 
-    const result = await route(url.pathname, options, basketPayload);
+    const result = await route(url.pathname, options, basket);
     response
       .writeHead(result.status, { 'content-type': result.contentType, 'cache-control': 'no-store' })
       .end(result.body);

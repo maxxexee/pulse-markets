@@ -10,7 +10,8 @@
 set -euo pipefail
 
 NODE_BIN="${NODE_BIN:-/opt/homebrew/bin/node}"
-SERVICE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../index-service" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SERVICE_DIR="$REPO_DIR/index-service"
 LOG_DIR="$SERVICE_DIR/.logs"
 LOG_FILE="$LOG_DIR/epoch-build.log"
 ATTEMPTS="${ATTEMPTS:-3}"
@@ -34,6 +35,9 @@ for attempt in $(seq 1 "$ATTEMPTS"); do
   log "build attempt $attempt/$ATTEMPTS: node src/cli.ts build --catch-up $CATCH_UP_DAYS"
   if "$NODE_BIN" src/cli.ts build --catch-up "$CATCH_UP_DAYS" >>"$LOG_FILE" 2>&1; then
     log "build ok"
+    if [ "${DEPLOY_ON_BUILD:-1}" = "1" ]; then
+      "$REPO_DIR/ops/deploy-pages.sh" >>"$LOG_FILE" 2>&1 && log "site deployed" || log "site deploy failed"
+    fi
     exit 0
   fi
   log "build failed on attempt $attempt"
