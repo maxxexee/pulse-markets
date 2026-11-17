@@ -1,8 +1,12 @@
 /**
  * The strip above the footer. A fullscreen WebGL fragment shader draws domain
  * warped fbm into a 3px halftone grid, so it reads as pixelated smoke rather
- * than a repeating texture. Palette is black and three greys where the
- * reference uses purple, blue and green.
+ * than a repeating texture. Density is zero at the top edge and full at the
+ * bottom, so the field resolves into the rule above the footer content.
+ *
+ * Palette is a black ground with a three step grey ramp. Grey rather than hue
+ * because the ramp has to read as one field, not three coloured bands, and
+ * because the page has no accent colour anywhere else.
  *
  * The canvas is sized in CSS pixels with no device pixel ratio, which is what
  * keeps every cell visible and blocky. Without WebGL the canvas stays black.
@@ -71,7 +75,7 @@ void main(){
 }
 `;
 
-  /* greyscale stand-ins for the reference palette, black background kept */
+  /* one ramp, three steps. The ground stays near black so the dots carry all contrast */
   const BG = [0x08 / 255, 0x08 / 255, 0x08 / 255];
   const C0 = [0x2b / 255, 0x2b / 255, 0x2b / 255];
   const C1 = [0x44 / 255, 0x44 / 255, 0x44 / 255];
