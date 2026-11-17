@@ -8,6 +8,7 @@ import { startServer } from './app/server.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
+import { trendsPayload } from './app/trends.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { socialQuery } from './config/social.ts';
 import { MIN_PUBLISH_CONFIDENCE } from './domain/coverage.ts';
@@ -228,6 +229,7 @@ async function exportStatic(outDir: string): Promise<void> {
   files.set('api/basket', basketPayload(ENTITY_BASKET));
   files.set('api/markets', await marketsPayload(MARKETS_DIR));
   files.set('api/index/history', await historyPayload(SNAPSHOTS_DIR));
+  files.set('api/trends', await trendsPayload({ snapshotsDir: SNAPSHOTS_DIR, basket: ENTITY_BASKET }));
 
   for (const day of await publishedDays()) {
     const body = await readFile(join(SNAPSHOTS_DIR, `${day}.json`), 'utf8');
@@ -260,6 +262,7 @@ async function serve(port: number, maxAgeDays: number): Promise<void> {
     snapshotsDir: SNAPSHOTS_DIR,
     basket: ENTITY_BASKET,
     marketsDir: MARKETS_DIR,
+    appDir: APP_DIR,
     maxAgeDays,
   });
   console.log(`serving on http://127.0.0.1:${port}`);

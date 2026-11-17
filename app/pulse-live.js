@@ -1,287 +1,39 @@
 /**
- * PULSE — Live Data Integration
- * Drop this file next to your HTML, then add before </body>:
- *   <script src="pulse-live.js"></script>
+ * PULSE live data.
  *
- * To update the API URL, change the line below.
+ * Fetches the published attention trends beside this page, fills the ticker and
+ * the cards, and opens a summary for the card that was chosen. Every number it
+ * renders comes from the signed snapshot, so a card never shows an invented
+ * figure: a trend the index cannot measure is left out of the response, and a
+ * momentum with no reference epoch renders as a dash.
  */
 
-const PULSE_API = 'https://6ba1adab-8441-4534-b1bb-6b4481f77a36-00-1y6v2l0w17wxy.kirk.replit.dev/api/trends';
-const REFRESH_MS = 5 * 60 * 1000; // re-fetch every 5 minutes
+/** Served beside the page: /app/ on the server, app/ on Pages, so one path fits both. */
+const PULSE_API = '../api/trends';
+const REFRESH_MS = 5 * 60 * 1000;
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
+const SOURCE_LABELS = {
+  wikipedia: 'Wikipedia',
+  hackernews: 'Hacker News',
+};
 
-function formatVolume(n) {
-  if (!n) return null;
+function formatCount(n) {
+  if (typeof n !== 'number') return null;
   if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-  if (n >= 1_000) return (n / 1_000).toFixed(0) + 'K';
+  if (n >= 1_000) return Math.round(n / 1_000) + 'K';
   return String(n);
 }
 
-function timeAgo(iso) {
-  const ms = Date.now() - new Date(iso).getTime();
-  const m = Math.floor(ms / 60000);
-  if (m < 1) return 'moments';
-  if (m < 60) return m + ' min';
-  const h = Math.floor(m / 60);
-  return h + 'h';
+function formatMomentum(m) {
+  if (typeof m !== 'number') return { text: 'No reference epoch', dir: '' };
+  const dir = m > 0 ? 'up' : m < 0 ? 'down' : '';
+  const sign = m > 0 ? '+' : '';
+  return { text: `${sign}${m.toFixed(1)}%`, dir };
 }
 
-function momentumSign(n) {
-  if (n > 0) return '+' + n.toFixed(1) + '%';
-  if (n < 0) return n.toFixed(1) + '%';
-  return '—';
+function sourceLabel(name) {
+  return SOURCE_LABELS[name] || name;
 }
-
-function sourceNames(sources) {
-  const map = { google: 'Google', reddit: 'Reddit', hackernews: 'Hacker News', wikipedia: 'Wikipedia' };
-  return sources.map(s => map[s.source] || s.source);
-}
-
-function cardGradient(status, index) {
-  const palettes = {
-    surging:  ['#061a0e', '#0a2818'],
-    trending: ['#060d1c', '#091426'],
-    stable:   ['#12091c', '#160c24'],
-    fading:   ['#1a0808', '#240e0e'],
-  };
-  const [a, b] = palettes[status] || palettes.stable;
-  const deg = 120 + index * 17;
-  return `linear-gradient(${deg}deg, ${a} 0%, ${b} 100%)`;
-}
-
-function generateSummary(trend) {
-  const platforms = sourceNames(trend.sources);
-  const vol = formatVolume(trend.sources[0]?.volume);
-
-  const velocityLine = {
-    accelerating: 'momentum is accelerating',
-    stable:       'attention is holding steady',
-    decelerating: 'interest is beginning to slow',
-    new:          'just entered the detection window',
-  }[trend.velocityLabel] || 'is being tracked';
-
-  const statusLine = {
-    surging:  'High-velocity signal with strong cross-platform confirmation.',
-    trending: 'Sustained multi-source attention — an active, established trend.',
-    stable:   'Consistent baseline interest. Watching for an acceleration trigger.',
-    fading:   'Classic post-peak pattern. Attention tapering — monitor for re-entry.',
-  }[trend.status] || '';
-
-  let desc = `${trend.topic} — ${velocityLine}`;
-  if (platforms.length > 1) {
-    desc += `, detected across ${platforms.join(', ')}`;
-  } else {
-    desc += ` on ${platforms[0] || 'multiple platforms'}`;
-  }
-  if (vol) desc += ` (${vol} in raw activity)`;
-  desc += `. ${statusLine}`;
-
-  if (trend.preTrend && trend.velocityLabel !== 'new') {
-    desc += ` Pulse flagged this as a pre-trend — first detected ${timeAgo(trend.firstSeen)} ago, before mainstream coverage.`;
-  }
-
-  return desc;
-}
-
-function badgeClass(status) {
-  if (status === 'surging') return 'surging';
-  if (status === 'fading')  return 'hot';
-  return 'trending';
-}
-
-function badgeLabel(status) {
-  const map = { surging: 'Surging', trending: 'Trending', stable: 'Stable', fading: 'Fading' };
-  return map[status] || status;
-}
-
-// ─── Ticker ─────────────────────────────────────────────────────────────────
-
-function buildTicker(trends) {
-  const track = document.querySelector('.ticker-track');
-  if (!track) return;
-
-  const items = trends.slice(0, 16);
-  const doubled = [...items, ...items]; // seamless loop
-
-  track.innerHTML = doubled.map(t => {
-    const m = t.momentum;
-    const dir = m >= 0 ? 'up' : 'down';
-    const sign = m >= 0 ? '+' : '';
-    return `<span class="ticker-item">
-      <span class="trend-tag">${escHtml(t.hashtag)}</span>
-      <span class="trend-move ${dir}">${sign}${m.toFixed(1)}%</span>
-    </span>`;
-  }).join('');
-}
-
-// ─── Cards ──────────────────────────────────────────────────────────────────
-
-let liveData = [];
-
-function buildCards(trends) {
-  const row = document.getElementById('cardRow');
-  if (!row) return;
-
-  liveData = trends;
-
-  row.innerHTML = trends.slice(0, 12).map((t, i) => {
-    const m = t.momentum;
-    const dir = m >= 0 ? 'up' : 'down';
-    const sign = m >= 0 ? '+' : '';
-    const bg = cardGradient(t.status, i);
-    const category = t.category || sourceNames(t.sources).join(' · ');
-
-    const bgStyle = t.imageUrl
-      ? `background-image:url('${escHtml(t.imageUrl)}');background-size:cover;background-position:center top;filter:grayscale(100%)`
-      : `background:${bg}`;
-
-    return `<div class="trend-card" data-live-id="${escHtml(t.id)}" style="cursor:pointer">
-      <div class="trend-card-bg" style="${bgStyle}"></div>
-      <span class="trend-card-move ${dir}">${sign}${m.toFixed(1)}%</span>
-      <div class="trend-card-body">
-        <span class="trend-card-badge ${badgeClass(t.status)}">
-          <span class="badge-dot"></span>${badgeLabel(t.status)}
-          ${t.preTrend ? ' · Pre-trend' : ''}
-        </span>
-        <div class="trend-card-name">${escHtml(shortTitle(t.topic))}</div>
-        <div class="trend-card-sub">${escHtml(category)}</div>
-      </div>
-    </div>`;
-  }).join('');
-
-  attachCardClicks();
-}
-
-function shortTitle(topic) {
-  if (topic.length <= 18) return topic;
-  const words = topic.split(' ');
-  if (words.length === 1) return topic.slice(0, 18) + '…';
-  // break into two lines at middle word
-  const mid = Math.ceil(words.length / 2);
-  return words.slice(0, mid).join(' ') + '\n' + words.slice(mid).join(' ');
-}
-
-// ─── Modal ──────────────────────────────────────────────────────────────────
-
-function openLiveModal(id) {
-  const trend = liveData.find(t => t.id === id);
-  if (!trend) return;
-
-  const overlay  = document.getElementById('modalOverlay');
-  const blur     = document.getElementById('modalImgBlur');
-  const sharp    = document.getElementById('modalImgSharp');
-  const titleEl  = document.getElementById('modalTitle');
-  const moveEl   = document.getElementById('modalMove');
-  const volEl    = document.getElementById('modalVolume');
-  const capEl    = document.getElementById('modalCap');
-  const statusEl = document.getElementById('modalStatus');
-  const tagsEl   = document.getElementById('modalTags');
-  const descEl   = document.getElementById('modalDesc');
-
-  if (!overlay) return;
-
-  const m = trend.momentum;
-  const dir = m >= 0 ? 'up' : 'down';
-  const sign = m >= 0 ? '+' : '';
-
-  // gradient background in place of image
-  const grad = cardGradient(trend.status, liveData.indexOf(trend));
-  if (blur)  { blur.style.backgroundImage  = ''; blur.style.background  = grad; }
-  if (sharp) { sharp.style.backgroundImage = ''; sharp.style.background = grad; sharp.classList.add('loaded'); }
-
-  if (titleEl)  titleEl.textContent  = trend.topic;
-  if (moveEl)   { moveEl.textContent = `${sign}${m.toFixed(1)}%`; moveEl.className = `modal-move ${dir}`; }
-
-  const vol = trend.sources[0]?.volume;
-  if (volEl)    volEl.textContent    = vol ? formatVolume(vol) : '—';
-  if (capEl)    capEl.textContent    = trend.sourceCount > 1 ? `${trend.sourceCount} sources` : trend.sources[0]?.source || '—';
-  if (statusEl) statusEl.textContent = badgeLabel(trend.status) + (trend.preTrend ? ' · Pre-trend' : '');
-
-  const tags = [
-    ...sourceNames(trend.sources),
-    badgeLabel(trend.status),
-    ...(trend.preTrend ? ['Early Signal'] : []),
-  ];
-  if (tagsEl) tagsEl.innerHTML = tags.map(tg => `<span class="modal-tag">${escHtml(tg)}</span>`).join('');
-  if (descEl) descEl.textContent = trend.description || generateSummary(trend);
-
-  // also wire the modal image when available
-  if (trend.imageUrl) {
-    if (blur)  { blur.style.background  = ''; blur.style.backgroundImage  = `url('${escHtml(trend.imageUrl)}')`; }
-    if (sharp) { sharp.style.background = ''; sharp.style.backgroundImage = `url('${escHtml(trend.imageUrl)}')`; sharp.classList.add('loaded'); }
-  }
-
-  // wire source links under the description
-  const existingLinks = document.getElementById('modalSourceLinks');
-  if (existingLinks) existingLinks.remove();
-
-  const linksHtml = trend.sources.map(s => {
-    const label = { google: 'Google Trends', reddit: 'Reddit', hackernews: 'Hacker News', wikipedia: 'Wikipedia' }[s.source] || s.source;
-    return `<a href="${escHtml(s.link)}" target="_blank" rel="noopener noreferrer" style="
-      display:inline-flex; align-items:center; gap:5px;
-      font-family:-apple-system,sans-serif; font-size:0.65rem; font-weight:300;
-      letter-spacing:0.1em; text-transform:uppercase;
-      color:rgba(255,255,255,0.38); text-decoration:none;
-      border:1px solid rgba(255,255,255,0.1); border-radius:4px;
-      padding:4px 10px; transition:color 0.2s, border-color 0.2s;
-    " onmouseover="this.style.color='rgba(255,255,255,0.8)';this.style.borderColor='rgba(255,255,255,0.25)'"
-       onmouseout="this.style.color='rgba(255,255,255,0.38)';this.style.borderColor='rgba(255,255,255,0.1)'">${escHtml(label)} ↗</a>`;
-  }).join('');
-
-  const linksWrap = document.createElement('div');
-  linksWrap.id = 'modalSourceLinks';
-  linksWrap.style.cssText = 'display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;';
-  linksWrap.innerHTML = linksHtml;
-
-  const actions = document.querySelector('.modal-actions');
-  if (actions) actions.before(linksWrap);
-
-  // wire primary button — open best source link
-  const primaryBtn = document.querySelector('.modal-btn-primary');
-  if (primaryBtn) {
-    primaryBtn._pulseHandler && primaryBtn.removeEventListener('click', primaryBtn._pulseHandler);
-    primaryBtn._pulseHandler = () => window.open(trend.sources[0]?.link || '#', '_blank', 'noopener');
-    primaryBtn.addEventListener('click', primaryBtn._pulseHandler);
-  }
-
-  overlay.classList.add('active');
-  document.body.classList.add('modal-open');
-  document.body.style.overflow = 'hidden';
-}
-
-// ─── Drag scroll + card click wiring ────────────────────────────────────────
-
-function attachCardClicks() {
-  const row = document.getElementById('cardRow');
-  if (!row) return;
-
-  let isDown = false, startX = 0, scrollLeft = 0, didDrag = false;
-
-  row.onmousedown = e => {
-    isDown = true; didDrag = false;
-    row.style.cursor = 'grabbing';
-    startX = e.pageX - row.offsetLeft;
-    scrollLeft = row.scrollLeft;
-  };
-  row.onmouseleave = () => { isDown = false; row.style.cursor = 'grab'; };
-  row.onmouseup    = () => { isDown = false; row.style.cursor = 'grab'; };
-  row.onmousemove  = e => {
-    if (!isDown) return;
-    e.preventDefault();
-    didDrag = true;
-    row.scrollLeft = scrollLeft - (e.pageX - row.offsetLeft - startX) * 1.5;
-  };
-
-  row.querySelectorAll('.trend-card[data-live-id]').forEach(card => {
-    card.addEventListener('click', () => {
-      if (didDrag) return;
-      openLiveModal(card.dataset.liveId);
-    });
-  });
-}
-
-// ─── HTML safety ────────────────────────────────────────────────────────────
 
 function escHtml(str) {
   return String(str ?? '')
@@ -291,50 +43,387 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// ─── Fetch + refresh loop ────────────────────────────────────────────────────
+function cardGradient(status, index) {
+  const palettes = {
+    surging: ['#061a0e', '#0a2818'],
+    trending: ['#060d1c', '#091426'],
+    stable: ['#12091c', '#160c24'],
+    fading: ['#1a0808', '#240e0e'],
+  };
+  const [a, b] = palettes[status] || palettes.stable;
+  return `linear-gradient(${120 + index * 17}deg, ${a} 0%, ${b} 100%)`;
+}
+
+function badgeClass(status) {
+  if (status === 'surging') return 'surging';
+  if (status === 'fading') return 'hot';
+  return 'trending';
+}
+
+function badgeLabel(status) {
+  const map = {
+    surging: 'Surging',
+    trending: 'Trending',
+    stable: 'Stable',
+    fading: 'Fading',
+  };
+  return map[status] || status;
+}
+
+/**
+ * Describes one trend in plain words from the fields the index publishes. It
+ * names the comparison window instead of promising a live price.
+ */
+function generateSummary(trend, header) {
+  const parts = [];
+  const reference = header.referenceDay
+    ? `its ${header.referenceDay} level`
+    : 'its earlier level';
+
+  if (typeof trend.momentum === 'number') {
+    const direction = trend.momentum > 0 ? 'above' : 'below';
+    parts.push(
+      `${trend.topic} attention is ${Math.abs(trend.momentum).toFixed(1)}% ` +
+        `${direction} ${reference}.`,
+    );
+  } else {
+    parts.push(
+      `${trend.topic} is measured in the ${header.epochDay} epoch, ` +
+        'with no earlier published epoch to compare it against.',
+    );
+  }
+
+  const signals = trend.sources.map((source) => {
+    const count = formatCount(source.volume);
+    return `${sourceLabel(source.source)}${count ? ` (${count})` : ''}`;
+  });
+  parts.push(`Signal${signals.length === 1 ? '' : 's'}: ${signals.join(', ')}.`);
+
+  if (typeof header.index === 'number') {
+    parts.push(
+      `The attention index scored ${header.index.toFixed(1)} that day at ` +
+        `${(header.confidence * 100).toFixed(0)}% source coverage.`,
+    );
+  }
+  return parts.join(' ');
+}
+
+function buildTicker(trends) {
+  const track = document.querySelector('.ticker-track');
+  if (!track) return;
+
+  const items = trends.slice(0, 16);
+  const doubled = [...items, ...items];
+
+  track.innerHTML = doubled
+    .map((trend) => {
+      const move = formatMomentum(trend.momentum);
+      return `<span class="ticker-item">
+      <span class="trend-tag">${escHtml(trend.hashtag)}</span>
+      <span class="trend-move ${move.dir}">${escHtml(move.text)}</span>
+    </span>`;
+    })
+    .join('');
+}
+
+let liveData = [];
+let header = { epochDay: null, referenceDay: null, index: null, confidence: 0 };
+
+function titleHtml(topic) {
+  if (topic.length <= 18 || !topic.includes(' ')) {
+    return escHtml(topic);
+  }
+  const words = topic.split(' ');
+  const mid = Math.ceil(words.length / 2);
+  return `${escHtml(words.slice(0, mid).join(' '))}<br/>${escHtml(
+    words.slice(mid).join(' '),
+  )}`;
+}
+
+function buildCards(trends) {
+  const row = document.getElementById('cardRow');
+  if (!row) return;
+
+  liveData = trends;
+
+  row.innerHTML = trends
+    .slice(0, 12)
+    .map((trend, index) => {
+      const move = formatMomentum(trend.momentum);
+      const category = sourceLabel(trend.sources[0]?.source || '');
+      const bgStyle = trend.imageUrl
+        ? `background-image:url('${escHtml(trend.imageUrl)}');` +
+          'background-size:cover;background-position:center top;filter:grayscale(100%)'
+        : `background:${cardGradient(trend.status, index)}`;
+
+      return `<div class="trend-card" data-live-id="${escHtml(trend.id)}"
+        role="button" tabindex="0"
+        aria-label="${escHtml(`${trend.topic}, ${badgeLabel(trend.status)}, ${move.text}`)}">
+      <div class="trend-card-bg" style="${bgStyle}"></div>
+      <span class="trend-card-move ${move.dir}">${escHtml(move.text)}</span>
+      <div class="trend-card-body">
+        <span class="trend-card-badge ${badgeClass(trend.status)}">
+          <span class="badge-dot"></span>${badgeLabel(trend.status)}
+        </span>
+        <div class="trend-card-name">${titleHtml(trend.topic)}</div>
+        <div class="trend-card-sub">${escHtml(category)}</div>
+      </div>
+    </div>`;
+    })
+    .join('');
+
+  wireCardRow();
+}
+
+let lastFocus = null;
+
+/** Blurred and sharp layers share one image, or one gradient when none is mapped. */
+function paintModalImage(trend, gradient) {
+  const blur = document.getElementById('modalImgBlur');
+  const sharp = document.getElementById('modalImgSharp');
+  const url = trend.imageUrl ? `url('${trend.imageUrl}')` : null;
+
+  for (const layer of [blur, sharp]) {
+    if (!layer) continue;
+    layer.style.backgroundImage = url || '';
+    layer.style.background = url ? '' : gradient;
+  }
+  if (sharp) sharp.classList.add('loaded');
+}
+
+function fillModalStats(trend, move) {
+  const titleEl = document.getElementById('modalTitle');
+  const moveEl = document.getElementById('modalMove');
+  const volumeEl = document.getElementById('modalVolume');
+  const sourcesEl = document.getElementById('modalCap');
+  const statusEl = document.getElementById('modalStatus');
+  const tagsEl = document.getElementById('modalTags');
+  const descEl = document.getElementById('modalDesc');
+
+  if (titleEl) titleEl.textContent = trend.topic;
+  if (moveEl) {
+    moveEl.textContent = move.text;
+    moveEl.className = `modal-move ${move.dir}`;
+  }
+
+  const loudest = trend.sources.reduce(
+    (best, source) => (best === null || source.volume > best.volume ? source : best),
+    null,
+  );
+  if (volumeEl) {
+    volumeEl.textContent = loudest
+      ? `${formatCount(loudest.volume)} ${sourceLabel(loudest.source)}`
+      : 'No measured signal';
+  }
+  if (sourcesEl) {
+    sourcesEl.textContent =
+      trend.sourceCount === 1 ? '1 source' : `${trend.sourceCount} sources`;
+  }
+  if (statusEl) statusEl.textContent = badgeLabel(trend.status);
+
+  const tags = trend.sources.map((source) => sourceLabel(source.source));
+  tags.push(badgeLabel(trend.status));
+  if (header.epochDay) tags.push(header.epochDay);
+  if (tagsEl) {
+    tagsEl.innerHTML = tags
+      .map((tag) => `<span class="modal-tag">${escHtml(tag)}</span>`)
+      .join('');
+  }
+  if (descEl) descEl.textContent = generateSummary(trend, header);
+}
+
+/** One link per signal, so a reader can check the number that moved the card. */
+function renderSourceLinks(trend) {
+  const existing = document.getElementById('modalSourceLinks');
+  if (existing) existing.remove();
+
+  const links = document.createElement('div');
+  links.id = 'modalSourceLinks';
+  links.className = 'modal-source-links';
+  links.innerHTML = trend.sources
+    .map(
+      (source) =>
+        `<a class="modal-source-link" href="${escHtml(source.link)}"` +
+        ' target="_blank" rel="noopener noreferrer">' +
+        `${escHtml(sourceLabel(source.source))} signal</a>`,
+    )
+    .join('');
+
+  const actions = document.querySelector('.modal-actions');
+  if (actions) actions.before(links);
+
+  const primaryBtn = document.querySelector('.modal-btn-primary');
+  if (primaryBtn) {
+    primaryBtn.onclick = () => {
+      const first = trend.sources[0];
+      if (first) window.open(first.link, '_blank', 'noopener');
+    };
+  }
+}
+
+function openLiveModal(id, trigger) {
+  const trend = liveData.find((entry) => entry.id === id);
+  const overlay = document.getElementById('modalOverlay');
+  if (!trend || !overlay) return;
+
+  const move = formatMomentum(trend.momentum);
+  paintModalImage(trend, cardGradient(trend.status, liveData.indexOf(trend)));
+  fillModalStats(trend, move);
+  renderSourceLinks(trend);
+
+  lastFocus = trigger || document.activeElement;
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  document.body.style.overflow = 'hidden';
+
+  const closeBtn = document.getElementById('modalClose');
+  (closeBtn || overlay).focus();
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modalOverlay');
+  if (!overlay || !overlay.classList.contains('active')) return;
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  lastFocus = null;
+}
+
+/** Keeps Tab inside the open modal, and closes it on Escape. */
+function onModalKeydown(event) {
+  const overlay = document.getElementById('modalOverlay');
+  if (!overlay || !overlay.classList.contains('active')) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeModal();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+
+  const focusable = overlay.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+  );
+  if (focusable.length === 0) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+/** Clicking a card opens its summary; horizontal drag scrolls the row instead. */
+function wireCardRow() {
+  const row = document.getElementById('cardRow');
+  if (!row) return;
+
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+  let didDrag = false;
+
+  row.onmousedown = (event) => {
+    isDown = true;
+    didDrag = false;
+    row.style.cursor = 'grabbing';
+    startX = event.pageX - row.offsetLeft;
+    scrollLeft = row.scrollLeft;
+  };
+  row.onmouseleave = () => {
+    isDown = false;
+    row.style.cursor = 'grab';
+  };
+  row.onmouseup = () => {
+    isDown = false;
+    row.style.cursor = 'grab';
+  };
+  row.onmousemove = (event) => {
+    if (!isDown) return;
+    event.preventDefault();
+    didDrag = true;
+    row.scrollLeft = scrollLeft - (event.pageX - row.offsetLeft - startX) * 1.5;
+  };
+
+  row.querySelectorAll('.trend-card[data-live-id]').forEach((card) => {
+    card.addEventListener('click', () => {
+      if (didDrag) return;
+      openLiveModal(card.dataset.liveId, card);
+    });
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openLiveModal(card.dataset.liveId, card);
+    });
+  });
+}
+
+/** The sample row stays keyboard reachable when the feed has not loaded. */
+function wireSampleCards() {
+  document.querySelectorAll('.trend-card[data-card]').forEach((card) => {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      card.click();
+    });
+  });
+}
+
+function setMeta(text) {
+  const meta = document.querySelector('.section-meta');
+  if (meta) meta.textContent = text;
+}
 
 async function loadTrends() {
   try {
-    const res = await fetch(PULSE_API + '?filter=all');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const { trends } = await res.json();
-    if (!Array.isArray(trends) || trends.length === 0) return;
+    const response = await fetch(`${PULSE_API}?filter=all`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const trends = Array.isArray(payload.trends) ? payload.trends : [];
+    if (trends.length === 0) {
+      setMeta('No published epoch');
+      return;
+    }
+
+    header = {
+      epochDay: payload.epochDay,
+      referenceDay: payload.referenceDay,
+      index: typeof payload.index === 'number' ? payload.index : null,
+      confidence: typeof payload.confidence === 'number' ? payload.confidence : 0,
+    };
 
     buildTicker(trends);
     buildCards(trends);
-
-    const meta = document.querySelector('.section-meta');
-    if (meta) {
-      const now = new Date();
-      meta.textContent = `Updated ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-    }
-  } catch (err) {
-    console.warn('[Pulse] Could not load live trends:', err.message);
+    setMeta(`Epoch ${payload.epochDay}`);
+  } catch (error) {
+    console.warn('[Pulse] Could not load published trends:', error.message);
+    if (liveData.length === 0) setMeta('Sample data, feed unavailable');
   }
 }
-
-// ─── Modal close wiring (works with both static and live cards) ──────────────
 
 function wireModalClose() {
   const overlay = document.getElementById('modalOverlay');
-  const closeBtn = document.getElementById('modalClose');
   if (!overlay) return;
+  overlay.setAttribute('aria-hidden', 'true');
 
-  function closeModal() {
-    overlay.classList.remove('active');
-    document.body.classList.remove('modal-open');
-    document.body.style.overflow = '';
-  }
-
+  const closeBtn = document.getElementById('modalClose');
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', onModalKeydown);
 }
-
-// ─── Boot ────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
   wireModalClose();
+  wireSampleCards();
   loadTrends();
   setInterval(loadTrends, REFRESH_MS);
 });

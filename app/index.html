@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-<!-- This site is hosted on Netlify. Anyone can build and deploy a site
-     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=4a06ce55-7456-4b0b-b907-4671b3ae4b7b
-     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080808" />
   <title>PULSE — Trade What Trends</title>
+  <meta name="description" content="PULSE scores cultural attention from measured Wikipedia and Hacker News activity, signs the result once a day, and publishes it as an index you can check." />
+  <link rel="canonical" href="https://maxxexee.github.io/pulse-markets/app/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="sample.webp" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PULSE" />
+  <meta property="og:title" content="PULSE, trade what trends" />
+  <meta property="og:description" content="A signed daily attention index on Solana, built from Wikipedia pageviews and Hacker News stories." />
+  <meta property="og:url" content="https://maxxexee.github.io/pulse-markets/app/" />
+  <meta property="og:image" content="https://maxxexee.github.io/pulse-markets/app/sample.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
 
 
   <style>
@@ -61,7 +69,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('sample.jpg');
+      background-image: url('sample.webp');
       background-size: cover;
       background-position: center top;
       z-index: 0;
@@ -1122,6 +1130,50 @@
       .how-card:first-child { border-radius: 4px 0 0 0; }
       .how-card:last-child  { border-radius: 0 0 4px 0; }
     }
+
+    .modal-source-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .modal-source-link {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 5px 10px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .modal-source-link:hover,
+    .modal-source-link:focus-visible {
+      color: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .trend-card:focus-visible,
+    .modal-close:focus-visible,
+    .modal-btn-primary:focus-visible {
+      outline: 2px solid rgba(255,255,255,0.7);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .ticker-track { animation: none !important; }
+      .ticker-wrap { overflow-x: auto; }
+    }
   </style>
 </head>
 <body>
@@ -1130,18 +1182,18 @@
     <div class="hero-bg"></div>
 
     <nav class="nav">
-      <a href="#" class="nav-logo">
+      <a href="./index.html" class="nav-logo">
         <span class="pulse-dot"></span>
         <span class="nav-logo-wordmark">Pulse</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="#">Markets</a></li>
-        <li><a href="#">Trending</a></li>
-        <li><a href="#">How it works</a></li>
+        <li><a href="../markets.html">Markets</a></li>
+        <li><a href="#trending">Trending</a></li>
+        <li><a href="#how">How it works</a></li>
       </ul>
 
-      <a href="#" class="nav-signin">Sign In</a>
+      <a href="../markets.html" class="nav-signin">Open markets</a>
     </nav>
 
     <div class="hero-body">
@@ -1194,16 +1246,16 @@
   </section>
 
   <!-- ── TRENDING NOW ── -->
-  <section class="section">
+  <section class="section" id="trending">
     <div class="section-header">
       <span class="section-title">Trending Now</span>
-      <span class="section-meta">Updated live</span>
+      <span class="section-meta">Loading epoch</span>
     </div>
 
     <div class="card-row" id="cardRow">
 
       <div class="trend-card" data-card="kendrick">
-        <div class="trend-card-bg" style="background-image: url('kendrick.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('kendrick.webp')"></div>
         <span class="trend-card-move up">+31.2%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
@@ -1213,7 +1265,7 @@
       </div>
 
       <div class="trend-card" data-card="openai">
-        <div class="trend-card-bg" style="background-image: url('openai.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('openai.webp')"></div>
         <span class="trend-card-move up">+18.7%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge trending"><span class="badge-dot"></span>Trending</span>
@@ -1223,7 +1275,7 @@
       </div>
 
       <div class="trend-card" data-card="elon">
-        <div class="trend-card-bg" style="background-image: url('elon.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('elon.webp')"></div>
         <span class="trend-card-move down">−9.4%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge hot"><span class="badge-dot"></span>Hot</span>
@@ -1233,7 +1285,7 @@
       </div>
 
       <div class="trend-card" data-card="nigeria">
-        <div class="trend-card-bg" style="background-image: url('nigeria.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('nigeria.webp')"></div>
         <span class="trend-card-move up">+22.1%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
@@ -1243,7 +1295,7 @@
       </div>
 
       <div class="trend-card" data-card="taylor">
-        <div class="trend-card-bg" style="background-image: url('taylor.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('taylor.webp')"></div>
         <span class="trend-card-move up">+14.3%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge trending"><span class="badge-dot"></span>Trending</span>
@@ -1253,7 +1305,7 @@
       </div>
 
       <div class="trend-card" data-card="drake">
-        <div class="trend-card-bg" style="background-image: url('drake.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('drake.webp')"></div>
         <span class="trend-card-move down">−5.8%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge hot"><span class="badge-dot"></span>Hot</span>
@@ -1263,7 +1315,7 @@
       </div>
 
       <div class="trend-card" data-card="solana">
-        <div class="trend-card-bg" style="background-image: url('solana.jpg')"></div>
+        <div class="trend-card-bg" style="background-image: url('solana.webp')"></div>
         <span class="trend-card-move up">+34.2%</span>
         <div class="trend-card-body">
           <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
@@ -1283,7 +1335,7 @@
     </div>
 
   </section>
-  <section class="how-section">
+  <section class="how-section" id="how">
     <div class="how-header">
       <p class="how-eyebrow">The mechanics</p>
       <h2 class="how-title">How it works</h2>
@@ -1295,28 +1347,28 @@
         <div class="how-step">01</div>
         <div class="how-card-title">Spot the Trend</div>
         <div class="how-card-body">Browse live markets ranked by attention velocity. Every celebrity, scandal, and moment has a price driven by public interest in real time.</div>
-        <a href="#" class="how-card-action">Explore markets →</a>
+        <a href="../markets.html" class="how-card-action">Explore markets →</a>
       </div>
 
       <div class="how-card">
         <div class="how-step">02</div>
         <div class="how-card-title">Open a Position</div>
         <div class="how-card-body">Pick your market and size your trade. No order books, no spreads. One tap to get in — PULSE settles against the attention curve automatically.</div>
-        <a href="#" class="how-card-action">See how pricing works →</a>
+        <a href="../markets.html" class="how-card-action">See how pricing works →</a>
       </div>
 
       <div class="how-card">
         <div class="how-step">03</div>
         <div class="how-card-title">Ride the Wave</div>
         <div class="how-card-body">Watch your position move with the cultural moment. The more the world talks, the higher the price climbs. Hold through the peak for maximum return.</div>
-        <a href="#" class="how-card-action">View live charts →</a>
+        <a href="../index.html" class="how-card-action">View the daily index →</a>
       </div>
 
       <div class="how-card">
         <div class="how-step">04</div>
         <div class="how-card-title">Fade &amp; Exit</div>
         <div class="how-card-body">Know when attention peaks and sell before the fade. Or short a fading trend. PULSE rewards reading the room as well as chasing momentum.</div>
-        <a href="#" class="how-card-action">Learn fade mechanics →</a>
+        <a href="https://github.com/maxxexee/pulse-markets/blob/main/docs/operations.md" class="how-card-action">Read the method →</a>
       </div>
 
     </div>
@@ -1327,35 +1379,28 @@
     <div class="footer-top">
 
       <div class="footer-brand">
-        <a href="#" class="footer-logo">
+        <a href="./index.html" class="footer-logo">
           <span class="pulse-dot"></span>
           <span class="footer-logo-wordmark">Pulse</span>
         </a>
         <p class="footer-tagline">The world's first attention market. Trade cultural moments the way traders trade stocks — in real time, with real stakes.</p>
-        <div class="footer-social">
-          <a href="#" title="Twitter/X">𝕏</a>
-          <a href="#" title="Telegram">✈</a>
-          <a href="#" title="Discord">◈</a>
-          <a href="#" title="Farcaster">⬡</a>
-        </div>
       </div>
 
       <div>
         <p class="footer-col-title">Platform</p>
         <ul class="footer-links">
-          <li><a href="#">Markets</a></li>
-          <li><a href="#">Trending Now</a></li>
-          <li><a href="#">How it Works</a></li>
+          <li><a href="../markets.html">Markets</a></li>
+          <li><a href="#trending">Trending now</a></li>
+          <li><a href="#how">How it works</a></li>
         </ul>
       </div>
 
       <div>
-        <p class="footer-col-title">Company</p>
+        <p class="footer-col-title">Index</p>
         <ul class="footer-links">
-          <li><a href="#">About</a></li>
-          <li><a href="#">Manifesto</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="../index.html">Daily index</a></li>
+          <li><a href="https://github.com/maxxexee/pulse-markets">Source code</a></li>
+          <li><a href="https://github.com/maxxexee/pulse-markets/blob/main/docs/operations.md">Method</a></li>
         </ul>
       </div>
 
@@ -1364,17 +1409,18 @@
     <div class="footer-bottom">
       <span class="footer-legal">© 2025 Pulse. All rights reserved. Not financial advice.</span>
       <div class="footer-legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Risk Disclosure</a>
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./terms.html">Terms of Service</a>
+        <a href="./risk.html">Risk Disclosure</a>
       </div>
     </div>
   </footer>
 
   <!-- ── MODAL ── -->
-  <div class="modal-overlay" id="modalOverlay">
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true"
+       aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal" id="modal">
-      <button class="modal-close" id="modalClose">✕</button>
+      <button class="modal-close" id="modalClose" aria-label="Close summary">×</button>
       <div class="modal-img-wrap">
         <div class="modal-img-blur" id="modalImgBlur"></div>
         <div class="modal-img-sharp" id="modalImgSharp"></div>
@@ -1384,11 +1430,11 @@
         <div class="modal-stats">
           <span class="modal-move" id="modalMove"></span>
           <div class="modal-stat-group">
-            <span class="modal-stat-label">24h Volume</span>
+            <span class="modal-stat-label">Signal volume</span>
             <span class="modal-stat-val" id="modalVolume"></span>
           </div>
           <div class="modal-stat-group">
-            <span class="modal-stat-label">Market Cap</span>
+            <span class="modal-stat-label">Sources</span>
             <span class="modal-stat-val" id="modalCap"></span>
           </div>
           <div class="modal-stat-group">
@@ -1399,8 +1445,7 @@
         <div class="modal-tags" id="modalTags"></div>
         <p class="modal-desc" id="modalDesc"></p>
         <div class="modal-actions">
-          <button class="modal-btn-primary">Back this Trend</button>
-          <button class="modal-btn-secondary">Add to Watchlist</button>
+          <button class="modal-btn-primary">Open source signal</button>
         </div>
       </div>
     </div>

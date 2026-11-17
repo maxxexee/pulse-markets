@@ -1,9 +1,10 @@
 import { createServer, type Server } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { extname, join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from '../adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './payloads.ts';
+import { trendsPayload } from './trends.ts';
 import { isValidDay } from '../domain/dates.ts';
 import { isHealthy } from '../domain/health.ts';
 
@@ -14,14 +15,44 @@ export interface ServerOptions {
   readonly basket: readonly EntityDefinition[];
   /** Directory of published market specs, normally markets/ at the repo root. */
   readonly marketsDir: string;
+  /** Directory of the landing page, served under /app/ for local checks. */
+  readonly appDir: string;
   /** Days of lag tolerated before /api/health reports stale. */
   readonly maxAgeDays?: number;
 }
 
 interface RouteResult {
   readonly status: number;
-  readonly body: string;
+  readonly body: string | Uint8Array;
   readonly contentType: string;
+}
+
+/** Types the landing page ships. Anything else is served as HTML, never guessed. */
+const APP_TYPES: Readonly<Record<string, string>> = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.jpg': 'image/jpeg',
+};
+
+/**
+ * Serves the landing page's own files. Only a bare file name is accepted, so a
+ * request cannot walk out of the directory, and only the types it ships.
+ */
+async function readAppFile(name: string, appDir: string): Promise<RouteResult> {
+  if (name === '') {
+    return readAppFile('index.html', appDir);
+  }
+  if (!/^[A-Za-z0-9._-]+$/.test(name)) {
+    return json(404, JSON.stringify({ error: 'not-found' }));
+  }
+  const type = APP_TYPES[extname(name)] ?? 'text/html; charset=utf-8';
+  try {
+    return { status: 200, body: await readFile(join(appDir, name)), contentType: type };
+  } catch {
+    return json(404, JSON.stringify({ error: 'not-found' }));
+  }
 }
 
 /** URL path to the page file it renders. */
@@ -76,6 +107,12 @@ async function route(
   }
   if (pathname === '/api/basket') {
     return json(200, basket);
+  }
+  if (pathname === '/api/trends') {
+    return json(200, await trendsPayload({ snapshotsDir: options.snapshotsDir, basket: options.basket }));
+  }
+  if (pathname.startsWith('/app/')) {
+    return readAppFile(pathname.slice('/app/'.length), options.appDir);
   }
   if (pathname === '/api/markets') {
     return json(200, await marketsPayload(options.marketsDir));
