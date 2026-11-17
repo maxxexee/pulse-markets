@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
-import { buildTrends, momentumFor, statusFor } from '../src/app/trends.ts';
+import { buildTrends, momentumFor, statusFor, trendsPayload } from '../src/app/trends.ts';
 import { ENTITY_BASKET } from '../src/config/entities.ts';
 import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '../src/domain/snapshot.ts';
 import { PULSE_SCORING_V1, type EntityScore } from '../src/domain/scoring.ts';
@@ -151,12 +154,85 @@ test('cards are ordered by momentum, with unmeasured trends last', () => {
   assert.equal(buildTrends(now, null, basket)[0]?.momentum, null);
 });
 
-test('only the entities with an image carry one', () => {
+test('discovered topics follow the basket in the payload, flagged as discovery', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'pulse-trends-'));
+  try {
+    const current = snapshot('2026-11-15', [series('wikipedia-pageviews', [score('openai', 2)])]);
+    await writeFile(join(dir, 'latest.json'), JSON.stringify({ snapshot: current }));
+    await mkdir(join(dir, 'discovery'), { recursive: true });
+    await writeFile(
+      join(dir, 'discovery', '2026-11-15.json'),
+      JSON.stringify({
+        day: '2026-11-15',
+        generatedAt: '2026-11-16T00:00:00.000Z',
+        method: 'wikipedia-top-v1',
+        settings: { minViews: 20000, minMomentum: 100 },
+        entries: [
+          {
+            article: 'UFC_334',
+            topic: 'UFC 334',
+            views: 321149,
+            baseline: 23761,
+            baselineDays: 7,
+            momentum: 1251.6,
+            link: 'https://en.wikipedia.org/wiki/UFC_334',
+            imageUrl: null,
+          },
+        ],
+      }),
+    );
+
+    const payload = JSON.parse(await trendsPayload({ snapshotsDir: dir, basket })) as {
+      trends: Array<Record<string, unknown>>;
+      discovery: { day: string; minMomentum: number } | null;
+    };
+    assert.equal(payload.trends.length, 2);
+    const discovered = payload.trends[1];
+    assert.equal(discovered?.id, 'wiki:UFC_334');
+    assert.equal(discovered?.topic, 'UFC 334');
+    assert.equal(discovered?.discovered, true);
+    assert.equal(discovered?.status, 'surging');
+    assert.equal(discovered?.imageUrl, undefined);
+    assert.deepEqual(discovered?.sources, [
+      {
+        source: 'wikipedia',
+        volume: 321149,
+        link: 'https://en.wikipedia.org/wiki/UFC_334',
+      },
+    ]);
+    assert.deepEqual(payload.discovery, {
+      day: '2026-11-15',
+      method: 'wikipedia-top-v1',
+      minViews: 20000,
+      minMomentum: 100,
+    });
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test('a day with no discovery record still serves the basket trends', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'pulse-trends-'));
+  try {
+    const current = snapshot('2026-11-15', [series('wikipedia-pageviews', [score('openai', 2)])]);
+    await writeFile(join(dir, 'latest.json'), JSON.stringify({ snapshot: current }));
+    const payload = JSON.parse(await trendsPayload({ snapshotsDir: dir, basket })) as {
+      trends: unknown[];
+      discovery: unknown;
+    };
+    assert.equal(payload.trends.length, 1);
+    assert.equal(payload.discovery, null);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test('every basket entity in this test carries an image', () => {
   const now = snapshot('2026-11-15', [
     series('wikipedia-pageviews', [score('openai', 2), score('nvidia', 2), score('solana', 2)]),
   ]);
   const byId = new Map(buildTrends(now, null, basket).map((trend) => [trend.id, trend]));
   assert.equal(byId.get('openai')?.imageUrl, 'openai.webp');
   assert.equal(byId.get('solana')?.imageUrl, 'solana.webp');
-  assert.equal(byId.get('nvidia')?.imageUrl, undefined);
+  assert.match(byId.get('nvidia')?.imageUrl ?? '', /wikimedia\.org/);
 });

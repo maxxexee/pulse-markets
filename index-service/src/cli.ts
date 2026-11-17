@@ -4,6 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
+import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
 import { startServer } from './app/server.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
@@ -28,6 +29,8 @@ const USAGE = `pulse index-service
 
   build [--day YYYY-MM-DD] [--catch-up N] [--force]
                              compute, sign and publish an epoch snapshot
+  discover [--day YYYY-MM-DD]
+                             regenerate the trending topics beside the index
   export --out DIR          write the site and its JSON as plain files
   health [--max-age-days N]  report whether the latest snapshot is current
   social                     fetch the display-only social panel, if configured
@@ -137,6 +140,36 @@ async function build(day: string, force: boolean): Promise<void> {
   }
   console.log(`signer ${signed.attestation.publicKey}`);
   console.log(`payload sha256 ${signed.attestation.payloadSha256}`);
+}
+
+/**
+ * Finds what trended outside the basket for one day.
+ *
+ * Presentation only, so a failure is reported and the published epoch stands:
+ * the page keeps showing measured basket trends rather than going dark.
+ */
+async function discover(day: string): Promise<void> {
+  if (!isValidDay(day)) {
+    throw new Error(`invalid --day: ${day}`);
+  }
+  try {
+    const record = await refreshDiscoveryRecord({
+      day,
+      basket: ENTITY_BASKET,
+      snapshotsDir: SNAPSHOTS_DIR,
+    });
+    console.log(`discovery ${day}: ${record.entries.length} trending topics`);
+    for (const entry of record.entries) {
+      console.log(
+        `  ${entry.topic.padEnd(30)} ${String(entry.views).padStart(8)} views` +
+          `  +${entry.momentum}% over ${entry.baselineDays}d`,
+      );
+    }
+  } catch (error) {
+    console.warn(
+      `discovery skipped for ${day}: ${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
 }
 
 /**
@@ -312,6 +345,14 @@ async function main(): Promise<void> {
     for (const day of days) {
       await build(day, force);
     }
+    const newest = days.at(-1);
+    if (newest !== undefined) {
+      await discover(newest);
+    }
+    return;
+  }
+  if (command === 'discover') {
+    await discover(values.day ?? (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1));
     return;
   }
   if (command === 'export') {

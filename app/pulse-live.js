@@ -76,6 +76,16 @@ function badgeLabel(status) {
  */
 function generateSummary(trend, header) {
   const parts = [];
+  if (trend.discovered && typeof trend.baseline === 'number' && trend.baseline > 0) {
+    const multiple = (trend.sources[0].volume / trend.baseline).toFixed(1);
+    return (
+      `${trend.topic} drew ${formatCount(trend.sources[0].volume)} Wikipedia views on ` +
+      `${header.epochDay}, ${multiple}x its ${trend.baselineDays}-day average of ` +
+      `${formatCount(trend.baseline)}. The daily ranking surfaced it outside the ` +
+      'signed basket, so it is shown for context and not scored into the index.'
+    );
+  }
+
   const reference = header.referenceDay
     ? `its ${header.referenceDay} level`
     : 'its earlier level';
@@ -145,9 +155,11 @@ function buildCards(trends) {
   if (!row) return;
 
   liveData = trends;
+  setCardStatus('');
+  row.setAttribute('aria-busy', 'false');
 
   row.innerHTML = trends
-    .slice(0, 12)
+    .slice(0, 20)
     .map((trend, index) => {
       const move = formatMomentum(trend.momentum);
       const category = sourceLabel(trend.sources[0]?.source || '');
@@ -185,8 +197,9 @@ function paintModalImage(trend, gradient) {
 
   for (const layer of [blur, sharp]) {
     if (!layer) continue;
-    layer.style.backgroundImage = url || '';
+    // The shorthand resets every background property, so it has to go first.
     layer.style.background = url ? '' : gradient;
+    layer.style.backgroundImage = url || '';
   }
   if (sharp) sharp.classList.add('loaded');
 }
@@ -363,17 +376,12 @@ function wireCardRow() {
   });
 }
 
-/** The sample row stays keyboard reachable when the feed has not loaded. */
-function wireSampleCards() {
-  document.querySelectorAll('.trend-card[data-card]').forEach((card) => {
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      card.click();
-    });
-  });
+/** One line under the row: what is loading, what is missing, or nothing. */
+function setCardStatus(text) {
+  const status = document.getElementById('cardStatus');
+  if (!status) return;
+  status.textContent = text;
+  status.hidden = text === '';
 }
 
 function setMeta(text) {
@@ -389,6 +397,8 @@ async function loadTrends() {
     const trends = Array.isArray(payload.trends) ? payload.trends : [];
     if (trends.length === 0) {
       setMeta('No published epoch');
+      setCardStatus('No epoch has been published yet, so there is nothing to trend.');
+      document.getElementById('cardRow')?.setAttribute('aria-busy', 'false');
       return;
     }
 
@@ -404,7 +414,14 @@ async function loadTrends() {
     setMeta(`Epoch ${payload.epochDay}`);
   } catch (error) {
     console.warn('[Pulse] Could not load published trends:', error.message);
-    if (liveData.length === 0) setMeta('Sample data, feed unavailable');
+    if (liveData.length === 0) {
+      setMeta('Feed unavailable');
+      setCardStatus(
+        'The published trends could not be loaded right now. Every epoch is still ' +
+          'published and signed; reload to try again.',
+      );
+      document.getElementById('cardRow')?.setAttribute('aria-busy', 'false');
+    }
   }
 }
 
@@ -423,7 +440,6 @@ function wireModalClose() {
 
 document.addEventListener('DOMContentLoaded', () => {
   wireModalClose();
-  wireSampleCards();
   loadTrends();
   setInterval(loadTrends, REFRESH_MS);
 });

@@ -455,6 +455,18 @@
     .card-row::-webkit-scrollbar-track { display: none; }
     .card-row::-webkit-scrollbar-thumb { display: none; }
 
+    .card-status {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.42);
+      max-width: 58ch;
+      margin-top: 16px;
+    }
+    .card-status[hidden] { display: none; }
+
     .trend-card {
       flex-shrink: 0;
       width: 200px;
@@ -1224,22 +1236,6 @@
       <span class="ticker-label">Live</span>
       <div style="overflow:hidden; flex:1;">
         <div class="ticker-track">
-          <span class="ticker-item"><span class="trend-tag">Kendrick</span><span class="trend-move up">+18.4%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Drake</span><span class="trend-move down">−9.1%</span></span>
-          <span class="ticker-item"><span class="trend-tag">AI</span><span class="trend-move up">+34.2%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Crypto</span><span class="trend-move up">+12.7%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Elon</span><span class="trend-move down">−5.3%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Nigeria</span><span class="trend-move up">+22.1%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Taylor Swift</span><span class="trend-move up">+8.9%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Web3</span><span class="trend-move down">−2.4%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Kendrick</span><span class="trend-move up">+18.4%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Drake</span><span class="trend-move down">−9.1%</span></span>
-          <span class="ticker-item"><span class="trend-tag">AI</span><span class="trend-move up">+34.2%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Crypto</span><span class="trend-move up">+12.7%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Elon</span><span class="trend-move down">−5.3%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Nigeria</span><span class="trend-move up">+22.1%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Taylor Swift</span><span class="trend-move up">+8.9%</span></span>
-          <span class="ticker-item"><span class="trend-tag">Web3</span><span class="trend-move down">−2.4%</span></span>
         </div>
       </div>
     </div>
@@ -1252,79 +1248,9 @@
       <span class="section-meta">Loading epoch</span>
     </div>
 
-    <div class="card-row" id="cardRow">
+    <div class="card-row" id="cardRow" aria-busy="true"></div>
 
-      <div class="trend-card" data-card="kendrick">
-        <div class="trend-card-bg" style="background-image: url('kendrick.webp')"></div>
-        <span class="trend-card-move up">+31.2%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
-          <div class="trend-card-name">Kendrick<br/>Lamar</div>
-          <div class="trend-card-sub">Music · Celebrity</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="openai">
-        <div class="trend-card-bg" style="background-image: url('openai.webp')"></div>
-        <span class="trend-card-move up">+18.7%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge trending"><span class="badge-dot"></span>Trending</span>
-          <div class="trend-card-name">OpenAI<br/>GPT-5</div>
-          <div class="trend-card-sub">Tech · AI</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="elon">
-        <div class="trend-card-bg" style="background-image: url('elon.webp')"></div>
-        <span class="trend-card-move down">−9.4%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge hot"><span class="badge-dot"></span>Hot</span>
-          <div class="trend-card-name">Elon<br/>Musk</div>
-          <div class="trend-card-sub">Business · Politics</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="nigeria">
-        <div class="trend-card-bg" style="background-image: url('nigeria.webp')"></div>
-        <span class="trend-card-move up">+22.1%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
-          <div class="trend-card-name">Nigeria<br/>Election</div>
-          <div class="trend-card-sub">Politics · Africa</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="taylor">
-        <div class="trend-card-bg" style="background-image: url('taylor.webp')"></div>
-        <span class="trend-card-move up">+14.3%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge trending"><span class="badge-dot"></span>Trending</span>
-          <div class="trend-card-name">Taylor<br/>Swift</div>
-          <div class="trend-card-sub">Music · Culture</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="drake">
-        <div class="trend-card-bg" style="background-image: url('drake.webp')"></div>
-        <span class="trend-card-move down">−5.8%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge hot"><span class="badge-dot"></span>Hot</span>
-          <div class="trend-card-name">Drake<br/>vs World</div>
-          <div class="trend-card-sub">Music · Beef</div>
-        </div>
-      </div>
-
-      <div class="trend-card" data-card="solana">
-        <div class="trend-card-bg" style="background-image: url('solana.webp')"></div>
-        <span class="trend-card-move up">+34.2%</span>
-        <div class="trend-card-body">
-          <span class="trend-card-badge surging"><span class="badge-dot"></span>Surging</span>
-          <div class="trend-card-name">Solana<br/>ETF</div>
-          <div class="trend-card-sub">Crypto · Finance</div>
-        </div>
-      </div>
-
-    </div>
+    <p class="card-status" id="cardStatus">Loading the latest published epoch…</p>
 
     <!-- mobile scroll hint -->
     <div class="scroll-hint">

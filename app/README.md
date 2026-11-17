@@ -17,9 +17,9 @@ saved copy on the desktop was incomplete:
 - It pointed at `./scripts/pulse-live.js`, which is not where the live site keeps
   the file.
 
-The page here is the live document verbatim, with the eight JPEGs and
-`pulse-live.js` fetched from the live host and committed beside it, so the
-relative `url('sample.jpg')` references resolve offline.
+The page here started as the live document, with the images and `pulse-live.js`
+fetched from the live host and committed beside it. Those images are WebP now,
+and the hardcoded cards and ticker values are gone.
 
 ## Run it
 
@@ -30,9 +30,7 @@ python3 -m http.server 8090   # then open http://127.0.0.1:8090/
 
 ## Known state
 
-`pulse-live.js` fetches `{ trends: [...] }` from a Replit deployment URL that
-is now gone (`404 This project isn't available right now`). The fetch fails, the
-script logs `[Pulse] Could not load live trends` and the page keeps its hardcoded
-cards and ticker. That endpoint is the contract the index service will serve
-next: see the backend notes in `docs/operations.md` and the market specs in
-`markets/`.
+`pulse-live.js` fetches `../api/trends` and fills both the ticker and the card
+row from it. When the fetch fails the row stays empty and one line says so; there
+are no fallback cards with invented numbers. The payload contract is documented
+in `docs/operations.md`.

@@ -6,6 +6,7 @@ import { addDays } from '../domain/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from '../domain/momentum.ts';
 import type { EntityScore } from '../domain/scoring.ts';
 import type { IndexSnapshot, SignalSeries } from '../domain/snapshot.ts';
+import { readDiscovery } from './discovery.ts';
 
 /** How attention is moving for one entity, in the shape the landing page reads. */
 export type TrendStatus = 'surging' | 'trending' | 'stable' | 'fading';
@@ -29,6 +30,12 @@ export interface Trend {
   readonly sourceCount: number;
   readonly sources: readonly TrendSource[];
   readonly imageUrl?: string;
+  /** True for a topic the daily ranking surfaced rather than the signed basket. */
+  readonly discovered?: boolean;
+  /** Mean daily views over the comparison window, for discovered topics. */
+  readonly baseline?: number;
+  /** Days averaged into the baseline, for discovered topics. */
+  readonly baselineDays?: number;
 }
 
 /** Snapshot ids to the source names the page knows. */
@@ -196,8 +203,31 @@ export async function trendsPayload(args: {
   }
   const referenceDay = current.momentum?.referenceDay ?? addDays(current.epochDay, -MOMENTUM_WINDOW_DAYS);
   const reference = await readSnapshot(args.snapshotsDir, referenceDay);
+  const discovery = await readDiscovery(args.snapshotsDir, current.epochDay);
+  const discovered: Trend[] = (discovery?.entries ?? []).map((entry) => ({
+    id: `wiki:${entry.article}`,
+    topic: entry.topic,
+    hashtag: entry.topic,
+    status: statusFor(entry.momentum),
+    momentum: entry.momentum,
+    sourceCount: 1,
+    sources: [{ source: 'wikipedia', volume: entry.views, link: entry.link }],
+    discovered: true,
+    baseline: entry.baseline,
+    baselineDays: entry.baselineDays,
+    ...(entry.imageUrl === null ? {} : { imageUrl: entry.imageUrl }),
+  }));
   return JSON.stringify({
-    trends: buildTrends(current, reference, args.basket),
+    trends: [...buildTrends(current, reference, args.basket), ...discovered],
+    discovery:
+      discovery === null
+        ? null
+        : {
+            day: discovery.day,
+            method: discovery.method,
+            minViews: discovery.settings.minViews,
+            minMomentum: discovery.settings.minMomentum,
+          },
     epochDay: current.epochDay,
     definitionId: current.definitionId,
     confidence: current.coverage.confidence,

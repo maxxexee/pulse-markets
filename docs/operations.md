@@ -69,19 +69,44 @@ GET /api/trends?filter=all   ->   { "trends": [ Trend ] }
 Trend {
   id: string, topic: string, hashtag: string,
   status: 'surging' | 'trending' | 'stable' | 'fading',
-  momentum: number,            // percent, rendered with one decimal
+  momentum: number | null,     // percent, rendered with one decimal, dash when null
   sourceCount: number,
   sources: [{ source, volume, link }],
-  category?: string, imageUrl?: string, description?: string, preTrend?: boolean
+  imageUrl?: string,
+  discovered?: boolean,        // true for a topic found by the daily ranking
+  baseline?: number,           // discovered only: mean views over the window
+  baselineDays?: number        // discovered only
 }
 ```
 
-The URL it was built against was a Replit deployment that no longer exists, so
-the page currently keeps its hardcoded cards. Nothing in this repo serves
-`/api/trends` yet. The natural mapping is one trend per entity: `topic` from the
-entity label, `momentum` from that entity's seven-day change as a percentage,
-`status` from momentum bands, and one source entry per signal with `volume` from
-the level and `link` from the recorded provenance URL.
+The basket part of the list is one trend per entity that scored in the epoch:
+`momentum` is that entity's seven-day change in level, `status` is the band it
+falls in, and each signal contributes its `volume` and a link a reader can open.
+An entity the index cannot measure is left out rather than shown flat, and a
+momentum with no reference epoch is `null`.
+
+After the basket, the payload appends the topics that trended on their own.
+Those come from the daily Wikipedia ranking (`wikipedia-top-v1`), are compared
+against their own seven-day average, and are gated by `minViews` (20,000) and
+`minMomentum` (100 percent) in `snapshots/discovery/<day>.json`. The payload's
+`discovery` header repeats those thresholds. This list is display only: it is
+not signed and never feeds settlement, which is why the page labels those
+summaries as outside the index.
+
+## Trending discovery
+
+`build` runs `discover` for the newest published day once the epoch is written.
+The command is also available on its own:
+
+```
+node src/cli.ts discover --day 2026-11-15
+```
+
+It fetches the day's top English Wikipedia articles, drops utility namespaces
+and standing list pages, measures the biggest unclaimed articles over the seven
+days before the epoch, fetches their lead images, and writes
+`snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
+the page then shows only measured basket trends.
 
 ## Checking it works
 

@@ -1,0 +1,83 @@
+{
+  "day": "2026-11-15",
+  "generatedAt": "2026-11-17T02:17:26.039Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "entries": [
+    {
+      "article": "Richard_Sterban",
+      "topic": "Richard Sterban",
+      "views": 96199,
+      "baseline": 2191,
+      "baselineDays": 7,
+      "momentum": 4290.4,
+      "link": "https://en.wikipedia.org/wiki/Richard_Sterban",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Richard_2019.jpg/330px-Richard_2019.jpg"
+    },
+    {
+      "article": "Stephen_Thompson_(fighter)",
+      "topic": "Stephen Thompson (fighter)",
+      "views": 106236,
+      "baseline": 3623,
+      "baselineDays": 7,
+      "momentum": 2832.6,
+      "link": "https://en.wikipedia.org/wiki/Stephen_Thompson_(fighter)",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/From_cancer_to_company_commander_130802-M-AR522-306_%28cropped%29.jpg/330px-From_cancer_to_company_commander_130802-M-AR522-306_%28cropped%29.jpg"
+    },
+    {
+      "article": "Arch_Manning",
+      "topic": "Arch Manning",
+      "views": 83253,
+      "baseline": 3299,
+      "baselineDays": 7,
+      "momentum": 2423.4,
+      "link": "https://en.wikipedia.org/wiki/Arch_Manning",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Arch_Manning.jpg/330px-Arch_Manning.jpg"
+    },
+    {
+      "article": "John_Mulaney",
+      "topic": "John Mulaney",
+      "views": 89468,
+      "baseline": 5557,
+      "baselineDays": 7,
+      "momentum": 1510,
+      "link": "https://en.wikipedia.org/wiki/John_Mulaney",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/John_Mulaney_visits_Tinker_Air_Force_Base_%288%29_%28cropped%29.jpg/330px-John_Mulaney_visits_Tinker_Air_Force_Base_%288%29_%28cropped%29.jpg"
+    },
+    {
+      "article": "Full_Gear_(2026)",
+      "topic": "Full Gear (2026)",
+      "views": 175811,
+      "baseline": 11521,
+      "baselineDays": 7,
+      "momentum": 1425.9,
+      "link": "https://en.wikipedia.org/wiki/Full_Gear_(2026)",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/83/Full_Gear_%282026%29_poster.jpg"
+    },
+    {
+      "article": "Archive_of_Our_Own",
+      "topic": "Archive of Our Own",
+      "views": 860729,
+      "baseline": 59773,
+      "baselineDays": 7,
+      "momentum": 1340,
+      "link": "https://en.wikipedia.org/wiki/Archive_of_Our_Own",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Ao3-screenshot.png/330px-Ao3-screenshot.png"
+    }
+  ]
+}
