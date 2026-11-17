@@ -1,7 +1,9 @@
 # app
 
 The PULSE landing page and markets front end, served at `/app/` on the deployed
-site. Plain HTML, CSS and one script: no build step, no dependencies.
+site. Plain HTML, CSS and two small scripts (`pulse-live.js` for the feed,
+`footer-field.js` for the canvas strip above the footer): no build step, no
+dependencies.
 
 ## Where it came from
 

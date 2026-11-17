@@ -493,13 +493,22 @@
       filter: grayscale(100%);
     }
 
-    /* bottom overlay for text legibility */
+    /* darkens the image enough for white and green text to hold, strongest at
+       the top where the momentum sits and at the bottom where the card body is */
     .trend-card::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.88) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.22) 26%,
+        rgba(0,0,0,0.12) 48%,
+        rgba(0,0,0,0.55) 74%,
+        rgba(0,0,0,0.9) 100%
+      );
       z-index: 1;
+      pointer-events: none;
     }
 
     .trend-card-body {
@@ -578,6 +587,7 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.85);
     }
     .trend-card-move.up   { color: #6EE79A; }
     .trend-card-move.down { color: #FF7A7A; }
@@ -941,33 +951,50 @@
       border-color: rgba(255,255,255,0.22);
     }
 
-    @media (max-width: 768px) {
-      .footer { padding: 56px 28px 40px; }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
-      .footer-brand { grid-column: 1 / -1; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
-    }
+    /* ── FOOTER ── */
     .footer {
+      position: relative;
       background: var(--void);
-      border-top: 1px solid #1a1a1a;
-      padding: 72px 72px 48px;
+      overflow: hidden;
+    }
+
+    /* low-resolution canvas scaled up, so every cell stays a hard pixel */
+    .footer-field {
+      display: block;
+      width: 100%;
+      height: 176px;
+      image-rendering: pixelated;
+      opacity: 0.9;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 100%);
+      mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 100%);
+    }
+
+    .footer-inner {
+      border-top: 1px solid rgba(255,255,255,0.12);
     }
 
     .footer-top {
       display: grid;
-      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 48px;
-      margin-bottom: 64px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 64px 72px 80px;
     }
 
-    .footer-brand {}
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 40px;
+    }
 
     .footer-logo {
       display: flex;
       align-items: center;
       gap: 9px;
       text-decoration: none;
-      margin-bottom: 20px;
+      width: max-content;
     }
 
     .footer-logo-wordmark {
@@ -979,49 +1006,31 @@
       text-transform: uppercase;
     }
 
-    .footer-tagline {
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 300;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.38);
-      max-width: 260px;
-      letter-spacing: 0.02em;
-      margin-bottom: 28px;
-    }
-
-    .footer-social {
+    .footer-meta {
       display: flex;
+      flex-wrap: wrap;
       gap: 16px;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.34);
     }
 
-    .footer-social a {
-      width: 32px;
-      height: 32px;
-      border: 1px solid #242424;
-      border-radius: 6px;
+    .footer-col {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.35);
-      text-decoration: none;
-      font-size: 0.7rem;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .footer-social a:hover {
-      border-color: rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.8);
+      flex-direction: column;
+      gap: 12px;
     }
 
     .footer-col-title {
       font-family: var(--font-body);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 20px;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 8px;
     }
 
     .footer-links {
@@ -1033,50 +1042,48 @@
 
     .footer-links a {
       font-family: var(--font-body);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.38);
+      color: rgba(255,255,255,0.62);
       text-decoration: none;
       letter-spacing: 0.02em;
+      width: max-content;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: rgba(255,255,255,0.8); }
-
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 32px;
-      border-top: 1px solid #161616;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
+    .footer-links a:hover { color: #ffffff; }
 
     .footer-legal {
-      font-family: var(--font-body);
-      font-size: 0.68rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.22);
-      letter-spacing: 0.04em;
-    }
-
-    .footer-legal-links {
       display: flex;
-      gap: 24px;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-family: var(--font-body);
+      font-size: 0.66rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
     }
 
-    .footer-legal-links a {
-      font-family: var(--font-body);
-      font-size: 0.68rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.22);
+    .footer-legal a {
+      color: rgba(255,255,255,0.34);
       text-decoration: none;
-      letter-spacing: 0.04em;
       transition: color 0.2s;
     }
 
-    .footer-legal-links a:hover { color: rgba(255,255,255,0.55); }
+    .footer-legal a:hover { color: rgba(255,255,255,0.75); }
+
+    @media (max-width: 900px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+        padding: 48px 28px 56px;
+      }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-field { height: 104px; }
+    }
+
+    @media (max-width: 520px) {
+      .footer-top { grid-template-columns: 1fr; }
+    }
 
     /* mobile scroll hint */
     .scroll-hint {
@@ -1302,42 +1309,56 @@
 
   <!-- ── FOOTER ── -->
   <footer class="footer">
-    <div class="footer-top">
+    <canvas class="footer-field" id="footerField" width="192" height="48"
+            aria-hidden="true"></canvas>
+    <div class="footer-inner">
+      <div class="footer-top">
 
-      <div class="footer-brand">
-        <a href="./index.html" class="footer-logo">
-          <span class="pulse-dot"></span>
-          <span class="footer-logo-wordmark">Pulse</span>
-        </a>
-        <p class="footer-tagline">The world's first attention market. Trade cultural moments the way traders trade stocks — in real time, with real stakes.</p>
-      </div>
+        <div class="footer-brand">
+          <a href="./index.html" class="footer-logo">
+            <span class="pulse-dot"></span>
+            <span class="footer-logo-wordmark">Pulse</span>
+          </a>
+          <div>
+            <div class="footer-meta">
+              <span>© 2026 Pulse</span>
+              <span>Not financial advice</span>
+            </div>
+            <div class="footer-legal" style="margin-top: 10px;">
+              <a href="./privacy.html">Privacy</a>
+              <a href="./terms.html">Terms</a>
+              <a href="./risk.html">Risk disclosure</a>
+            </div>
+          </div>
+        </div>
 
-      <div>
-        <p class="footer-col-title">Platform</p>
-        <ul class="footer-links">
-          <li><a href="../markets.html">Markets</a></li>
-          <li><a href="#trending">Trending now</a></li>
-          <li><a href="#how">How it works</a></li>
-        </ul>
-      </div>
+        <div class="footer-col">
+          <h3 class="footer-col-title">Trade</h3>
+          <ul class="footer-links">
+            <li><a href="../markets.html">Markets</a></li>
+            <li><a href="#trending">Trending now</a></li>
+            <li><a href="#how">How it works</a></li>
+          </ul>
+        </div>
 
-      <div>
-        <p class="footer-col-title">Index</p>
-        <ul class="footer-links">
-          <li><a href="../index.html">Daily index</a></li>
-          <li><a href="https://github.com/maxxexee/pulse-markets">Source code</a></li>
-          <li><a href="https://github.com/maxxexee/pulse-markets/blob/main/docs/operations.md">Method</a></li>
-        </ul>
-      </div>
+        <div class="footer-col">
+          <h3 class="footer-col-title">Index</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Daily index</a></li>
+            <li><a href="https://github.com/maxxexee/pulse-markets/blob/main/docs/operations.md">Method</a></li>
+            <li><a href="https://github.com/maxxexee/pulse-markets">Source code</a></li>
+          </ul>
+        </div>
 
-    </div>
+        <div class="footer-col">
+          <h3 class="footer-col-title">About</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">What PULSE is</a></li>
+            <li><a href="../markets.html">Settlement</a></li>
+            <li><a href="https://github.com/maxxexee/pulse-markets">Contribute</a></li>
+          </ul>
+        </div>
 
-    <div class="footer-bottom">
-      <span class="footer-legal">© 2025 Pulse. All rights reserved. Not financial advice.</span>
-      <div class="footer-legal-links">
-        <a href="./privacy.html">Privacy Policy</a>
-        <a href="./terms.html">Terms of Service</a>
-        <a href="./risk.html">Risk Disclosure</a>
       </div>
     </div>
   </footer>
@@ -1377,6 +1398,7 @@
     </div>
   </div>
 
+    <script src="footer-field.js"></script>
     <script src="pulse-live.js"></script>
 </body>
 </html>
