@@ -82,6 +82,7 @@ cd index-service
 npm install
 node src/cli.ts build     # compute, sign and publish the previous UTC day
 node src/cli.ts social    # optional display-only social panel
+node src/cli.ts health    # exits 1 unless the latest snapshot is current
 node src/cli.ts serve     # public index page and JSON API on :8080
 ```
 

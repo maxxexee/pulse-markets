@@ -45,7 +45,16 @@ tail -f index-service/.logs/epoch-build.log
 
 A healthy run ends with `build ok` and a fresh `snapshots/<day>.json`. A run
 that never reaches that line is a failure and the previous snapshot is still
-serving, which is correct but silent, so watch the log or watch the page.
+serving, which is correct but silent, so watch the log or ask the index itself:
+
+```
+node src/cli.ts health                    # exits 1 unless the latest snapshot is current
+curl -s localhost:8080/api/health         # 200 current, 503 missing, unverified or stale
+```
+
+One day of lag is healthy, because today's build has not run at the time you ask.
+Two days is a miss. Verification outranks freshness: a fresh snapshot that does
+not check out is reported as `unverified`, never `ok`.
 
 ## The signing key
 

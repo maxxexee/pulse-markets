@@ -2,13 +2,17 @@ import { createServer, type Server } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
+import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from '../adapters/health.ts';
 import { isValidDay } from '../domain/dates.ts';
+import { isHealthy } from '../domain/health.ts';
 
 export interface ServerOptions {
   readonly port: number;
   readonly publicDir: string;
   readonly snapshotsDir: string;
   readonly basket: readonly EntityDefinition[];
+  /** Days of lag tolerated before /api/health reports stale. */
+  readonly maxAgeDays?: number;
 }
 
 interface RouteResult {
@@ -50,6 +54,14 @@ async function route(
   }
   if (pathname === '/api/social/latest') {
     return readPublished(join(options.snapshotsDir, 'social.json'));
+  }
+  if (pathname === '/api/health') {
+    const report = await readSnapshotHealth({
+      snapshotsDir: options.snapshotsDir,
+      maxAgeDays: options.maxAgeDays ?? DEFAULT_MAX_AGE_DAYS,
+    });
+    // 503 for anything that is not current: an uptime monitor should page on it.
+    return json(isHealthy(report) ? 200 : 503, JSON.stringify(report));
   }
   if (pathname === '/api/basket') {
     return json(200, basketPayload);

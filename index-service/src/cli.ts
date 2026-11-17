@@ -6,6 +6,7 @@ import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapte
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { startServer } from './app/server.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
+import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { socialQuery } from './config/social.ts';
 import { MIN_PUBLISH_CONFIDENCE } from './domain/coverage.ts';
@@ -23,8 +24,10 @@ const USAGE = `pulse index-service
 
   build [--day YYYY-MM-DD] [--catch-up N] [--force]
                              compute, sign and publish an epoch snapshot
+  health [--max-age-days N]  report whether the latest snapshot is current
   social                     fetch the display-only social panel, if configured
-  serve [--port N]           serve the public index and the latest snapshot
+  serve [--port N] [--max-age-days N]
+                             serve the public index and the latest snapshot
 
 Days are UTC. build defaults to the previous UTC day. A day that is already
 published is left alone unless --force is given, so a rerun never replaces a
@@ -157,12 +160,31 @@ async function social(): Promise<void> {
   );
 }
 
-async function serve(port: number): Promise<void> {
+/**
+ * Prints whether the published index is current. Exits non-zero when it is not,
+ * so a monitor can call this command without parsing anything.
+ */
+async function health(maxAgeDays: number): Promise<void> {
+  const report = await readSnapshotHealth({ snapshotsDir: SNAPSHOTS_DIR, maxAgeDays });
+  const summary =
+    `health ${report.status}: ${report.detail}` +
+    (report.indexScore === null ? '' : `, index ${report.indexScore}`) +
+    (report.confidence === null ? '' : `, confidence ${report.confidence}`);
+  if (report.status === 'ok') {
+    console.log(summary);
+    return;
+  }
+  console.error(summary);
+  process.exitCode = 1;
+}
+
+async function serve(port: number, maxAgeDays: number): Promise<void> {
   const server = await startServer({
     port,
     publicDir: PUBLIC_DIR,
     snapshotsDir: SNAPSHOTS_DIR,
     basket: ENTITY_BASKET,
+    maxAgeDays,
   });
   console.log(`serving on http://127.0.0.1:${port}`);
   await new Promise<void>((resolveStop) => {
@@ -181,6 +203,7 @@ async function main(): Promise<void> {
       day: { type: 'string' },
       port: { type: 'string' },
       'catch-up': { type: 'string' },
+      'max-age-days': { type: 'string' },
       force: { type: 'boolean' },
       help: { type: 'boolean' },
     },
@@ -211,12 +234,20 @@ async function main(): Promise<void> {
     }
     return;
   }
+  if (command === 'health') {
+    const maxAgeDays =
+      values['max-age-days'] === undefined ? DEFAULT_MAX_AGE_DAYS : Number(values['max-age-days']);
+    await health(maxAgeDays);
+    return;
+  }
   if (command === 'social') {
     await social();
     return;
   }
   if (command === 'serve') {
-    await serve(Number(values.port ?? 8080));
+    const maxAgeDays =
+      values['max-age-days'] === undefined ? DEFAULT_MAX_AGE_DAYS : Number(values['max-age-days']);
+    await serve(Number(values.port ?? 8080), maxAgeDays);
     return;
   }
   throw new Error(`unknown command: ${command}\n\n${USAGE}`);
