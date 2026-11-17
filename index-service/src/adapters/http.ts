@@ -21,6 +21,40 @@ export class HttpError extends Error {
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
+ * Minimum spacing between outgoing request starts.
+ *
+ * One epoch build issues about two hundred requests to a single public API, and
+ * running them a few at a time with no spacing is enough to be throttled: a burst
+ * build was answered with HTTP 403 partway through while the same request
+ * succeeded on its own. Spacing the starts keeps a whole build inside the
+ * source's tolerance at a cost of about forty seconds.
+ */
+const DEFAULT_REQUEST_INTERVAL_MS = 150;
+
+function requestIntervalMs(): number {
+  const raw = process.env['PULSE_REQUEST_INTERVAL_MS'];
+  const parsed = raw === undefined ? Number.NaN : Number(raw);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_REQUEST_INTERVAL_MS;
+}
+
+let startGate: Promise<void> = Promise.resolve();
+let lastStartMs = 0;
+
+/** Waits for this request's turn, then releases the gate for the next one. */
+async function awaitStartSlot(): Promise<void> {
+  const slot = startGate.then(async () => {
+    const idle = Date.now() - lastStartMs;
+    const interval = requestIntervalMs();
+    if (idle < interval) {
+      await sleep(interval - idle);
+    }
+    lastStartMs = Date.now();
+  });
+  startGate = slot.catch(() => undefined);
+  await slot;
+}
+
+/**
  * GETs a URL as text, retrying throttling and server errors with exponential
  * backoff. Client errors other than 429 are raised immediately: retrying a
  * request the server has rejected on its merits only wastes the quota.
@@ -33,6 +67,7 @@ export async function fetchText(
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     let response: Response;
     try {
+      await awaitStartSlot();
       response = await fetchImpl(url, {
         headers: { 'user-agent': DEFAULT_USER_AGENT, accept: 'application/json' },
       });

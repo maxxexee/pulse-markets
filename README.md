@@ -86,6 +86,15 @@ node src/cli.ts serve     # public index page and JSON API on :8080
 ```
 
 ```
+ops/install-epoch-build.sh   # publish every day at 09:15 UTC, unattended
+ops/uninstall-epoch-build.sh
+```
+
+A published day is never overwritten, a day read from less than half the basket
+is refused outright, and a missed day is caught up on the next run. Signing key
+custody and failure handling are in [`docs/operations.md`](docs/operations.md).
+
+```
 cd resolver
 npm install
 node src/cli.ts create  --threshold 55 --comparison above --day 2026-11-20 --signer <base58>

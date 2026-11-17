@@ -18,6 +18,17 @@ export interface Coverage {
   readonly oldestSourceAt: string | null;
 }
 
+/**
+ * Coverage below which an epoch is not published at all.
+ *
+ * An epoch is signed evidence and cannot be edited afterwards, so a day read
+ * from a fragment of the basket must not become permanent: a build that runs
+ * before a source has posted its daily figure would otherwise sign a snapshot
+ * that no market could settle against. Matches the resolver's default market
+ * floor, so nothing is published that could never be used to settle.
+ */
+export const MIN_PUBLISH_CONFIDENCE = 0.5;
+
 function round4(value: number): number {
   return Math.round(value * 10_000) / 10_000;
 }
