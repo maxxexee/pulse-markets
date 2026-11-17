@@ -59,6 +59,30 @@ reading `api/index/latest` and comparing its `epochDay`.
 Because `gh-pages` is replaced wholesale, anything committed there by hand is
 lost on the next deploy.
 
+## Front end contract
+
+`app/pulse-live.js` refreshes the landing page from one endpoint:
+
+```
+GET /api/trends?filter=all   ->   { "trends": [ Trend ] }
+
+Trend {
+  id: string, topic: string, hashtag: string,
+  status: 'surging' | 'trending' | 'stable' | 'fading',
+  momentum: number,            // percent, rendered with one decimal
+  sourceCount: number,
+  sources: [{ source, volume, link }],
+  category?: string, imageUrl?: string, description?: string, preTrend?: boolean
+}
+```
+
+The URL it was built against was a Replit deployment that no longer exists, so
+the page currently keeps its hardcoded cards. Nothing in this repo serves
+`/api/trends` yet. The natural mapping is one trend per entity: `topic` from the
+entity label, `momentum` from that entity's seven-day change as a percentage,
+`status` from momentum bands, and one source entry per signal with `volume` from
+the level and `link` from the recorded provenance URL.
+
 ## Checking it works
 
 ```

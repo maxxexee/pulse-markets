@@ -21,6 +21,7 @@ const SNAPSHOTS_DIR = join(SERVICE_ROOT, 'snapshots');
 const KEY_PATH = join(SERVICE_ROOT, '.keys', 'index-signer.pem');
 const PUBLIC_DIR = join(SERVICE_ROOT, 'public');
 const MARKETS_DIR = join(SERVICE_ROOT, '..', 'markets');
+const APP_DIR = join(SERVICE_ROOT, '..', 'app');
 
 const USAGE = `pulse index-service
 
@@ -181,6 +182,21 @@ async function health(maxAgeDays: number): Promise<void> {
   process.exitCode = 1;
 }
 
+/** Files of the marketing and markets app, published under /app/. */
+async function appFiles(): Promise<ReadonlyArray<readonly [string, string | Uint8Array]>> {
+  let names: string[];
+  try {
+    names = (await readdir(APP_DIR)).filter((name) => !name.startsWith('.')).sort();
+  } catch {
+    return [];
+  }
+  const files: Array<readonly [string, string | Uint8Array]> = [];
+  for (const name of names) {
+    files.push([`app/${name}`, await readFile(join(APP_DIR, name))]);
+  }
+  return files;
+}
+
 /**
  * Writes the site and every JSON route as static files.
  *
@@ -189,7 +205,7 @@ async function health(maxAgeDays: number): Promise<void> {
  * work, which is why the export cannot fall behind the server.
  */
 async function exportStatic(outDir: string): Promise<void> {
-  const files = new Map<string, string>();
+  const files = new Map<string, string | Uint8Array>();
   const page = async (name: string) => {
     try {
       return await readFile(join(PUBLIC_DIR, name), 'utf8');
@@ -205,6 +221,9 @@ async function exportStatic(outDir: string): Promise<void> {
   files.set('index.html', indexPage);
   if (marketsPage !== null) {
     files.set('markets.html', marketsPage);
+  }
+  for (const [target, body] of await appFiles()) {
+    files.set(target, body);
   }
   files.set('api/basket', basketPayload(ENTITY_BASKET));
   files.set('api/markets', await marketsPayload(MARKETS_DIR));

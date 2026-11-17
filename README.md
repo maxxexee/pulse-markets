@@ -35,13 +35,15 @@ Example market:
 
 ```
 index-service/   index computation, signed epoch snapshots, public pages
+app/             landing page and markets front end, served at /app/
 resolver/        market factory and settlement
 markets/         published market specs, one JSON file each
 docs/            index definition, snapshot format, resolution rules, operations
 ops/             daily build job and static deploy
 ```
 
-Live: [index](https://maxxexee.github.io/pulse-markets/) ·
+Live: [app](https://maxxexee.github.io/pulse-markets/app/) ·
+[index](https://maxxexee.github.io/pulse-markets/) ·
 [markets](https://maxxexee.github.io/pulse-markets/markets.html)
 
 ## Status
