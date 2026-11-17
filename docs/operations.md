@@ -25,7 +25,8 @@ safe because a published day is never overwritten.
 
 - absolute `node` path, no inherited shell environment
 - `node src/cli.ts build --catch-up 7`
-- three attempts, 120 seconds apart
+- three attempts, 15 minutes apart, so a source that posts its daily figure late
+  in the morning still lands in the same run
 - every line appended to `index-service/.logs/epoch-build.log`
 - exit 1 if all attempts fail; nothing is published in that case
 

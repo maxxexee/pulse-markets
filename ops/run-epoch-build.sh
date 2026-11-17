@@ -4,8 +4,9 @@
 # Written for launchd: no interactive shell, no inherited environment, so the
 # node path and every directory are absolute. A build that cannot complete
 # publishes nothing and exits non-zero, leaving the previous snapshot in place;
-# the retry loop exists because upstreams throttle and a missing day breaks the
-# momentum reference for the next seven.
+# the retry loop exists because upstreams throttle, and because a build that
+# runs before a source has posted its daily figure is refused, so the retries are
+# spaced by a quarter of an hour rather than by seconds.
 set -euo pipefail
 
 NODE_BIN="${NODE_BIN:-/opt/homebrew/bin/node}"
@@ -14,7 +15,7 @@ LOG_DIR="$SERVICE_DIR/.logs"
 LOG_FILE="$LOG_DIR/epoch-build.log"
 ATTEMPTS="${ATTEMPTS:-3}"
 CATCH_UP_DAYS="${CATCH_UP_DAYS:-7}"
-RETRY_SLEEP_SECONDS="${RETRY_SLEEP_SECONDS:-120}"
+RETRY_SLEEP_SECONDS="${RETRY_SLEEP_SECONDS:-900}"
 
 mkdir -p "$LOG_DIR"
 
