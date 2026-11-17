@@ -1,80 +1,150 @@
 /**
- * The strip above the footer: greys laid out on a coarse canvas grid, then
- * scaled up by CSS so every cell reads as a hard pixel. It stays still under
- * reduced motion and stops drawing while the footer is offscreen.
+ * The strip above the footer. A fullscreen WebGL fragment shader draws domain
+ * warped fbm into a 3px halftone grid, so it reads as pixelated smoke rather
+ * than a repeating texture. Palette is black and three greys where the
+ * reference uses purple, blue and green.
+ *
+ * The canvas is sized in CSS pixels with no device pixel ratio, which is what
+ * keeps every cell visible and blocky. Without WebGL the canvas stays black.
  */
 (function () {
-  const TONES = [
-    'rgba(255,255,255,0.07)',
-    'rgba(255,255,255,0.14)',
-    'rgba(255,255,255,0.24)',
-    'rgba(255,255,255,0.38)',
-  ];
+  const VERTEX = 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }';
 
-  function hash(x, y) {
-    const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-    return s - Math.floor(s);
+  const FRAGMENT = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec3 uBg, uC0, uC1, uC2;
+
+const float CELL = 3.0;
+const float DOT = 2.0;
+/* smoke features are sized in page pixels, not per element, so every surface matches */
+const float SMOKE_SCALE = 400.0;
+
+float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0.0, a = 0.5;
+  for (int i = 0; i < 5; i++) { v += a * noise(p); p = p * 2.02 + vec2(1.7, 9.2); a *= 0.5; }
+  return v;
+}
+float bayer2(vec2 a){ a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
+/* ordered-dither threshold, (0.5 .. 15.5) / 16: never 0, so a density of nearly nothing draws no dots */
+float bayer4(vec2 a){ return bayer2(0.5 * a) * 0.25 + bayer2(a) + 0.5 / 16.0; }
+
+/* domain-warped fbm, roughly 0.2 to 0.8; px in page pixels, time in seconds */
+float smokeField(vec2 px, float time){
+  vec2 uv = px / SMOKE_SCALE;
+  float t = time * 0.03;
+  vec2 q = vec2(fbm(uv * 1.3 + vec2(0.0, t)), fbm(uv * 1.3 + vec2(5.2, 1.3) - t * 0.8));
+  return fbm(uv * 1.3 + 2.4 * q + vec2(1.7, 9.2) + t * 0.4);
+}
+/* 1 on the 2px dot inside each 3px cell, 0 in the gap */
+float dotMask(vec2 fragCoord){
+  vec2 inCell = mod(fragCoord, CELL);
+  return step(inCell.x, DOT - 0.5) * step(inCell.y, DOT - 0.5);
+}
+
+void main(){
+  vec2 cell = floor(gl_FragCoord.xy / CELL);
+  vec2 c = cell * CELL + CELL * 0.5;
+  float up = c.y / uRes.y;                      // 0 at the bottom edge, 1 at the top
+  float f = smokeField(c, uTime);
+  // vertical gradient, empty at the top edge and full at the bottom. The smoke pushes the fade edge
+  // up and down by almost half the band, so the skyline undulates instead of starting on one row;
+  // a hard fade over the top 40% guarantees nothing touches the canvas edge, and a little per-cell
+  // grain stops the sparsest dots from lining up on the Bayer grid.
+  float down = 1.0 - up;
+  float edge = clamp(down + (f - 0.5) * 0.9, 0.0, 1.0);
+  float dens = pow(edge, 2.0) * 1.1 * smoothstep(0.0, 0.4, down) + (hash(cell * 1.7) - 0.5) * 0.05;
+  vec3 col = uBg;
+  if (dotMask(gl_FragCoord.xy) > 0.5 && dens > bayer4(cell)) {
+    float p = c.x / uRes.x * 2.0;
+    float i = floor(p) + (fract(p) > bayer4(cell + vec2(2.0, 1.0)) ? 1.0 : 0.0);
+    col = i < 0.5 ? uC0 : i < 1.5 ? uC1 : uC2;
   }
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
 
-  /** Smooth value noise, so the field never repeats across the width. */
-  function noise(x, y) {
-    const xi = Math.floor(x);
-    const yi = Math.floor(y);
-    const xf = x - xi;
-    const yf = y - yi;
-    const u = xf * xf * (3 - 2 * xf);
-    const v = yf * yf * (3 - 2 * yf);
-    const top = hash(xi, yi) * (1 - u) + hash(xi + 1, yi) * u;
-    const bottom = hash(xi, yi + 1) * (1 - u) + hash(xi + 1, yi + 1) * u;
-    return top * (1 - v) + bottom * v;
+  /* greyscale stand-ins for the reference palette, black background kept */
+  const BG = [0x08 / 255, 0x08 / 255, 0x08 / 255];
+  const C0 = [0x2b / 255, 0x2b / 255, 0x2b / 255];
+  const C1 = [0x44 / 255, 0x44 / 255, 0x44 / 255];
+  const C2 = [0x6b / 255, 0x6b / 255, 0x6b / 255];
+
+  function compile(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    return shader;
   }
 
   function start() {
     const canvas = document.getElementById('footerField');
-    const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
-    if (!ctx) return;
+    const gl = canvas && canvas.getContext ? canvas.getContext('webgl', {
+      antialias: false,
+      premultipliedAlpha: false,
+    }) : null;
+    if (!gl) return;
 
-    const W = canvas.width;
-    const H = canvas.height;
+    const program = gl.createProgram();
+    gl.attachShader(program, compile(gl, gl.VERTEX_SHADER, VERTEX));
+    gl.attachShader(program, compile(gl, gl.FRAGMENT_SHADER, FRAGMENT));
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.warn('[Pulse] Footer field shader failed to link:', gl.getProgramInfoLog(program));
+      return;
+    }
+    gl.useProgram(program);
 
-    function draw(t) {
-      ctx.clearRect(0, 0, W, H);
-      for (let y = 0; y < H; y += 1) {
-        for (let x = 0; x < W; x += 1) {
-          const n =
-            noise(x / 26 + t * 0.35, y / 16 - t * 0.2) * 0.62 +
-            noise(x / 9 - t * 0.5, y / 7 + t * 0.3) * 0.38;
-          // thin and dark at the top, dense toward the footer rule
-          const value = n * (0.55 + 0.45 * (y / (H - 1)));
-          if (value < 0.38) continue;
-          const tone = value < 0.46 ? 0 : value < 0.58 ? 1 : value < 0.7 ? 2 : 3;
-          ctx.fillStyle = TONES[tone];
-          ctx.fillRect(x, y, 1, 1);
-        }
-      }
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const position = gl.getAttribLocation(program, 'p');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes = gl.getUniformLocation(program, 'uRes');
+    const uTime = gl.getUniformLocation(program, 'uTime');
+    gl.uniform3fv(gl.getUniformLocation(program, 'uBg'), BG);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uC0'), C0);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uC1'), C1);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uC2'), C2);
+
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const origin = performance.now();
+
+    function paint(now) {
+      gl.uniform1f(uTime, still ? 0 : (now - origin) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
 
-    draw(0);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
+    let frame = 0;
     let visible = false;
-    let last = 0;
     function loop(now) {
-      requestAnimationFrame(loop);
-      if (!visible || now - last < 90) return;
-      last = now;
-      draw(now / 900);
+      frame = 0;
+      paint(now);
+      if (visible) frame = requestAnimationFrame(loop);
     }
-    requestAnimationFrame(loop);
 
-    if (typeof IntersectionObserver === 'function') {
-      const observer = new IntersectionObserver(([entry]) => {
-        visible = entry.isIntersecting;
-      });
-      observer.observe(canvas);
-    } else {
-      visible = true;
-    }
+    new ResizeObserver(() => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.round(rect.width));
+      canvas.height = Math.max(1, Math.round(rect.height));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      paint(performance.now());
+    }).observe(canvas);
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !still && !frame) frame = requestAnimationFrame(loop);
+    }).observe(canvas);
   }
 
   if (document.readyState === 'loading') {

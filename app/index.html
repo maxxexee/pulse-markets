@@ -958,15 +958,12 @@
       overflow: hidden;
     }
 
-    /* low-resolution canvas scaled up, so every cell stays a hard pixel */
+    /* canvas is sized in CSS pixels, so CSS scaling keeps each cell a hard pixel */
     .footer-field {
       display: block;
       width: 100%;
-      height: 176px;
+      height: 360px;
       image-rendering: pixelated;
-      opacity: 0.9;
-      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 100%);
-      mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 100%);
     }
 
     .footer-inner {
@@ -977,9 +974,9 @@
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 48px;
-      max-width: 1240px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 64px 72px 80px;
+      padding: 64px 32px 80px;
     }
 
     .footer-brand {
@@ -1011,10 +1008,9 @@
       flex-wrap: wrap;
       gap: 16px;
       font-family: var(--font-body);
-      font-size: 0.66rem;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.34);
+      font-size: 12px;
+      line-height: 18px;
+      color: #62626b;
     }
 
     .footer-col {
@@ -1025,12 +1021,13 @@
 
     .footer-col-title {
       font-family: var(--font-body);
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.42);
-      margin-bottom: 8px;
+      color: #62626b;
+      margin-bottom: 12px;
     }
 
     .footer-links {
@@ -1042,47 +1039,41 @@
 
     .footer-links a {
       font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.62);
+      font-size: 15px;
+      font-weight: 400;
+      color: #f7f7f5;
       text-decoration: none;
-      letter-spacing: 0.02em;
       width: max-content;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: #ffffff; }
+    .footer-links a:hover { color: #9a9aa2; }
 
     .footer-legal {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px 18px;
+      gap: 8px 16px;
+      margin-top: 10px;
       font-family: var(--font-body);
-      font-size: 0.66rem;
-      font-weight: 300;
-      letter-spacing: 0.04em;
+      font-size: 12px;
+      line-height: 18px;
     }
 
     .footer-legal a {
-      color: rgba(255,255,255,0.34);
+      color: #62626b;
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .footer-legal a:hover { color: rgba(255,255,255,0.75); }
+    .footer-legal a:hover { color: #d9d7d4; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 767px) {
+      .footer-field { height: 200px; }
       .footer-top {
-        grid-template-columns: 1fr 1fr;
-        gap: 36px;
-        padding: 48px 28px 56px;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 64px 16px 80px;
       }
-      .footer-brand { grid-column: 1 / -1; }
-      .footer-field { height: 104px; }
-    }
-
-    @media (max-width: 520px) {
-      .footer-top { grid-template-columns: 1fr; }
     }
 
     /* mobile scroll hint */
@@ -1324,7 +1315,7 @@
               <span>© 2026 Pulse</span>
               <span>Not financial advice</span>
             </div>
-            <div class="footer-legal" style="margin-top: 10px;">
+            <div class="footer-legal">
               <a href="./privacy.html">Privacy</a>
               <a href="./terms.html">Terms</a>
               <a href="./risk.html">Risk disclosure</a>
