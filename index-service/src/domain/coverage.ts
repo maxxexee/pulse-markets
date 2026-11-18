@@ -14,6 +14,14 @@ export interface Coverage {
   readonly seriesExpected: number;
   /** Series scored divided by series expected, 0 to 1, four decimal places. */
   readonly confidence: number;
+  /**
+   * Share of the headline weight that actually scored, 0 to 1.
+   *
+   * A series count says how many series answered; this says how much of the
+   * index they represent. The two differ because constituents carry different
+   * weights, and a reader needs both to know what a level is made of.
+   */
+  readonly weightScored: number;
   /** Earliest retrieval time across every source record, or null when none. */
   readonly oldestSourceAt: string | null;
 }
@@ -42,6 +50,7 @@ function round4(value: number): number {
 export function summarizeCoverage(
   series: readonly SignalSeries[],
   sources: readonly SourceRecord[],
+  weightScored: number,
 ): Coverage {
   const seriesScored = series.reduce((total, entry) => total + entry.index.scoredEntities, 0);
   const seriesExpected = series.reduce((total, entry) => total + entry.index.totalEntities, 0);
@@ -55,6 +64,7 @@ export function summarizeCoverage(
     seriesScored,
     seriesExpected,
     confidence: seriesExpected === 0 ? 0 : round4(seriesScored / seriesExpected),
+    weightScored: round4(weightScored),
     oldestSourceAt: retrieved[0] ?? null,
   };
 }

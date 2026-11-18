@@ -1,0 +1,83 @@
+{
+  "day": "2026-11-16",
+  "generatedAt": "2026-11-18T12:06:32.530Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "entries": [
+    {
+      "article": "Saturn_Devouring_His_Son",
+      "topic": "Saturn Devouring His Son",
+      "views": 176155,
+      "baseline": 2020,
+      "baselineDays": 7,
+      "momentum": 8619.9,
+      "link": "https://en.wikipedia.org/wiki/Saturn_Devouring_His_Son",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg/330px-Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg"
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "views": 1363657,
+      "baseline": 21413,
+      "baselineDays": 7,
+      "momentum": 6268.2,
+      "link": "https://en.wikipedia.org/wiki/Robert_Pattinson",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Robert_Pattinson_Venice_Film_Festival_%283x4_cropped%29.jpg/330px-Robert_Pattinson_Venice_Film_Festival_%283x4_cropped%29.jpg"
+    },
+    {
+      "article": "69th_Annual_Grammy_Awards",
+      "topic": "69th Annual Grammy Awards",
+      "views": 92752,
+      "baseline": 1711,
+      "baselineDays": 7,
+      "momentum": 5321.4,
+      "link": "https://en.wikipedia.org/wiki/69th_Annual_Grammy_Awards",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/en/thumb/8/87/69th_Annual_Grammy_Awards.jpg/330px-69th_Annual_Grammy_Awards.jpg"
+    },
+    {
+      "article": "Lizzy_Pattinson",
+      "topic": "Lizzy Pattinson",
+      "views": 76545,
+      "baseline": 1430,
+      "baselineDays": 7,
+      "momentum": 5252.3,
+      "link": "https://en.wikipedia.org/wiki/Lizzy_Pattinson",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Lizzy_Pattinson_performing_at_Rhythms_of_the_World_2011.jpg/330px-Lizzy_Pattinson_performing_at_Rhythms_of_the_World_2011.jpg"
+    },
+    {
+      "article": "Robert_Pattinson_filmography",
+      "topic": "Robert Pattinson filmography",
+      "views": 191139,
+      "baseline": 4010,
+      "baselineDays": 7,
+      "momentum": 4666.2,
+      "link": "https://en.wikipedia.org/wiki/Robert_Pattinson_filmography",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/MJK_08789_Robert_Pattinson_%28Damsel%2C_Berlinale_2018%29.jpg/330px-MJK_08789_Robert_Pattinson_%28Damsel%2C_Berlinale_2018%29.jpg"
+    },
+    {
+      "article": "Suki_Waterhouse",
+      "topic": "Suki Waterhouse",
+      "views": 378948,
+      "baseline": 8285,
+      "baselineDays": 7,
+      "momentum": 4474.1,
+      "link": "https://en.wikipedia.org/wiki/Suki_Waterhouse",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg/330px-Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg"
+    }
+  ]
+}

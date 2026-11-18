@@ -24,6 +24,14 @@ export const DEFAULT_MIN_CONFIDENCE = 0.5;
 export interface MarketDefinition {
   /** Published index definition the market settles under. */
   readonly definitionId: string;
+  /**
+   * Hex SHA-256 of that definition, when the market pins the exact terms.
+   *
+   * The id alone names the terms; this fixes them. Without it, a resolver trusts
+   * the publisher to keep meaning the same anchors and weights by the same name.
+   * Optional so markets written before the definition was embedded stay valid.
+   */
+  readonly definitionSha256?: string;
   /** Base58 Ed25519 key whose snapshots are accepted as settlement evidence. */
   readonly signer: string;
   /** Index points, 0 to 100, up to two decimals. */
@@ -44,6 +52,7 @@ export interface MarketSpec extends MarketDefinition {
 
 export type MarketErrorKind =
   | 'invalid-threshold'
+  | 'invalid-definition-hash'
   | 'invalid-comparison'
   | 'invalid-day'
   | 'invalid-signer'
@@ -104,6 +113,13 @@ export function createMarketSpec(definition: MarketDefinition): MarketSpec {
   }
   if (!validSigner(definition.signer)) {
     throw new MarketError('invalid-signer', `signer is not a 32 byte base58 key: ${definition.signer}`);
+  }
+  const pinned = definition.definitionSha256;
+  if (pinned !== undefined && !/^[0-9a-f]{64}$/.test(pinned)) {
+    throw new MarketError(
+      'invalid-definition-hash',
+      `definitionSha256 must be 64 hex characters, got ${pinned}`,
+    );
   }
   if (!(definition.minConfidence >= 0 && definition.minConfidence <= 1)) {
     throw new MarketError(

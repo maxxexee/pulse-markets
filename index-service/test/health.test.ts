@@ -4,6 +4,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
+import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { signSnapshot, signerFromKey } from '../src/adapters/attestation.ts';
 import { readSnapshotHealth } from '../src/adapters/health.ts';
 import { assessHealth, isHealthy, type PublishedSnapshotView } from '../src/domain/health.ts';
@@ -16,6 +17,7 @@ const view = (epochDay: string): PublishedSnapshotView => ({
   epochDay,
   indexScore: 58.11,
   confidence: 0.8571,
+  weightScored: 0.8571,
   signer: 'BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc',
   payloadSha256: 'a'.repeat(64),
 });
@@ -92,7 +94,9 @@ function fixtureSnapshot(epochDay: string): IndexSnapshot {
     schema: SNAPSHOT_SCHEMA,
     epochDay,
     generatedAt: '2026-11-17T00:00:00.000Z',
-    definitionId: 'pulse-attention-v4',
+    definitionId: TEST_DEFINITION.id,
+    definition: TEST_DEFINITION,
+    definitionSha256: TEST_DEFINITION_SHA256,
     index: { score: 58.11, scoredEntities: 12, totalEntities: 14 },
     momentum: null,
     coverage: {
@@ -101,6 +105,7 @@ function fixtureSnapshot(epochDay: string): IndexSnapshot {
       seriesScored: 12,
       seriesExpected: 14,
       confidence: 0.8571,
+      weightScored: 0.8571,
       oldestSourceAt: '2026-11-16T23:21:15.023Z',
     },
     series: [],

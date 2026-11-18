@@ -1,14 +1,17 @@
 import type { EntityDefinition } from '../config/entities.ts';
-import { INDEX_DEFINITION_ID } from '../config/index-definition.ts';
 import { SIGNALS, type SeriesFetch, type SignalDefinition } from '../config/signals.ts';
 import { mapWithConcurrency } from '../domain/concurrency.ts';
 import { summarizeCoverage } from '../domain/coverage.ts';
 import { addDays } from '../domain/dates.ts';
+import {
+  definitionDigest,
+  type IndexDefinition,
+  type PublishedSignal,
+} from '../domain/index-definition.ts';
 import { MOMENTUM_WINDOW_DAYS, momentumFrom, type Momentum } from '../domain/momentum.ts';
 import {
-  aggregateIndex,
-  combineIndices,
-  scoreEntity,
+  round2,
+  scoreAgainstAnchor,
   type EntityScore,
   type IndexAggregate,
 } from '../domain/scoring.ts';
@@ -18,13 +21,16 @@ import {
   type SignalSeries,
   type SourceRecord,
 } from '../domain/snapshot.ts';
+import { weightedScore } from '../domain/weights.ts';
 
 export interface BuildSnapshotInput {
   readonly entities: readonly EntityDefinition[];
+  /** Published definition to compute against. Its anchors and weights are the terms. */
+  readonly definition: IndexDefinition;
   /** UTC day the index describes; must be a complete day. */
   readonly targetDay: string;
   readonly now: Date;
-  /** Signal set to score. Defaults to the published set. */
+  /** Signal set to fetch. Defaults to the published set. */
   readonly signals?: readonly SignalDefinition[];
   /** Entity-series fetches allowed in flight at once. Defaults to 2. */
   readonly concurrency?: number;
@@ -38,41 +44,120 @@ export interface BuildSnapshotInput {
   readonly history?: readonly IndexSnapshot[];
 }
 
+/** Runtime signal definitions keyed by the ids the published definition names. */
+function indexSignals(signals: readonly SignalDefinition[]): Map<string, SignalDefinition> {
+  return new Map(signals.map((signal) => [signal.id, signal]));
+}
+
+/** Runtime entity definitions keyed by the ids the published definition names. */
+function indexEntities(entities: readonly EntityDefinition[]): Map<string, EntityDefinition> {
+  return new Map(entities.map((entity) => [entity.id, entity]));
+}
+
 /**
- * Fetches every entity-series pair for every signal with bounded concurrency.
+ * Fetches every constituent-series pair for every published signal.
  *
- * The basket is 7 entities across 2 signals, and done serially the build spends
- * minutes waiting on round trips. The ceiling stays low because these are free
- * public APIs that throttle bursts, and each series is one request (pageviews)
- * or one request per day (Hacker News), so the in-flight count is the outer
- * limit times the adapter's own.
+ * The definition decides what is fetched, not the runtime basket, so a snapshot
+ * can only ever contain the terms it publishes. The ceiling stays low because
+ * these are free public APIs that throttle bursts.
  */
 async function fetchAll(
   input: BuildSnapshotInput,
   signals: readonly SignalDefinition[],
 ): Promise<readonly SeriesFetch[]> {
-  const tasks = signals.flatMap((signal) => input.entities.map((entity) => ({ signal, entity })));
-  return mapWithConcurrency(tasks, input.concurrency ?? 2, async ({ signal, entity }) => {
+  const runtimeSignals = indexSignals(signals);
+  const entities = indexEntities(input.entities);
+  const tasks = input.definition.signals.flatMap((signal) =>
+    signal.constituents.map((constituent) => ({
+      signal: runtimeSignals.get(signal.id),
+      entity: entities.get(constituent.entityId),
+      signalId: signal.id,
+      entityId: constituent.entityId,
+    })),
+  );
+  return mapWithConcurrency(tasks, input.concurrency ?? 2, async (task) => {
+    if (task.signal === undefined || task.entity === undefined) {
+      throw new Error(`definition names ${task.signalId}/${task.entityId}, which is not configured`);
+    }
     try {
-      return await signal.fetchSeries(
-        entity,
-        addDays(input.targetDay, -signal.scoring.baselineWindowDays),
-        input.targetDay,
-      );
+      // Only the target day is measured: the anchor it is compared against came
+      // from the published definition, so fetching the calibration window again
+      // would be waste and would exceed the source window caps.
+      return await task.signal.fetchSeries(task.entity, input.targetDay, input.targetDay);
     } catch (error) {
       // Name the failing source: a bare "fetch failed" does not say which of
       // the signals or entities needs attention.
       const detail = error instanceof Error ? error.message : String(error);
-      throw new Error(`${signal.id}/${entity.id}: ${detail}`, { cause: error });
+      throw new Error(`${task.signalId}/${task.entityId}: ${detail}`, { cause: error });
     }
   });
 }
 
+/** Target-day volume for one constituent, or null when the source skipped the day. */
+function valueOn(fetched: SeriesFetch, day: string): number | null {
+  const match = fetched.observations.find((entry) => entry.day === day);
+  return match === undefined ? null : match.value;
+}
+
+function scoreSignal(
+  published: PublishedSignal,
+  fetched: readonly SeriesFetch[],
+  definition: IndexDefinition,
+  targetDay: string,
+): { series: SignalSeries; records: readonly SourceRecord[]; weight: number } {
+  const entities: EntityScore[] = published.constituents.map((constituent, position) => {
+    const series = fetched[position];
+    if (series === undefined) {
+      throw new Error(`missing ${published.id}/${constituent.entityId} fetch`);
+    }
+    return scoreAgainstAnchor(
+      constituent.entityId,
+      valueOn(series, targetDay),
+      constituent.anchor,
+      targetDay,
+      {
+        midpoint: published.scoring.midpoint,
+        pointsPerDoubling: published.scoring.pointsPerDoubling,
+        minTargetValue: published.scoring.minTargetValue,
+        anchorDays: definition.calibrationDays,
+      },
+    );
+  });
+  const aggregate = weightedScore(
+    published.constituents.map((constituent, position) => ({
+      weight: constituent.weight,
+      score: entities[position]?.status === 'scored' ? entities[position].score : null,
+    })),
+  );
+  const records = published.constituents.map((constituent, position) => {
+    const series = fetched[position];
+    if (series === undefined) {
+      throw new Error(`missing ${published.id}/${constituent.entityId} fetch`);
+    }
+    return toSourceRecord(published.id, constituent.entityId, series);
+  });
+  const series: SignalSeries = {
+    id: published.id,
+    label: published.label,
+    unit: published.unit,
+    scoring: published.scoring,
+    index: {
+      score: aggregate.score === null ? null : round2(aggregate.score),
+      scoredEntities: seriesScoredCount(entities),
+      totalEntities: entities.length,
+    },
+    momentum: null,
+    entities,
+  };
+  return { series, records, weight: published.weight };
+}
+
+function seriesScoredCount(entities: readonly EntityScore[]): number {
+  return entities.filter((entity) => entity.status === 'scored').length;
+}
+
 /** Published index for one signal in the reference snapshot, if it scored. */
-function priorScore(
-  reference: IndexSnapshot | null,
-  seriesId: string | null,
-): IndexAggregate | null {
+function priorScore(reference: IndexSnapshot | null, seriesId: string | null): IndexAggregate | null {
   if (reference === null) {
     return null;
   }
@@ -93,55 +178,51 @@ function momentumFor(
 }
 
 /**
- * Builds one epoch snapshot from a fixed basket across every configured signal.
+ * Builds one epoch snapshot from the published definition.
  *
- * A source that fails aborts the build instead of publishing a partial index,
- * so an epoch always describes the full definition it names.
+ * Anchors and weights come from the definition, so the same target-day volumes
+ * always produce the same level within a definition version. A source that
+ * fails aborts the build instead of publishing a partial index.
  */
 export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSnapshot> {
   const signals = input.signals ?? SIGNALS;
   const fetched = await fetchAll(input, signals);
 
-  const built = signals.map((signal, signalIndex) => {
-    const entities: EntityScore[] = [];
-    const records: SourceRecord[] = [];
-    input.entities.forEach((entity, entityIndex) => {
-      const series = fetched[signalIndex * input.entities.length + entityIndex];
-      if (series === undefined) {
-        throw new Error(`missing ${signal.id} fetch for ${entity.id}`);
-      }
-      entities.push(scoreEntity(entity.id, series.observations, input.targetDay, signal.scoring));
-      records.push(toSourceRecord(signal.id, entity.id, series));
-    });
-    const entry: SignalSeries = {
-      id: signal.id,
-      label: signal.label,
-      unit: signal.unit,
-      scoring: signal.scoring,
-      index: aggregateIndex(entities),
-      momentum: null,
-      entities,
-    };
-    return { entry, records };
-  });
+  const built = [];
+  let offset = 0;
+  for (const published of input.definition.signals) {
+    const slice = fetched.slice(offset, offset + published.constituents.length);
+    offset += published.constituents.length;
+    built.push(scoreSignal(published, slice, input.definition, input.targetDay));
+  }
 
   const sources = built.flatMap((item) => item.records);
-  const index = combineIndices(built.map((item) => item.entry.index));
+  const headline = weightedScore(
+    built.map((item) => ({ weight: item.weight, score: item.series.index.score })),
+  );
+  const index: IndexAggregate = {
+    score: headline.score === null ? null : round2(headline.score),
+    scoredEntities: built.reduce((sum, item) => sum + item.series.index.scoredEntities, 0),
+    totalEntities: built.reduce((sum, item) => sum + item.series.index.totalEntities, 0),
+  };
+
   const referenceDay = addDays(input.targetDay, -MOMENTUM_WINDOW_DAYS);
   const reference = input.history?.find((entry) => entry.epochDay === referenceDay) ?? null;
   const series = built.map((item) => ({
-    ...item.entry,
-    momentum: momentumFor(reference, item.entry.id, referenceDay, item.entry.index),
+    ...item.series,
+    momentum: momentumFor(reference, item.series.id, referenceDay, item.series.index),
   }));
 
   return {
     schema: SNAPSHOT_SCHEMA,
     epochDay: input.targetDay,
     generatedAt: input.now.toISOString(),
-    definitionId: INDEX_DEFINITION_ID,
+    definitionId: input.definition.id,
+    definition: input.definition,
+    definitionSha256: definitionDigest(input.definition),
     index,
     momentum: momentumFor(reference, null, referenceDay, index),
-    coverage: summarizeCoverage(series, sources),
+    coverage: summarizeCoverage(series, sources, headline.weightScored),
     series,
     sources,
   };

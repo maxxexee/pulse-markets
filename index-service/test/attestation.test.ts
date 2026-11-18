@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { generateKeyPairSync } from 'node:crypto';
 import { describe, it } from 'node:test';
+import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { signSnapshot, signerFromKey, verifySignedSnapshot } from '../src/adapters/attestation.ts';
 import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../src/domain/snapshot.ts';
 import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
@@ -10,7 +11,9 @@ function fixtureSnapshot(): IndexSnapshot {
     schema: SNAPSHOT_SCHEMA,
     epochDay: '2026-11-15',
     generatedAt: '2026-11-16T00:05:00.000Z',
-    definitionId: 'pulse-attention-v4',
+    definitionId: TEST_DEFINITION.id,
+    definition: TEST_DEFINITION,
+    definitionSha256: TEST_DEFINITION_SHA256,
     index: { score: 75, scoredEntities: 1, totalEntities: 1 },
     momentum: null,
     coverage: {
@@ -19,6 +22,7 @@ function fixtureSnapshot(): IndexSnapshot {
       seriesScored: 1,
       seriesExpected: 1,
       confidence: 1,
+      weightScored: 1,
       oldestSourceAt: '2026-11-16T00:05:00.000Z',
     },
     series: [

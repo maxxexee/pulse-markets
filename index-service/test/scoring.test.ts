@@ -1,33 +1,29 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { addDays } from '../src/domain/dates.ts';
 import {
   PULSE_SCORING_COUNTS_V1,
   PULSE_SCORING_V1,
-  aggregateIndex,
   baselineOf,
-  combineIndices,
   median,
-  scoreEntity,
+  scoreAgainstAnchor,
   scoreFromLevel,
   smoothedMean,
+  type AnchorScoring,
 } from '../src/domain/scoring.ts';
-import type { DailyObservation } from '../src/domain/observation.ts';
 
 const TARGET = '2026-11-15';
-
-/** Builds `count` consecutive days ending on the day before TARGET. */
-function baselineHistory(value: number, count = 20): DailyObservation[] {
-  const out: DailyObservation[] = [];
-  for (let offset = count; offset >= 1; offset -= 1) {
-    out.push({ day: addDays(TARGET, -offset), value });
-  }
-  return out;
-}
-
-function withTarget(value: number, history = baselineHistory(100)): DailyObservation[] {
-  return [...history, { day: TARGET, value }];
-}
+const PAGEVIEWS: AnchorScoring = {
+  midpoint: PULSE_SCORING_V1.midpoint,
+  pointsPerDoubling: PULSE_SCORING_V1.pointsPerDoubling,
+  minTargetValue: PULSE_SCORING_V1.minTargetValue,
+  anchorDays: 180,
+};
+const COUNTS: AnchorScoring = {
+  midpoint: PULSE_SCORING_COUNTS_V1.midpoint,
+  pointsPerDoubling: PULSE_SCORING_COUNTS_V1.pointsPerDoubling,
+  minTargetValue: PULSE_SCORING_COUNTS_V1.minTargetValue,
+  anchorDays: 180,
+};
 
 describe('median', () => {
   it('returns the middle value for odd counts', () => {
@@ -65,7 +61,7 @@ describe('baselineOf', () => {
 });
 
 describe('scoreFromLevel', () => {
-  it('scores attention at baseline as the midpoint', () => {
+  it('scores attention at the anchor as the midpoint', () => {
     assert.equal(scoreFromLevel(1, PULSE_SCORING_V1), 50);
   });
 
@@ -76,123 +72,62 @@ describe('scoreFromLevel', () => {
     assert.equal(scoreFromLevel(1 / 16, PULSE_SCORING_V1), 0);
   });
 
-  it('clamps beyond sixteen times baseline', () => {
+  it('clamps beyond sixteen times the anchor', () => {
     assert.equal(scoreFromLevel(1000, PULSE_SCORING_V1), 100);
     assert.equal(scoreFromLevel(0.0001, PULSE_SCORING_V1), 0);
   });
 });
 
-describe('scoreEntity', () => {
-  it('scores a day equal to its trailing baseline', () => {
-    const score = scoreEntity('nvidia', withTarget(100), TARGET);
+describe('scoreAgainstAnchor', () => {
+  it('scores a day equal to its anchor at the midpoint', () => {
+    const score = scoreAgainstAnchor('nvidia', 100, 100, TARGET, PAGEVIEWS);
     assert.equal(score.status, 'scored');
     assert.equal(score.status === 'scored' && score.score, 50);
     assert.equal(score.status === 'scored' && score.level, 1);
   });
 
-  it('scores a spike against the baseline', () => {
-    const score = scoreEntity('nvidia', withTarget(400), TARGET);
+  it('scores a spike against the anchor, not against the day itself', () => {
+    const score = scoreAgainstAnchor('nvidia', 400, 100, TARGET, PAGEVIEWS);
     assert.equal(score.status === 'scored' && score.score, 75);
     assert.equal(score.status === 'scored' && score.level, 4);
   });
 
-  it('excludes the target day from its own baseline', () => {
-    const history = baselineHistory(100, 10);
-    const score = scoreEntity('nvidia', withTarget(1000, history), TARGET);
-    assert.equal(score.status, 'scored');
-    assert.equal(score.status === 'scored' && score.baseline, 100);
+  it('scores the same volume the same way on any day of the definition', () => {
+    const first = scoreAgainstAnchor('nvidia', 250, 100, '2026-01-02', PAGEVIEWS);
+    const later = scoreAgainstAnchor('nvidia', 250, 100, '2026-12-30', PAGEVIEWS);
+    assert.equal(first.status === 'scored' && first.score, later.status === 'scored' && later.score);
+    assert.equal(first.status === 'scored' && first.baseline, 100);
   });
 
-  it('uses at most the configured baseline window', () => {
-    const long = [
-      ...baselineHistory(10_000, 10),
-      ...baselineHistory(100, PULSE_SCORING_V1.baselineWindowDays),
-    ];
-    const score = scoreEntity('nvidia', withTarget(100, long), TARGET);
-    assert.equal(score.status === 'scored' && score.baseline, 100);
-    assert.equal(score.status === 'scored' && score.baselineDays, PULSE_SCORING_V1.baselineWindowDays);
-  });
-
-  it('reports a missing target day instead of guessing', () => {
-    const score = scoreEntity('nvidia', baselineHistory(100), TARGET);
+  it('reports a missing day instead of guessing', () => {
+    const score = scoreAgainstAnchor('nvidia', null, 100, TARGET, PAGEVIEWS);
     assert.equal(score.status, 'insufficient-data');
     assert.equal(score.status === 'insufficient-data' && score.reason, 'missing-target-day');
   });
 
-  it('refuses to score on too little history', () => {
-    const score = scoreEntity('nvidia', withTarget(100, baselineHistory(100, 3)), TARGET);
-    assert.equal(score.status, 'insufficient-data');
-    assert.equal(score.status === 'insufficient-data' && score.reason, 'too-few-baseline-days');
-  });
-
-  it('refuses to divide by a zero baseline', () => {
-    const score = scoreEntity('nvidia', withTarget(50, baselineHistory(0, 10)), TARGET);
-    assert.equal(score.status, 'insufficient-data');
-    assert.equal(score.status === 'insufficient-data' && score.reason, 'zero-baseline');
+  it('refuses to divide by a null or zero anchor', () => {
+    const zero = scoreAgainstAnchor('nvidia', 50, 0, TARGET, PAGEVIEWS);
+    assert.equal(zero.status === 'insufficient-data' && zero.reason, 'no-anchor');
+    const broken = scoreAgainstAnchor('nvidia', 50, Number.NaN, TARGET, PAGEVIEWS);
+    assert.equal(broken.status === 'insufficient-data' && broken.reason, 'no-anchor');
   });
 
   it('refuses to score a sparse day below the minimum volume', () => {
-    const score = scoreEntity(
-      'solana',
-      withTarget(2, baselineHistory(0, 10)),
-      TARGET,
-      PULSE_SCORING_COUNTS_V1,
-    );
+    const score = scoreAgainstAnchor('solana', 2, 0.5, TARGET, COUNTS);
     assert.equal(score.status, 'insufficient-data');
     assert.equal(score.status === 'insufficient-data' && score.reason, 'below-minimum-volume');
   });
 
   it('scores a sparse mention spike once the volume floor is met', () => {
-    const history = baselineHistory(0, 10);
-    history[history.length - 1] = { day: addDays(TARGET, -1), value: 1 };
-    const score = scoreEntity('solana', withTarget(5, history), TARGET, PULSE_SCORING_COUNTS_V1);
+    const score = scoreAgainstAnchor('solana', 5, 0.1818, TARGET, COUNTS);
     assert.equal(score.status, 'scored');
-    // Baseline (1 + 1) / 11 = 0.1818, level 27.5, which clamps to 100.
-    assert.equal(score.status === 'scored' && score.score, 100);
     assert.equal(score.status === 'scored' && score.value, 5);
-  });
-});
-
-describe('aggregateIndex', () => {
-  it('averages the scored entities and ignores unscored ones', () => {
-    const scored = scoreEntity('a', withTarget(200), TARGET);
-    const other = scoreEntity('b', withTarget(100), TARGET);
-    const missing = scoreEntity('c', baselineHistory(100), TARGET);
-    const index = aggregateIndex([scored, other, missing]);
-    assert.equal(index.score, 56.25);
-    assert.equal(index.scoredEntities, 2);
-    assert.equal(index.totalEntities, 3);
+    // 5 / 0.1818 is 27.5x the anchor, which is past the top of the curve.
+    assert.equal(score.status === 'scored' && score.score, 100);
   });
 
-  it('reports a null score when nothing could be scored', () => {
-    const missing = scoreEntity('c', baselineHistory(100), TARGET);
-    const index = aggregateIndex([missing]);
-    assert.equal(index.score, null);
-    assert.equal(index.scoredEntities, 0);
-  });
-});
-
-describe('combineIndices', () => {
-  it('weights each signal equally rather than by entity count', () => {
-    const combined = combineIndices([
-      { score: 80, scoredEntities: 7, totalEntities: 7 },
-      { score: 40, scoredEntities: 1, totalEntities: 7 },
-    ]);
-    assert.equal(combined.score, 60);
-    assert.equal(combined.scoredEntities, 8);
-    assert.equal(combined.totalEntities, 14);
-  });
-
-  it('skips a signal that scored nothing instead of counting it as zero', () => {
-    const combined = combineIndices([
-      { score: 80, scoredEntities: 7, totalEntities: 7 },
-      { score: null, scoredEntities: 0, totalEntities: 7 },
-      null,
-    ]);
-    assert.equal(combined.score, 80);
-  });
-
-  it('reports a null score when no signal scored', () => {
-    assert.equal(combineIndices([null, { score: null, scoredEntities: 0, totalEntities: 7 }]).score, null);
+  it('reports the anchor age with each score', () => {
+    const score = scoreAgainstAnchor('nvidia', 100, 100, TARGET, PAGEVIEWS);
+    assert.equal(score.status === 'scored' && score.baselineDays, 180);
   });
 });

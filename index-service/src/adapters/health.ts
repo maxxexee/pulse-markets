@@ -35,6 +35,8 @@ function view(signed: unknown): PublishedSnapshotView | null {
     epochDay: snapshot.epochDay,
     indexScore: typeof snapshot.index?.score === 'number' ? snapshot.index.score : null,
     confidence: typeof snapshot.coverage?.confidence === 'number' ? snapshot.coverage.confidence : null,
+    weightScored:
+      typeof snapshot.coverage?.weightScored === 'number' ? snapshot.coverage.weightScored : null,
     signer: attestation.publicKey,
     payloadSha256: attestation.payloadSha256,
   };

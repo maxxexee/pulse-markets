@@ -1,10 +1,11 @@
 import { createHash } from 'node:crypto';
 import type { Coverage } from './coverage.ts';
+import type { IndexDefinition } from './index-definition.ts';
 import type { Momentum } from './momentum.ts';
 import type { EntityScore, IndexAggregate, ScoringConfig } from './scoring.ts';
 
 /** Identifies the snapshot layout, so old snapshots stay readable after upgrades. */
-export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/3';
+export const SNAPSHOT_SCHEMA = 'pulse.index.snapshot/4';
 
 /**
  * Provenance for one entity's raw inputs.
@@ -48,6 +49,16 @@ export interface IndexSnapshot {
   readonly generatedAt: string;
   /** Published definition this snapshot was computed under. */
   readonly definitionId: string;
+  /**
+   * The definition itself, embedded rather than referenced.
+   *
+   * A market that pins only `definitionId` trusts the publisher to keep meaning
+   * the same thing by that string. The weights, anchors and formula travel with
+   * the score, so the terms a settlement used are the terms in the record.
+   */
+  readonly definition: IndexDefinition;
+  /** SHA-256 of the canonical definition above, the identity a market can pin. */
+  readonly definitionSha256: string;
   /** Headline index: the mean of the signal indices that scored. */
   readonly index: IndexAggregate;
   /** Change in the headline index over the momentum window, null if unmeasured. */

@@ -1,4 +1,3 @@
-import type { DailyObservation } from './observation.ts';
 
 /** How the trailing baseline is derived from the window. */
 export type BaselineMethod = 'median' | 'smoothed-mean';
@@ -78,8 +77,7 @@ export const PULSE_SCORING_COUNTS_V1: ScoringConfig = {
 
 export type InsufficientReason =
   | 'missing-target-day'
-  | 'too-few-baseline-days'
-  | 'zero-baseline'
+  | 'no-anchor'
   | 'below-minimum-volume';
 
 /**
@@ -155,7 +153,10 @@ export function baselineOf(values: readonly number[], config: ScoringConfig): nu
  * 10x spike cannot drown out every other entity in the aggregate. Attention at
  * the baseline scores the midpoint, and the result is clamped at both ends.
  */
-export function scoreFromLevel(level: number, config: ScoringConfig): number {
+export function scoreFromLevel(
+  level: number,
+  config: { readonly midpoint: number; readonly pointsPerDoubling: number },
+): number {
   if (!Number.isFinite(level) || level <= 0) {
     return 0;
   }
@@ -178,86 +179,49 @@ function unscored(
   return { status: 'insufficient-data', entityId, day, value, baselineDays, reason };
 }
 
+/** Everything a score needs from the definition, plus the anchor's provenance. */
+export interface AnchorScoring {
+  readonly midpoint: number;
+  readonly pointsPerDoubling: number;
+  readonly minTargetValue: number;
+  /** Days of history behind the anchor, reported with each score. */
+  readonly anchorDays: number;
+}
+
 /**
- * Scores one entity for one UTC day against its own trailing baseline.
+ * Scores one entity for one UTC day against its frozen anchor.
  *
- * Each entity is measured against itself, never against other entities, so a
- * permanently quiet entity can still spike and a permanently loud one still has
- * to earn its points.
+ * The anchor comes from the published definition and does not move within a
+ * definition version, so a level means the same thing on every day of that
+ * version. Each entity is still measured against itself, never against other
+ * entities, so a quiet entity can spike and a loud one still has to earn points.
  */
-export function scoreEntity(
+export function scoreAgainstAnchor(
   entityId: string,
-  observations: readonly DailyObservation[],
+  value: number | null,
+  anchor: number,
   targetDay: string,
-  config: ScoringConfig = PULSE_SCORING_V1,
+  config: AnchorScoring,
 ): EntityScore {
-  const ordered = [...observations].sort((a, b) => a.day.localeCompare(b.day));
-  const target = ordered.find((entry) => entry.day === targetDay);
-  const baselineWindow = ordered
-    .filter((entry) => entry.day < targetDay)
-    .slice(-config.baselineWindowDays)
-    .map((entry) => entry.value);
-
-  if (target === undefined) {
-    return unscored(entityId, targetDay, null, baselineWindow.length, 'missing-target-day');
+  if (value === null) {
+    return unscored(entityId, targetDay, null, config.anchorDays, 'missing-target-day');
   }
-  if (baselineWindow.length < config.minBaselineDays) {
-    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'too-few-baseline-days');
+  if (!Number.isFinite(anchor) || anchor <= 0) {
+    return unscored(entityId, targetDay, value, config.anchorDays, 'no-anchor');
   }
-  if (target.value < config.minTargetValue) {
-    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'below-minimum-volume');
+  if (value < config.minTargetValue) {
+    return unscored(entityId, targetDay, value, config.anchorDays, 'below-minimum-volume');
   }
 
-  const baseline = baselineOf(baselineWindow, config);
-  if (baseline <= 0) {
-    return unscored(entityId, targetDay, target.value, baselineWindow.length, 'zero-baseline');
-  }
-
-  const level = target.value / baseline;
+  const level = value / anchor;
   return {
     status: 'scored',
     entityId,
     day: targetDay,
-    value: target.value,
-    baseline: round2(baseline),
-    baselineDays: baselineWindow.length,
+    value,
+    baseline: round2(anchor),
+    baselineDays: config.anchorDays,
     level: round2(level),
     score: round2(scoreFromLevel(level, config)),
-  };
-}
-
-/** Averages the scored entities into the published index level. */
-export function aggregateIndex(scores: readonly EntityScore[]): IndexAggregate {
-  const scored = scores.filter((score) => score.status === 'scored');
-  if (scored.length === 0) {
-    return { score: null, scoredEntities: 0, totalEntities: scores.length };
-  }
-  const total = scored.reduce((sum, score) => sum + score.score, 0);
-  return {
-    score: round2(total / scored.length),
-    scoredEntities: scored.length,
-    totalEntities: scores.length,
-  };
-}
-
-/**
- * Combines independent signal indices into the headline index.
- *
- * Each signal index is the mean of its own scored entities, so this weights the
- * signals equally rather than weighting by how many entities each happened to
- * score. A signal that scored nothing is skipped instead of contributing a zero.
- */
-export function combineIndices(indices: readonly (IndexAggregate | null)[]): IndexAggregate {
-  const usable = indices.filter(
-    (index): index is IndexAggregate => index !== null && index.score !== null,
-  );
-  if (usable.length === 0) {
-    return { score: null, scoredEntities: 0, totalEntities: 0 };
-  }
-  const total = usable.reduce((sum, index) => sum + (index.score ?? 0), 0);
-  return {
-    score: round2(total / usable.length),
-    scoredEntities: usable.reduce((sum, index) => sum + index.scoredEntities, 0),
-    totalEntities: usable.reduce((sum, index) => sum + index.totalEntities, 0),
   };
 }

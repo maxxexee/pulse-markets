@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { INDEX_DEFINITION_ID } from '../../index-service/src/config/index-definition.ts';
+import { ACTIVE_DEFINITION_ID } from '../../index-service/src/config/index-definition.ts';
 import {
   createMarketSpec,
   DEFAULT_MIN_CONFIDENCE,
@@ -26,9 +26,24 @@ function required(values: Record<string, string | boolean | undefined>, name: st
   return value;
 }
 
+/** Flag that may be absent, so older market files keep rebuilding the same id. */
+function optional(
+  values: Record<string, string | boolean | undefined>,
+  name: string,
+): string | undefined {
+  const value = values[name];
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+/** Spreads the pinned hash only when it is present, since the field is optional. */
+function pinnedFrom(hash: string | undefined): { definitionSha256?: string } {
+  return hash === undefined ? {} : { definitionSha256: hash };
+}
+
 function marketFrom(values: Record<string, string | boolean | undefined>): MarketSpec {
   const definition: MarketDefinition = {
     definitionId: required(values, 'definition'),
+    ...pinnedFrom(optional(values, 'definition-sha256')),
     signer: required(values, 'signer'),
     threshold: Number(required(values, 'threshold')),
     comparison: required(values, 'comparison') as MarketDefinition['comparison'],
@@ -48,6 +63,7 @@ async function create(values: Record<string, string | boolean | undefined>): Pro
 function specFromFile(raw: Partial<MarketSpec>): MarketSpec {
   const spec = createMarketSpec({
     definitionId: raw.definitionId as string,
+    ...pinnedFrom(raw.definitionSha256),
     signer: raw.signer as string,
     threshold: raw.threshold as number,
     comparison: raw.comparison as MarketDefinition['comparison'],
@@ -93,7 +109,8 @@ async function main(): Promise<void> {
     const { values } = parseArgs({
       args: rest,
       options: {
-        definition: { type: 'string', default: INDEX_DEFINITION_ID },
+        definition: { type: 'string', default: ACTIVE_DEFINITION_ID },
+        'definition-sha256': { type: 'string' },
         signer: { type: 'string' },
         threshold: { type: 'string' },
         comparison: { type: 'string' },

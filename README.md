@@ -54,25 +54,40 @@ resolver's terms, id derivation and settlement engine are implemented in
 pm-AMM IDL, so resolution is an off-chain decision and a signed record today.
 The trade app is not built yet.
 
-Index definition, version `pulse-attention-v4`:
+Index definition, version `pulse-attention-v5`. The full definition, including
+anchors and weights, is embedded in every snapshot beside its SHA-256
+(`definitionSha256`), so a market can pin the exact terms instead of a name.
 
-- Basket of seven entities, each anchored to a fixed Wikipedia article and a
+- Basket of seven entities, each pinned to a fixed Wikipedia article and a
   fixed Hacker News query.
-- Two independent signals, each scored on its own trailing baseline:
-  - `wikipedia-pageviews` (`pulse-level-v1`): daily pageviews, median baseline
-    over the 30 days before the epoch day.
-  - `hacker-news-stories` (`pulse-level-counts-v1`): daily story mentions from
-    the public Algolia API, smoothed mean baseline (prior of 1) over the same
-    window, and no score below 3 stories where a unit is noise.
-- Score: `clamp(50 + 12.5 * log2(value / baseline), 0, 100)` per entity.
-- Signal index: mean of that signal's entity scores. An entity without at least
-  7 baseline days is reported as unscored and excluded, never guessed.
-- Headline index: mean of the signal indices that scored, so each signal is
-  weighted equally rather than by how many entities it happened to score.
+- Every constituent has a frozen anchor: its daily volume over the 180-day base
+  period ending 2026-11-16. A rolling baseline moved with each entity's own slow
+  trend, so the same score meant different things in different months and a
+  market could not say what it was settling on. Anchors do not move inside a
+  definition version; new terms mean a new version and a new id.
+- Two signals with published weights:
+  - `wikipedia-pageviews` (`pulse-level-v1`, weight 0.75): daily pageviews,
+    median anchor over the base period.
+  - `hacker-news-stories` (`pulse-level-counts-v1`, weight 0.25): daily story
+    mentions from the public Algolia API, smoothed mean anchor (prior of 1), and
+    no score below 3 stories where a unit is noise.
+- Score: `clamp(50 + 12.5 * log2(value / anchor), 0, 100)` per entity.
+- Constituent weight, inside each signal: base-period volume share, capped at
+  25 percent and redistributed. Measured 30-day pageview shares are lopsided
+  enough (one entity at 40 percent, another under 1 percent) that an uncapped
+  share would let a single entity set the series.
+- Signal index: weighted mean of that signal's entity scores. An entity with no
+  anchor or no value for the day is reported as unscored and excluded, and the
+  remaining weights are renormalised over what did score, never guessed.
+- Headline index: weighted mean of the signal indices that scored, at their
+  published weights, renormalised over the signals that scored. Pageviews carry
+  0.75 because they are dense and filtered upstream; story counts carry 0.25
+  because they are sparse and skew technical.
 - Momentum: the change in the index against the snapshot 7 days earlier, scored
   as `clamp(50 + delta, 0, 100)`. Missing history publishes `null`, not a guess.
 - Coverage: series scored over series expected, published beside the score as
-  a confidence. A 71 from 2 of 14 series is not the same claim as a 71 from 14.
+  a confidence, plus `weightScored`, the share of headline weight that actually
+  scored. A 71 from 2 of 14 series is not the same claim as a 71 from 14.
 - Snapshot: canonical JSON, SHA-256, signed with Ed25519. The signing key is a
   Solana address, so snapshot signatures can be checked on chain later.
 
@@ -88,6 +103,7 @@ must be frozen before a market is created on it.
 cd index-service
 npm install
 node src/cli.ts build     # compute, sign and publish the previous UTC day
+node src/cli.ts calibrate --base-day 2026-11-16 --days 180   # rebuild the definition
 node src/cli.ts social    # optional display-only social panel
 node src/cli.ts health    # exits 1 unless the latest snapshot is current
 node src/cli.ts export --out .site   # same pages and JSON as plain files
@@ -106,7 +122,8 @@ custody and failure handling are in [`docs/operations.md`](docs/operations.md).
 ```
 cd resolver
 npm install
-node src/cli.ts create  --threshold 55 --comparison above --day 2026-11-20 --signer <base58>
+node src/cli.ts create  --threshold 55 --comparison above --day 2026-11-20 --signer <base58> \
+                        --definition-sha256 <64 hex>   # optional: pin the exact terms
 node src/cli.ts resolve --spec market.json --snapshot ../index-service/snapshots/2026-11-20.json
 ```
 

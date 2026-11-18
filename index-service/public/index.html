@@ -175,7 +175,8 @@
             'Coverage',
             coverage
               ? `${coverage.seriesScored}/${coverage.seriesExpected} series across ` +
-                `${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}`
+                `${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}, ` +
+                `weight scored ${coverage.weightScored}`
               : '--',
           ],
           ['Oldest source', coverage?.oldestSourceAt ?? '--'],
@@ -251,7 +252,8 @@
           : 'momentum not yet available';
         document.getElementById('coverage').textContent =
           `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entity series scored` +
-          `, confidence ${snapshot.coverage?.confidence ?? '--'}, ${momentumText}`;
+          `, confidence ${snapshot.coverage?.confidence ?? '--'}` +
+          `, weight scored ${snapshot.coverage?.weightScored ?? '--'}, ${momentumText}`;
         document.getElementById('content').innerHTML = snapshot.series.map(renderSeries).join('');
         document.getElementById('provenance').innerHTML =
           renderProvenance(snapshot, signed.attestation);

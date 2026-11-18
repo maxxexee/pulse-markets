@@ -5,6 +5,8 @@ export interface PublishedSnapshotView {
   readonly epochDay: string;
   readonly indexScore: number | null;
   readonly confidence: number | null;
+  /** Share of the headline weight the published index actually represents. */
+  readonly weightScored: number | null;
   readonly signer: string;
   readonly payloadSha256: string;
 }
@@ -22,6 +24,7 @@ export interface HealthReport {
   readonly maxAgeDays: number;
   readonly indexScore: number | null;
   readonly confidence: number | null;
+  readonly weightScored: number | null;
   readonly signer: string | null;
   readonly payloadSha256: string | null;
   /** One line a human or a log can read without parsing the rest. */
@@ -40,6 +43,7 @@ type Observed = {
   readonly ageDays: number;
   readonly indexScore: number | null;
   readonly confidence: number | null;
+  readonly weightScored: number | null;
   readonly signer: string;
   readonly payloadSha256: string;
 };
@@ -88,6 +92,7 @@ export function assessHealth(args: {
     ageDays: daysBetween(latest.epochDay, expectedEpochDay),
     indexScore: latest.indexScore,
     confidence: latest.confidence,
+    weightScored: latest.weightScored,
     signer: latest.signer,
     payloadSha256: latest.payloadSha256,
   };
@@ -112,6 +117,7 @@ function missingReport(
     ageDays: null,
     indexScore: null,
     confidence: null,
+    weightScored: null,
     signer: null,
     payloadSha256: null,
     detail: `no published snapshot, expected ${base.expectedEpochDay}`,

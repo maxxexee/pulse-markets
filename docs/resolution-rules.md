@@ -8,7 +8,8 @@ settlement engine in `resolver/` implements exactly this document.
 
 | Field | Meaning |
 | --- | --- |
-| `definitionId` | Index definition the market settles under, e.g. `pulse-attention-v4`. |
+| `definitionId` | Index definition the market settles under, e.g. `pulse-attention-v5`. |
+| `definitionSha256` | Optional. SHA-256 of that definition. When set, the snapshot must have been computed under exactly those anchors and weights. |
 | `signer` | Base58 Ed25519 key whose snapshots are accepted as evidence. A Solana address. |
 | `threshold` | Index points, `0` to `100`, at most two decimals. |
 | `comparison` | `above` or `below`. |
@@ -31,12 +32,15 @@ its terms is rejected.
    forged file is a rejection, not a crash.
 2. `attestation.publicKey` must equal the market's `signer`.
 3. `snapshot.definitionId` must equal the market's `definitionId`.
-4. `snapshot.epochDay` must equal the market's `epochDay`.
-5. `snapshot.index.score` must be present. A snapshot where no series scored
+4. If the market pins `definitionSha256`, `snapshot.definitionSha256` must equal
+   it. The id names the terms and the hash fixes them: without the pin, a reader
+   trusts the publisher to keep meaning the same thing by the same name.
+5. `snapshot.epochDay` must equal the market's `epochDay`.
+6. `snapshot.index.score` must be present. A snapshot where no series scored
    cannot settle anything.
-6. `snapshot.coverage.confidence` must be at least `minConfidence`. A score read
+7. `snapshot.coverage.confidence` must be at least `minConfidence`. A score read
    from a fragment of the basket is published but not settlement grade.
-7. `above` resolves YES when `score > threshold`; `below` resolves YES when
+8. `above` resolves YES when `score > threshold`; `below` resolves YES when
    `score < threshold`.
 
 ## Ties

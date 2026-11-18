@@ -3,6 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
+import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { buildTrends, momentumFor, statusFor, trendsPayload } from '../src/app/trends.ts';
 import { ENTITY_BASKET } from '../src/config/entities.ts';
 import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '../src/domain/snapshot.ts';
@@ -28,7 +29,7 @@ function unscored(entityId: string): EntityScore {
     day: '2026-11-15',
     value: null,
     baselineDays: 3,
-    reason: 'too-few-baseline-days',
+    reason: 'no-anchor',
   };
 }
 
@@ -49,7 +50,9 @@ function snapshot(epochDay: string, seriesList: SignalSeries[]): IndexSnapshot {
     schema: SNAPSHOT_SCHEMA,
     epochDay,
     generatedAt: `${epochDay}T00:00:00.000Z`,
-    definitionId: 'pulse-attention-v4',
+    definitionId: TEST_DEFINITION.id,
+    definition: TEST_DEFINITION,
+    definitionSha256: TEST_DEFINITION_SHA256,
     index: { score: 50, scoredEntities: 1, totalEntities: 1 },
     momentum: null,
     coverage: {
@@ -58,6 +61,7 @@ function snapshot(epochDay: string, seriesList: SignalSeries[]): IndexSnapshot {
       seriesScored: 1,
       seriesExpected: 1,
       confidence: 1,
+      weightScored: 1,
       oldestSourceAt: null,
     },
     series: seriesList,

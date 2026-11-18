@@ -7,6 +7,11 @@ import {
   type SignedSnapshot,
   type Signer,
 } from '../../index-service/src/adapters/attestation.ts';
+import {
+  DEFINITION_SCHEMA,
+  definitionDigest,
+  type IndexDefinition,
+} from '../../index-service/src/domain/index-definition.ts';
 import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../../index-service/src/domain/snapshot.ts';
 import { createMarketSpec, type MarketSpec } from '../src/domain/market.ts';
 import { decide, resolveMarket } from '../src/domain/resolution.ts';
@@ -14,6 +19,15 @@ import { decide, resolveMarket } from '../src/domain/resolution.ts';
 const DAY = '2026-11-20';
 const DEFINITION = 'pulse-attention-v4';
 const NOW = new Date('2026-11-20T12:00:00.000Z');
+const DEFINITION_BODY: IndexDefinition = {
+  schema: DEFINITION_SCHEMA,
+  id: DEFINITION,
+  baseDay: '2026-11-16',
+  calibrationDays: 180,
+  constituentWeightCap: 0.25,
+  signals: [],
+};
+const DEFINITION_HASH = definitionDigest(DEFINITION_BODY);
 
 function newSigner(): Signer {
   const { privateKey } = generateKeyPairSync('ed25519');
@@ -25,6 +39,7 @@ interface SnapshotOptions {
   readonly confidence?: number;
   readonly definitionId?: string;
   readonly epochDay?: string;
+  readonly definitionSha256?: string;
 }
 
 function snapshotFor(options: SnapshotOptions = {}): IndexSnapshot {
@@ -33,6 +48,8 @@ function snapshotFor(options: SnapshotOptions = {}): IndexSnapshot {
     epochDay: options.epochDay ?? DAY,
     generatedAt: '2026-11-20T00:10:00.000Z',
     definitionId: options.definitionId ?? DEFINITION,
+    definition: DEFINITION_BODY,
+    definitionSha256: options.definitionSha256 ?? DEFINITION_HASH,
     index: {
       score: options.score === undefined ? 61.5 : options.score,
       scoredEntities: 12,
@@ -45,6 +62,7 @@ function snapshotFor(options: SnapshotOptions = {}): IndexSnapshot {
       seriesScored: 12,
       seriesExpected: 14,
       confidence: options.confidence ?? 0.8571,
+      weightScored: options.confidence ?? 0.8571,
       oldestSourceAt: '2026-11-20T00:02:00.000Z',
     },
     series: [],
@@ -80,6 +98,28 @@ function failure(result: ReturnType<typeof resolveMarket>) {
   }
   return result.error.kind;
 }
+
+test('a pinned definition hash settles only the snapshot computed under it', () => {
+  const signer = newSigner();
+  const spec = specFor(signer, { definitionSha256: DEFINITION_HASH });
+  const settlementOk = settlement(
+    resolveMarket(spec, signSnapshot(snapshotFor(), signer), NOW),
+  );
+  assert.equal(settlementOk.outcome, 'yes');
+
+  const other = specFor(signer, { definitionSha256: 'a'.repeat(64) });
+  assert.equal(
+    failure(resolveMarket(other, signSnapshot(snapshotFor(), signer), NOW)),
+    'wrong-definition',
+  );
+});
+
+test('a market with no pinned hash settles on the definition id alone', () => {
+  const signer = newSigner();
+  const spec = specFor(signer);
+  assert.equal(spec.definitionSha256, undefined);
+  settlement(resolveMarket(spec, signSnapshot(snapshotFor(), signer), NOW));
+});
 
 test('above resolves yes above the threshold and no at or below it', () => {
   const signer = newSigner();

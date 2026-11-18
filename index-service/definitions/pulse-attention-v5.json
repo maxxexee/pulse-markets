@@ -1,0 +1,115 @@
+{
+  "schema": "pulse.index.definition/1",
+  "id": "pulse-attention-v5",
+  "baseDay": "2026-11-16",
+  "calibrationDays": 180,
+  "constituentWeightCap": 0.25,
+  "signals": [
+    {
+      "id": "wikipedia-pageviews",
+      "label": "Wikipedia pageviews",
+      "unit": "views",
+      "weight": 0.75,
+      "scoring": {
+        "name": "pulse-level-v1",
+        "baselineWindowDays": 180,
+        "minBaselineDays": 7,
+        "midpoint": 50,
+        "pointsPerDoubling": 12.5,
+        "baselineMethod": "median",
+        "baselinePrior": 0,
+        "minTargetValue": 0
+      },
+      "constituents": [
+        {
+          "entityId": "jensen-huang",
+          "anchor": 5601,
+          "weight": 0.122617
+        },
+        {
+          "entityId": "nvidia",
+          "anchor": 4997,
+          "weight": 0.109395
+        },
+        {
+          "entityId": "openai",
+          "anchor": 6885.5,
+          "weight": 0.150738
+        },
+        {
+          "entityId": "sam-altman",
+          "anchor": 9053,
+          "weight": 0.198189
+        },
+        {
+          "entityId": "anthropic",
+          "anchor": 7466,
+          "weight": 0.163446
+        },
+        {
+          "entityId": "elon-musk",
+          "anchor": 20163.5,
+          "weight": 0.25
+        },
+        {
+          "entityId": "solana",
+          "anchor": 256.5,
+          "weight": 0.005615
+        }
+      ]
+    },
+    {
+      "id": "hacker-news-stories",
+      "label": "Hacker News stories",
+      "unit": "stories",
+      "weight": 0.25,
+      "scoring": {
+        "name": "pulse-level-counts-v1",
+        "baselineWindowDays": 180,
+        "minBaselineDays": 7,
+        "midpoint": 50,
+        "pointsPerDoubling": 12.5,
+        "baselineMethod": "smoothed-mean",
+        "baselinePrior": 1,
+        "minTargetValue": 3
+      },
+      "constituents": [
+        {
+          "entityId": "jensen-huang",
+          "anchor": 1.3425,
+          "weight": 0.068565
+        },
+        {
+          "entityId": "nvidia",
+          "anchor": 6.8398,
+          "weight": 0.249999
+        },
+        {
+          "entityId": "openai",
+          "anchor": 19.5083,
+          "weight": 0.25
+        },
+        {
+          "entityId": "sam-altman",
+          "anchor": 0.9006,
+          "weight": 0.045996
+        },
+        {
+          "entityId": "anthropic",
+          "anchor": 13.6851,
+          "weight": 0.25
+        },
+        {
+          "entityId": "elon-musk",
+          "anchor": 2.3978,
+          "weight": 0.122462
+        },
+        {
+          "entityId": "solana",
+          "anchor": 0.2541,
+          "weight": 0.012978
+        }
+      ]
+    }
+  ]
+}

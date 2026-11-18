@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { buildSnapshot } from '../src/app/build-snapshot.ts';
 import type { EntityDefinition } from '../src/config/entities.ts';
-import { INDEX_DEFINITION_ID } from '../src/config/index-definition.ts';
+import {
+  DEFINITION_SCHEMA,
+  definitionDigest,
+  type IndexDefinition,
+} from '../src/domain/index-definition.ts';
 import type { SeriesFetch, SignalDefinition } from '../src/config/signals.ts';
 import { addDays } from '../src/domain/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from '../src/domain/momentum.ts';
@@ -29,6 +33,43 @@ const TARGET = '2026-11-15';
 const NOW = new Date('2026-11-16T00:10:00.000Z');
 const SOURCE_HASH = 'a'.repeat(64);
 
+/** Definition with a frozen anchor of 100 and equal weights, so scores stay readable. */
+function makeDefinition(
+  signals: ReadonlyArray<{ id: string; weight: number }>,
+): IndexDefinition {
+  return {
+    schema: DEFINITION_SCHEMA,
+    id: 'pulse-test-v1',
+    baseDay: addDays(TARGET, -1),
+    calibrationDays: 30,
+    constituentWeightCap: 1,
+    signals: signals.map((signal) => ({
+      id: signal.id,
+      label: signal.id,
+      unit: 'units',
+      weight: signal.weight,
+      scoring: PULSE_SCORING_V1,
+      constituents: [
+        { entityId: 'nvidia', anchor: 100, weight: 0.5 },
+        { entityId: 'openai', anchor: 100, weight: 0.5 },
+      ],
+    })),
+  };
+}
+
+const DEFINITION = makeDefinition([
+  { id: 'wikipedia-pageviews', weight: 0.5 },
+  { id: 'hacker-news-stories', weight: 0.5 },
+]);
+/** Only pageviews, for tests that pass a single signal. */
+const PAGEVIEWS_ONLY = makeDefinition([{ id: 'wikipedia-pageviews', weight: 1 }]);
+/** Two working signals plus one that returns nothing. */
+const WITH_SILENT = makeDefinition([
+  { id: 'wikipedia-pageviews', weight: 0.4 },
+  { id: 'hacker-news-stories', weight: 0.4 },
+  { id: 'silent', weight: 0.2 },
+]);
+
 /** Deterministic stand-in for the network, returning a flat history plus a spike. */
 function fakeSignal(id: string, spike: number) {
   const calls: Array<{ entityId: string; startDay: string; endDay: string }> = [];
@@ -39,10 +80,9 @@ function fakeSignal(id: string, spike: number) {
   ): Promise<SeriesFetch> => {
     calls.push({ entityId: entity.id, startDay, endDay });
     const observations: DailyObservation[] = [];
-    for (let offset = 30; offset >= 1; offset -= 1) {
-      observations.push({ day: addDays(TARGET, -offset), value: 100 });
+    for (let day = startDay; day <= endDay; day = addDays(day, 1)) {
+      observations.push({ day, value: day === TARGET ? spike : 100 });
     }
-    observations.push({ day: TARGET, value: spike });
     return {
       urls: [`https://example.test/${id}/${entity.id}`],
       retrievedAt: NOW.toISOString(),
@@ -54,6 +94,7 @@ function fakeSignal(id: string, spike: number) {
     id,
     label: id,
     unit: 'units',
+    weight: 0.5,
     scoring: PULSE_SCORING_V1,
     fetchSeries,
   };
@@ -69,7 +110,7 @@ function twoSignals(spike: number) {
 describe('buildSnapshot', () => {
   it('scores every entity in every signal and combines the index', async () => {
     const { signals } = twoSignals(200);
-    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    const snapshot = await buildSnapshot({ entities: ENTITIES, definition: DEFINITION, targetDay: TARGET, signals, now: NOW });
     assert.equal(snapshot.index.score, 62.5);
     assert.equal(snapshot.series.length, 2);
     for (const series of snapshot.series) {
@@ -80,20 +121,20 @@ describe('buildSnapshot', () => {
     assert.equal(snapshot.generatedAt, NOW.toISOString());
   });
 
-  it('requests a range covering the full baseline window and the target day', async () => {
+  it('requests only the target day, since the anchor is already published', async () => {
     const { pageviews, mentions, signals } = twoSignals(100);
-    await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    await buildSnapshot({ entities: ENTITIES, definition: DEFINITION, targetDay: TARGET, signals, now: NOW });
     assert.equal(pageviews.calls.length, 2);
     assert.equal(mentions.calls.length, 2);
     for (const call of [...pageviews.calls, ...mentions.calls]) {
       assert.equal(call.endDay, TARGET);
-      assert.equal(call.startDay, addDays(TARGET, -30));
+      assert.equal(call.startDay, TARGET);
     }
   });
 
   it('records provenance for every entity in every signal', async () => {
     const { signals } = twoSignals(100);
-    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    const snapshot = await buildSnapshot({ entities: ENTITIES, definition: DEFINITION, targetDay: TARGET, signals, now: NOW });
     assert.equal(snapshot.sources.length, 4);
     const record = snapshot.sources[0];
     assert.ok(record);
@@ -101,9 +142,9 @@ describe('buildSnapshot', () => {
     assert.equal(record.signal, 'wikipedia-pageviews');
     assert.deepEqual(record.urls, ['https://example.test/wikipedia-pageviews/nvidia']);
     assert.equal(record.payloadSha256, SOURCE_HASH);
-    assert.equal(record.firstDay, addDays(TARGET, -30));
+    assert.equal(record.firstDay, TARGET);
     assert.equal(record.lastDay, TARGET);
-    assert.equal(record.observations, 31);
+    assert.equal(record.observations, 1);
   });
 
   it('keeps an unscored entity in the snapshot instead of dropping it', async () => {
@@ -117,12 +158,16 @@ describe('buildSnapshot', () => {
           if (entity.id !== 'openai') {
             return fetched;
           }
-          return { ...fetched, observations: fetched.observations.slice(0, 2) };
+          return {
+            ...fetched,
+            observations: fetched.observations.filter((entry) => entry.day !== TARGET),
+          };
         },
       },
     ];
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: PAGEVIEWS_ONLY,
       targetDay: TARGET,
       signals: signalsWithGap,
       now: NOW,
@@ -147,6 +192,7 @@ describe('buildSnapshot', () => {
     }));
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: DEFINITION,
       targetDay: TARGET,
       signals: outOfOrder,
       now: NOW,
@@ -185,6 +231,7 @@ describe('buildSnapshot', () => {
     };
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: WITH_SILENT,
       targetDay: TARGET,
       signals: [...signals, silent],
       now: NOW,
@@ -196,8 +243,10 @@ describe('buildSnapshot', () => {
 
   it('names the published definition and reports coverage beside the score', async () => {
     const { signals } = twoSignals(200);
-    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
-    assert.equal(snapshot.definitionId, INDEX_DEFINITION_ID);
+    const snapshot = await buildSnapshot({ entities: ENTITIES, definition: DEFINITION, targetDay: TARGET, signals, now: NOW });
+    assert.equal(snapshot.definitionId, DEFINITION.id);
+    assert.deepEqual(snapshot.definition, DEFINITION);
+    assert.equal(snapshot.definitionSha256, definitionDigest(DEFINITION));
     assert.equal(snapshot.schema, SNAPSHOT_SCHEMA);
     assert.deepEqual(
       {
@@ -220,12 +269,16 @@ describe('buildSnapshot', () => {
       fetchSeries: async (entity, startDay, endDay) => {
         const fetched = await fetchSeries(entity, startDay, endDay);
         return entity.id === 'openai'
-          ? { ...fetched, observations: fetched.observations.slice(0, 2) }
+          ? {
+              ...fetched,
+              observations: fetched.observations.filter((entry) => entry.day !== TARGET),
+            }
           : fetched;
       },
     };
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: PAGEVIEWS_ONLY,
       targetDay: TARGET,
       signals: [oneScored],
       now: NOW,
@@ -237,7 +290,7 @@ describe('buildSnapshot', () => {
 
   it('publishes null momentum when no reference snapshot was published', async () => {
     const { signals } = twoSignals(200);
-    const snapshot = await buildSnapshot({ entities: ENTITIES, targetDay: TARGET, signals, now: NOW });
+    const snapshot = await buildSnapshot({ entities: ENTITIES, definition: DEFINITION, targetDay: TARGET, signals, now: NOW });
     assert.equal(snapshot.momentum, null);
     for (const series of snapshot.series) {
       assert.equal(series.momentum, null);
@@ -253,6 +306,7 @@ describe('buildSnapshot', () => {
     });
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: DEFINITION,
       targetDay: TARGET,
       signals,
       now: NOW,
@@ -273,6 +327,7 @@ describe('buildSnapshot', () => {
     const reference = priorSnapshot(addDays(TARGET, -6), 10, {});
     const snapshot = await buildSnapshot({
       entities: ENTITIES,
+      definition: DEFINITION,
       targetDay: TARGET,
       signals,
       now: NOW,
@@ -292,7 +347,9 @@ function priorSnapshot(
     schema: SNAPSHOT_SCHEMA,
     epochDay,
     generatedAt: `${epochDay}T00:10:00.000Z`,
-    definitionId: INDEX_DEFINITION_ID,
+    definitionId: DEFINITION.id,
+    definition: DEFINITION,
+    definitionSha256: definitionDigest(DEFINITION),
     index: { score: indexScore, scoredEntities: 2, totalEntities: 2 },
     momentum: null,
     coverage: {
@@ -301,6 +358,7 @@ function priorSnapshot(
       seriesScored: 0,
       seriesExpected: 0,
       confidence: 0,
+      weightScored: 0,
       oldestSourceAt: null,
     },
     series: Object.entries(seriesScores).map(([id, score]) => ({

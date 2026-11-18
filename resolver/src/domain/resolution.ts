@@ -92,6 +92,13 @@ function readEvidence(spec: MarketSpec, signed: SignedSnapshot): Evidence {
       `snapshot is ${signed.snapshot.definitionId}, market settles on ${spec.definitionId}`,
     );
   }
+  const pinnedHash = spec.definitionSha256;
+  if (pinnedHash !== undefined && signed.snapshot.definitionSha256 !== pinnedHash) {
+    return evidenceError(
+      'wrong-definition',
+      `snapshot definition hash is ${signed.snapshot.definitionSha256}, market pins ${pinnedHash}`,
+    );
+  }
   if (signed.snapshot.epochDay !== spec.epochDay) {
     return evidenceError(
       'wrong-epoch',

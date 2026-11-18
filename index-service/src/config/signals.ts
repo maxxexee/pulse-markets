@@ -27,6 +27,16 @@ export interface SignalDefinition {
   readonly label: string;
   /** Unit of the raw counts, for display. */
   readonly unit: string;
+  /**
+   * Policy weight of this signal inside the headline index, 0 to 1, summing to 1
+   * across the published signals.
+   *
+   * Pageviews carry most of the weight because they are dense, arrive for every
+   * entity every day, and are filtered for automated traffic upstream. Story
+   * counts are sparse, gated at a handful of items, and skewed to one audience,
+   * so they inform the index rather than set its level.
+   */
+  readonly weight: number;
   readonly scoring: ScoringConfig;
   fetchSeries(
     entity: EntityDefinition,
@@ -46,6 +56,7 @@ export const SIGNALS: readonly SignalDefinition[] = [
     id: 'wikipedia-pageviews',
     label: 'Wikipedia pageviews',
     unit: 'views',
+    weight: 0.75,
     scoring: PULSE_SCORING_V1,
     fetchSeries: (entity, startDay, endDay) =>
       fetchPageviews(entity.wikipediaArticle, startDay, endDay),
@@ -54,6 +65,7 @@ export const SIGNALS: readonly SignalDefinition[] = [
     id: 'hacker-news-stories',
     label: 'Hacker News stories',
     unit: 'stories',
+    weight: 0.25,
     scoring: PULSE_SCORING_COUNTS_V1,
     fetchSeries: (entity, startDay, endDay) =>
       fetchMentions(entity.hackerNewsQuery, startDay, endDay),

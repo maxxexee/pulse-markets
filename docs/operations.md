@@ -35,6 +35,29 @@ laptop asleep for two nights heals itself rather than leaving a hole in the
 momentum reference. A published day is skipped unless `--force` is passed, so a
 rerun can never replace a signed epoch.
 
+## The index definition
+
+`index-service/definitions/<id>.json` holds the published terms: the base day,
+the calibration window, the weight cap, and each constituent's frozen anchor and
+weight. `build` refuses to run without it, and every snapshot embeds the whole
+object plus its SHA-256, so a reader can recompute a level from the file alone.
+
+Do not edit it by hand. Regenerate it from source data:
+
+```
+cd index-service
+node src/cli.ts calibrate --base-day 2026-11-16 --days 180
+```
+
+Calibration fetches the whole base period, which is why it walks it in 60-day
+chunks: the Hacker News adapter refuses ranges over 62 days. Then publish the
+base day once with `build --day 2026-11-16 --force`.
+
+The published id is part of the contract. Changing the base day, the window, the
+cap, an anchor or a weight defines a different index, so it needs a new id and a
+new definition file; markets pin the digest, and a snapshot from old terms will
+not settle a market that pins the new ones.
+
 ## Publishing the site
 
 Live at <https://maxxexee.github.io/pulse-markets/> and

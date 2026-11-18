@@ -4,6 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
+import { calibrate } from './app/calibrate.ts';
 import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
 import { startServer } from './app/server.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
@@ -11,7 +12,9 @@ import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
 import { trendsPayload } from './app/trends.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
+import { ACTIVE_DEFINITION_ID, CALIBRATION_DAYS } from './config/index-definition.ts';
 import { socialQuery } from './config/social.ts';
+import type { IndexDefinition } from './domain/index-definition.ts';
 import { MIN_PUBLISH_CONFIDENCE } from './domain/coverage.ts';
 import { addDays, isValidDay, toDay } from './domain/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from './domain/momentum.ts';
@@ -20,6 +23,7 @@ import type { IndexSnapshot } from './domain/snapshot.ts';
 
 const SERVICE_ROOT = resolve(import.meta.dirname, '..');
 const SNAPSHOTS_DIR = join(SERVICE_ROOT, 'snapshots');
+const DEFINITIONS_DIR = join(SERVICE_ROOT, 'definitions');
 const KEY_PATH = join(SERVICE_ROOT, '.keys', 'index-signer.pem');
 const PUBLIC_DIR = join(SERVICE_ROOT, 'public');
 const MARKETS_DIR = join(SERVICE_ROOT, '..', 'markets');
@@ -27,8 +31,11 @@ const APP_DIR = join(SERVICE_ROOT, '..', 'app');
 
 const USAGE = `pulse index-service
 
-  build [--day YYYY-MM-DD] [--catch-up N] [--force]
+  build [--day YYYY-MM-DD] [--catch-up N] [--force] [--definition ID]
                              compute, sign and publish an epoch snapshot
+  calibrate [--id ID] [--base-day YYYY-MM-DD] [--days N]
+                             derive anchors and weights from base-period data and
+                             write the published definition to definitions/
   discover [--day YYYY-MM-DD]
                              regenerate the trending topics beside the index
   export --out DIR          write the site and its JSON as plain files
@@ -72,7 +79,28 @@ async function loadReference(day: string): Promise<IndexSnapshot | null> {
   }
 }
 
-async function build(day: string, force: boolean): Promise<void> {
+/**
+ * Reads a published definition from disk.
+ *
+ * Builds refuse to run without one: falling back to defaults would publish a
+ * level under terms nobody can reproduce.
+ */
+async function loadDefinition(id: string): Promise<IndexDefinition> {
+  const path = join(DEFINITIONS_DIR, `${id}.json`);
+  let text: string;
+  try {
+    text = await readFile(path, 'utf8');
+  } catch {
+    throw new Error(`no published definition at ${path}; run calibrate first`);
+  }
+  const definition = JSON.parse(text) as IndexDefinition;
+  if (definition.id !== id) {
+    throw new Error(`${path} defines ${definition.id}, expected ${id}`);
+  }
+  return definition;
+}
+
+async function build(day: string, force: boolean, definitionId: string): Promise<void> {
   if (!isValidDay(day)) {
     throw new Error(`invalid --day: ${day}`);
   }
@@ -85,8 +113,10 @@ async function build(day: string, force: boolean): Promise<void> {
 
   const newestPublished = (await publishedDays()).at(-1) ?? null;
   const reference = await loadReference(addDays(day, -MOMENTUM_WINDOW_DAYS));
+  const definition = await loadDefinition(definitionId);
   const snapshot = await buildSnapshot({
     entities: ENTITY_BASKET,
+    definition,
     targetDay: day,
     now: new Date(),
     history: reference === null ? [] : [reference],
@@ -122,7 +152,8 @@ async function build(day: string, force: boolean): Promise<void> {
   );
   console.log(
     `coverage ${coverage.seriesScored}/${coverage.seriesExpected} series` +
-      `, ${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}`,
+      `, ${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}` +
+      `, weight scored ${coverage.weightScored}`,
   );
   for (const series of snapshot.series) {
     const seriesMomentum = series.momentum === null ? '' : `  momentum ${series.momentum.score}`;
@@ -138,6 +169,7 @@ async function build(day: string, force: boolean): Promise<void> {
       }
     }
   }
+  console.log(`definition ${snapshot.definitionId} sha256 ${snapshot.definitionSha256}`);
   console.log(`signer ${signed.attestation.publicKey}`);
   console.log(`payload sha256 ${signed.attestation.payloadSha256}`);
 }
@@ -308,11 +340,45 @@ async function serve(port: number, maxAgeDays: number): Promise<void> {
   });
 }
 
+/**
+ * Publishes the requested day, or the trailing window when `--catch-up` is set,
+ * then refreshes discovery for the newest day it published.
+ */
+async function runBuild(values: Record<string, string | boolean | undefined>): Promise<void> {
+  const targetDay = typeof values.day === 'string' ? values.day : addDays(toDay(new Date()), -1);
+  const force = values.force === true;
+  const catchUp = values['catch-up'] === undefined ? 0 : Number(values['catch-up']);
+  const days =
+    catchUp === 0
+      ? [targetDay]
+      : missingEpochDays({ publishedDays: await publishedDays(), targetDay, limit: catchUp });
+  if (days.length === 0) {
+    console.log(`nothing to build: every day up to ${targetDay} is published`);
+    return;
+  }
+  if (days.length > 1) {
+    console.log(`catch-up: publishing ${days.length} days, ${days[0]} to ${days.at(-1)}`);
+  }
+  const definitionId =
+    typeof values.definition === 'string' ? values.definition : ACTIVE_DEFINITION_ID;
+  for (const day of days) {
+    await build(day, force, definitionId);
+  }
+  const newest = days.at(-1);
+  if (newest !== undefined) {
+    await discover(newest);
+  }
+}
+
 async function main(): Promise<void> {
   const { positionals, values } = parseArgs({
     allowPositionals: true,
     options: {
       day: { type: 'string' },
+      'base-day': { type: 'string' },
+      definition: { type: 'string' },
+      id: { type: 'string' },
+      days: { type: 'string' },
       port: { type: 'string' },
       'catch-up': { type: 'string' },
       'max-age-days': { type: 'string' },
@@ -328,27 +394,17 @@ async function main(): Promise<void> {
     return;
   }
   if (command === 'build') {
-    const targetDay = values.day ?? addDays(toDay(new Date()), -1);
-    const force = values.force === true;
-    const catchUp = values['catch-up'] === undefined ? 0 : Number(values['catch-up']);
-    const days =
-      catchUp === 0
-        ? [targetDay]
-        : missingEpochDays({ publishedDays: await publishedDays(), targetDay, limit: catchUp });
-    if (days.length === 0) {
-      console.log(`nothing to build: every day up to ${targetDay} is published`);
-      return;
+    await runBuild(values);
+    return;
+  }
+  if (command === 'calibrate') {
+    const id = values.id ?? ACTIVE_DEFINITION_ID;
+    const baseDay = values['base-day'] ?? addDays(toDay(new Date()), -1);
+    const days = values.days === undefined ? CALIBRATION_DAYS : Number(values.days);
+    if (!Number.isInteger(days) || days < 1) {
+      throw new Error(`invalid --days: ${values.days}`);
     }
-    if (days.length > 1) {
-      console.log(`catch-up: publishing ${days.length} days, ${days[0]} to ${days.at(-1)}`);
-    }
-    for (const day of days) {
-      await build(day, force);
-    }
-    const newest = days.at(-1);
-    if (newest !== undefined) {
-      await discover(newest);
-    }
+    await calibrate(id, baseDay, days);
     return;
   }
   if (command === 'discover') {
@@ -380,7 +436,6 @@ async function main(): Promise<void> {
     return;
   }
   throw new Error(`unknown command: ${command}\n\n${USAGE}`);
-
 }
 
 main().catch((error: unknown) => {

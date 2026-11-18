@@ -1,19 +1,135 @@
 {
   "snapshot": {
-    "schema": "pulse.index.snapshot/3",
-    "epochDay": "2026-11-15",
-    "generatedAt": "2026-11-16T23:21:14.544Z",
-    "definitionId": "pulse-attention-v4",
+    "schema": "pulse.index.snapshot/4",
+    "epochDay": "2026-11-16",
+    "generatedAt": "2026-11-18T12:06:29.700Z",
+    "definitionId": "pulse-attention-v5",
+    "definition": {
+      "schema": "pulse.index.definition/1",
+      "id": "pulse-attention-v5",
+      "baseDay": "2026-11-16",
+      "calibrationDays": 180,
+      "constituentWeightCap": 0.25,
+      "signals": [
+        {
+          "id": "wikipedia-pageviews",
+          "label": "Wikipedia pageviews",
+          "unit": "views",
+          "weight": 0.75,
+          "scoring": {
+            "name": "pulse-level-v1",
+            "baselineWindowDays": 180,
+            "minBaselineDays": 7,
+            "midpoint": 50,
+            "pointsPerDoubling": 12.5,
+            "baselineMethod": "median",
+            "baselinePrior": 0,
+            "minTargetValue": 0
+          },
+          "constituents": [
+            {
+              "entityId": "jensen-huang",
+              "anchor": 5601,
+              "weight": 0.122617
+            },
+            {
+              "entityId": "nvidia",
+              "anchor": 4997,
+              "weight": 0.109395
+            },
+            {
+              "entityId": "openai",
+              "anchor": 6885.5,
+              "weight": 0.150738
+            },
+            {
+              "entityId": "sam-altman",
+              "anchor": 9053,
+              "weight": 0.198189
+            },
+            {
+              "entityId": "anthropic",
+              "anchor": 7466,
+              "weight": 0.163446
+            },
+            {
+              "entityId": "elon-musk",
+              "anchor": 20163.5,
+              "weight": 0.25
+            },
+            {
+              "entityId": "solana",
+              "anchor": 256.5,
+              "weight": 0.005615
+            }
+          ]
+        },
+        {
+          "id": "hacker-news-stories",
+          "label": "Hacker News stories",
+          "unit": "stories",
+          "weight": 0.25,
+          "scoring": {
+            "name": "pulse-level-counts-v1",
+            "baselineWindowDays": 180,
+            "minBaselineDays": 7,
+            "midpoint": 50,
+            "pointsPerDoubling": 12.5,
+            "baselineMethod": "smoothed-mean",
+            "baselinePrior": 1,
+            "minTargetValue": 3
+          },
+          "constituents": [
+            {
+              "entityId": "jensen-huang",
+              "anchor": 1.3425,
+              "weight": 0.068565
+            },
+            {
+              "entityId": "nvidia",
+              "anchor": 6.8398,
+              "weight": 0.249999
+            },
+            {
+              "entityId": "openai",
+              "anchor": 19.5083,
+              "weight": 0.25
+            },
+            {
+              "entityId": "sam-altman",
+              "anchor": 0.9006,
+              "weight": 0.045996
+            },
+            {
+              "entityId": "anthropic",
+              "anchor": 13.6851,
+              "weight": 0.25
+            },
+            {
+              "entityId": "elon-musk",
+              "anchor": 2.3978,
+              "weight": 0.122462
+            },
+            {
+              "entityId": "solana",
+              "anchor": 0.2541,
+              "weight": 0.012978
+            }
+          ]
+        }
+      ]
+    },
+    "definitionSha256": "dc5f963764abaae60db02ed20d48bcd6c3a1cda3f2303ffd9566ba5ddc16074c",
     "index": {
-      "score": 58.11,
+      "score": 66.01,
       "scoredEntities": 12,
       "totalEntities": 14
     },
     "momentum": {
       "windowDays": 7,
-      "referenceDay": "2026-11-08",
-      "delta": -2.09,
-      "score": 47.91
+      "referenceDay": "2026-11-09",
+      "delta": 1.46,
+      "score": 51.46
     },
     "coverage": {
       "signalsScored": 2,
@@ -21,7 +137,8 @@
       "seriesScored": 12,
       "seriesExpected": 14,
       "confidence": 0.8571,
-      "oldestSourceAt": "2026-11-16T23:21:15.023Z"
+      "weightScored": 1,
+      "oldestSourceAt": "2026-11-18T12:06:30.195Z"
     },
     "series": [
       {
@@ -30,7 +147,7 @@
         "unit": "views",
         "scoring": {
           "name": "pulse-level-v1",
-          "baselineWindowDays": 30,
+          "baselineWindowDays": 180,
           "minBaselineDays": 7,
           "midpoint": 50,
           "pointsPerDoubling": 12.5,
@@ -39,86 +156,86 @@
           "minTargetValue": 0
         },
         "index": {
-          "score": 66.5,
+          "score": 66.94,
           "scoredEntities": 7,
           "totalEntities": 7
         },
         "momentum": {
           "windowDays": 7,
-          "referenceDay": "2026-11-08",
-          "delta": 9.44,
-          "score": 59.44
+          "referenceDay": "2026-11-09",
+          "delta": 1.66,
+          "score": 51.66
         },
         "entities": [
           {
             "status": "scored",
             "entityId": "jensen-huang",
-            "day": "2026-11-15",
-            "value": 194070,
-            "baseline": 7901.5,
-            "baselineDays": 30,
-            "level": 24.56,
+            "day": "2026-11-16",
+            "value": 162987,
+            "baseline": 5601,
+            "baselineDays": 180,
+            "level": 29.1,
             "score": 100
           },
           {
             "status": "scored",
             "entityId": "nvidia",
-            "day": "2026-11-15",
-            "value": 65277,
-            "baseline": 5635.5,
-            "baselineDays": 30,
-            "level": 11.58,
-            "score": 94.17
+            "day": "2026-11-16",
+            "value": 57058,
+            "baseline": 4997,
+            "baselineDays": 180,
+            "level": 11.42,
+            "score": 93.92
           },
           {
             "status": "scored",
             "entityId": "openai",
-            "day": "2026-11-15",
-            "value": 7271,
-            "baseline": 7614,
-            "baselineDays": 30,
-            "level": 0.95,
-            "score": 49.17
+            "day": "2026-11-16",
+            "value": 7922,
+            "baseline": 6885.5,
+            "baselineDays": 180,
+            "level": 1.15,
+            "score": 52.53
           },
           {
             "status": "scored",
             "entityId": "sam-altman",
-            "day": "2026-11-15",
-            "value": 22978,
-            "baseline": 12045,
-            "baselineDays": 30,
-            "level": 1.91,
-            "score": 61.65
+            "day": "2026-11-16",
+            "value": 20077,
+            "baseline": 9053,
+            "baselineDays": 180,
+            "level": 2.22,
+            "score": 64.36
           },
           {
             "status": "scored",
             "entityId": "anthropic",
-            "day": "2026-11-15",
-            "value": 10312,
-            "baseline": 7809,
-            "baselineDays": 30,
-            "level": 1.32,
-            "score": 55.01
+            "day": "2026-11-16",
+            "value": 13018,
+            "baseline": 7466,
+            "baselineDays": 180,
+            "level": 1.74,
+            "score": 60.03
           },
           {
             "status": "scored",
             "entityId": "elon-musk",
-            "day": "2026-11-15",
-            "value": 28933,
-            "baseline": 26545.5,
-            "baselineDays": 30,
-            "level": 1.09,
-            "score": 51.55
+            "day": "2026-11-16",
+            "value": 25860,
+            "baseline": 20163.5,
+            "baselineDays": 180,
+            "level": 1.28,
+            "score": 54.49
           },
           {
             "status": "scored",
             "entityId": "solana",
-            "day": "2026-11-15",
-            "value": 327,
-            "baseline": 263,
-            "baselineDays": 30,
-            "level": 1.24,
-            "score": 53.93
+            "day": "2026-11-16",
+            "value": 312,
+            "baseline": 256.5,
+            "baselineDays": 180,
+            "level": 1.22,
+            "score": 53.53
           }
         ]
       },
@@ -128,7 +245,7 @@
         "unit": "stories",
         "scoring": {
           "name": "pulse-level-counts-v1",
-          "baselineWindowDays": 30,
+          "baselineWindowDays": 180,
           "minBaselineDays": 7,
           "midpoint": 50,
           "pointsPerDoubling": 12.5,
@@ -137,81 +254,81 @@
           "minTargetValue": 3
         },
         "index": {
-          "score": 49.72,
+          "score": 63.22,
           "scoredEntities": 5,
           "totalEntities": 7
         },
         "momentum": {
           "windowDays": 7,
-          "referenceDay": "2026-11-08",
-          "delta": -13.62,
-          "score": 36.38
+          "referenceDay": "2026-11-09",
+          "delta": -0.6,
+          "score": 49.4
         },
         "entities": [
           {
             "status": "scored",
             "entityId": "jensen-huang",
-            "day": "2026-11-15",
-            "value": 19,
-            "baseline": 4.52,
-            "baselineDays": 30,
-            "level": 4.21,
-            "score": 75.91
+            "day": "2026-11-16",
+            "value": 21,
+            "baseline": 1.34,
+            "baselineDays": 180,
+            "level": 15.64,
+            "score": 99.59
           },
           {
             "status": "scored",
             "entityId": "nvidia",
-            "day": "2026-11-15",
-            "value": 18,
-            "baseline": 11.48,
-            "baselineDays": 30,
-            "level": 1.57,
-            "score": 58.1
+            "day": "2026-11-16",
+            "value": 39,
+            "baseline": 6.84,
+            "baselineDays": 180,
+            "level": 5.7,
+            "score": 81.39
           },
           {
             "status": "scored",
             "entityId": "openai",
-            "day": "2026-11-15",
-            "value": 6,
-            "baseline": 16.16,
-            "baselineDays": 30,
-            "level": 0.37,
-            "score": 32.13
+            "day": "2026-11-16",
+            "value": 24,
+            "baseline": 19.51,
+            "baselineDays": 180,
+            "level": 1.23,
+            "score": 53.74
           },
           {
             "status": "insufficient-data",
             "entityId": "sam-altman",
-            "day": "2026-11-15",
-            "value": 1,
-            "baselineDays": 30,
+            "day": "2026-11-16",
+            "value": 0,
+            "baselineDays": 180,
             "reason": "below-minimum-volume"
           },
           {
             "status": "scored",
             "entityId": "anthropic",
-            "day": "2026-11-15",
-            "value": 7,
-            "baseline": 16.39,
-            "baselineDays": 30,
-            "level": 0.43,
-            "score": 34.66
+            "day": "2026-11-16",
+            "value": 13,
+            "baseline": 13.69,
+            "baselineDays": 180,
+            "level": 0.95,
+            "score": 49.07
           },
           {
             "status": "scored",
             "entityId": "elon-musk",
-            "day": "2026-11-15",
+            "day": "2026-11-16",
             "value": 3,
-            "baseline": 3.39,
-            "baselineDays": 30,
-            "level": 0.89,
-            "score": 47.81
+            "baseline": 2.4,
+            "baselineDays": 180,
+            "level": 1.25,
+            "score": 54.04
           },
           {
             "status": "insufficient-data",
             "entityId": "solana",
-            "day": "2026-11-15",
+            "day": "2026-11-16",
             "value": 1,
-            "baselineDays": 30,
+            "baselineDays": 180,
             "reason": "below-minimum-volume"
           }
         ]
@@ -222,387 +339,177 @@
         "entityId": "jensen-huang",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jensen_Huang/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jensen_Huang/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.023Z",
-        "payloadSha256": "261ca1c5e4b71ddb19bc5946fa591ae7ee9c9ee1d15274c124d473eba71783cd",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.195Z",
+        "payloadSha256": "dfcb95760604ca1bcf60bcdf06dbe72e074ee738b21755230d328e46e54585f4",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "nvidia",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nvidia/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nvidia/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.039Z",
-        "payloadSha256": "d8a0abb9873f1e78c94000ebf0b60cdc8a79214faf0d24aba54d4ef95849289d",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.309Z",
+        "payloadSha256": "c9b6fab3c9c460929d528744d57e6c5f37e99f52493a319f176ee4ee1addd037",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "openai",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/OpenAI/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/OpenAI/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.174Z",
-        "payloadSha256": "2b0fe02a2b3c14644c6268cce1ebb8b23ecd073768ac1670dab5a8f9beaa09ee",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.347Z",
+        "payloadSha256": "137109432ee108dc612aa57cdac9234857c1e9e6fe5a333c2e7a52a56a9741b5",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "sam-altman",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Altman/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Altman/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.179Z",
-        "payloadSha256": "046baa2a232d40e2f9f109ecbc42869bfe45688e9e8cafe5bb5e44b97672ff68",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.499Z",
+        "payloadSha256": "4f491e62d08214816374eac2c2854e56e99f01d1ddefbb7bf70af8da10236fc0",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "anthropic",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthropic/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthropic/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.314Z",
-        "payloadSha256": "3f916f12a2def0a780e98f366db2b7620eb4eaeb5e12a6ca8d92025cef01a1d8",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.650Z",
+        "payloadSha256": "535f47cf35cd4b068e81b2e05a2222c8c5e8b0baf8b9c9f9337271d0cc1fbb06",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "elon-musk",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Elon_Musk/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Elon_Musk/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.317Z",
-        "payloadSha256": "6f3bc68ad22b7a113a86d7ddd1e048022476b48f9919d0f26f519a41e403b839",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.801Z",
+        "payloadSha256": "025774c1be5318b500b49d856a9cb951ced1351f109f4beab707863049defc65",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "solana",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Solana_(blockchain_platform)/daily/20261016/20261115"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Solana_(blockchain_platform)/daily/20261116/20261116"
         ],
-        "retrievedAt": "2026-11-16T23:21:15.455Z",
-        "payloadSha256": "0ffc05a42be6dd0fcb27e8a8f56a1a52658c38e4fd36af6ae6ba526e92d6eb0d",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:30.954Z",
+        "payloadSha256": "d97101319edf40579ca0fe79326d21084447aa800072aa85945424f943c17b9a",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "jensen-huang",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:19.136Z",
-        "payloadSha256": "eca72147f8fc6292d96bf60bfb94f318a627afd0c50615ef583155a36b008610",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:31.447Z",
+        "payloadSha256": "07df248578aecd4477741fd7d3e137d1ce98fb256e5c3f0b00aa80b47e52e6b8",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "nvidia",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:19.227Z",
-        "payloadSha256": "47994b8dc941e468effc19b231f0f92a7718d6b1c256ac7fcc8251d91a636eb7",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:31.705Z",
+        "payloadSha256": "73054f8aae882208a10e3444dcbd03cb9c88f25bf12d4fabe165b34e65085774",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "openai",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:22.367Z",
-        "payloadSha256": "2c97a2ed80fa8532e6ed25abc93be9cc3a4a6544b4a792678593c3d8dfcda84c",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:31.763Z",
+        "payloadSha256": "c8f26b127e7808a3544b2cb6c3fe6e6f8a4d1c10499c16f26fb035e9220a0be7",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "sam-altman",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:22.549Z",
-        "payloadSha256": "e9149952901ff41c796f4960ab5d59c739929f1f85003cc798708f4e4f0e582a",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:32.029Z",
+        "payloadSha256": "599856d3cb06329e4bb20f130125e9ee38d775021509beff86fec16946560609",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "anthropic",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:25.960Z",
-        "payloadSha256": "ffa8fdfeac40aea96b5e5477178e3266d62dc01e592f6efb21b84088d0c1a4dd",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:32.190Z",
+        "payloadSha256": "82f3c9be1e8dde4b5f8fc96553740da030b472de9ee57f0885ddce2e749a5dd3",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "elon-musk",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:25.935Z",
-        "payloadSha256": "54c37fec6776942edb4a9588acf7b8b20974e2639c7f45c66bd7c720b575b344",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:32.336Z",
+        "payloadSha256": "3d4804eae136afa864f50b068704f48a1531e4e0eac5819b8f989ee5580fafd4",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       },
       {
         "entityId": "solana",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792108800%2Ccreated_at_i%3C1792195200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792195200%2Ccreated_at_i%3C1792281600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792281600%2Ccreated_at_i%3C1792368000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792368000%2Ccreated_at_i%3C1792454400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792454400%2Ccreated_at_i%3C1792540800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792540800%2Ccreated_at_i%3C1792627200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792627200%2Ccreated_at_i%3C1792713600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792713600%2Ccreated_at_i%3C1792800000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792800000%2Ccreated_at_i%3C1792886400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792886400%2Ccreated_at_i%3C1792972800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1792972800%2Ccreated_at_i%3C1793059200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793059200%2Ccreated_at_i%3C1793145600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793145600%2Ccreated_at_i%3C1793232000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793232000%2Ccreated_at_i%3C1793318400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793318400%2Ccreated_at_i%3C1793404800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793404800%2Ccreated_at_i%3C1793491200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793491200%2Ccreated_at_i%3C1793577600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793577600%2Ccreated_at_i%3C1793664000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793664000%2Ccreated_at_i%3C1793750400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793750400%2Ccreated_at_i%3C1793836800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793836800%2Ccreated_at_i%3C1793923200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1793923200%2Ccreated_at_i%3C1794009600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794009600%2Ccreated_at_i%3C1794096000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794096000%2Ccreated_at_i%3C1794182400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794182400%2Ccreated_at_i%3C1794268800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794268800%2Ccreated_at_i%3C1794355200",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794355200%2Ccreated_at_i%3C1794441600",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794441600%2Ccreated_at_i%3C1794528000",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794528000%2Ccreated_at_i%3C1794614400",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794614400%2Ccreated_at_i%3C1794700800",
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794700800%2Ccreated_at_i%3C1794787200"
+          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
         ],
-        "retrievedAt": "2026-11-16T23:21:28.993Z",
-        "payloadSha256": "0f96d775a3b1e979c8b7d9c081511736c1b5941a154b370baec6c77d43d4929f",
-        "observations": 31,
-        "firstDay": "2026-10-16",
-        "lastDay": "2026-11-15"
+        "retrievedAt": "2026-11-18T12:06:32.525Z",
+        "payloadSha256": "0015fe039bcb8995e4794d717921311788666c5d0c1c8be328403c84c26f6d11",
+        "observations": 1,
+        "firstDay": "2026-11-16",
+        "lastDay": "2026-11-16"
       }
     ]
   },
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "wyrvkzXCj80I/WGISFmf1ESQC/kuO1oZ2+niBehEdBbdoNgHIM4TAcp3XMPwP1NZFz+wJcSPtQ+J5zfMGkYXDg==",
-    "payloadSha256": "366ec81892b193d7effaeb7fab5ae73fb6b141a684d3501da48bca95bb950357",
+    "signature": "BllgCFjGfCtvRUbZGVPYJjTli9/YajFTKGy/jkZ1hpefnNpbTrGhhsa1mbp37/uIZokYaMyKf9Qm8TeebbOgDA==",
+    "payloadSha256": "618b0dc403a450e2714464b522f0b05971b07946d7b7c5808610198ee947d750",
     "canonicalization": "json-sorted-keys-v1"
   }
 }
