@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080808" />
+  <title>Sign up · PULSE</title>
+  <meta name="description" content="Create a PULSE account to follow the signed daily attention index." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --void: #080808;
+      --surface: #101010;
+      --border: #222222;
+      --text: #E8E4DC;
+      /* Both muted tones clear 4.5:1 on --void; --faint is the lighter job of
+         the two (placeholders, axis labels, required markers). */
+      --dim: #9A958B;
+      --faint: #8E8981;
+      --live: #6EE79A;
+      --error: #FF7A7A;
+      --radius: 14px;
+      --font-body: -apple-system, 'SF Pro Text', BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      --font-display: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
+    }
+
+    html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+    body { background: var(--void); color: var(--text); font-family: var(--font-body); min-height: 100dvh; }
+    a { color: var(--text); }
+    :focus-visible { outline: 2px solid var(--text); outline-offset: 2px; border-radius: 4px; }
+
+    .auth { display: grid; grid-template-columns: 1fr; min-height: 100dvh; }
+
+    /* The artwork column is the wide-screen half; below 1024px the form takes the
+       whole page, because a reader on a phone came here to sign up. */
+    .art { display: none; }
+
+    @media (min-width: 1024px) {
+      .auth { grid-template-columns: 48% 52%; }
+      .art { display: block; padding: 20px 0 20px 20px; }
+    }
+
+    .art-frame {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: radial-gradient(120% 70% at 50% 0%, #131313 0%, #080808 62%);
+    }
+
+    .art-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+    .art-chip {
+      position: absolute; top: 18px; left: 18px;
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 28px; padding: 0 10px; border-radius: 8px;
+      background: rgba(232, 228, 220, 0.92); color: #101010;
+      font-size: 12px; font-weight: 500; backdrop-filter: blur(6px);
+    }
+
+    .art-dot { width: 6px; height: 6px; border-radius: 50%; background: #0B5C36; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .art-dot { animation: breathe 2.8s ease-in-out infinite; }
+    }
+
+    @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+    .art-readout { position: absolute; left: 22px; bottom: 22px; display: flex; flex-direction: column; gap: 2px; }
+
+    .art-value {
+      font-family: var(--font-display); font-size: 40px; line-height: 1;
+      letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+    }
+
+    .art-caption { font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums; }
+
+    .art-seam { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+    .art-seam path {
+      fill: none; stroke: rgba(232, 228, 220, 0.18); stroke-width: 1.5;
+      stroke-dasharray: 6 10; stroke-linecap: round;
+    }
+
+    .panel { display: flex; flex-direction: column; padding: 32px 16px; }
+    @media (min-width: 640px) { .panel { padding: 40px; } }
+
+    .panel-inner {
+      display: flex; flex-direction: column; justify-content: center; flex: 1;
+      width: 100%; max-width: 470px; margin: 0 auto;
+    }
+
+    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-size: 15px; font-weight: 600;
+      letter-spacing: -0.01em; text-decoration: none;
+    }
+
+    .brand-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text); box-shadow: 0 0 0 3px rgba(232, 228, 220, 0.08); }
+    .head-step { font-size: 13px; color: var(--dim); }
+    .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+
+    h1 {
+      font-family: var(--font-display); font-size: 26px; line-height: 1.15;
+      font-weight: 600; letter-spacing: -0.02em;
+    }
+
+    .accent-dot { color: var(--live); }
+    .lead { margin-top: 8px; font-size: 14px; color: var(--dim); }
+    .lead a { color: var(--text); text-underline-offset: 2px; }
+    form { margin-top: 28px; }
+
+    .methods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .method {
+      height: 40px; border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--dim);
+      font-family: inherit; font-size: 14px; cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .method:hover { color: var(--text); border-color: #333333; }
+
+    .method[aria-pressed='true'] {
+      background: var(--text); border-color: var(--text);
+      color: var(--void); font-weight: 500;
+    }
+
+    /* min-height holds the form steady when the Google note replaces the inputs. */
+    .fields { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; min-height: 224px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    @media (max-width: 420px) { .row { grid-template-columns: 1fr; } }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .req { color: var(--faint); font-weight: 400; }
+    .input-wrap { position: relative; }
+
+    .input {
+      width: 100%; height: 40px; padding: 0 12px;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--text);
+      /* 16px keeps iOS from zooming the page when the field takes focus. */
+      font-family: inherit; font-size: 16px;
+    }
+
+    .input::placeholder { color: var(--faint); }
+
+    .input:focus { outline: none; border-color: #4A4A44; box-shadow: 0 0 0 3px rgba(232, 228, 220, 0.12); }
+    .input[aria-invalid='true'] { border-color: var(--error); }
+    .input[aria-invalid='true']:focus { box-shadow: 0 0 0 3px rgba(255, 122, 122, 0.18); }
+    .has-reveal .input { padding-right: 48px; }
+
+    .reveal {
+      position: absolute; top: 0; right: 0;
+      display: grid; place-items: center; width: 40px; height: 40px;
+      border: 0; border-radius: 10px; background: transparent; color: var(--dim); cursor: pointer;
+    }
+
+    .reveal:hover { color: var(--text); }
+    .hint { font-size: 12px; color: var(--dim); }
+    .error { font-size: 12px; color: var(--error); }
+
+    .method-note {
+      display: flex; flex-direction: column; justify-content: center; gap: 12px; flex: 1;
+      padding: 16px; border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--dim); font-size: 14px;
+    }
+
+    .cta {
+      width: 100%; height: 44px; margin-top: 20px;
+      border: 1px solid var(--text); border-radius: 10px;
+      background: var(--text); color: var(--void);
+      font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .cta:hover { background: #F4F1EA; }
+    .cta:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .form-notice {
+      margin-top: 12px; padding: 10px 12px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--surface); color: var(--dim); font-size: 13px;
+    }
+
+    .limits {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: 12.5px; color: var(--dim);
+    }
+
+    .limits svg { flex-shrink: 0; margin-top: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="auth">
+    <aside class="art">
+      <div class="art-frame">
+        <canvas id="artChart" class="art-canvas" role="img"
+          aria-label="Published PULSE attention index, one point per epoch"></canvas>
+
+        <span class="art-chip"><span class="art-dot"></span>Signed daily, 09:15 UTC</span>
+
+        <div class="art-readout">
+          <span class="art-value" id="artValue">Loading</span>
+          <span class="art-caption" id="artCaption">PULSE attention index</span>
+        </div>
+
+        <svg class="art-seam" viewBox="0 0 400 700" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M392 0 C 372 120, 396 238, 380 358 C 366 468, 394 588, 386 700" />
+        </svg>
+      </div>
+    </aside>
+
+    <section class="panel">
+      <div class="panel-inner">
+        <header class="panel-head">
+          <a class="brand" href="./index.html" aria-label="PULSE home">
+            <span class="brand-dot"></span>
+            <span>Pulse</span>
+          </a>
+          <span class="head-step">Get started</span>
+        </header>
+
+        <div class="intro">
+          <p class="eyebrow">Start free</p>
+          <h1>Attention, signed daily<span class="accent-dot">.</span></h1>
+          <p class="lead">Prefer to watch first? <a href="./index.html">See the live index</a></p>
+        </div>
+
+        <form id="signupForm" novalidate>
+          <div class="methods" role="group" aria-label="Sign-up method">
+            <button type="button" class="method" data-method="email" aria-pressed="true">
+              Email
+            </button>
+            <button type="button" class="method" data-method="google" aria-pressed="false">
+              Google
+            </button>
+          </div>
+
+          <div class="fields" id="emailFields">
+            <div class="row">
+              <div class="field">
+                <label class="field-label" for="firstName">First name</label>
+                <input class="input" id="firstName" name="firstName" type="text"
+                  autocomplete="given-name" placeholder="Tunde" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="lastName">Last name</label>
+                <input class="input" id="lastName" name="lastName" type="text"
+                  autocomplete="family-name" placeholder="Adebayo" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="email">
+                Email <span class="req">(required)</span>
+              </label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email"
+                placeholder="tunde@example.com" required aria-describedby="emailError" />
+              <p class="error" id="emailError" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="password">
+                Password <span class="req">(required)</span>
+              </label>
+              <div class="input-wrap has-reveal">
+                <input class="input" id="password" name="password" type="password"
+                  autocomplete="new-password" placeholder="At least 8 characters" required
+                  aria-describedby="passwordHint passwordError" />
+                <button type="button" class="reveal" id="revealPassword"
+                  aria-pressed="false" aria-label="Show password">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <path d="M2.5 12s3.6-6.5 9.5-6.5S21.5 12 21.5 12s-3.6 6.5-9.5 6.5S2.5 12 2.5 12Z" />
+                    <circle cx="12" cy="12" r="2.6" />
+                  </svg>
+                </button>
+              </div>
+              <p class="hint" id="passwordHint">At least 8 characters.</p>
+              <p class="error" id="passwordError" hidden></p>
+            </div>
+          </div>
+
+          <div class="method-note" id="methodNote" hidden>
+            We will hand you to Google, then straight back here.
+          </div>
+
+          <button class="cta" id="submitButton" type="submit">Create account</button>
+
+          <p class="form-notice" id="formNotice" role="status" hidden></p>
+        </form>
+
+        <div class="limits">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="4.5" y="10.5" width="15" height="9.5" rx="2" />
+            <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
+          </svg>
+          <span>PULSE never asks for a seed phrase or a wallet key. Every epoch is signed and public.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./signup-chart.js"></script>
+  <script src="./signup-form.js"></script>
+</body>
+</html>

@@ -229,6 +229,15 @@
     }
 
     /* ── FORM ── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
     .hero-form {
       display: flex;
       align-items: stretch;
@@ -1213,10 +1222,12 @@
         Celebrities. Scandals. Moments. If it trends, it trades. PULSE turns cultural attention into a live market.
       </p>
 
-      <div class="hero-form">
-        <input class="hero-input" type="email" placeholder="Your email address" />
-        <button class="hero-submit">Get access</button>
-      </div>
+      <form class="hero-form" action="./signup.html" method="get">
+        <label class="visually-hidden" for="heroEmail">Email address</label>
+        <input class="hero-input" id="heroEmail" name="email" type="email"
+          placeholder="Your email address" autocomplete="email" />
+        <button class="hero-submit" type="submit">Get access</button>
+      </form>
       <p class="hero-disclaimer">Free to join &nbsp;·&nbsp; Cancel anytime</p>
 
       <div class="waitlist-proof">
