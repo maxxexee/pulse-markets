@@ -1,8 +1,8 @@
 {
   "snapshot": {
     "schema": "pulse.index.snapshot/4",
-    "epochDay": "2026-11-16",
-    "generatedAt": "2026-11-18T12:06:29.700Z",
+    "epochDay": "2026-11-17",
+    "generatedAt": "2026-11-18T12:17:47.558Z",
     "definitionId": "pulse-attention-v5",
     "definition": {
       "schema": "pulse.index.definition/1",
@@ -121,24 +121,24 @@
     },
     "definitionSha256": "dc5f963764abaae60db02ed20d48bcd6c3a1cda3f2303ffd9566ba5ddc16074c",
     "index": {
-      "score": 66.01,
-      "scoredEntities": 12,
+      "score": 66.85,
+      "scoredEntities": 11,
       "totalEntities": 14
     },
     "momentum": {
       "windowDays": 7,
-      "referenceDay": "2026-11-09",
-      "delta": 1.46,
-      "score": 51.46
+      "referenceDay": "2026-11-10",
+      "delta": 2.15,
+      "score": 52.15
     },
     "coverage": {
       "signalsScored": 2,
       "signalsTotal": 2,
-      "seriesScored": 12,
+      "seriesScored": 11,
       "seriesExpected": 14,
-      "confidence": 0.8571,
+      "confidence": 0.7857,
       "weightScored": 1,
-      "oldestSourceAt": "2026-11-18T12:06:30.195Z"
+      "oldestSourceAt": "2026-11-18T12:17:48.358Z"
     },
     "series": [
       {
@@ -156,86 +156,86 @@
           "minTargetValue": 0
         },
         "index": {
-          "score": 66.94,
+          "score": 66.31,
           "scoredEntities": 7,
           "totalEntities": 7
         },
         "momentum": {
           "windowDays": 7,
-          "referenceDay": "2026-11-09",
-          "delta": 1.66,
-          "score": 51.66
+          "referenceDay": "2026-11-10",
+          "delta": -0.99,
+          "score": 49.01
         },
         "entities": [
           {
             "status": "scored",
             "entityId": "jensen-huang",
-            "day": "2026-11-16",
-            "value": 162987,
+            "day": "2026-11-17",
+            "value": 144823,
             "baseline": 5601,
             "baselineDays": 180,
-            "level": 29.1,
+            "level": 25.86,
             "score": 100
           },
           {
             "status": "scored",
             "entityId": "nvidia",
-            "day": "2026-11-16",
-            "value": 57058,
+            "day": "2026-11-17",
+            "value": 52812,
             "baseline": 4997,
             "baselineDays": 180,
-            "level": 11.42,
-            "score": 93.92
+            "level": 10.57,
+            "score": 92.52
           },
           {
             "status": "scored",
             "entityId": "openai",
-            "day": "2026-11-16",
-            "value": 7922,
+            "day": "2026-11-17",
+            "value": 9058,
             "baseline": 6885.5,
             "baselineDays": 180,
-            "level": 1.15,
-            "score": 52.53
+            "level": 1.32,
+            "score": 54.95
           },
           {
             "status": "scored",
             "entityId": "sam-altman",
-            "day": "2026-11-16",
-            "value": 20077,
+            "day": "2026-11-17",
+            "value": 16254,
             "baseline": 9053,
             "baselineDays": 180,
-            "level": 2.22,
-            "score": 64.36
+            "level": 1.8,
+            "score": 60.55
           },
           {
             "status": "scored",
             "entityId": "anthropic",
-            "day": "2026-11-16",
-            "value": 13018,
+            "day": "2026-11-17",
+            "value": 14484,
             "baseline": 7466,
             "baselineDays": 180,
-            "level": 1.74,
-            "score": 60.03
+            "level": 1.94,
+            "score": 61.95
           },
           {
             "status": "scored",
             "entityId": "elon-musk",
-            "day": "2026-11-16",
-            "value": 25860,
+            "day": "2026-11-17",
+            "value": 23699,
             "baseline": 20163.5,
             "baselineDays": 180,
-            "level": 1.28,
-            "score": 54.49
+            "level": 1.18,
+            "score": 52.91
           },
           {
             "status": "scored",
             "entityId": "solana",
-            "day": "2026-11-16",
-            "value": 312,
+            "day": "2026-11-17",
+            "value": 280,
             "baseline": 256.5,
             "baselineDays": 180,
-            "level": 1.22,
-            "score": 53.53
+            "level": 1.09,
+            "score": 51.58
           }
         ]
       },
@@ -254,51 +254,51 @@
           "minTargetValue": 3
         },
         "index": {
-          "score": 63.22,
-          "scoredEntities": 5,
+          "score": 68.45,
+          "scoredEntities": 4,
           "totalEntities": 7
         },
         "momentum": {
           "windowDays": 7,
-          "referenceDay": "2026-11-09",
-          "delta": -0.6,
-          "score": 49.4
+          "referenceDay": "2026-11-10",
+          "delta": 6.35,
+          "score": 56.35
         },
         "entities": [
           {
             "status": "scored",
             "entityId": "jensen-huang",
-            "day": "2026-11-16",
-            "value": 21,
+            "day": "2026-11-17",
+            "value": 23,
             "baseline": 1.34,
             "baselineDays": 180,
-            "level": 15.64,
-            "score": 99.59
+            "level": 17.13,
+            "score": 100
           },
           {
             "status": "scored",
             "entityId": "nvidia",
-            "day": "2026-11-16",
-            "value": 39,
+            "day": "2026-11-17",
+            "value": 41,
             "baseline": 6.84,
             "baselineDays": 180,
-            "level": 5.7,
-            "score": 81.39
+            "level": 5.99,
+            "score": 82.29
           },
           {
             "status": "scored",
             "entityId": "openai",
-            "day": "2026-11-16",
-            "value": 24,
+            "day": "2026-11-17",
+            "value": 33,
             "baseline": 19.51,
             "baselineDays": 180,
-            "level": 1.23,
-            "score": 53.74
+            "level": 1.69,
+            "score": 59.48
           },
           {
             "status": "insufficient-data",
             "entityId": "sam-altman",
-            "day": "2026-11-16",
+            "day": "2026-11-17",
             "value": 0,
             "baselineDays": 180,
             "reason": "below-minimum-volume"
@@ -306,28 +306,26 @@
           {
             "status": "scored",
             "entityId": "anthropic",
-            "day": "2026-11-16",
-            "value": 13,
+            "day": "2026-11-17",
+            "value": 18,
             "baseline": 13.69,
             "baselineDays": 180,
-            "level": 0.95,
-            "score": 49.07
+            "level": 1.32,
+            "score": 54.94
           },
           {
-            "status": "scored",
+            "status": "insufficient-data",
             "entityId": "elon-musk",
-            "day": "2026-11-16",
-            "value": 3,
-            "baseline": 2.4,
+            "day": "2026-11-17",
+            "value": 2,
             "baselineDays": 180,
-            "level": 1.25,
-            "score": 54.04
+            "reason": "below-minimum-volume"
           },
           {
             "status": "insufficient-data",
             "entityId": "solana",
-            "day": "2026-11-16",
-            "value": 1,
+            "day": "2026-11-17",
+            "value": 0,
             "baselineDays": 180,
             "reason": "below-minimum-volume"
           }
@@ -339,177 +337,177 @@
         "entityId": "jensen-huang",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jensen_Huang/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jensen_Huang/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.195Z",
-        "payloadSha256": "dfcb95760604ca1bcf60bcdf06dbe72e074ee738b21755230d328e46e54585f4",
+        "retrievedAt": "2026-11-18T12:17:48.362Z",
+        "payloadSha256": "5408498a8e7cf8116a39a0ba30c078166ade90c0630a32a63e556267512f1583",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "nvidia",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nvidia/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nvidia/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.309Z",
-        "payloadSha256": "c9b6fab3c9c460929d528744d57e6c5f37e99f52493a319f176ee4ee1addd037",
+        "retrievedAt": "2026-11-18T12:17:48.358Z",
+        "payloadSha256": "5ab688627676d2410a7ae6d3b41d8ee85349b831f0c193cd8ca6d96d37b07a94",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "openai",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/OpenAI/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/OpenAI/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.347Z",
-        "payloadSha256": "137109432ee108dc612aa57cdac9234857c1e9e6fe5a333c2e7a52a56a9741b5",
+        "retrievedAt": "2026-11-18T12:17:48.635Z",
+        "payloadSha256": "33b2f2f6e592d2d0a7f8143d7c38f844cba6f18333dbe59442f0f412a41fe3bd",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "sam-altman",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Altman/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Altman/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.499Z",
-        "payloadSha256": "4f491e62d08214816374eac2c2854e56e99f01d1ddefbb7bf70af8da10236fc0",
+        "retrievedAt": "2026-11-18T12:17:48.807Z",
+        "payloadSha256": "3cd326a0330df01f2a3640881996e1726b23fdd434fcb4d3645993e247b0cd60",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "anthropic",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthropic/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthropic/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.650Z",
-        "payloadSha256": "535f47cf35cd4b068e81b2e05a2222c8c5e8b0baf8b9c9f9337271d0cc1fbb06",
+        "retrievedAt": "2026-11-18T12:17:48.959Z",
+        "payloadSha256": "06beade3ccd074d82f8df79ecffc2c3f173a3d478329ae78ae1d6d4b62559d87",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "elon-musk",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Elon_Musk/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Elon_Musk/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.801Z",
-        "payloadSha256": "025774c1be5318b500b49d856a9cb951ced1351f109f4beab707863049defc65",
+        "retrievedAt": "2026-11-18T12:17:49.088Z",
+        "payloadSha256": "bbf3641110ce5e5164b5ad340bac18d9bbe3c972d7c815a812095b06f4375dfc",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "solana",
         "signal": "wikipedia-pageviews",
         "urls": [
-          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Solana_(blockchain_platform)/daily/20261116/20261116"
+          "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Solana_(blockchain_platform)/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:06:30.954Z",
-        "payloadSha256": "d97101319edf40579ca0fe79326d21084447aa800072aa85945424f943c17b9a",
+        "retrievedAt": "2026-11-18T12:17:49.231Z",
+        "payloadSha256": "1ea63fdd9c7bfa04f8fa108f8322407c582d62f83a5d5fae21b10cf730bece63",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "jensen-huang",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:31.447Z",
-        "payloadSha256": "07df248578aecd4477741fd7d3e137d1ce98fb256e5c3f0b00aa80b47e52e6b8",
+        "retrievedAt": "2026-11-18T12:17:49.985Z",
+        "payloadSha256": "e47da27247b89badf95017c465f52fd600aa06be109a27e64ce3b9448db2e131",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "nvidia",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:31.705Z",
-        "payloadSha256": "73054f8aae882208a10e3444dcbd03cb9c88f25bf12d4fabe165b34e65085774",
+        "retrievedAt": "2026-11-18T12:17:49.951Z",
+        "payloadSha256": "4a5e8e769d3aad0455ac45e170d02ff23ab4bda1095f4bb79f43290b0f179024",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "openai",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:31.763Z",
-        "payloadSha256": "c8f26b127e7808a3544b2cb6c3fe6e6f8a4d1c10499c16f26fb035e9220a0be7",
+        "retrievedAt": "2026-11-18T12:17:50.305Z",
+        "payloadSha256": "1aef954e4b4254f8a610d305459875e0d750bd6137ca0ddfa240322468813362",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "sam-altman",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:32.029Z",
-        "payloadSha256": "599856d3cb06329e4bb20f130125e9ee38d775021509beff86fec16946560609",
+        "retrievedAt": "2026-11-18T12:17:50.464Z",
+        "payloadSha256": "6eac037d190443f1d69f39266fc0e8dafd4ed51b9f5a181148ea39d5c67ae4b1",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "anthropic",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:32.190Z",
-        "payloadSha256": "82f3c9be1e8dde4b5f8fc96553740da030b472de9ee57f0885ddce2e749a5dd3",
+        "retrievedAt": "2026-11-18T12:17:50.676Z",
+        "payloadSha256": "3c1ac69c80a85ce9b5069c0b3636ecc070db7206df1ed645607ac96f4ff006b5",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "elon-musk",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:32.336Z",
-        "payloadSha256": "3d4804eae136afa864f50b068704f48a1531e4e0eac5819b8f989ee5580fafd4",
+        "retrievedAt": "2026-11-18T12:17:50.845Z",
+        "payloadSha256": "c1a706267cfd3922358339afcfc2afb4d5cc28b4f67d052b44c2a39b31806c01",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       },
       {
         "entityId": "solana",
         "signal": "hacker-news-stories",
         "urls": [
-          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794787200%2Ccreated_at_i%3C1794873600"
+          "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:06:32.525Z",
-        "payloadSha256": "0015fe039bcb8995e4794d717921311788666c5d0c1c8be328403c84c26f6d11",
+        "retrievedAt": "2026-11-18T12:17:51.046Z",
+        "payloadSha256": "fe8877b03ffeb12e0e7581fe2495f8f91b88638dcf024cb3dec04e7c67a73202",
         "observations": 1,
-        "firstDay": "2026-11-16",
-        "lastDay": "2026-11-16"
+        "firstDay": "2026-11-17",
+        "lastDay": "2026-11-17"
       }
     ]
   },
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "BllgCFjGfCtvRUbZGVPYJjTli9/YajFTKGy/jkZ1hpefnNpbTrGhhsa1mbp37/uIZokYaMyKf9Qm8TeebbOgDA==",
-    "payloadSha256": "618b0dc403a450e2714464b522f0b05971b07946d7b7c5808610198ee947d750",
+    "signature": "3CmJPuUZZNd4zGrQN9dfpEk1R9msa4RxEJLY70MEn/7bZ9ezB9abuJz+0DMuvkR7JtEsl49hLcqgAL3CFpQVAA==",
+    "payloadSha256": "c935de7715459dd0c82be6d4006647cb39fa6b21baa996f567d2d1c5a051142c",
     "canonicalization": "json-sorted-keys-v1"
   }
 }

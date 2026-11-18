@@ -322,6 +322,25 @@ describe('buildSnapshot', () => {
     assert.equal(snapshot.series[1]?.momentum?.delta, 32.5);
   });
 
+  it('ignores a reference snapshot computed under different terms', async () => {
+    const { signals } = twoSignals(200);
+    const reference = {
+      ...priorSnapshot(addDays(TARGET, -MOMENTUM_WINDOW_DAYS), 40, {}),
+      definitionId: 'pulse-attention-v4',
+      definitionSha256: 'b'.repeat(64),
+    };
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      definition: DEFINITION,
+      targetDay: TARGET,
+      signals,
+      now: NOW,
+      history: [reference],
+    });
+    assert.equal(snapshot.momentum, null);
+    assert.equal(snapshot.series[0]?.momentum, null);
+  });
+
   it('ignores a reference snapshot for a different day', async () => {
     const { signals } = twoSignals(200);
     const reference = priorSnapshot(addDays(TARGET, -6), 10, {});

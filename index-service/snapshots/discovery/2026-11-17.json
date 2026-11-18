@@ -1,0 +1,83 @@
+{
+  "day": "2026-11-17",
+  "generatedAt": "2026-11-18T12:17:51.072Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "entries": [
+    {
+      "article": "Heidi_Gardner",
+      "topic": "Heidi Gardner",
+      "views": 83061,
+      "baseline": 1555,
+      "baselineDays": 7,
+      "momentum": 5241.5,
+      "link": "https://en.wikipedia.org/wiki/Heidi_Gardner",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Heidi_Gardner_%28NYCC_Interview_2016%29_01.png"
+    },
+    {
+      "article": "Jacoby_Brissett",
+      "topic": "Jacoby Brissett",
+      "views": 95821,
+      "baseline": 4422,
+      "baselineDays": 7,
+      "momentum": 2066.7,
+      "link": "https://en.wikipedia.org/wiki/Jacoby_Brissett",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Jacoby_Brissett_2026_Hall_of_Fame_%284%29_9856741_%28cropped%29.jpg/330px-Jacoby_Brissett_2026_Hall_of_Fame_%284%29_9856741_%28cropped%29.jpg"
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "views": 85178,
+      "baseline": 6753,
+      "baselineDays": 7,
+      "momentum": 1161.4,
+      "link": "https://en.wikipedia.org/wiki/Mariella_Frostrup",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Mariella_Frostrup_2016_%28cropped%29.jpg/330px-Mariella_Frostrup_2016_%28cropped%29.jpg"
+    },
+    {
+      "article": "Ade_Adepitan",
+      "topic": "Ade Adepitan",
+      "views": 70088,
+      "baseline": 11120,
+      "baselineDays": 7,
+      "momentum": 530.3,
+      "link": "https://en.wikipedia.org/wiki/Ade_Adepitan",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Ade_Adepitan.jpg/330px-Ade_Adepitan.jpg"
+    },
+    {
+      "article": "James_Bond",
+      "topic": "James Bond",
+      "views": 75962,
+      "baseline": 14726,
+      "baselineDays": 7,
+      "momentum": 415.8,
+      "link": "https://en.wikipedia.org/wiki/James_Bond",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c5/Fleming007impression.jpg"
+    },
+    {
+      "article": "Suki_Waterhouse",
+      "topic": "Suki Waterhouse",
+      "views": 297037,
+      "baseline": 61194,
+      "baselineDays": 7,
+      "momentum": 385.4,
+      "link": "https://en.wikipedia.org/wiki/Suki_Waterhouse",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg/330px-Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg"
+    }
+  ]
+}

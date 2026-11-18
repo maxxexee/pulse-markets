@@ -147,7 +147,7 @@ async function build(day: string, force: boolean, definitionId: string): Promise
   const momentum = snapshot.momentum;
   console.log(
     momentum === null
-      ? `momentum n/a (no snapshot for ${addDays(day, -MOMENTUM_WINDOW_DAYS)})`
+      ? `momentum n/a (no snapshot for ${addDays(day, -MOMENTUM_WINDOW_DAYS)} under these terms)`
       : `momentum ${momentum.score} (${momentum.delta >= 0 ? '+' : ''}${momentum.delta} points over ${momentum.windowDays}d)`,
   );
   console.log(

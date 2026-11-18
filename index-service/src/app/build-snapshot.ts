@@ -206,8 +206,14 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
     totalEntities: built.reduce((sum, item) => sum + item.series.index.totalEntities, 0),
   };
 
+  const digest = definitionDigest(input.definition);
   const referenceDay = addDays(input.targetDay, -MOMENTUM_WINDOW_DAYS);
-  const reference = input.history?.find((entry) => entry.epochDay === referenceDay) ?? null;
+  // A delta across two definitions compares different scales, so only a snapshot
+  // computed under these exact terms can be a momentum reference.
+  const reference =
+    input.history?.find(
+      (entry) => entry.epochDay === referenceDay && entry.definitionSha256 === digest,
+    ) ?? null;
   const series = built.map((item) => ({
     ...item.series,
     momentum: momentumFor(reference, item.series.id, referenceDay, item.series.index),
@@ -219,7 +225,7 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
     generatedAt: input.now.toISOString(),
     definitionId: input.definition.id,
     definition: input.definition,
-    definitionSha256: definitionDigest(input.definition),
+    definitionSha256: digest,
     index,
     momentum: momentumFor(reference, null, referenceDay, index),
     coverage: summarizeCoverage(series, sources, headline.weightScored),
