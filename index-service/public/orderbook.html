@@ -61,6 +61,7 @@
       .legend { font-size: 12px; color: var(--muted); }
       .legend b { font-weight: 500; color: var(--accent); }
       .legend i { font-weight: 500; color: var(--wait); font-style: normal; }
+      .legend em { font-style: normal; color: #5c636e; }
       svg { display: block; width: 100%; height: auto; margin-top: 10px; overflow: visible; }
       .caption { color: var(--muted); font-size: 12px; margin-top: 8px; }
       .book-head { display: flex; justify-content: space-between; align-items: baseline; }
@@ -126,7 +127,8 @@
         <div class="panel">
           <div class="panel-top">
             <span class="panel-title" id="chart-title">Index at each published epoch</span>
-            <span class="legend"><b>index</b> &middot; <i>threshold</i></span>
+            <span class="legend"><b>index</b> &middot; <i>threshold</i> &middot;
+              <em>earlier terms</em></span>
           </div>
           <svg id="chart" viewBox="0 0 640 240" role="img" aria-label="published index against the market threshold"></svg>
           <div class="caption" id="chart-caption"></div>
@@ -218,6 +220,13 @@
           .sort((left, right) => left.day.localeCompare(right.day));
       }
 
+      /** Every published day up to the settlement day, whatever terms it was measured on. */
+      function publishedUntil(market, history) {
+        return history
+          .filter((day) => typeof day.index === 'number' && day.day <= market.epochDay)
+          .sort((left, right) => left.day.localeCompare(right.day));
+      }
+
       /** Day over day variability of the index, used as the price scale. */
       function scaleFor(days) {
         const deltas = [];
@@ -280,11 +289,10 @@
       function drawChart(days, market) {
         const svg = document.getElementById('chart');
         const caption = document.getElementById('chart-caption');
-        if (days.length < 2) {
+        if (days.length === 0) {
           svg.innerHTML = '';
-          caption.textContent = days.length === 0
-            ? `No published epoch under ${esc(market.definitionId)} yet.`
-            : `One published epoch (${days[0].day}); the chart needs two.`;
+          caption.textContent =
+            `No epoch published at or before ${market.epochDay} for ${market.definitionId}.`;
           return;
         }
         const width = 640;
@@ -307,16 +315,37 @@
             `text-anchor="end">${fmt(value, 1)}</text>`;
         }).join('');
 
-        const line = days
-          .map((day, offset) => `${xOf(offset).toFixed(1)},${yOf(day.index).toFixed(1)}`)
-          .join(' ');
+        // One segment per definition version, so the line never joins days that were
+        // measured on different terms. Days on this market's terms are solid; earlier
+        // ones are dashed and only give context.
+        const segments = [];
+        days.forEach((day, offset) => {
+          const last = segments[segments.length - 1];
+          if (last !== undefined && last.definitionId === day.definitionId) {
+            last.points.push([offset, day]);
+          } else {
+            segments.push({ definitionId: day.definitionId, points: [[offset, day]] });
+          }
+        });
 
-        const dots = days.map((day, offset) => {
-          const x = xOf(offset).toFixed(1);
-          const y = yOf(day.index).toFixed(1);
-          return `<circle cx="${x}" cy="${y}" r="2" fill="#5eead4">` +
-            `<title>${esc(day.day)}: ${fmt(day.index)} (${esc(day.definitionId)})</title>` +
-            `</circle>`;
+        const series = segments.map((segment) => {
+          const own = segment.definitionId === market.definitionId;
+          const stroke = own ? '#5eead4' : '#5c636e';
+          const points = segment.points
+            .map(([offset, day]) => `${xOf(offset).toFixed(1)},${yOf(day.index).toFixed(1)}`)
+            .join(' ');
+          const line = segment.points.length > 1
+            ? `<polyline fill="none" stroke="${stroke}" stroke-width="${own ? 1.5 : 1}" ` +
+              `stroke-dasharray="${own ? '' : '4 3'}" points="${points}" />`
+            : '';
+          const dots = segment.points.map(([offset, day]) => {
+            const x = xOf(offset).toFixed(1);
+            const y = yOf(day.index).toFixed(1);
+            return `<circle cx="${x}" cy="${y}" r="${own ? 2.2 : 1.6}" fill="${stroke}">` +
+              `<title>${esc(day.day)}: ${fmt(day.index)} (${esc(day.definitionId)})</title>` +
+              `</circle>`;
+          }).join('');
+          return line + dots;
         }).join('');
 
         const epochIndex = days.findIndex((day) => day.day === market.epochDay);
@@ -341,13 +370,18 @@
           `<text x="${width - pad.right}" y="${height - 8}" fill="#8b9099" font-size="9" ` +
           `text-anchor="end">${esc(lastDay)}</text>`;
 
-        svg.innerHTML = ticks + threshold + marker +
-          `<polyline fill="none" stroke="#5eead4" stroke-width="1.5" points="${line}" />` +
-          dots + axis;
+        svg.innerHTML = ticks + threshold + marker + series + axis;
+        const ownDays = days.filter((day) => day.definitionId === market.definitionId);
+        const otherCount = days.length - ownDays.length;
+        const comparable = ownDays.length > 0 ? ownDays : days;
         caption.textContent =
-          `${days.length} published epochs under ${market.definitionId}, ${firstDay} to ` +
-          `${lastDay}. Low ${fmt(Math.min(...days.map((d) => d.index)))} and high ` +
-          `${fmt(Math.max(...days.map((d) => d.index)))} on the current terms.`;
+          `${ownDays.length} of ${days.length} published epochs, ${firstDay} to ${lastDay}, ` +
+          `measured on ${market.definitionId}` +
+          (otherCount > 0
+            ? `; ${otherCount} earlier on other terms are dashed and not comparable`
+            : '') +
+          `. Low ${fmt(Math.min(...comparable.map((day) => day.index)))} and high ` +
+          `${fmt(Math.max(...comparable.map((day) => day.index)))} on the current terms.`;
       }
 
       function bookRows(rows, side) {
@@ -433,8 +467,7 @@
         document.getElementById('snapshot-link').href =
           `./api/index/snapshot/${encodeURIComponent(market.epochDay)}`;
         document.getElementById('snapshot-link').textContent = market.epochDay;
-        const days = daysFor(market, HISTORY);
-        drawChart(days, market);
+        drawChart(publishedUntil(market, HISTORY), market);
         renderBook(market, LATEST);
       }
 
