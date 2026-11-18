@@ -1,6 +1,6 @@
 {
   "day": "2026-11-17",
-  "generatedAt": "2026-11-18T12:41:26.822Z",
+  "generatedAt": "2026-11-18T23:29:51.039Z",
   "method": "wikipedia-top-v1",
   "settings": {
     "candidateLimit": 24,
@@ -18,6 +18,7 @@
       "Index_of_"
     ]
   },
+  "contextModel": "google/gemini-2.5-flash",
   "entries": [
     {
       "article": "Heidi_Gardner",
@@ -27,7 +28,13 @@
       "baselineDays": 7,
       "momentum": 5241.5,
       "link": "https://en.wikipedia.org/wiki/Heidi_Gardner",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Heidi_Gardner_%28NYCC_Interview_2016%29_01.png"
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/30/Heidi_Gardner_%28NYCC_Interview_2016%29_01.png",
+      "context": {
+        "text": "Heidi Gardner is an American actress, comedian, and writer known for being a cast member on Saturday Night Live.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Heidi_Gardner"
+      }
     },
     {
       "article": "Jacoby_Brissett",
@@ -47,7 +54,13 @@
       "baselineDays": 7,
       "momentum": 1161.4,
       "link": "https://en.wikipedia.org/wiki/Mariella_Frostrup",
-      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Mariella_Frostrup_2016_%28cropped%29.jpg/330px-Mariella_Frostrup_2016_%28cropped%29.jpg"
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Mariella_Frostrup_2016_%28cropped%29.jpg/330px-Mariella_Frostrup_2016_%28cropped%29.jpg",
+      "context": {
+        "text": "Mariella Frostrup is a Norwegian-born British journalist and presenter.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mariella_Frostrup"
+      }
     },
     {
       "article": "Ade_Adepitan",
@@ -57,7 +70,13 @@
       "baselineDays": 7,
       "momentum": 530.3,
       "link": "https://en.wikipedia.org/wiki/Ade_Adepitan",
-      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Ade_Adepitan.jpg/330px-Ade_Adepitan.jpg"
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Ade_Adepitan.jpg/330px-Ade_Adepitan.jpg",
+      "context": {
+        "text": "Ade Adepitan is a Nigerian-born British television presenter and wheelchair basketball player, known for hosting travel documentaries and sports programmes.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ade_Adepitan"
+      }
     },
     {
       "article": "James_Bond",
@@ -67,7 +86,13 @@
       "baselineDays": 7,
       "momentum": 415.8,
       "link": "https://en.wikipedia.org/wiki/James_Bond",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c5/Fleming007impression.jpg"
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c5/Fleming007impression.jpg",
+      "context": {
+        "text": "James Bond is a fictional British Secret Service agent featured in novels and films, created by writer Ian Fleming.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/James_Bond"
+      }
     },
     {
       "article": "Suki_Waterhouse",
@@ -77,7 +102,13 @@
       "baselineDays": 7,
       "momentum": 385.4,
       "link": "https://en.wikipedia.org/wiki/Suki_Waterhouse",
-      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg/330px-Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg"
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg/330px-Suki_Waterhouse_at_82nd_Venice_International_Film_Festival-4.jpg",
+      "context": {
+        "text": "Suki Waterhouse is an English actress, singer, and model known for her roles in films like *Detective Pikachu* and the series *Daisy Jones & the Six*.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Suki_Waterhouse"
+      }
     }
   ]
 }
