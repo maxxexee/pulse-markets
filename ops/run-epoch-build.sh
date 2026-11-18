@@ -35,6 +35,16 @@ for attempt in $(seq 1 "$ATTEMPTS"); do
   log "build attempt $attempt/$ATTEMPTS: node src/cli.ts build --catch-up $CATCH_UP_DAYS"
   if "$NODE_BIN" src/cli.ts build --catch-up "$CATCH_UP_DAYS" >>"$LOG_FILE" 2>&1; then
     log "build ok"
+    # A source can revise its figures after a day was signed. Verifying here
+    # records whether today's sources still reproduce the newest epoch, without
+    # failing the job: a revision is information, not a build failure.
+    if [ "${VERIFY_ON_BUILD:-1}" = "1" ]; then
+      if "$NODE_BIN" src/cli.ts verify >>"$LOG_FILE" 2>&1; then
+        log "verify ok"
+      else
+        log "verify reported a difference; see the verify lines above"
+      fi
+    fi
     if [ "${DEPLOY_ON_BUILD:-1}" = "1" ]; then
       "$REPO_DIR/ops/deploy-pages.sh" >>"$LOG_FILE" 2>&1 && log "site deployed" || log "site deploy failed"
     fi

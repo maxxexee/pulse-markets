@@ -74,6 +74,11 @@ export async function historyPayload(snapshotsDir: string): Promise<string> {
       days.push({
         day,
         index: snapshot.index.score,
+        // Absent on epochs signed before definitions were embedded, which is
+        // how a reader tells that the level either side of this day is not
+        // comparable.
+        definitionId: snapshot.definitionId ?? null,
+        definitionSha256: snapshot.definitionSha256 ?? null,
         momentum: snapshot.momentum === null ? null : snapshot.momentum.score,
         coverageRatio: coverageRatioOf(snapshot.coverage) ?? 0,
         seriesScored: snapshot.coverage.seriesScored,

@@ -105,6 +105,22 @@
         return response.json();
       }
 
+      // Days that share terms form one line. A definition change is a break in
+      // the series, not a step in it, so the chart never joins across one.
+      function chartSegments(points) {
+        const segments = [];
+        for (const point of points) {
+          const key = `${point.definitionId || 'unknown'}|${point.definitionSha256 || ''}`;
+          const last = segments[segments.length - 1];
+          if (last && last.key === key) {
+            last.points.push(point);
+          } else {
+            segments.push({ key, points: [point] });
+          }
+        }
+        return segments;
+      }
+
       function drawChart(days) {
         const points = days.filter((day) => typeof day.index === 'number');
         const caption = document.getElementById('chart-caption');
@@ -129,18 +145,34 @@
           return `${x.toFixed(1)},${y.toFixed(1)}`;
         });
         const svg = document.getElementById('chart');
-        svg.innerHTML =
-          `<polyline fill="none" stroke="#5eead4" stroke-width="1.5" points="${coords.join(' ')}" />` +
-          points
-            .map((day, offset) => {
-              const [x, y] = coords[offset].split(',');
-              return `<circle cx="${x}" cy="${y}" r="1.8" fill="#5eead4"><title>${esc(day.day)}: ${fmt(day.index)}</title></circle>`;
-            })
-            .join('');
+        const coordinates = new Map(points.map((point, offset) => [point, coords[offset]]));
+        const segments = chartSegments(points);
+        svg.innerHTML = segments
+          .map((segment) => {
+            const line = segment.points
+              .map((point) => coordinates.get(point))
+              .join(' ');
+            const polyline =
+              segment.points.length > 1
+                ? `<polyline fill="none" stroke="#5eead4" stroke-width="1.5" points="${line}" />`
+                : '';
+            const dots = segment.points
+              .map((point) => {
+                const [x, y] = coordinates.get(point).split(',');
+                return `<circle cx="${x}" cy="${y}" r="1.8" fill="#5eead4"><title>${esc(point.day)}: ${fmt(point.index)} (${esc(point.definitionId || 'terms unknown')})</title></circle>`;
+              })
+              .join('');
+            return polyline + dots;
+          })
+          .join('');
         const last = points[points.length - 1];
+        const breakNote = segments.length > 1
+          ? ` Terms changed ${segments.length - 1} time(s) in this window; levels either side of a break are not comparable.`
+          : '';
         caption.textContent =
           `${points.length} published epochs, ${points[0].day} to ${last.day}. ` +
-          `Low ${fmt(low)}, high ${fmt(high)}, latest ${fmt(last.index)}.`;
+          `Low ${fmt(low)}, high ${fmt(high)}, latest ${fmt(last.index)}.` +
+          breakNote;
       }
 
       function question(market) {

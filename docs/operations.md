@@ -27,6 +27,8 @@ safe because a published day is never overwritten.
 - `node src/cli.ts build --catch-up 7`
 - three attempts, 15 minutes apart, so a source that posts its daily figure late
   in the morning still lands in the same run
+- `node src/cli.ts verify` after a successful build, logged as `verify ok` or
+  `verify reported a difference`; set `VERIFY_ON_BUILD=0` to skip it
 - every line appended to `index-service/.logs/epoch-build.log`
 - exit 1 if all attempts fail; nothing is published in that case
 
@@ -34,6 +36,13 @@ safe because a published day is never overwritten.
 laptop asleep for two nights heals itself rather than leaving a hole in the
 momentum reference. A published day is skipped unless `--force` is passed, so a
 rerun can never replace a signed epoch.
+
+The verify step rebuilds the newest published epoch from the sources it names
+and compares every score against the signed record. It does not fail the job,
+because a difference usually means Wikipedia or Hacker News revised a daily
+figure after publication, and the snapshot is already signed and cannot be
+rewritten. The log line is the signal: a steady run logs `verify ok`, and a run
+after a source revision logs the differing values on the lines above it.
 
 ## The index definition
 
@@ -130,6 +139,19 @@ and standing list pages, measures the biggest unclaimed articles over the seven
 days before the epoch, fetches their lead images, and writes
 `snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
 the page then shows only measured basket trends.
+
+## History and definition changes
+
+`GET /api/index/history` returns one row per published epoch with `day`, `index`,
+`momentum`, `coverageRatio`, `seriesScored`, `seriesExpected`, `definitionId`
+and `definitionSha256`. Days signed before definitions were embedded report a
+`definitionId` with a `null` digest. The markets page draws one line per run of
+identical terms, so a definition change appears as a break rather than a jump:
+levels computed under different anchors and formulas are not comparable, and the
+chart says so instead of implying a trend across the boundary.
+
+`verify` reports such a day as `legacy` and exits 1: the signature is checked and
+valid, but there is nothing in the record to rebuild the number from.
 
 ## Verifying a published epoch
 

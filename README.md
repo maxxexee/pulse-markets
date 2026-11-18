@@ -50,9 +50,11 @@ Live: [app](https://maxxexee.github.io/pulse-markets/app/) ·
 
 The index service is implemented and publishes signed daily snapshots. The
 resolver's terms, id derivation and settlement engine are implemented in
-`resolver/`. The pm-AMM create/resolve instructions are not: this repo has no
-pm-AMM IDL, so resolution is an off-chain decision and a signed record today.
-The trade app is not built yet.
+`resolver/`. Create and resolve are also wired to the pm-AMM program through
+`@pm-amm/sdk`, behind `--on-chain` in the resolver CLI. That path builds real
+instructions for program `GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`, but it
+has not been sent to a funded cluster yet, so no transaction is claimed. The
+trade app is not built yet.
 
 Index definition, version `pulse-attention-v5`. The full definition, including
 anchors and weights, is embedded in every snapshot beside its SHA-256

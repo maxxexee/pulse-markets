@@ -56,10 +56,39 @@ outcome, the tie policy, the snapshot payload hash and signer, and the
 timestamp. The payload hash is what makes the outcome auditable later: it pins
 the exact bytes the decision was read from.
 
+## On-chain settlement
+
+`--on-chain` turns the off-chain decision into a pm-AMM action:
+
+- `create --on-chain` opens a binary market whose name carries the side,
+  threshold and epoch day, with `--duration-secs`, `--initial-price-bps` and
+  `--deposit-usdc` controlling the listing. The signed terms stay in the market
+  file; the chain only gets a name and a lifetime.
+- `resolve --on-chain --market <pda>` maps the settlement outcome to the pm-AMM
+  side (`yes` or `no`) and submits it. pm-AMM has no oracle, so only the market
+  authority can resolve, and that authority is the keypair the CLI loads. The
+  trust assumption is explicit: the resolver operator decides from a signed
+  snapshot that anyone can re-verify.
+
+Chain settings come from the environment, never from flags, so a transaction
+can be reproduced from the shell history:
+
+| Variable | Default |
+| --- | --- |
+| `PULSE_KEYPAIR` | required, path to a Solana keypair JSON file |
+| `PULSE_RPC_URL` | `https://api.devnet.solana.com` |
+| `PULSE_PM_AMM_PROGRAM` | `GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y` |
+| `PULSE_USDC_MINT` | devnet `3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ` |
+
+On mainnet-beta only the collateral mint changes. A market created on devnet
+with mUSDC is not the same market on mainnet: the listing is per-cluster, while
+the signed market id is not.
+
 ## Status
 
 The settlement engine is complete and tested against locally generated Ed25519
-keys. It is **not** wired to the pm-AMM program: this repository has no pm-AMM
-IDL, so no create or resolve instruction is built or tested here. Until that
-interface exists, resolution is an off-chain decision plus a record, not an
-on-chain transaction.
+keys. The pm-AMM adapter builds `initializeMarket` and `resolveMarket`
+instructions against the real program id and is covered by unit tests for config,
+input limits and the outcome mapping. It has not been exercised end to end: this
+environment has no devnet SOL (the RPC faucet is closed and the pm-AMM faucet
+supplies only collateral), so no create or resolve transaction has been sent.

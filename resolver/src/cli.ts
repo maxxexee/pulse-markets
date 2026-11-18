@@ -10,13 +10,24 @@ import {
 } from './domain/market.ts';
 import { resolveMarket } from './domain/resolution.ts';
 import { readSignedSnapshot, SnapshotReadError } from './adapters/snapshot.ts';
+import {
+  ChainError,
+  chainConfigFromEnv,
+  createOnChain,
+  resolveOnChain,
+} from './adapters/pm-amm.ts';
 
 const USAGE = `Usage:
   node src/cli.ts create --threshold 55 --comparison above --day 2026-11-20 --signer <base58>
   node src/cli.ts resolve --spec market.json --snapshot snapshots/2026-11-20.json [--now ISO] [--out resolution.json]
 
 create prints the full market spec, including the id derived from its terms.
-resolve prints the settlement record. Both exit 1 on a rejected input.`;
+resolve prints the settlement record. Both exit 1 on a rejected input.
+
+Add --on-chain to also act on the pm-AMM program. create takes
+--duration-secs, --initial-price-bps and --deposit-usdc; resolve takes the
+market address with --market. Chain settings come from PULSE_KEYPAIR (required),
+PULSE_RPC_URL, PULSE_PM_AMM_PROGRAM and PULSE_USDC_MINT.`;
 
 function required(values: Record<string, string | boolean | undefined>, name: string): string {
   const value = values[name];
@@ -57,6 +68,17 @@ function marketFrom(values: Record<string, string | boolean | undefined>): Marke
 async function create(values: Record<string, string | boolean | undefined>): Promise<void> {
   const spec = marketFrom(values);
   process.stdout.write(`${JSON.stringify(spec, null, 2)}\n`);
+  if (values['on-chain'] !== true) {
+    return;
+  }
+  const market = await createOnChain(chainConfigFromEnv(process.env), spec, {
+    durationSecs: Number(values['duration-secs'] ?? 86_400),
+    initialPriceBps: Number(values['initial-price-bps'] ?? 5000),
+    depositUsdc: Number(values['deposit-usdc'] ?? 0),
+  });
+  process.stderr.write(
+    `on-chain market ${market.marketPda} (id ${market.marketId}) signature ${market.signature}\n`,
+  );
 }
 
 /** Rebuilds the spec from its own fields so stray keys cannot change the id. */
@@ -100,6 +122,15 @@ async function resolve(values: Record<string, string | boolean | undefined>): Pr
     await writeFile(out, body, 'utf8');
   }
   process.stdout.write(body);
+  if (values['on-chain'] === true) {
+    const market = required(values, 'market');
+    const signature = await resolveOnChain(
+      chainConfigFromEnv(process.env),
+      market,
+      result.resolution.outcome,
+    );
+    process.stderr.write(`on-chain resolved ${result.resolution.outcome} signature ${signature}\n`);
+  }
 }
 
 async function main(): Promise<void> {
@@ -117,6 +148,10 @@ async function main(): Promise<void> {
         day: { type: 'string' },
         'min-confidence': { type: 'string' },
         'created-at': { type: 'string', default: new Date().toISOString() },
+        'on-chain': { type: 'boolean', default: false },
+        'duration-secs': { type: 'string' },
+        'initial-price-bps': { type: 'string' },
+        'deposit-usdc': { type: 'string' },
       },
       allowPositionals: false,
     });
@@ -131,6 +166,8 @@ async function main(): Promise<void> {
         snapshot: { type: 'string' },
         now: { type: 'string' },
         out: { type: 'string' },
+        'on-chain': { type: 'boolean', default: false },
+        market: { type: 'string' },
       },
       allowPositionals: false,
     });
@@ -142,7 +179,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  if (error instanceof MarketError || error instanceof SnapshotReadError) {
+  if (error instanceof MarketError || error instanceof SnapshotReadError || error instanceof ChainError) {
     process.stderr.write(`${error.kind}: ${error.message}\n`);
   } else {
     process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);

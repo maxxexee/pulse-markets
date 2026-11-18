@@ -6,9 +6,13 @@ import type { IndexSnapshot } from '../domain/snapshot.ts';
 import { compareSnapshots, type SnapshotDifference } from '../domain/verify.ts';
 import { buildSnapshot } from './build-snapshot.ts';
 
-export type VerificationStatus = 'verified' | 'differs' | 'unreadable';
+export type VerificationStatus = 'verified' | 'differs' | 'legacy' | 'unreadable';
 
 export interface VerificationResult {
+  /**
+   * `legacy` means the signature is valid but the snapshot predates embedded
+   * definitions, so there are no terms to rebuild it under.
+   */
   readonly status: VerificationStatus;
   readonly epochDay: string | null;
   /** Empty when verified; every disagreement otherwise. */
@@ -64,10 +68,15 @@ export async function verifyDay(
   }
   const snapshot: IndexSnapshot = published.snapshot;
   if (snapshot.definition === undefined) {
-    return unreadable(
-      snapshot.epochDay,
-      `${snapshot.epochDay} has no embedded definition, so a rebuild cannot know its terms`,
-    );
+    return {
+      status: 'legacy',
+      epochDay: snapshot.epochDay,
+      differences: [],
+      detail:
+        `${snapshot.epochDay} was signed under ${snapshot.definitionId} before the ` +
+        `definition was embedded; its signature verifies, but there are no terms in ` +
+        `the record to rebuild it under`,
+    };
   }
   let recomputed: IndexSnapshot;
   try {
