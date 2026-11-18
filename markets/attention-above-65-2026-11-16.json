@@ -1,10 +1,11 @@
 {
-  "definitionId": "pulse-attention-v4",
+  "definitionId": "pulse-attention-v5",
+  "definitionSha256": "dc5f963764abaae60db02ed20d48bcd6c3a1cda3f2303ffd9566ba5ddc16074c",
   "signer": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
   "threshold": 65,
   "comparison": "above",
   "epochDay": "2026-11-16",
   "minConfidence": 0.5,
   "createdAt": "2026-11-15T09:00:00Z",
-  "id": "f93a8a6c2cd3c984e1e1e0d2e5222839026f044f2076b290c86b7731430de7ff"
+  "id": "ac4fd7b8542f473d826eea3b69e17a78b4e8ed73c2d48d9f17e72e82b03f5efa"
 }
