@@ -73,6 +73,7 @@ async function fetchAll(
       entity: entities.get(constituent.entityId),
       signalId: signal.id,
       entityId: constituent.entityId,
+      titles: constituent.titles,
     })),
   );
   return mapWithConcurrency(tasks, input.concurrency ?? 2, async (task) => {
@@ -83,7 +84,8 @@ async function fetchAll(
       // Only the target day is measured: the anchor it is compared against came
       // from the published definition, so fetching the calibration window again
       // would be waste and would exceed the source window caps.
-      return await task.signal.fetchSeries(task.entity, input.targetDay, input.targetDay);
+      const context = task.titles === undefined ? undefined : { titles: task.titles };
+      return await task.signal.fetchSeries(task.entity, input.targetDay, input.targetDay, context);
     } catch (error) {
       // Name the failing source: a bare "fetch failed" does not say which of
       // the signals or entities needs attention.

@@ -1,5 +1,7 @@
 import { fetchMentions } from '../adapters/hacker-news.ts';
+import { fetchTitles } from '../adapters/wikimedia-titles.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
+import { fetchGlobalPageviews } from '../adapters/wikipedia-global.ts';
 import type { DailyObservation } from '../domain/observation.ts';
 import {
   PULSE_SCORING_COUNTS_V1,
@@ -42,7 +44,21 @@ export interface SignalDefinition {
     entity: EntityDefinition,
     startDay: string,
     endDay: string,
+    context?: SeriesContext,
   ): Promise<SeriesFetch>;
+  /**
+   * Resolves the per-edition article titles a signal reads, during calibration.
+   *
+   * Only signals that read more than one wiki need this. The result is frozen
+   * into the definition, so builds and verification read exactly the pages the
+   * published terms name instead of asking Wikidata again.
+   */
+  resolveTitles?(entity: EntityDefinition): Promise<Record<string, string>>;
+}
+
+/** Published constituent data a build hands to its signal. */
+export interface SeriesContext {
+  readonly titles?: Readonly<Record<string, string>>;
 }
 
 /**
@@ -54,12 +70,22 @@ export interface SignalDefinition {
 export const SIGNALS: readonly SignalDefinition[] = [
   {
     id: 'wikipedia-pageviews',
-    label: 'Wikipedia pageviews',
+    label: 'Wikipedia pageviews, English',
     unit: 'views',
-    weight: 0.75,
+    weight: 0.6,
     scoring: PULSE_SCORING_V1,
     fetchSeries: (entity, startDay, endDay) =>
       fetchPageviews(entity.wikipediaArticle, startDay, endDay),
+  },
+  {
+    id: 'wikipedia-pageviews-global',
+    label: 'Wikipedia pageviews, non-English',
+    unit: 'views',
+    weight: 0.15,
+    scoring: PULSE_SCORING_V1,
+    fetchSeries: (entity, startDay, endDay, context) =>
+      fetchGlobalPageviews(context?.titles ?? {}, startDay, endDay),
+    resolveTitles: (entity) => fetchTitles(entity.wikipediaArticle),
   },
   {
     id: 'hacker-news-stories',

@@ -23,13 +23,14 @@ async function fetchBasePeriod(
   entity: EntityDefinition,
   startDay: string,
   endDay: string,
+  titles?: Readonly<Record<string, string>>,
 ): Promise<readonly DailyObservation[]> {
   const observations: DailyObservation[] = [];
   let cursor = startDay;
   while (cursor <= endDay) {
     const chunkEnd = addDays(cursor, BASE_PERIOD_CHUNK_DAYS - 1);
     const end = chunkEnd < endDay ? chunkEnd : endDay;
-    const fetched = await signal.fetchSeries(entity, cursor, end);
+    const fetched = await signal.fetchSeries(entity, cursor, end, titles === undefined ? undefined : { titles });
     observations.push(...fetched.observations);
     cursor = addDays(end, 1);
   }
@@ -54,16 +55,21 @@ export async function calibrate(id: string, baseDay: string, days: number): Prom
   // Two tasks at a time: each count task is itself a fan-out of daily requests,
   // and the public APIs throttle bursts harder than they throttle totals.
   const fetched = await mapWithConcurrency(tasks, 2, async ({ signal, entity }) => {
-    const series = await fetchBasePeriod(signal, entity, startDay, baseDay);
+    const titles = signal.resolveTitles === undefined ? undefined : await signal.resolveTitles(entity);
+    const series = await fetchBasePeriod(signal, entity, startDay, baseDay, titles);
     console.log(`${signal.id}/${entity.id}: ${series.length} days`);
-    return series;
+    return { series, titles };
   });
+  const titles = new Map<string, Readonly<Record<string, string>>>();
   tasks.forEach(({ signal, entity }, position) => {
-    const series = fetched[position];
-    if (series === undefined) {
+    const entry = fetched[position];
+    if (entry === undefined) {
       throw new Error(`calibration lost the fetch for ${signal.id}/${entity.id}`);
     }
-    observations.set(`${signal.id}/${entity.id}`, series);
+    observations.set(`${signal.id}/${entity.id}`, entry.series);
+    if (entry.titles !== undefined) {
+      titles.set(`${signal.id}/${entity.id}`, entry.titles);
+    }
   });
 
   const definition = buildDefinition({
@@ -72,6 +78,7 @@ export async function calibrate(id: string, baseDay: string, days: number): Prom
     entities: ENTITY_BASKET,
     signals: SIGNALS,
     observations,
+    titles,
     calibrationDays: days,
   });
   await mkdir(DEFINITIONS_DIR, { recursive: true });

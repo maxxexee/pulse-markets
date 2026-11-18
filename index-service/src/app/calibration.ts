@@ -22,6 +22,8 @@ export interface CalibrationInput {
   readonly signals: readonly SignalDefinition[];
   /** Observations keyed by `${signalId}/${entityId}`, any date range. */
   readonly observations: ReadonlyMap<string, readonly DailyObservation[]>;
+  /** Per-edition article titles keyed by `${signalId}/${entityId}`, when resolved. */
+  readonly titles?: ReadonlyMap<string, Readonly<Record<string, string>>>;
   readonly calibrationDays?: number;
   readonly weightCap?: number;
 }
@@ -73,7 +75,14 @@ function anchorsFor(
       input.weightCap ?? CONSTITUENT_WEIGHT_CAP,
     ),
   );
-  return anchors.map((entry, position) => ({ ...entry, weight: weights[position] ?? 0 }));
+  return anchors.map((entry, position) => {
+    const titles = input.titles?.get(`${signal.id}/${entry.entityId}`);
+    return {
+      ...entry,
+      weight: weights[position] ?? 0,
+      ...(titles === undefined ? {} : { titles }),
+    };
+  });
 }
 
 /**

@@ -2,7 +2,7 @@ import { canonicalJson, sha256Hex } from './snapshot.ts';
 import type { ScoringConfig } from './scoring.ts';
 
 /** Identifies the published definition layout, so old definitions stay readable. */
-export const DEFINITION_SCHEMA = 'pulse.index.definition/1';
+export const DEFINITION_SCHEMA = 'pulse.index.definition/2';
 
 /**
  * One constituent as published: the volume its score is measured against, and
@@ -19,6 +19,14 @@ export interface ConstituentAnchor {
   readonly anchor: number;
   /** Published share of the signal index, capped and normalised to sum to 1. */
   readonly weight: number;
+  /**
+   * Article title per wiki language for signals that read several editions.
+   *
+   * Frozen here so the pages behind a number are part of the terms. A build
+   * that resolved titles at run time would silently follow a page rename and
+   * publish a different number under the same definition id.
+   */
+  readonly titles?: Readonly<Record<string, string>>;
 }
 
 /** One signal as published: its formula, its weight, and its constituents. */

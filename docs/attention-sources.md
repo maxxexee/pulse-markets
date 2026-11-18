@@ -55,6 +55,11 @@ and no key.
 | Telegram | public channel preview | 200, only the latest 20 posts | no history |
 | Lobsters | newest stories | 200, tail only, no range query | no history |
 | YouTube | search HTML | 200, no total count, markup fragile | no |
+| GitHub issue search | `api.github.com/search/issues` | 200, per-day totals, but 10 requests a minute and zero results for the three people | no, not dense and rate-limited |
+| Bluesky, re-tested | `public.api.bsky.app` `searchPosts` | 403, with a descriptive agent | no |
+| Reddit, re-tested | `reddit.com` JSON | 403 | no |
+| GDELT GKG bulk | `data.gdeltproject.org/gdeltv2/*.gkg.csv.zip` | 96 files and 438 MB for one day, 96,610 articles. Exact entity tags: Nvidia 2,780, Jensen Huang 2,219, Elon Musk 1,329, Sam Altman 73, OpenAI 0, Anthropic 0, Solana 0 | no, tagging misses three constituents |
+| Wikipedia pageviews, non-English | same per-article endpoint, another project | 200, one request covers 180 days, dense for all seven entities | yes, adopted in v6 |
 
 ## Why Hacker News is the second signal
 
@@ -114,16 +119,29 @@ and 108 for 2026-11-05 when both were queried on 2026-11-16, which fails the
 finality requirement that settlement depends on.
 
 The honest conclusion is that a settlement-grade news count is not available for
-free. Two dense, final, keyless signals are worth more than three with one that
-cannot run.
+free. The GKG route, which the earlier survey kept on the table, was measured
+across all 96 intervals of 2026-11-16 before being adopted or dropped: it cost
+438 MB for the day and its exact entity tags found Nvidia, Jensen Huang and Elon
+Musk but returned zero for OpenAI, Anthropic and Solana, because it tags "openai
+foundation" and "anthropic public benefit fund" instead of the companies. A
+signal that cannot see three of seven constituents is not a dense signal, so the
+news route is closed on quality, not only on cost.
 
-## Signals in index version 4
+## Signals in index version 6
 
-- `wikipedia-pageviews` (`pulse-level-v1`): median baseline, dense data.
-- `hacker-news-stories` (`pulse-level-counts-v1`): smoothed mean baseline,
-  minimum target volume of three stories.
+- `wikipedia-pageviews` (`pulse-level-v1`, weight 0.60): English article
+  pageviews, median baseline, dense data.
+- `wikipedia-pageviews-global` (`pulse-level-v1`, weight 0.15): pageviews summed
+  over the German, French, Spanish, Japanese, Russian and Chinese articles. The
+  per-edition titles are resolved from Wikidata at calibration and frozen into
+  the definition, so the pages behind the number are part of the terms. This
+  measures a different readership on the same Wikimedia dataset; it does not add
+  a second independent supplier, and the index still rests on two upstream
+  datasets.
+- `hacker-news-stories` (`pulse-level-counts-v1`, weight 0.25): smoothed mean
+  baseline, minimum target volume of three stories.
 
-Both use `clamp(50 + 12.5 * log2(value / baseline), 0, 100)` per entity. Each
-signal publishes its own index as the mean of its scored entities. The headline
-index is the mean of the signal indices that scored, which weights signals
-equally rather than weighting by entity coverage.
+All three use `clamp(50 + 12.5 * log2(value / baseline), 0, 100)` per entity.
+Each signal publishes its own index as the weighted mean of its scored entities.
+The headline index is the weighted mean of the signal indices that scored, over
+the signals that scored, at the weights above.

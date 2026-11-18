@@ -1,0 +1,223 @@
+{
+  "schema": "pulse.index.definition/2",
+  "id": "pulse-attention-v6",
+  "baseDay": "2026-11-17",
+  "calibrationDays": 180,
+  "constituentWeightCap": 0.25,
+  "signals": [
+    {
+      "id": "wikipedia-pageviews",
+      "label": "Wikipedia pageviews, English",
+      "unit": "views",
+      "weight": 0.6,
+      "scoring": {
+        "name": "pulse-level-v1",
+        "baselineWindowDays": 180,
+        "minBaselineDays": 7,
+        "midpoint": 50,
+        "pointsPerDoubling": 12.5,
+        "baselineMethod": "median",
+        "baselinePrior": 0,
+        "minTargetValue": 0
+      },
+      "constituents": [
+        {
+          "entityId": "jensen-huang",
+          "anchor": 5601,
+          "weight": 0.12293
+        },
+        {
+          "entityId": "nvidia",
+          "anchor": 4954,
+          "weight": 0.108729
+        },
+        {
+          "entityId": "openai",
+          "anchor": 6885.5,
+          "weight": 0.151122
+        },
+        {
+          "entityId": "sam-altman",
+          "anchor": 9053,
+          "weight": 0.198693
+        },
+        {
+          "entityId": "anthropic",
+          "anchor": 7429.5,
+          "weight": 0.163061
+        },
+        {
+          "entityId": "elon-musk",
+          "anchor": 20159,
+          "weight": 0.25
+        },
+        {
+          "entityId": "solana",
+          "anchor": 249,
+          "weight": 0.005465
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-pageviews-global",
+      "label": "Wikipedia pageviews, non-English",
+      "unit": "views",
+      "weight": 0.15,
+      "scoring": {
+        "name": "pulse-level-v1",
+        "baselineWindowDays": 180,
+        "minBaselineDays": 7,
+        "midpoint": 50,
+        "pointsPerDoubling": 12.5,
+        "baselineMethod": "median",
+        "baselinePrior": 0,
+        "minTargetValue": 0
+      },
+      "constituents": [
+        {
+          "entityId": "jensen-huang",
+          "anchor": 3043.5,
+          "weight": 0.162574,
+          "titles": {
+            "de": "Jensen Huang",
+            "fr": "Jensen Huang",
+            "es": "Jensen Huang",
+            "ja": "ジェンスン・フアン",
+            "ru": "Хуанг, Дженсен",
+            "zh": "黃仁勳"
+          }
+        },
+        {
+          "entityId": "nvidia",
+          "anchor": 2103,
+          "weight": 0.112336,
+          "titles": {
+            "de": "Nvidia",
+            "fr": "Nvidia",
+            "es": "Nvidia",
+            "ja": "NVIDIA",
+            "ru": "Nvidia",
+            "zh": "英伟达"
+          }
+        },
+        {
+          "entityId": "openai",
+          "anchor": 2440,
+          "weight": 0.130337,
+          "titles": {
+            "de": "OpenAI",
+            "fr": "OpenAI",
+            "es": "OpenAI",
+            "ja": "OpenAI",
+            "ru": "OpenAI",
+            "zh": "OpenAI"
+          }
+        },
+        {
+          "entityId": "sam-altman",
+          "anchor": 2571,
+          "weight": 0.137335,
+          "titles": {
+            "de": "Sam Altman",
+            "fr": "Sam Altman",
+            "es": "Sam Altman",
+            "ja": "サム・アルトマン",
+            "ru": "Альтман, Сэм",
+            "zh": "萨姆·奥尔特曼"
+          }
+        },
+        {
+          "entityId": "anthropic",
+          "anchor": 3774.5,
+          "weight": 0.201622,
+          "titles": {
+            "de": "Anthropic",
+            "fr": "Anthropic",
+            "es": "Anthropic",
+            "ja": "Anthropic",
+            "ru": "Anthropic",
+            "zh": "Anthropic"
+          }
+        },
+        {
+          "entityId": "elon-musk",
+          "anchor": 10275.5,
+          "weight": 0.25,
+          "titles": {
+            "de": "Elon Musk",
+            "fr": "Elon Musk",
+            "es": "Elon Musk",
+            "ja": "イーロン・マスク",
+            "ru": "Маск, Илон",
+            "zh": "埃隆·马斯克"
+          }
+        },
+        {
+          "entityId": "solana",
+          "anchor": 108.5,
+          "weight": 0.005796,
+          "titles": {
+            "de": "Solana (Blockchain)",
+            "fr": "Solana (blockchain)",
+            "es": "Solana (plataforma de blockchain)",
+            "ja": "ソラナ",
+            "ru": "Solana"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hacker-news-stories",
+      "label": "Hacker News stories",
+      "unit": "stories",
+      "weight": 0.25,
+      "scoring": {
+        "name": "pulse-level-counts-v1",
+        "baselineWindowDays": 180,
+        "minBaselineDays": 7,
+        "midpoint": 50,
+        "pointsPerDoubling": 12.5,
+        "baselineMethod": "smoothed-mean",
+        "baselinePrior": 1,
+        "minTargetValue": 3
+      },
+      "constituents": [
+        {
+          "entityId": "jensen-huang",
+          "anchor": 1.4641,
+          "weight": 0.073858
+        },
+        {
+          "entityId": "nvidia",
+          "anchor": 7.0276,
+          "weight": 0.25
+        },
+        {
+          "entityId": "openai",
+          "anchor": 19.5912,
+          "weight": 0.25
+        },
+        {
+          "entityId": "sam-altman",
+          "anchor": 0.895,
+          "weight": 0.045149
+        },
+        {
+          "entityId": "anthropic",
+          "anchor": 13.7901,
+          "weight": 0.25
+        },
+        {
+          "entityId": "elon-musk",
+          "anchor": 2.3481,
+          "weight": 0.118452
+        },
+        {
+          "entityId": "solana",
+          "anchor": 0.2486,
+          "weight": 0.012541
+        }
+      ]
+    }
+  ]
+}

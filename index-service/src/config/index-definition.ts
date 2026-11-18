@@ -7,7 +7,7 @@
  * definition itself is published under `definitions/<id>.json` and embedded in
  * every snapshot, so this string is a name, not the terms.
  */
-export const ACTIVE_DEFINITION_ID = 'pulse-attention-v5';
+export const ACTIVE_DEFINITION_ID = 'pulse-attention-v6';
 
 /**
  * Cap on any single constituent weight inside a signal.

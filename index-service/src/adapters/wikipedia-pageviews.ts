@@ -24,13 +24,26 @@ export interface PageviewsFetch {
   readonly urls: readonly string[];
   readonly retrievedAt: string;
   readonly payloadSha256: string;
+  /** Raw response body, kept so a multi-project fetch can hash its inputs. */
+  readonly body: string;
   readonly observations: readonly DailyObservation[];
 }
 
-/** Builds the public API URL for one article over an inclusive day range. */
-export function pageviewsUrl(article: string, startDay: string, endDay: string): string {
+/**
+ * Builds the public API URL for one article over an inclusive day range.
+ *
+ * The project defaults to English Wikipedia. Other language editions are named
+ * explicitly by a definition that reads them, so the pages a signal reads are
+ * always the pages it publishes.
+ */
+export function pageviewsUrl(
+  article: string,
+  startDay: string,
+  endDay: string,
+  project = 'en.wikipedia',
+): string {
   const title = encodeURIComponent(article.replaceAll(' ', '_'));
-  return `${API_ROOT}/en.wikipedia/all-access/user/${title}/daily/${toCompact(startDay)}/${toCompact(endDay)}`;
+  return `${API_ROOT}/${project}/all-access/user/${title}/daily/${toCompact(startDay)}/${toCompact(endDay)}`;
 }
 
 /**
@@ -63,9 +76,9 @@ export async function fetchPageviews(
   article: string,
   startDay: string,
   endDay: string,
-  options: { fetchImpl?: typeof fetch; now?: () => Date } = {},
+  options: { fetchImpl?: typeof fetch; now?: () => Date; project?: string } = {},
 ): Promise<PageviewsFetch> {
-  const url = pageviewsUrl(article, startDay, endDay);
+  const url = pageviewsUrl(article, startDay, endDay, options.project);
   let text: string;
   try {
     text = await fetchText(url, options.fetchImpl);
@@ -83,6 +96,7 @@ export async function fetchPageviews(
     urls: [url],
     retrievedAt: now.toISOString(),
     payloadSha256: sha256Hex(text),
+    body: text,
     observations: parsePageviews(JSON.parse(text)),
   };
 }

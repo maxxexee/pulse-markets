@@ -8,7 +8,7 @@ settlement engine in `resolver/` implements exactly this document.
 
 | Field | Meaning |
 | --- | --- |
-| `definitionId` | Index definition the market settles under, e.g. `pulse-attention-v5`. |
+| `definitionId` | Index definition the market settles under, e.g. `pulse-attention-v6`. |
 | `definitionSha256` | Optional. SHA-256 of that definition. When set, the snapshot must have been computed under exactly those anchors and weights. |
 | `signer` | Base58 Ed25519 key whose snapshots are accepted as evidence. A Solana address. |
 | `threshold` | Index points, `0` to `100`, at most two decimals. |

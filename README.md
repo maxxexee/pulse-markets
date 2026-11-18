@@ -56,20 +56,26 @@ instructions for program `GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`, but it
 has not been sent to a funded cluster yet, so no transaction is claimed. The
 trade app is not built yet.
 
-Index definition, version `pulse-attention-v5`. The full definition, including
+Index definition, version `pulse-attention-v6`. The full definition, including
 anchors and weights, is embedded in every snapshot beside its SHA-256
 (`definitionSha256`), so a market can pin the exact terms instead of a name.
 
 - Basket of seven entities, each pinned to a fixed Wikipedia article and a
   fixed Hacker News query.
 - Every constituent has a frozen anchor: its daily volume over the 180-day base
-  period ending 2026-11-16. A rolling baseline moved with each entity's own slow
+  period ending 2026-11-17. A rolling baseline moved with each entity's own slow
   trend, so the same score meant different things in different months and a
   market could not say what it was settling on. Anchors do not move inside a
   definition version; new terms mean a new version and a new id.
-- Two signals with published weights:
-  - `wikipedia-pageviews` (`pulse-level-v1`, weight 0.75): daily pageviews,
-    median anchor over the base period.
+- Three signals with published weights:
+  - `wikipedia-pageviews` (`pulse-level-v1`, weight 0.60): daily pageviews of
+    the English article, median anchor over the base period.
+  - `wikipedia-pageviews-global` (`pulse-level-v1`, weight 0.15): daily
+    pageviews summed over the German, French, Spanish, Japanese, Russian and
+    Chinese articles. Each constituent's per-edition titles are resolved from
+    Wikidata during calibration and frozen into the definition, so a build and a
+    verify read exactly the pages the terms name. This is a second population on
+    the same Wikimedia dataset, not a second independent supplier.
   - `hacker-news-stories` (`pulse-level-counts-v1`, weight 0.25): daily story
     mentions from the public Algolia API, smoothed mean anchor (prior of 1), and
     no score below 3 stories where a unit is noise.
@@ -82,14 +88,15 @@ anchors and weights, is embedded in every snapshot beside its SHA-256
   anchor or no value for the day is reported as unscored and excluded, and the
   remaining weights are renormalised over what did score, never guessed.
 - Headline index: weighted mean of the signal indices that scored, at their
-  published weights, renormalised over the signals that scored. Pageviews carry
-  0.75 because they are dense and filtered upstream; story counts carry 0.25
-  because they are sparse and skew technical.
+  published weights, renormalised over the signals that scored. Readership
+  carries 0.75 because it is dense and filtered upstream, split between English
+  (0.60) and the six other editions (0.15); story counts carry 0.25 because they
+  are sparse and skew technical.
 - Momentum: the change in the index against the snapshot 7 days earlier, scored
   as `clamp(50 + delta, 0, 100)`. Missing history publishes `null`, not a guess.
 - Coverage: series scored over series expected, published beside the score as
   a coverage ratio, plus `weightScored`, the share of headline weight that
-  actually scored. A 71 from 2 of 14 series is not the same claim as a 71 from 14.
+  actually scored. A 71 from 2 of 21 series is not the same claim as a 71 from 21.
 - Snapshot: canonical JSON, SHA-256, signed with Ed25519. The signing key is a
   Solana address, so snapshot signatures can be checked on chain later.
 
