@@ -6,8 +6,8 @@ import { test } from 'node:test';
 import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { buildTrends, momentumFor, statusFor, trendsPayload } from '../src/app/trends.ts';
 import { ENTITY_BASKET } from '../src/config/entities.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '../src/domain/snapshot.ts';
-import { PULSE_SCORING_V1, type EntityScore } from '../src/domain/scoring.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '@pulse/index-core/snapshot.ts';
+import { PULSE_SCORING_V1, type EntityScore } from '@pulse/index-core/scoring.ts';
 
 function score(entityId: string, level: number, value = 1000): EntityScore {
   return {

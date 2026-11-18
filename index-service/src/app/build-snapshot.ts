@@ -1,27 +1,27 @@
 import type { EntityDefinition } from '../config/entities.ts';
 import { SIGNALS, type SeriesFetch, type SignalDefinition } from '../config/signals.ts';
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import { summarizeCoverage } from '../domain/coverage.ts';
-import { addDays } from '../domain/dates.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import { summarizeCoverage } from '@pulse/index-core/coverage.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
 import {
   definitionDigest,
   type IndexDefinition,
   type PublishedSignal,
-} from '../domain/index-definition.ts';
-import { MOMENTUM_WINDOW_DAYS, momentumFrom, type Momentum } from '../domain/momentum.ts';
+} from '@pulse/index-core/index-definition.ts';
+import { MOMENTUM_WINDOW_DAYS, momentumFrom, type Momentum } from '@pulse/index-core/momentum.ts';
 import {
   round2,
   scoreAgainstAnchor,
   type EntityScore,
   type IndexAggregate,
-} from '../domain/scoring.ts';
+} from '@pulse/index-core/scoring.ts';
 import {
   SNAPSHOT_SCHEMA,
   type IndexSnapshot,
   type SignalSeries,
   type SourceRecord,
-} from '../domain/snapshot.ts';
-import { weightedScore } from '../domain/weights.ts';
+} from '@pulse/index-core/snapshot.ts';
+import { weightedScore } from '@pulse/index-core/weights.ts';
 
 export interface BuildSnapshotInput {
   readonly entities: readonly EntityDefinition[];
@@ -106,7 +106,7 @@ function scoreSignal(
   fetched: readonly SeriesFetch[],
   definition: IndexDefinition,
   targetDay: string,
-): { series: SignalSeries; records: readonly SourceRecord[]; weight: number } {
+): { series: SignalSeries; records: readonly SourceRecord[]; weight: number; weightScored: number } {
   const entities: EntityScore[] = published.constituents.map((constituent, position) => {
     const series = fetched[position];
     if (series === undefined) {
@@ -151,7 +151,7 @@ function scoreSignal(
     momentum: null,
     entities,
   };
-  return { series, records, weight: published.weight };
+  return { series, records, weight: published.weight, weightScored: aggregate.weightScored };
 }
 
 function seriesScoredCount(entities: readonly EntityScore[]): number {
@@ -208,6 +208,11 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
     totalEntities: built.reduce((sum, item) => sum + item.series.index.totalEntities, 0),
   };
 
+  // Coverage at constituent granularity: a signal that scored from one of its
+  // constituents has not represented the whole signal, so its missing weight
+  // stays visible in the published figure.
+  const weightScored = built.reduce((sum, item) => sum + item.weight * item.weightScored, 0);
+
   const digest = definitionDigest(input.definition);
   const referenceDay = addDays(input.targetDay, -MOMENTUM_WINDOW_DAYS);
   // A delta across two definitions compares different scales, so only a snapshot
@@ -230,7 +235,7 @@ export async function buildSnapshot(input: BuildSnapshotInput): Promise<IndexSna
     definitionSha256: digest,
     index,
     momentum: momentumFor(reference, null, referenceDay, index),
-    coverage: summarizeCoverage(series, sources, headline.weightScored),
+    coverage: summarizeCoverage(series, sources, weightScored),
     series,
     sources,
   };

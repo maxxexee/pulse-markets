@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { ACTIVE_DEFINITION_ID } from '../../index-service/src/config/index-definition.ts';
+import { ACTIVE_DEFINITION_ID } from '@pulse/index-core/active-definition.ts';
 import {
   createMarketSpec,
   DEFAULT_MIN_CONFIDENCE,

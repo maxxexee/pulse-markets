@@ -26,6 +26,15 @@ log() {
 
 cd "$SERVICE_DIR"
 
+# launchd starts this job with no environment. Trend context is written during
+# the build, so its key is read from an ignored file beside the service.
+if [ -f "$SERVICE_DIR/.env.local" ]; then
+  set -a
+  # shellcheck disable=SC1091
+  . "$SERVICE_DIR/.env.local"
+  set +a
+fi
+
 if [ ! -x "$NODE_BIN" ]; then
   log "fatal: node not found at $NODE_BIN"
   exit 1

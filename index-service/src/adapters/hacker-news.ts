@@ -1,7 +1,7 @@
-import type { DailyObservation } from '../domain/observation.ts';
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import { addDays } from '../domain/dates.ts';
-import { sha256Hex } from '../domain/snapshot.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
+import { sha256Hex } from '@pulse/index-core/snapshot.ts';
 import { HttpError, fetchText } from './http.ts';
 
 const API_ROOT = 'https://hn.algolia.com/api/v1/search';

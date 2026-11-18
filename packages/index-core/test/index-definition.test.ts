@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { DEFINITION_SCHEMA, definitionDigest } from '../src/domain/index-definition.ts';
-import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
+import { DEFINITION_SCHEMA, definitionDigest } from '../src/index-definition.ts';
+import { PULSE_SCORING_V1 } from '../src/scoring.ts';
 
 const BASE = {
   schema: DEFINITION_SCHEMA,

@@ -1,5 +1,11 @@
 import type { DailyObservation } from './observation.ts';
-import type { TopArticle } from '../adapters/wikipedia-top.ts';
+
+/** One entry of the daily Wikipedia ranking, before any rule is applied. */
+export interface TopArticle {
+  readonly article: string;
+  readonly views: number;
+  readonly rank: number;
+}
 
 /**
  * Rules for promoting a naturally trending article out of the daily Wikipedia
@@ -60,10 +66,69 @@ export interface DiscoveredTopic {
   readonly baselineDays: number;
   /** Percent change from baseline to the discovery day, one decimal. */
   readonly momentum: number;
+  /** Pages collapsed into this one because they told the same story. */
+  readonly alsoRanked?: readonly string[];
 }
+
+/** Suffixes for pages that detail a work or list about the same subject. */
+const DERIVATIVE_SUFFIX =
+  /\s+(filmography|discography|videography|bibliography|film series|television series|awards and nominations)$/i;
+
+/**
+ * Generational suffixes that trail a name without being the surname. Without
+ * stripping them, every "... Jr." page would key on the suffix and collapse
+ * people who share nothing but a middle name convention.
+ */
+const GENERATIONAL_SUFFIX = /\s+(?:jr\.?|sr\.?|ii|iii|iv)$/i;
+
+/** Two or three capitalised words and nothing else, the shape of a person's name. */
+const PERSON_NAME = /^\p{Lu}[\p{L}'’.\-]*(?: \p{Lu}[\p{L}'’.\-]*){1,2}$/u;
 
 export function topicLabel(article: string): string {
   return article.replaceAll('_', ' ').trim();
+}
+
+/**
+ * Key for pages that are one story to a reader: an article and its filmography,
+ * or two people sharing a surname. The ranking counts each page separately, so
+ * a single news day can otherwise fill the strip with one family.
+ *
+ * The test is structural, not a claim about the subject. Two unrelated people
+ * with the same surname on the same day would be merged, which hides the lower
+ * ranked one; that is the accepted cost of dropping the visible duplicates.
+ */
+export function storyKey(article: string): string {
+  const title = article.replace(/\([^)]*\)\s*$/, '').replaceAll('_', ' ').trim();
+  const base = title.replace(DERIVATIVE_SUFFIX, '').replace(GENERATIONAL_SUFFIX, '').trim();
+  if (!PERSON_NAME.test(base)) {
+    return `page:${base.toLowerCase()}`;
+  }
+  const surname = base.split(' ').at(-1) ?? base;
+  return `surname:${surname.toLowerCase()}`;
+}
+
+/**
+ * Keeps the most read page of each story and records what it absorbed. Runs
+ * before the result cap so one family cannot take several cards.
+ */
+export function collapseStories(topics: readonly DiscoveredTopic[]): readonly DiscoveredTopic[] {
+  const kept = new Map<string, DiscoveredTopic>();
+  const dropped = new Map<string, string[]>();
+  for (const topic of topics) {
+    const key = storyKey(topic.article);
+    const current = kept.get(key);
+    if (current === undefined) {
+      kept.set(key, topic);
+      continue;
+    }
+    const [winner, loser] = current.views >= topic.views ? [current, topic] : [topic, current];
+    kept.set(key, winner);
+    dropped.set(key, [...(dropped.get(key) ?? []), topicLabel(loser.article)]);
+  }
+  return [...kept].map(([key, topic]) => {
+    const absorbed = dropped.get(key);
+    return absorbed === undefined ? topic : { ...topic, alsoRanked: absorbed };
+  });
 }
 
 function round1(value: number): number {
@@ -137,5 +202,8 @@ export function discoverTopics(
       momentum,
     });
   }
-  return found.sort((a, b) => b.momentum - a.momentum).slice(0, settings.maxResults);
+  const ranked = found.sort((a, b) => b.momentum - a.momentum);
+  return [...collapseStories(ranked)]
+    .sort((a, b) => b.momentum - a.momentum)
+    .slice(0, settings.maxResults);
 }

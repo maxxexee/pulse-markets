@@ -9,7 +9,7 @@ import {
   scoreFromLevel,
   smoothedMean,
   type AnchorScoring,
-} from '../src/domain/scoring.ts';
+} from '../src/scoring.ts';
 
 const TARGET = '2026-11-15';
 const PAGEVIEWS: AnchorScoring = {

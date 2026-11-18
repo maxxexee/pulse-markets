@@ -6,13 +6,13 @@ import {
   signerFromKey,
   type SignedSnapshot,
   type Signer,
-} from '../../index-service/src/adapters/attestation.ts';
+} from '@pulse/index-core/attestation.ts';
 import {
   DEFINITION_SCHEMA,
   definitionDigest,
   type IndexDefinition,
-} from '../../index-service/src/domain/index-definition.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../../index-service/src/domain/snapshot.ts';
+} from '@pulse/index-core/index-definition.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 import { createMarketSpec, type MarketSpec } from '../src/domain/market.ts';
 import { decide, resolveMarket } from '../src/domain/resolution.ts';
 

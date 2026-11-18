@@ -1,6 +1,6 @@
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import type { DailyObservation } from '../domain/observation.ts';
-import { sha256Hex } from '../domain/snapshot.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { sha256Hex } from '@pulse/index-core/snapshot.ts';
 import { WikipediaError, fetchPageviews } from './wikipedia-pageviews.ts';
 
 /** Languages fetched at once: one page per edition, and Wikimedia throttles bursts. */

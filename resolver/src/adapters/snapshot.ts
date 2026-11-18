@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import type { SignedSnapshot } from '../../../index-service/src/adapters/attestation.ts';
+import type { SignedSnapshot } from '@pulse/index-core/attestation.ts';
 
 export type SnapshotReadErrorKind = 'not-found' | 'malformed';
 

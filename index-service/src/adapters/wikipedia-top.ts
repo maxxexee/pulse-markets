@@ -1,5 +1,6 @@
-import { sha256Hex } from '../domain/snapshot.ts';
-import { toCompact } from '../domain/dates.ts';
+import type { TopArticle } from '@pulse/index-core/discovery.ts';
+import { toCompact } from '@pulse/index-core/dates.ts';
+import { sha256Hex } from '@pulse/index-core/snapshot.ts';
 import { fetchText, HttpError } from './http.ts';
 
 /**
@@ -24,12 +25,8 @@ export class WikipediaTopError extends Error {
   }
 }
 
-/** One article in the daily ranking. */
-export interface TopArticle {
-  readonly article: string;
-  readonly views: number;
-  readonly rank: number;
-}
+/** Re-exported so ranking consumers do not depend on the core package directly. */
+export type { TopArticle };
 
 export interface TopFetch {
   readonly urls: readonly string[];

@@ -1,6 +1,6 @@
-import { canonicalJson, sha256Hex } from '../../../index-service/src/domain/snapshot.ts';
-import { decodeBase58 } from '../../../index-service/src/domain/base58.ts';
-import { isValidDay } from '../../../index-service/src/domain/dates.ts';
+import { canonicalJson, sha256Hex } from '@pulse/index-core/snapshot.ts';
+import { decodeBase58 } from '@pulse/index-core/base58.ts';
+import { isValidDay } from '@pulse/index-core/dates.ts';
 
 /** Which side of the threshold resolves the market YES. */
 export type ThresholdComparison = 'above' | 'below';

@@ -5,9 +5,10 @@ import {
   DISCOVERY_V1,
   discoverTopics,
   selectCandidates,
+  storyKey,
   topicLabel,
   type DiscoverySettings,
-} from '../src/domain/discovery.ts';
+} from '@pulse/index-core/discovery.ts';
 
 const settings: DiscoverySettings = {
   ...DISCOVERY_V1,
@@ -128,6 +129,53 @@ test('results are ranked by momentum and capped', () => {
   assert.deepEqual(
     found.map((entry) => entry.article),
     ['First', 'Second', 'Third'],
+  );
+});
+
+test('pages about one story share a key', () => {
+  assert.equal(storyKey('Robert_Pattinson'), 'surname:pattinson');
+  assert.equal(storyKey('Lizzy_Pattinson'), 'surname:pattinson');
+  assert.equal(storyKey('Robert_Pattinson_filmography'), 'surname:pattinson');
+  assert.equal(storyKey('Full_Gear_(2026)'), storyKey('Full_Gear_(2024)'));
+  assert.equal(storyKey('Robert_Downey_Jr.'), storyKey('Robert_Downey'));
+  assert.equal(storyKey('Robert_Downey_Jr._filmography'), storyKey('Robert_Downey'));
+  assert.notEqual(storyKey('Robert_Downey_Jr.'), storyKey('John_Wayne_Jr.'));
+  assert.notEqual(storyKey('Saturn_Devouring_His_Son'), storyKey('Saturn'));
+});
+
+test('one story gets one card, and keeps the most read page', () => {
+  const found = discoverTopics(
+    [
+      { article: 'Robert_Pattinson', observations: series([1000, 1000, 1000, 90_000]) },
+      { article: 'Robert_Pattinson_filmography', observations: series([1000, 1000, 1000, 60_000]) },
+      { article: 'Lizzy_Pattinson', observations: series([1000, 1000, 1000, 40_000]) },
+      { article: 'Saturn_Devouring_His_Son', observations: series([1000, 1000, 1000, 50_000]) },
+    ],
+    '2026-11-15',
+    settings,
+  );
+  assert.deepEqual(
+    found.map((entry) => entry.article),
+    ['Robert_Pattinson', 'Saturn_Devouring_His_Son'],
+  );
+  assert.equal(found[0]?.alsoRanked?.length, 2);
+  assert.deepEqual(found[1]?.alsoRanked, undefined);
+});
+
+test('a collapsed story frees a card for the next topic', () => {
+  const found = discoverTopics(
+    [
+      { article: 'Robert_Pattinson', observations: series([1000, 1000, 1000, 90_000]) },
+      { article: 'Robert_Pattinson_filmography', observations: series([1000, 1000, 1000, 60_000]) },
+      { article: 'Saturn_Devouring_His_Son', observations: series([1000, 1000, 1000, 50_000]) },
+      { article: 'Heidi_Gardner', observations: series([1000, 1000, 1000, 45_000]) },
+    ],
+    '2026-11-15',
+    { ...settings, maxResults: 3 },
+  );
+  assert.deepEqual(
+    found.map((entry) => entry.article),
+    ['Robert_Pattinson', 'Saturn_Devouring_His_Son', 'Heidi_Gardner'],
   );
 });
 

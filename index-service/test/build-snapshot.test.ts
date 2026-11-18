@@ -6,13 +6,13 @@ import {
   DEFINITION_SCHEMA,
   definitionDigest,
   type IndexDefinition,
-} from '../src/domain/index-definition.ts';
+} from '@pulse/index-core/index-definition.ts';
 import type { SeriesFetch, SignalDefinition } from '../src/config/signals.ts';
-import { addDays } from '../src/domain/dates.ts';
-import { MOMENTUM_WINDOW_DAYS } from '../src/domain/momentum.ts';
-import type { DailyObservation } from '../src/domain/observation.ts';
-import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../src/domain/snapshot.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
+import { MOMENTUM_WINDOW_DAYS } from '@pulse/index-core/momentum.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { PULSE_SCORING_V1 } from '@pulse/index-core/scoring.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
 const ENTITIES: readonly EntityDefinition[] = [
   {
@@ -255,8 +255,16 @@ describe('buildSnapshot', () => {
         seriesScored: snapshot.coverage.seriesScored,
         seriesExpected: snapshot.coverage.seriesExpected,
         coverageRatio: snapshot.coverage.coverageRatio,
+        weightScored: snapshot.coverage.weightScored,
       },
-      { signalsScored: 2, signalsTotal: 2, seriesScored: 4, seriesExpected: 4, coverageRatio: 1 },
+      {
+        signalsScored: 2,
+        signalsTotal: 2,
+        seriesScored: 4,
+        seriesExpected: 4,
+        coverageRatio: 1,
+        weightScored: 1,
+      },
     );
     assert.equal(snapshot.coverage.oldestSourceAt, NOW.toISOString());
   });
@@ -286,6 +294,33 @@ describe('buildSnapshot', () => {
     assert.equal(snapshot.coverage.seriesScored, 1);
     assert.equal(snapshot.coverage.seriesExpected, 2);
     assert.equal(snapshot.coverage.coverageRatio, 0.5);
+    assert.equal(snapshot.coverage.weightScored, 0.5);
+  });
+
+  it('counts a half-scored signal at half its weight, not in full', async () => {
+    const { pageviews, signals } = twoSignals(200);
+    const fetchSeries = pageviews.signal.fetchSeries;
+    const oneConstituent: SignalDefinition = {
+      ...pageviews.signal,
+      fetchSeries: async (entity, startDay, endDay) => {
+        const fetched = await fetchSeries(entity, startDay, endDay);
+        return entity.id === 'openai'
+          ? {
+              ...fetched,
+              observations: fetched.observations.filter((entry) => entry.day !== TARGET),
+            }
+          : fetched;
+      },
+    };
+    const snapshot = await buildSnapshot({
+      entities: ENTITIES,
+      definition: DEFINITION,
+      targetDay: TARGET,
+      signals: [oneConstituent, signals[1] as SignalDefinition],
+      now: NOW,
+    });
+    // Pageviews covers half its own weight (0.5 of 0.5), mentions all of it.
+    assert.equal(snapshot.coverage.weightScored, 0.75);
   });
 
   it('publishes null momentum when no reference snapshot was published', async () => {

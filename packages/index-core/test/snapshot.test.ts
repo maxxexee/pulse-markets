@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { decodeBase58, encodeBase58 } from '../src/domain/base58.ts';
-import { canonicalJson, sha256Hex } from '../src/domain/snapshot.ts';
+import { decodeBase58, encodeBase58 } from '../src/base58.ts';
+import { canonicalJson, sha256Hex } from '../src/snapshot.ts';
 
 describe('canonicalJson', () => {
   it('sorts keys so insertion order cannot change the hash', () => {

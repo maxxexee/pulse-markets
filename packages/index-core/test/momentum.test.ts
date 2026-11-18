@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { MOMENTUM_WINDOW_DAYS, momentumFrom } from '../src/domain/momentum.ts';
+import { MOMENTUM_WINDOW_DAYS, momentumFrom } from '../src/momentum.ts';
 
 const REFERENCE_DAY = '2026-11-08';
 

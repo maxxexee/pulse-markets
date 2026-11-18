@@ -34,12 +34,33 @@ Example market:
 ## Repo layout
 
 ```
+packages/
+  index-core/    published terms, scoring, snapshot and verification shared by
+                 the index service and the resolver
 index-service/   index computation, signed epoch snapshots, public pages
 app/             landing page and markets front end, served at /app/
 resolver/        market factory and settlement
 markets/         published market specs, one JSON file each
 docs/            index definition, snapshot format, resolution rules, operations
 ops/             daily build job and static deploy
+```
+
+Install once at the root: `npm install`. Workspaces link `@pulse/index-core`
+into both services, so a change to the terms, scoring or verification code reaches
+the index service and the resolver together.
+
+Reading the index from another program uses the same package:
+
+```ts
+import { readLatest, readHistory } from '@pulse/index-core';
+
+const { snapshot, verified } = await readLatest({ baseUrl: 'https://maxxexee.github.io/pulse-markets' });
+if (verified) console.log(snapshot.epochDay, snapshot.index.score);
+
+// every reading carries the signature check made locally; the host is not trusted
+for (const day of await readHistory({ baseUrl: 'https://maxxexee.github.io/pulse-markets' })) {
+  console.log(day.day, day.index);
+}
 ```
 
 Live: [app](https://maxxexee.github.io/pulse-markets/app/) ·
@@ -96,7 +117,8 @@ anchors and weights, is embedded in every snapshot beside its SHA-256
   as `clamp(50 + delta, 0, 100)`. Missing history publishes `null`, not a guess.
 - Coverage: series scored over series expected, published beside the score as
   a coverage ratio, plus `weightScored`, the share of headline weight that
-  actually scored. A 71 from 2 of 21 series is not the same claim as a 71 from 21.
+  actually scored, summed over constituents rather than taken from the series
+  headline. A 71 from 2 of 21 series is not the same claim as a 71 from 21.
 - Snapshot: canonical JSON, SHA-256, signed with Ed25519. The signing key is a
   Solana address, so snapshot signatures can be checked on chain later.
 
@@ -109,8 +131,8 @@ refetch it and recompute the score without access to this server. The formula
 must be frozen before a market is created on it.
 
 ```
+npm install                 # once, at the repository root
 cd index-service
-npm install
 node src/cli.ts build     # compute, sign and publish the previous UTC day
 node src/cli.ts calibrate --base-day 2026-11-16 --days 180   # rebuild the definition
 node src/cli.ts social    # optional display-only social panel
@@ -131,7 +153,6 @@ custody and failure handling are in [`docs/operations.md`](docs/operations.md).
 
 ```
 cd resolver
-npm install
 node src/cli.ts create  --threshold 55 --comparison above --day 2026-11-20 --signer <base58> \
                         --definition-sha256 <64 hex>   # optional: pin the exact terms
 node src/cli.ts resolve --spec market.json --snapshot ../index-service/snapshots/2026-11-20.json

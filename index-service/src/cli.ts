@@ -15,12 +15,12 @@ import { trendsPayload } from './app/trends.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { ACTIVE_DEFINITION_ID, CALIBRATION_DAYS } from './config/index-definition.ts';
 import { socialQuery } from './config/social.ts';
-import type { IndexDefinition } from './domain/index-definition.ts';
-import { MIN_PUBLISH_CONFIDENCE } from './domain/coverage.ts';
-import { addDays, isValidDay, toDay } from './domain/dates.ts';
-import { MOMENTUM_WINDOW_DAYS } from './domain/momentum.ts';
-import { missingEpochDays } from './domain/schedule.ts';
-import type { IndexSnapshot } from './domain/snapshot.ts';
+import type { IndexDefinition } from '@pulse/index-core/index-definition.ts';
+import { MIN_PUBLISH_CONFIDENCE } from '@pulse/index-core/coverage.ts';
+import { addDays, isValidDay, toDay } from '@pulse/index-core/dates.ts';
+import { MOMENTUM_WINDOW_DAYS } from '@pulse/index-core/momentum.ts';
+import { missingEpochDays } from '@pulse/index-core/schedule.ts';
+import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
 const SERVICE_ROOT = resolve(import.meta.dirname, '..');
 const SNAPSHOTS_DIR = join(SERVICE_ROOT, 'snapshots');

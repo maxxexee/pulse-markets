@@ -5,8 +5,8 @@ import type { EntityDefinition } from '../config/entities.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from '../adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './payloads.ts';
 import { trendsPayload } from './trends.ts';
-import { isValidDay } from '../domain/dates.ts';
-import { isHealthy } from '../domain/health.ts';
+import { isValidDay } from '@pulse/index-core/dates.ts';
+import { isHealthy } from '@pulse/index-core/health.ts';
 
 export interface ServerOptions {
   readonly port: number;

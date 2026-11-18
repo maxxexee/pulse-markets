@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import type { EntityScore } from '../src/domain/scoring.ts';
+import type { EntityScore } from '../src/scoring.ts';
 
 type ScoredEntity = Extract<EntityScore, { status: 'scored' }>;
-import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '../src/domain/snapshot.ts';
-import { compareSnapshots } from '../src/domain/verify.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot, type SignalSeries } from '../src/snapshot.ts';
+import { compareSnapshots } from '../src/verify.ts';
 import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 
 function scored(entityId: string, score: number): ScoredEntity {

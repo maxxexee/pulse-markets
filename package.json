@@ -1,0 +1,18 @@
+{
+  "name": "pulse-markets",
+  "private": true,
+  "type": "module",
+  "description": "PULSE attention index: index service, resolver and the shared core package.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "workspaces": [
+    "packages/*",
+    "index-service",
+    "resolver"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

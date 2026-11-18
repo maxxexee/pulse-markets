@@ -3,8 +3,8 @@ import { generateKeyPairSync } from 'node:crypto';
 import { describe, it } from 'node:test';
 import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { signSnapshot, signerFromKey, verifySignedSnapshot } from '../src/adapters/attestation.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../src/domain/snapshot.ts';
-import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '@pulse/index-core/snapshot.ts';
+import { PULSE_SCORING_V1 } from '@pulse/index-core/scoring.ts';
 
 function fixtureSnapshot(): IndexSnapshot {
   return {

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { capShares, roundWeights, sharesOf, weightedScore } from '../src/domain/weights.ts';
+import { capShares, roundWeights, sharesOf, weightedScore } from '../src/weights.ts';
 
 function sum(values: readonly number[]): number {
   return values.reduce((total, value) => total + value, 0);

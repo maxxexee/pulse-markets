@@ -1,4 +1,4 @@
-import { summarizeSocial, type SocialPanel, type SocialPost } from '../domain/social.ts';
+import { summarizeSocial, type SocialPanel, type SocialPost } from '@pulse/index-core/social.ts';
 
 /** Vendor endpoint the vendor documents for search. */
 const API_BASE = 'https://api.twitterapi.io';

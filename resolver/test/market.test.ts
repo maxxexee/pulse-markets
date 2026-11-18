@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { generateKeyPairSync } from 'node:crypto';
 import test from 'node:test';
-import { signerFromKey } from '../../index-service/src/adapters/attestation.ts';
+import { signerFromKey } from '@pulse/index-core/attestation.ts';
 import {
   createMarketSpec,
   MarketError,

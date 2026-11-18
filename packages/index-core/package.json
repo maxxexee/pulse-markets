@@ -1,0 +1,22 @@
+{
+  "name": "@pulse/index-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Published terms, scoring and a reading client for the PULSE attention index.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "test": "node --test 'test/*.test.ts'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

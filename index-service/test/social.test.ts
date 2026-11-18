@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { fetchSocialPanel, SocialError } from '../src/adapters/twitter.ts';
-import { summarizeSocial, type SocialPost } from '../src/domain/social.ts';
+import { summarizeSocial, type SocialPost } from '@pulse/index-core/social.ts';
 import { ENTITY_BASKET } from '../src/config/entities.ts';
 import { socialQuery } from '../src/config/social.ts';
 

@@ -1,9 +1,9 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
-import { coverageRatioOf } from '../domain/coverage.ts';
-import { isValidDay } from '../domain/dates.ts';
-import type { IndexSnapshot } from '../domain/snapshot.ts';
+import { coverageRatioOf } from '@pulse/index-core/coverage.ts';
+import { isValidDay } from '@pulse/index-core/dates.ts';
+import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
 const DAY_FILE = /^(\d{4}-\d{2}-\d{2})\.json$/;
 

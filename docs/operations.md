@@ -141,6 +141,12 @@ days before the epoch, fetches their lead images, and writes
 `snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
 the page then shows only measured basket trends.
 
+Pages that tell one story (an article and its filmography, or two people
+sharing a surname) collapse to the most read page before the cards are capped,
+so one family cannot fill the strip. The absorbed titles stay on the entry as
+`alsoRanked` so a merge can be audited. They are recorded, not shown: the page
+payload carries only the surviving topic.
+
 ### Context notes
 
 Each discovered topic can carry one generated sentence saying what the page is
@@ -156,6 +162,12 @@ PULSE_SUMMARY_API_KEY     required to turn notes on
 PULSE_SUMMARY_API_BASE    default https://api.z.ai/api/paas/v4
 PULSE_SUMMARY_MODEL       default glm-4.5-flash
 ```
+
+The deployed build reads them from `index-service/.env.local`, which is ignored
+by git; `ops/run-epoch-build.sh` sources that file when it exists, because
+launchd starts the job with no environment. Any OpenAI compatible endpoint
+works: this deployment points `PULSE_SUMMARY_API_BASE` at
+`https://openrouter.ai/api/v1` with `google/gemini-2.5-flash`.
 
 The API is OpenAI compatible. Prompt `trend-context-v1` asks for one sentence,
 forbids inventing people, events, dates and causes, and any reply containing a

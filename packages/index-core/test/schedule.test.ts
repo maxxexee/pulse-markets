@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { missingEpochDays } from '../src/domain/schedule.ts';
+import { missingEpochDays } from '../src/schedule.ts';
 
 const plan = (publishedDays: string[], targetDay: string, limit = 7): readonly string[] =>
   missingEpochDays({ publishedDays, targetDay, limit });

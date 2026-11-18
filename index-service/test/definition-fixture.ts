@@ -2,8 +2,8 @@ import {
   DEFINITION_SCHEMA,
   definitionDigest,
   type IndexDefinition,
-} from '../src/domain/index-definition.ts';
-import { PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
+} from '@pulse/index-core/index-definition.ts';
+import { PULSE_SCORING_V1 } from '@pulse/index-core/scoring.ts';
 
 /**
  * Definition used by snapshot fixtures.

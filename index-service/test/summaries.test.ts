@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { ChatConfig } from '../src/adapters/chat-completion.ts';
 import { CONTEXT_PROMPT_VERSION, cleanNote, notesForTopics } from '../src/app/summaries.ts';
-import type { DiscoveredTopic } from '../src/domain/discovery.ts';
+import type { DiscoveredTopic } from '@pulse/index-core/discovery.ts';
 
 const config: ChatConfig = {
   apiKey: 'test-key',

@@ -7,8 +7,8 @@ import { test } from 'node:test';
 import { TEST_DEFINITION, TEST_DEFINITION_SHA256 } from './definition-fixture.ts';
 import { signSnapshot, signerFromKey } from '../src/adapters/attestation.ts';
 import { readSnapshotHealth } from '../src/adapters/health.ts';
-import { assessHealth, isHealthy, type PublishedSnapshotView } from '../src/domain/health.ts';
-import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '../src/domain/snapshot.ts';
+import { assessHealth, isHealthy, type PublishedSnapshotView } from '@pulse/index-core/health.ts';
+import { SNAPSHOT_SCHEMA, type IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
 const NOW = new Date('2026-11-17T09:15:00Z');
 const YESTERDAY = '2026-11-16';

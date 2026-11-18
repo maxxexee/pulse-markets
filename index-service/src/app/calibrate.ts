@@ -3,9 +3,9 @@ import { join, resolve } from 'node:path';
 import { ENTITY_BASKET, type EntityDefinition } from '../config/entities.ts';
 import { SIGNALS, type SignalDefinition } from '../config/signals.ts';
 import { buildDefinition } from './calibration.ts';
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import { addDays, isValidDay } from '../domain/dates.ts';
-import type { DailyObservation } from '../domain/observation.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import { addDays, isValidDay } from '@pulse/index-core/dates.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
 
 const DEFINITIONS_DIR = join(resolve(import.meta.dirname, '..', '..'), 'definitions');
 

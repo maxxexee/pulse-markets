@@ -2,11 +2,11 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { ENTITY_IMAGES } from '../config/entity-images.ts';
-import { coverageRatioOf } from '../domain/coverage.ts';
-import { addDays } from '../domain/dates.ts';
-import { MOMENTUM_WINDOW_DAYS } from '../domain/momentum.ts';
-import type { EntityScore } from '../domain/scoring.ts';
-import type { IndexSnapshot, SignalSeries } from '../domain/snapshot.ts';
+import { coverageRatioOf } from '@pulse/index-core/coverage.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
+import { MOMENTUM_WINDOW_DAYS } from '@pulse/index-core/momentum.ts';
+import type { EntityScore } from '@pulse/index-core/scoring.ts';
+import type { IndexSnapshot, SignalSeries } from '@pulse/index-core/snapshot.ts';
 import { readDiscovery } from './discovery.ts';
 
 /** How attention is moving for one entity, in the shape the landing page reads. */

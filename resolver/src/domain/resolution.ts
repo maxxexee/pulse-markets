@@ -1,6 +1,6 @@
-import type { SignedSnapshot } from '../../../index-service/src/adapters/attestation.ts';
-import { verifySignedSnapshot } from '../../../index-service/src/adapters/attestation.ts';
-import { coverageRatioOf } from '../../../index-service/src/domain/coverage.ts';
+import type { SignedSnapshot } from '@pulse/index-core/attestation.ts';
+import { verifySignedSnapshot } from '@pulse/index-core/attestation.ts';
+import { coverageRatioOf } from '@pulse/index-core/coverage.ts';
 import type { MarketSpec, ThresholdComparison } from './market.ts';
 
 export type ResolutionOutcome = 'yes' | 'no';

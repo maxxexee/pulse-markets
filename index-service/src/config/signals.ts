@@ -2,12 +2,12 @@ import { fetchMentions } from '../adapters/hacker-news.ts';
 import { fetchTitles } from '../adapters/wikimedia-titles.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import { fetchGlobalPageviews } from '../adapters/wikipedia-global.ts';
-import type { DailyObservation } from '../domain/observation.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
 import {
   PULSE_SCORING_COUNTS_V1,
   PULSE_SCORING_V1,
   type ScoringConfig,
-} from '../domain/scoring.ts';
+} from '@pulse/index-core/scoring.ts';
 import type { EntityDefinition } from './entities.ts';
 
 /** Raw observations plus provenance, as returned by every source adapter. */

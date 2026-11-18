@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { mapWithConcurrency } from '../src/domain/concurrency.ts';
+import { mapWithConcurrency } from '../src/concurrency.ts';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

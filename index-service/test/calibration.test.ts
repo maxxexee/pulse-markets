@@ -3,9 +3,9 @@ import { describe, it } from 'node:test';
 import { buildDefinition } from '../src/app/calibration.ts';
 import type { EntityDefinition } from '../src/config/entities.ts';
 import type { SignalDefinition } from '../src/config/signals.ts';
-import { addDays } from '../src/domain/dates.ts';
-import type { DailyObservation } from '../src/domain/observation.ts';
-import { PULSE_SCORING_COUNTS_V1, PULSE_SCORING_V1 } from '../src/domain/scoring.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { PULSE_SCORING_COUNTS_V1, PULSE_SCORING_V1 } from '@pulse/index-core/scoring.ts';
 
 const BASE_DAY = '2026-11-15';
 

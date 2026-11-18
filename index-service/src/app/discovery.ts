@@ -4,15 +4,15 @@ import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import { fetchArticleImage, fetchTopArticles } from '../adapters/wikipedia-top.ts';
 import type { EntityDefinition } from '../config/entities.ts';
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import { addDays } from '../domain/dates.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import { addDays } from '@pulse/index-core/dates.ts';
 import {
   DISCOVERY_V1,
   discoverTopics,
   selectCandidates,
   type DiscoveredTopic,
   type DiscoverySettings,
-} from '../domain/discovery.ts';
+} from '@pulse/index-core/discovery.ts';
 import { notesForTopics, type ContextNote } from './summaries.ts';
 
 /** A discovered topic with the fields the page needs but the rules do not own. */

@@ -1,7 +1,7 @@
 import { completeChat, type ChatConfig } from '../adapters/chat-completion.ts';
 import { fetchArticleExtract } from '../adapters/wikipedia-top.ts';
-import { mapWithConcurrency } from '../domain/concurrency.ts';
-import type { DiscoveredTopic } from '../domain/discovery.ts';
+import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
+import type { DiscoveredTopic } from '@pulse/index-core/discovery.ts';
 
 /**
  * One sentence of context for a topic the daily ranking surfaced.
@@ -21,10 +21,12 @@ const CONCURRENCY = 2;
 const SYSTEM_PROMPT =
   'You write one sentence of context for a public index of what people look up online. ' +
   'You are given a topic, the traffic it received on one day, and the opening of its ' +
-  'encyclopedia article. State what the topic is, and why people might be looking it up ' +
-  'only if the article states it plainly. Never invent an event, cause, date or person, and ' +
-  'never mention the traffic figures because the page shows them. No hype, no speculation, ' +
-  'no advice. One sentence, at most 35 words, plain English.';
+  'encyclopedia article. State what the topic is in concrete terms: what it is, what it ' +
+  'does, or what it is known for. Give a reason for the search only where the article ' +
+  'states one plainly. Never invent an event, cause, date or person, and never mention ' +
+  'the traffic figures because the page shows them. Do not explain what the traffic ' +
+  'suggests, and do not use filler such as people might be looking it up to learn about ' +
+  'the site. No hype, no speculation, no advice. One sentence, at most 35 words.';
 
 export interface ContextNote {
   readonly text: string;

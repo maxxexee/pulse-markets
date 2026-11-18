@@ -2,8 +2,8 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { verifySignedSnapshot, type SignedSnapshot } from '../adapters/attestation.ts';
 import { ENTITY_BASKET } from '../config/entities.ts';
-import type { IndexSnapshot } from '../domain/snapshot.ts';
-import { compareSnapshots, type SnapshotDifference } from '../domain/verify.ts';
+import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
+import { compareSnapshots, type SnapshotDifference } from '@pulse/index-core/verify.ts';
 import { buildSnapshot } from './build-snapshot.ts';
 
 export type VerificationStatus = 'verified' | 'differs' | 'legacy' | 'unreadable';

@@ -1,6 +1,6 @@
-import type { DailyObservation } from '../domain/observation.ts';
-import { toCompact } from '../domain/dates.ts';
-import { sha256Hex } from '../domain/snapshot.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { toCompact } from '@pulse/index-core/dates.ts';
+import { sha256Hex } from '@pulse/index-core/snapshot.ts';
 import { HttpError, fetchText } from './http.ts';
 
 export { DEFAULT_USER_AGENT } from './http.ts';

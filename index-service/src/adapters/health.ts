@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { verifySignedSnapshot, type SignedSnapshot } from './attestation.ts';
-import { coverageRatioOf } from '../domain/coverage.ts';
-import { toDay } from '../domain/dates.ts';
-import { assessHealth, type HealthReport, type PublishedSnapshotView } from '../domain/health.ts';
+import { coverageRatioOf } from '@pulse/index-core/coverage.ts';
+import { toDay } from '@pulse/index-core/dates.ts';
+import { assessHealth, type HealthReport, type PublishedSnapshotView } from '@pulse/index-core/health.ts';
 
 /** One day of lag is normal: the build for today has not run yet. Two is a miss. */
 export const DEFAULT_MAX_AGE_DAYS = 1;

@@ -6,10 +6,10 @@ import {
   type ConstituentAnchor,
   type IndexDefinition,
   type PublishedSignal,
-} from '../domain/index-definition.ts';
-import type { DailyObservation } from '../domain/observation.ts';
-import { baselineOf } from '../domain/scoring.ts';
-import { capShares, roundWeights, sharesOf } from '../domain/weights.ts';
+} from '@pulse/index-core/index-definition.ts';
+import type { DailyObservation } from '@pulse/index-core/observation.ts';
+import { baselineOf } from '@pulse/index-core/scoring.ts';
+import { capShares, roundWeights, sharesOf } from '@pulse/index-core/weights.ts';
 
 /** Anchors are published to four decimals so sparse counts are not flattened. */
 const ANCHOR_DECIMALS = 4;
