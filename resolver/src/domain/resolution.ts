@@ -1,5 +1,6 @@
 import type { SignedSnapshot } from '../../../index-service/src/adapters/attestation.ts';
 import { verifySignedSnapshot } from '../../../index-service/src/adapters/attestation.ts';
+import { coverageRatioOf } from '../../../index-service/src/domain/coverage.ts';
 import type { MarketSpec, ThresholdComparison } from './market.ts';
 
 export type ResolutionOutcome = 'yes' | 'no';
@@ -109,11 +110,11 @@ function readEvidence(spec: MarketSpec, signed: SignedSnapshot): Evidence {
   if (score === null) {
     return evidenceError('missing-index', 'snapshot has no headline index score');
   }
-  const confidence = signed.snapshot.coverage.confidence;
-  if (confidence < spec.minConfidence) {
+  const coverageRatio = coverageRatioOf(signed.snapshot.coverage);
+  if (coverageRatio === null || coverageRatio < spec.minConfidence) {
     return evidenceError(
       'insufficient-coverage',
-      `snapshot confidence ${confidence} is below the market floor ${spec.minConfidence}`,
+      `snapshot coverage ${coverageRatio} is below the market floor ${spec.minConfidence}`,
     );
   }
   return { score, error: null };

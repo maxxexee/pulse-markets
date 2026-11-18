@@ -38,7 +38,7 @@ its terms is rejected.
 5. `snapshot.epochDay` must equal the market's `epochDay`.
 6. `snapshot.index.score` must be present. A snapshot where no series scored
    cannot settle anything.
-7. `snapshot.coverage.confidence` must be at least `minConfidence`. A score read
+7. `snapshot.coverage.coverageRatio` must be at least `minConfidence`. A score read
    from a fragment of the basket is published but not settlement grade.
 8. `above` resolves YES when `score > threshold`; `below` resolves YES when
    `score < threshold`.

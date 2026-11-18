@@ -112,7 +112,7 @@ function generateSummary(trend, header) {
   if (typeof header.index === 'number') {
     parts.push(
       `The attention index scored ${header.index.toFixed(1)} that day at ` +
-        `${(header.confidence * 100).toFixed(0)}% source coverage.`,
+        `${(header.coverageRatio * 100).toFixed(0)}% source coverage.`,
     );
   }
   return parts.join(' ');
@@ -137,7 +137,7 @@ function buildTicker(trends) {
 }
 
 let liveData = [];
-let header = { epochDay: null, referenceDay: null, index: null, confidence: 0 };
+let header = { epochDay: null, referenceDay: null, index: null, coverageRatio: 0 };
 
 function titleHtml(topic) {
   if (topic.length <= 18 || !topic.includes(' ')) {
@@ -406,7 +406,7 @@ async function loadTrends() {
       epochDay: payload.epochDay,
       referenceDay: payload.referenceDay,
       index: typeof payload.index === 'number' ? payload.index : null,
-      confidence: typeof payload.confidence === 'number' ? payload.confidence : 0,
+      coverageRatio: typeof payload.coverageRatio === 'number' ? payload.coverageRatio : 0,
     };
 
     buildTicker(trends);

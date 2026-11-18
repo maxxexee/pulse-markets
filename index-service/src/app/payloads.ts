@@ -1,6 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
+import { coverageRatioOf } from '../domain/coverage.ts';
 import { isValidDay } from '../domain/dates.ts';
 import type { IndexSnapshot } from '../domain/snapshot.ts';
 
@@ -74,7 +75,7 @@ export async function historyPayload(snapshotsDir: string): Promise<string> {
         day,
         index: snapshot.index.score,
         momentum: snapshot.momentum === null ? null : snapshot.momentum.score,
-        confidence: snapshot.coverage.confidence,
+        coverageRatio: coverageRatioOf(snapshot.coverage) ?? 0,
         seriesScored: snapshot.coverage.seriesScored,
         seriesExpected: snapshot.coverage.seriesExpected,
       });

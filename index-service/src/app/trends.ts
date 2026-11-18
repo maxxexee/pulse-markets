@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { ENTITY_IMAGES } from '../config/entity-images.ts';
+import { coverageRatioOf } from '../domain/coverage.ts';
 import { addDays } from '../domain/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from '../domain/momentum.ts';
 import type { EntityScore } from '../domain/scoring.ts';
@@ -230,7 +231,7 @@ export async function trendsPayload(args: {
           },
     epochDay: current.epochDay,
     definitionId: current.definitionId,
-    confidence: current.coverage.confidence,
+    coverageRatio: coverageRatioOf(current.coverage) ?? 0,
     index: current.index.score,
     momentum: current.momentum?.score ?? null,
     referenceDay: reference === null ? null : referenceDay,

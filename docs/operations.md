@@ -131,6 +131,23 @@ days before the epoch, fetches their lead images, and writes
 `snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
 the page then shows only measured basket trends.
 
+## Verifying a published epoch
+
+```
+node src/cli.ts verify --day 2026-11-16
+```
+
+The command reads the signed snapshot, checks its payload hash and signature,
+rebuilds the day from the sources named in the snapshot under the definition
+embedded in it, and compares the headline, every signal index, every entity
+score, and the coverage counts. It exits 1 on any difference and prints each one
+with the published and recomputed value.
+
+A difference is not automatically a bug: Wikipedia and Hacker News both revise
+daily figures after publication, and a rebuild reads today's version. It does
+mean the published number can no longer be reproduced from the source as it
+stands, which is exactly what a reader checking the index needs to know.
+
 ## Checking it works
 
 ```

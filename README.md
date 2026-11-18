@@ -86,8 +86,8 @@ anchors and weights, is embedded in every snapshot beside its SHA-256
 - Momentum: the change in the index against the snapshot 7 days earlier, scored
   as `clamp(50 + delta, 0, 100)`. Missing history publishes `null`, not a guess.
 - Coverage: series scored over series expected, published beside the score as
-  a confidence, plus `weightScored`, the share of headline weight that actually
-  scored. A 71 from 2 of 14 series is not the same claim as a 71 from 14.
+  a coverage ratio, plus `weightScored`, the share of headline weight that
+  actually scored. A 71 from 2 of 14 series is not the same claim as a 71 from 14.
 - Snapshot: canonical JSON, SHA-256, signed with Ed25519. The signing key is a
   Solana address, so snapshot signatures can be checked on chain later.
 
@@ -106,6 +106,7 @@ node src/cli.ts build     # compute, sign and publish the previous UTC day
 node src/cli.ts calibrate --base-day 2026-11-16 --days 180   # rebuild the definition
 node src/cli.ts social    # optional display-only social panel
 node src/cli.ts health    # exits 1 unless the latest snapshot is current
+node src/cli.ts verify    # recompute the latest epoch from its sources and compare
 node src/cli.ts export --out .site   # same pages and JSON as plain files
 node src/cli.ts serve     # public index page and JSON API on :8080
 ```

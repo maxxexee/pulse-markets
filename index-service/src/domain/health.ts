@@ -4,7 +4,7 @@ import { addDays } from './dates.ts';
 export interface PublishedSnapshotView {
   readonly epochDay: string;
   readonly indexScore: number | null;
-  readonly confidence: number | null;
+  readonly coverageRatio: number | null;
   /** Share of the headline weight the published index actually represents. */
   readonly weightScored: number | null;
   readonly signer: string;
@@ -23,7 +23,7 @@ export interface HealthReport {
   readonly ageDays: number | null;
   readonly maxAgeDays: number;
   readonly indexScore: number | null;
-  readonly confidence: number | null;
+  readonly coverageRatio: number | null;
   readonly weightScored: number | null;
   readonly signer: string | null;
   readonly payloadSha256: string | null;
@@ -42,7 +42,7 @@ type Observed = {
   readonly epochDay: string;
   readonly ageDays: number;
   readonly indexScore: number | null;
-  readonly confidence: number | null;
+  readonly coverageRatio: number | null;
   readonly weightScored: number | null;
   readonly signer: string;
   readonly payloadSha256: string;
@@ -91,7 +91,7 @@ export function assessHealth(args: {
     epochDay: latest.epochDay,
     ageDays: daysBetween(latest.epochDay, expectedEpochDay),
     indexScore: latest.indexScore,
-    confidence: latest.confidence,
+    coverageRatio: latest.coverageRatio,
     weightScored: latest.weightScored,
     signer: latest.signer,
     payloadSha256: latest.payloadSha256,
@@ -116,7 +116,7 @@ function missingReport(
     epochDay: null,
     ageDays: null,
     indexScore: null,
-    confidence: null,
+    coverageRatio: null,
     weightScored: null,
     signer: null,
     payloadSha256: null,

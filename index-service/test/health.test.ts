@@ -16,7 +16,7 @@ const YESTERDAY = '2026-11-16';
 const view = (epochDay: string): PublishedSnapshotView => ({
   epochDay,
   indexScore: 58.11,
-  confidence: 0.8571,
+  coverageRatio: 0.8571,
   weightScored: 0.8571,
   signer: 'BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc',
   payloadSha256: 'a'.repeat(64),
@@ -104,7 +104,7 @@ function fixtureSnapshot(epochDay: string): IndexSnapshot {
       signalsTotal: 2,
       seriesScored: 12,
       seriesExpected: 14,
-      confidence: 0.8571,
+      coverageRatio: 0.8571,
       weightScored: 0.8571,
       oldestSourceAt: '2026-11-16T23:21:15.023Z',
     },

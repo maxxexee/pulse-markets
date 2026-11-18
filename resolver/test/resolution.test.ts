@@ -36,7 +36,7 @@ function newSigner(): Signer {
 
 interface SnapshotOptions {
   readonly score?: number | null;
-  readonly confidence?: number;
+  readonly coverageRatio?: number;
   readonly definitionId?: string;
   readonly epochDay?: string;
   readonly definitionSha256?: string;
@@ -61,8 +61,8 @@ function snapshotFor(options: SnapshotOptions = {}): IndexSnapshot {
       signalsTotal: 2,
       seriesScored: 12,
       seriesExpected: 14,
-      confidence: options.confidence ?? 0.8571,
-      weightScored: options.confidence ?? 0.8571,
+      coverageRatio: options.coverageRatio ?? 0.8571,
+      weightScored: options.coverageRatio ?? 0.8571,
       oldestSourceAt: '2026-11-20T00:02:00.000Z',
     },
     series: [],
@@ -190,9 +190,9 @@ test('rejects a snapshot with no headline score', () => {
   assert.equal(failure(resolveMarket(specFor(signer), signed, NOW)), 'missing-index');
 });
 
-test('rejects a snapshot below the market confidence floor', () => {
+test('rejects a snapshot below the market coverage floor', () => {
   const signer = newSigner();
-  const signed = signShot(signer, { confidence: 0.1429 });
+  const signed = signShot(signer, { coverageRatio: 0.1429 });
   assert.equal(failure(resolveMarket(specFor(signer), signed, NOW)), 'insufficient-coverage');
   const lowered = specFor(signer, { minConfidence: 0.1 });
   assert.equal(settlement(resolveMarket(lowered, signed, NOW)).outcome, 'yes');

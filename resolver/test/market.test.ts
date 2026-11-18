@@ -84,11 +84,11 @@ test('rejects an unknown comparison, a bad day and a non key signer', () => {
   }
 });
 
-test('rejects a confidence floor outside 0 to 1', () => {
+test('rejects a coverage floor outside 0 to 1', () => {
   for (const minConfidence of [-0.1, 1.1, Number.NaN]) {
     assert.throws(
       () => createMarketSpec(terms({ minConfidence })),
-      (error: unknown) => error instanceof MarketError && error.kind === 'invalid-confidence',
+      (error: unknown) => error instanceof MarketError && error.kind === 'invalid-coverage',
     );
   }
 });

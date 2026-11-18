@@ -171,12 +171,12 @@
         if (typeof score !== 'number') {
           return { label: 'no score', kind: 'wait', note: 'The snapshot has no headline index score.' };
         }
-        const confidence = (published.coverage && published.coverage.confidence) ?? 0;
-        if (confidence < market.minConfidence) {
+        const ratio = coverageRatioOf(published.coverage);
+        if (ratio < market.minConfidence) {
           return {
             label: 'below coverage floor',
             kind: 'wait',
-            note: `Confidence ${fmt(confidence, 4)} is under the market floor ${fmt(market.minConfidence, 2)}.`,
+            note: `Coverage ${fmt(ratio, 4)} is under the market floor ${fmt(market.minConfidence, 2)}.`,
           };
         }
         const above = market.comparison !== 'below';
@@ -188,8 +188,15 @@
           note:
             `Index ${fmt(score)} against ${fmt(market.threshold)}` +
             (tie ? ', exactly on the threshold, and a tie resolves NO.' : '.') +
-            ` Confidence ${fmt(confidence, 4)}.`,
+            ` Coverage ${fmt(ratio, 4)}.`,
         };
+      }
+
+      // Snapshots signed before the field was renamed recorded the same ratio
+      // as `confidence`, and those files cannot be rewritten.
+      function coverageRatioOf(coverage) {
+        const ratio = coverage && (coverage.coverageRatio ?? coverage.confidence);
+        return typeof ratio === 'number' ? ratio : 0;
       }
 
       function renderMarkets(markets, unreadable, snapshots) {
@@ -251,7 +258,7 @@
         document.getElementById('index-score').textContent = fmt(snapshot.index.score);
         const momentum = snapshot.momentum;
         document.getElementById('index-aside').textContent =
-          `epoch ${snapshot.epochDay} · confidence ${fmt(snapshot.coverage.confidence, 4)}` +
+          `epoch ${snapshot.epochDay} · coverage ${fmt(coverageRatioOf(snapshot.coverage), 4)}` +
           (momentum === null ? ' · momentum n/a' : ` · momentum ${fmt(momentum.score)}`);
 
         const markets = marketList.markets || [];

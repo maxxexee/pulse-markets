@@ -60,7 +60,7 @@ function snapshot(epochDay: string, seriesList: SignalSeries[]): IndexSnapshot {
       signalsTotal: seriesList.length,
       seriesScored: 1,
       seriesExpected: 1,
-      confidence: 1,
+      coverageRatio: 1,
       weightScored: 1,
       oldestSourceAt: null,
     },

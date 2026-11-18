@@ -3,7 +3,7 @@ import type { SignalSeries, SourceRecord } from './snapshot.ts';
 /**
  * How much of the expected input actually scored, published beside the index.
  *
- * The score and the confidence are separate on purpose: a 71 computed from 2 of
+ * The score and the coverage ratio are separate on purpose: a 71 computed from 2 of
  * 14 series and a 71 computed from 14 of 14 are not the same claim, and a reader
  * has to be able to tell them apart without reading the provenance table.
  */
@@ -13,7 +13,7 @@ export interface Coverage {
   readonly seriesScored: number;
   readonly seriesExpected: number;
   /** Series scored divided by series expected, 0 to 1, four decimal places. */
-  readonly confidence: number;
+  readonly coverageRatio: number;
   /**
    * Share of the headline weight that actually scored, 0 to 1.
    *
@@ -24,6 +24,20 @@ export interface Coverage {
   readonly weightScored: number;
   /** Earliest retrieval time across every source record, or null when none. */
   readonly oldestSourceAt: string | null;
+}
+
+/**
+ * Coverage ratio read from a published coverage block.
+ *
+ * Snapshots signed before the field was named `coverageRatio` recorded the same
+ * number as `confidence`. Those files cannot be rewritten, so reading both is
+ * how a resolver stays able to check them.
+ */
+export function coverageRatioOf(
+  coverage: { coverageRatio?: number; confidence?: number } | null | undefined,
+): number | null {
+  const ratio = coverage?.coverageRatio ?? coverage?.confidence;
+  return typeof ratio === 'number' ? ratio : null;
 }
 
 /**
@@ -63,7 +77,7 @@ export function summarizeCoverage(
     signalsTotal: series.length,
     seriesScored,
     seriesExpected,
-    confidence: seriesExpected === 0 ? 0 : round4(seriesScored / seriesExpected),
+    coverageRatio: seriesExpected === 0 ? 0 : round4(seriesScored / seriesExpected),
     weightScored: round4(weightScored),
     oldestSourceAt: retrieved[0] ?? null,
   };

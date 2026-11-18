@@ -39,7 +39,7 @@ export interface MarketDefinition {
   readonly comparison: ThresholdComparison;
   /** UTC epoch day whose published index resolves the market. */
   readonly epochDay: string;
-  /** Minimum snapshot confidence accepted, 0 to 1. */
+  /** Minimum snapshot coverage ratio accepted, 0 to 1. */
   readonly minConfidence: number;
   /** ISO timestamp the terms were fixed. */
   readonly createdAt: string;
@@ -56,7 +56,7 @@ export type MarketErrorKind =
   | 'invalid-comparison'
   | 'invalid-day'
   | 'invalid-signer'
-  | 'invalid-confidence'
+  | 'invalid-coverage'
   | 'invalid-definition';
 
 export class MarketError extends Error {
@@ -123,7 +123,7 @@ export function createMarketSpec(definition: MarketDefinition): MarketSpec {
   }
   if (!(definition.minConfidence >= 0 && definition.minConfidence <= 1)) {
     throw new MarketError(
-      'invalid-confidence',
+      'invalid-coverage',
       `minConfidence must be 0 to 1, got ${definition.minConfidence}`,
     );
   }

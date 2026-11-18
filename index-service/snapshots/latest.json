@@ -2,7 +2,7 @@
   "snapshot": {
     "schema": "pulse.index.snapshot/4",
     "epochDay": "2026-11-17",
-    "generatedAt": "2026-11-18T12:23:56.970Z",
+    "generatedAt": "2026-11-18T12:41:23.976Z",
     "definitionId": "pulse-attention-v5",
     "definition": {
       "schema": "pulse.index.definition/1",
@@ -131,9 +131,9 @@
       "signalsTotal": 2,
       "seriesScored": 11,
       "seriesExpected": 14,
-      "confidence": 0.7857,
+      "coverageRatio": 0.7857,
       "weightScored": 1,
-      "oldestSourceAt": "2026-11-18T12:23:57.574Z"
+      "oldestSourceAt": "2026-11-18T12:41:24.451Z"
     },
     "series": [
       {
@@ -324,7 +324,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jensen_Huang/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:57.581Z",
+        "retrievedAt": "2026-11-18T12:41:24.451Z",
         "payloadSha256": "5408498a8e7cf8116a39a0ba30c078166ade90c0630a32a63e556267512f1583",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -336,7 +336,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nvidia/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:57.574Z",
+        "retrievedAt": "2026-11-18T12:41:24.601Z",
         "payloadSha256": "5ab688627676d2410a7ae6d3b41d8ee85349b831f0c193cd8ca6d96d37b07a94",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -348,7 +348,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/OpenAI/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:57.727Z",
+        "retrievedAt": "2026-11-18T12:41:24.595Z",
         "payloadSha256": "33b2f2f6e592d2d0a7f8143d7c38f844cba6f18333dbe59442f0f412a41fe3bd",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -360,7 +360,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Altman/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:57.876Z",
+        "retrievedAt": "2026-11-18T12:41:24.743Z",
         "payloadSha256": "3cd326a0330df01f2a3640881996e1726b23fdd434fcb4d3645993e247b0cd60",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -372,7 +372,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthropic/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:58.029Z",
+        "retrievedAt": "2026-11-18T12:41:24.898Z",
         "payloadSha256": "06beade3ccd074d82f8df79ecffc2c3f173a3d478329ae78ae1d6d4b62559d87",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -384,7 +384,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Elon_Musk/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:58.179Z",
+        "retrievedAt": "2026-11-18T12:41:25.048Z",
         "payloadSha256": "bbf3641110ce5e5164b5ad340bac18d9bbe3c972d7c815a812095b06f4375dfc",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -396,7 +396,7 @@
         "urls": [
           "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Solana_(blockchain_platform)/daily/20261117/20261117"
         ],
-        "retrievedAt": "2026-11-18T12:23:58.327Z",
+        "retrievedAt": "2026-11-18T12:41:25.210Z",
         "payloadSha256": "1ea63fdd9c7bfa04f8fa108f8322407c582d62f83a5d5fae21b10cf730bece63",
         "observations": 1,
         "firstDay": "2026-11-17",
@@ -408,8 +408,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Jensen%20Huang&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:58.881Z",
-        "payloadSha256": "cc2d37aec93bb2ae2a503ef293809b1c1d4cb039d654a8dc56862682786e7c08",
+        "retrievedAt": "2026-11-18T12:41:25.763Z",
+        "payloadSha256": "2d25a7fe9692e75df2e791d45d93a173128b9c7b834617191eda0bb834dbb7ae",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -420,8 +420,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Nvidia&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:59.143Z",
-        "payloadSha256": "36901a27a30ff2e7f66f534e283dea97cbaf9c32c08ea489c415702451bc15b6",
+        "retrievedAt": "2026-11-18T12:41:25.895Z",
+        "payloadSha256": "cd2f1a1b500835640b7f85ceab5cecec775e77572bd8cb7576b411a614b98ec9",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -432,8 +432,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=OpenAI&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:59.230Z",
-        "payloadSha256": "22cd13b716833c07f687fe2b1c774e5f74dffccaf3cab3f075d599039697cba0",
+        "retrievedAt": "2026-11-18T12:41:26.104Z",
+        "payloadSha256": "bbae996cac0785a0ea0ec676df787718df8729bba521afc5c184ba5423d96cab",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -444,8 +444,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Sam%20Altman&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:59.539Z",
-        "payloadSha256": "bc3a1df3e7ecfb00433ba60257f8e7195e60509ea9c5c2d33494e790722a6a1b",
+        "retrievedAt": "2026-11-18T12:41:26.285Z",
+        "payloadSha256": "6c8270d7ab0ebb2bfe699c5824a2a50d480002dd680a67e44bc23086cc54875f",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -456,8 +456,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Anthropic&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:59.643Z",
-        "payloadSha256": "27a71b6d2c94cce0a8796ae714ce15132597b73f24fca2151d2af2e173e22c31",
+        "retrievedAt": "2026-11-18T12:41:26.447Z",
+        "payloadSha256": "62bc0b41b8ba427d9f2877d3069ca97272e4a4c17c209f1942578387caa8b7a1",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -468,8 +468,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Elon%20Musk&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:23:59.888Z",
-        "payloadSha256": "a7bf1b3a090b77a67c2bb3a2203eac6d076e21e6028c74f01a5322aee98177fb",
+        "retrievedAt": "2026-11-18T12:41:26.644Z",
+        "payloadSha256": "01646cb6785a33ccd7a1acf3fa761d47f29d1b2df8890c89f6a6936d9c67a4e2",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -480,8 +480,8 @@
         "urls": [
           "https://hn.algolia.com/api/v1/search?query=Solana&tags=story&hitsPerPage=0&numericFilters=created_at_i%3E%3D1794873600%2Ccreated_at_i%3C1794960000"
         ],
-        "retrievedAt": "2026-11-18T12:24:00.047Z",
-        "payloadSha256": "cdbf9e4caf67b7f49fcc276908bb02e0375709d8995ff0a16cafe574b0082fb3",
+        "retrievedAt": "2026-11-18T12:41:26.813Z",
+        "payloadSha256": "66dedee619e1581377f636b7082f441088a88fc4b4bf3ab2bb98d89d7f8ff7f6",
         "observations": 1,
         "firstDay": "2026-11-17",
         "lastDay": "2026-11-17"
@@ -491,8 +491,8 @@
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "j23rGXxvol6xP4EIGV+oBMpOq3HpDKlFMTrUIMYuqwdtcoOlH8pwIbPHO9Wdylv3Glx3AEqOIqWHUiH3rHLaAw==",
-    "payloadSha256": "51069fc01be38ee543774c3cbeca69c17fb83981d735ebd0ae2c9ba1921e39c6",
+    "signature": "G9Xk276nx4/9OOjdqRLLTmYZXrq38NSQy6qDow/VxH7wqIwL6gb44JorT1TPsoWwby2OBWx80B61nXdSMc9WAg==",
+    "payloadSha256": "f0416dfd9070c0db35e56a22dd90900a1c2217413fc850c18a278ba64785ec91",
     "canonicalization": "json-sorted-keys-v1"
   }
 }

@@ -7,6 +7,7 @@ import { buildSnapshot } from './app/build-snapshot.ts';
 import { calibrate } from './app/calibrate.ts';
 import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
 import { startServer } from './app/server.ts';
+import { verifyDay } from './app/verify.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
@@ -43,6 +44,8 @@ const USAGE = `pulse index-service
   social                     fetch the display-only social panel, if configured
   serve [--port N] [--max-age-days N]
                              serve the public index and the latest snapshot
+  verify [--day YYYY-MM-DD]  recompute a published epoch from its sources and
+                             compare it with the signed snapshot
 
 Days are UTC. build defaults to the previous UTC day. A day that is already
 published is left alone unless --force is given, so a rerun never replaces a
@@ -123,9 +126,9 @@ async function build(day: string, force: boolean, definitionId: string): Promise
   });
 
   const coverage = snapshot.coverage;
-  if (coverage.confidence < MIN_PUBLISH_CONFIDENCE) {
+  if (coverage.coverageRatio < MIN_PUBLISH_CONFIDENCE) {
     throw new Error(
-      `refusing to publish ${day}: coverage ${coverage.confidence} is below the ` +
+      `refusing to publish ${day}: coverage ${coverage.coverageRatio} is below the ` +
         `${MIN_PUBLISH_CONFIDENCE} floor (${coverage.seriesScored}/${coverage.seriesExpected} series). ` +
         'A source has probably not published this day yet; retry later.',
     );
@@ -152,7 +155,7 @@ async function build(day: string, force: boolean, definitionId: string): Promise
   );
   console.log(
     `coverage ${coverage.seriesScored}/${coverage.seriesExpected} series` +
-      `, ${coverage.signalsScored}/${coverage.signalsTotal} signals, confidence ${coverage.confidence}` +
+      `, ${coverage.signalsScored}/${coverage.signalsTotal} signals, coverage ${coverage.coverageRatio}` +
       `, weight scored ${coverage.weightScored}`,
   );
   for (const series of snapshot.series) {
@@ -239,12 +242,38 @@ async function health(maxAgeDays: number): Promise<void> {
   const summary =
     `health ${report.status}: ${report.detail}` +
     (report.indexScore === null ? '' : `, index ${report.indexScore}`) +
-    (report.confidence === null ? '' : `, confidence ${report.confidence}`);
+    (report.coverageRatio === null ? '' : `, coverage ${report.coverageRatio}`);
   if (report.status === 'ok') {
     console.log(summary);
     return;
   }
   console.error(summary);
+  process.exitCode = 1;
+}
+
+/**
+ * Rebuilds one published day and reports where it disagrees.
+ *
+ * A third party can run the same check against the public snapshot and the URLs
+ * recorded in it, which is the point of publishing both.
+ */
+async function verify(day: string): Promise<void> {
+  if (!isValidDay(day)) {
+    throw new Error(`invalid --day: ${day}`);
+  }
+  const result = await verifyDay(SNAPSHOTS_DIR, day);
+  const line = `verify ${result.status}: ${result.detail}`;
+  if (result.status === 'verified') {
+    console.log(line);
+    return;
+  }
+  console.error(line);
+  for (const difference of result.differences) {
+    console.error(
+      `  ${difference.scope}: published ${difference.published}, ` +
+        `recomputed ${difference.recomputed}`,
+    );
+  }
   process.exitCode = 1;
 }
 
@@ -427,6 +456,14 @@ async function main(): Promise<void> {
   }
   if (command === 'social') {
     await social();
+    return;
+  }
+  if (command === 'verify') {
+    const day =
+      typeof values.day === 'string'
+        ? values.day
+        : (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1);
+    await verify(day);
     return;
   }
   if (command === 'serve') {

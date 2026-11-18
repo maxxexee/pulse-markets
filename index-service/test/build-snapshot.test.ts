@@ -254,14 +254,14 @@ describe('buildSnapshot', () => {
         signalsTotal: snapshot.coverage.signalsTotal,
         seriesScored: snapshot.coverage.seriesScored,
         seriesExpected: snapshot.coverage.seriesExpected,
-        confidence: snapshot.coverage.confidence,
+        coverageRatio: snapshot.coverage.coverageRatio,
       },
-      { signalsScored: 2, signalsTotal: 2, seriesScored: 4, seriesExpected: 4, confidence: 1 },
+      { signalsScored: 2, signalsTotal: 2, seriesScored: 4, seriesExpected: 4, coverageRatio: 1 },
     );
     assert.equal(snapshot.coverage.oldestSourceAt, NOW.toISOString());
   });
 
-  it('halves confidence when half the series cannot be scored', async () => {
+  it('halves the coverage ratio when half the series cannot be scored', async () => {
     const { pageviews } = twoSignals(100);
     const fetchSeries = pageviews.signal.fetchSeries;
     const oneScored: SignalDefinition = {
@@ -285,7 +285,7 @@ describe('buildSnapshot', () => {
     });
     assert.equal(snapshot.coverage.seriesScored, 1);
     assert.equal(snapshot.coverage.seriesExpected, 2);
-    assert.equal(snapshot.coverage.confidence, 0.5);
+    assert.equal(snapshot.coverage.coverageRatio, 0.5);
   });
 
   it('publishes null momentum when no reference snapshot was published', async () => {
@@ -376,7 +376,7 @@ function priorSnapshot(
       signalsTotal: 0,
       seriesScored: 0,
       seriesExpected: 0,
-      confidence: 0,
+      coverageRatio: 0,
       weightScored: 0,
       oldestSourceAt: null,
     },

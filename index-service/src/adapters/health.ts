@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { verifySignedSnapshot, type SignedSnapshot } from './attestation.ts';
+import { coverageRatioOf } from '../domain/coverage.ts';
 import { toDay } from '../domain/dates.ts';
 import { assessHealth, type HealthReport, type PublishedSnapshotView } from '../domain/health.ts';
 
@@ -34,7 +35,7 @@ function view(signed: unknown): PublishedSnapshotView | null {
   return {
     epochDay: snapshot.epochDay,
     indexScore: typeof snapshot.index?.score === 'number' ? snapshot.index.score : null,
-    confidence: typeof snapshot.coverage?.confidence === 'number' ? snapshot.coverage.confidence : null,
+    coverageRatio: coverageRatioOf(snapshot.coverage),
     weightScored:
       typeof snapshot.coverage?.weightScored === 'number' ? snapshot.coverage.weightScored : null,
     signer: attestation.publicKey,

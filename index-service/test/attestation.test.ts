@@ -21,7 +21,7 @@ function fixtureSnapshot(): IndexSnapshot {
       signalsTotal: 1,
       seriesScored: 1,
       seriesExpected: 1,
-      confidence: 1,
+      coverageRatio: 1,
       weightScored: 1,
       oldestSourceAt: '2026-11-16T00:05:00.000Z',
     },
