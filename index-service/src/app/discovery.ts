@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import { fetchArticleImage, fetchTopArticles } from '../adapters/wikipedia-top.ts';
 import type { EntityDefinition } from '../config/entities.ts';
@@ -12,13 +13,16 @@ import {
   type DiscoveredTopic,
   type DiscoverySettings,
 } from '../domain/discovery.ts';
+import { notesForTopics, type ContextNote } from './summaries.ts';
 
-/** A discovered topic with the two fields the page needs but the rules do not own. */
+/** A discovered topic with the fields the page needs but the rules do not own. */
 export interface DiscoveryEntry extends DiscoveredTopic {
   /** Article the numbers came from, for a reader to check. */
   readonly link: string;
   /** Lead image, null when the article has no usable thumbnail. */
   readonly imageUrl: string | null;
+  /** Generated context sentence, absent when no model was configured or it failed. */
+  readonly context?: ContextNote;
 }
 
 /** The published record for one day of discovery. Display only, never signed. */
@@ -27,6 +31,8 @@ export interface DiscoveryRecord {
   readonly generatedAt: string;
   readonly method: 'wikipedia-top-v1';
   readonly settings: DiscoverySettings;
+  /** Model that wrote the context notes, null when none were written. */
+  readonly contextModel: string | null;
   readonly entries: readonly DiscoveryEntry[];
 }
 
@@ -48,6 +54,39 @@ export async function readDiscovery(
 }
 
 /**
+ * Joins each topic with its lead image and, when a model is configured, one
+ * sentence of context. Context is optional by design: a build without a key
+ * publishes the same numbers with no notes rather than failing.
+ */
+async function buildEntries(args: {
+  readonly topics: readonly DiscoveredTopic[];
+  readonly images: readonly (string | null)[];
+  readonly day: string;
+  readonly summary: ChatConfig | null;
+  readonly fetchImpl?: typeof fetch;
+  readonly log?: (line: string) => void;
+}): Promise<readonly DiscoveryEntry[]> {
+  const notes = args.summary === null
+    ? new Map<string, ContextNote>()
+    : await notesForTopics({
+        topics: args.topics,
+        day: args.day,
+        config: args.summary,
+        ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
+        ...(args.log === undefined ? {} : { log: args.log }),
+      });
+  return args.topics.map((topic, index) => {
+    const context = notes.get(topic.article);
+    return {
+      ...topic,
+      link: `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.article)}`,
+      imageUrl: args.images[index] ?? null,
+      ...(context === undefined ? {} : { context }),
+    };
+  });
+}
+
+/**
  * Finds what trended that day outside the basket and caches the result.
  *
  * Runs at build time, not per request: the page stays a static artifact and a
@@ -61,6 +100,9 @@ export async function refreshDiscovery(args: {
   readonly snapshotsDir: string;
   readonly now?: Date;
   readonly settings?: DiscoverySettings;
+  readonly summary?: ChatConfig | null;
+  readonly fetchImpl?: typeof fetch;
+  readonly log?: (line: string) => void;
 }): Promise<DiscoveryRecord> {
   const settings = args.settings ?? DISCOVERY_V1;
   const now = args.now ?? new Date();
@@ -90,17 +132,22 @@ export async function refreshDiscovery(args: {
   const topics = discoverTopics(measured, args.day, settings);
   const images = await mapWithConcurrency(topics, 2, (topic) => fetchArticleImage(topic.article));
 
-  const entries: DiscoveryEntry[] = topics.map((topic, index) => ({
-    ...topic,
-    link: `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.article)}`,
-    imageUrl: images[index] ?? null,
-  }));
+  const summary = args.summary === undefined ? chatConfigFromEnv() : args.summary;
+  const entries = await buildEntries({
+    topics,
+    images,
+    day: args.day,
+    summary,
+    ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
+    ...(args.log === undefined ? {} : { log: args.log }),
+  });
 
   const record: DiscoveryRecord = {
     day: args.day,
     generatedAt: now.toISOString(),
     method: 'wikipedia-top-v1',
     settings,
+    contextModel: summary === null ? null : summary.model,
     entries,
   };
 

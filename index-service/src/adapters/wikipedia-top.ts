@@ -113,6 +113,51 @@ export async function fetchTopArticles(
 
 const SUMMARY_ROOT = 'https://en.wikipedia.org/api/rest_v1/page/summary';
 
+/** Plain opening of one article, used to ground a context note. */
+export interface ArticleExtract {
+  /** Plain text lead section, possibly empty. */
+  readonly extract: string;
+  /** Short type phrase, such as "American singer", or null. */
+  readonly description: string | null;
+  /** Canonical article URL, recorded as the source of the note. */
+  readonly url: string;
+}
+
+/**
+ * Fetches the lead section of one article.
+ *
+ * Returns null rather than throwing: a note without grounding is not written,
+ * and a discovery day is presentation, so one unreadable page cannot fail it.
+ */
+export async function fetchArticleExtract(
+  article: string,
+  options: { fetchImpl?: typeof fetch } = {},
+): Promise<ArticleExtract | null> {
+  const url = `${SUMMARY_ROOT}/${encodeURIComponent(article.replaceAll(' ', '_'))}`;
+  try {
+    const text = await fetchText(url, options.fetchImpl);
+    const payload = JSON.parse(text) as {
+      extract?: unknown;
+      description?: unknown;
+      content_urls?: { desktop?: { page?: unknown } };
+    };
+    const extract = typeof payload.extract === 'string' ? payload.extract.trim() : '';
+    if (extract === '') {
+      return null;
+    }
+    const page = payload.content_urls?.desktop?.page;
+    return {
+      extract,
+      description: typeof payload.description === 'string' ? payload.description : null,
+      url: typeof page === 'string' && page.startsWith('https://')
+        ? page
+        : `https://en.wikipedia.org/wiki/${encodeURIComponent(article)}`,
+    };
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Lead image for one article, at a width the cards can use.
  *

@@ -107,7 +107,8 @@ Trend {
   imageUrl?: string,
   discovered?: boolean,        // true for a topic found by the daily ranking
   baseline?: number,           // discovered only: mean views over the window
-  baselineDays?: number        // discovered only
+  baselineDays?: number,       // discovered only
+  context?: string             // discovered only: one generated sentence, absent when none was written
 }
 ```
 
@@ -139,6 +140,29 @@ and standing list pages, measures the biggest unclaimed articles over the seven
 days before the epoch, fetches their lead images, and writes
 `snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
 the page then shows only measured basket trends.
+
+### Context notes
+
+Each discovered topic can carry one generated sentence saying what the page is
+and, where its own article says so, why people would look it up. It is written at
+build time, from the article's lead section plus the measured traffic, and stored
+on the entry as `context { text, model, promptVersion, sourceUrl }`; the record's
+`contextModel` names the model for the whole day.
+
+The writer is off unless a key is configured:
+
+```
+PULSE_SUMMARY_API_KEY     required to turn notes on
+PULSE_SUMMARY_API_BASE    default https://api.z.ai/api/paas/v4
+PULSE_SUMMARY_MODEL       default glm-4.5-flash
+```
+
+The API is OpenAI compatible. Prompt `trend-context-v1` asks for one sentence,
+forbids inventing people, events, dates and causes, and any reply containing a
+digit is discarded, because the numbers on the card come from the signed record
+and a figure in the prose would not. A missing key, an unreadable article or a
+failed call drops the note; the measured numbers are unaffected, and no part of
+the signed epoch depends on this.
 
 ## History and definition changes
 

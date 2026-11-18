@@ -37,6 +37,8 @@ export interface Trend {
   readonly baseline?: number;
   /** Days averaged into the baseline, for discovered topics. */
   readonly baselineDays?: number;
+  /** One generated sentence of context, only for discovered topics. */
+  readonly context?: string;
 }
 
 /** Snapshot ids to the source names the page knows. */
@@ -216,6 +218,7 @@ export async function trendsPayload(args: {
     discovered: true,
     baseline: entry.baseline,
     baselineDays: entry.baselineDays,
+    ...(entry.context === undefined ? {} : { context: entry.context.text }),
     ...(entry.imageUrl === null ? {} : { imageUrl: entry.imageUrl }),
   }));
   return JSON.stringify({
@@ -228,6 +231,7 @@ export async function trendsPayload(args: {
             method: discovery.method,
             minViews: discovery.settings.minViews,
             minMomentum: discovery.settings.minMomentum,
+            contextModel: discovery.contextModel,
           },
     epochDay: current.epochDay,
     definitionId: current.definitionId,

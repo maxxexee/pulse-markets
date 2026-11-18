@@ -76,14 +76,17 @@ function badgeLabel(status) {
  */
 function generateSummary(trend, header) {
   const parts = [];
+  if (trend.context) {
+    parts.push(trend.context);
+  }
   if (trend.discovered && typeof trend.baseline === 'number' && trend.baseline > 0) {
     const multiple = (trend.sources[0].volume / trend.baseline).toFixed(1);
-    return (
-      `${trend.topic} drew ${formatCount(trend.sources[0].volume)} Wikipedia views on ` +
-      `${header.epochDay}, ${multiple}x its ${trend.baselineDays}-day average of ` +
-      `${formatCount(trend.baseline)}. The daily ranking surfaced it outside the ` +
-      'signed basket, so it is shown for context and not scored into the index.'
+    parts.push(
+      `${formatCount(trend.sources[0].volume)} Wikipedia views on ${header.epochDay}, ` +
+        `${multiple}x the ${trend.baselineDays}-day average of ${formatCount(trend.baseline)}.`,
     );
+    parts.push('Surfaced by the daily ranking, outside the signed basket, so it is not scored into the index.');
+    return parts.join(' ');
   }
 
   const reference = header.referenceDay
@@ -109,7 +112,7 @@ function generateSummary(trend, header) {
   });
   parts.push(`Signal${signals.length === 1 ? '' : 's'}: ${signals.join(', ')}.`);
 
-  if (typeof header.index === 'number') {
+  if (!trend.context && typeof header.index === 'number') {
     parts.push(
       `The attention index scored ${header.index.toFixed(1)} that day at ` +
         `${(header.coverageRatio * 100).toFixed(0)}% source coverage.`,
@@ -236,6 +239,7 @@ function fillModalStats(trend, move) {
 
   const tags = trend.sources.map((source) => sourceLabel(source.source));
   tags.push(badgeLabel(trend.status));
+  if (trend.context) tags.push('AI context');
   if (header.epochDay) tags.push(header.epochDay);
   if (tagsEl) {
     tagsEl.innerHTML = tags
