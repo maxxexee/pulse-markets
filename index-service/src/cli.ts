@@ -301,21 +301,12 @@ async function appFiles(): Promise<ReadonlyArray<readonly [string, string | Uint
  */
 async function exportStatic(outDir: string): Promise<void> {
   const files = new Map<string, string | Uint8Array>();
-  const page = async (name: string) => {
-    try {
-      return await readFile(join(PUBLIC_DIR, name), 'utf8');
-    } catch {
-      return null;
-    }
-  };
-  const indexPage = await page('index.html');
-  const marketsPage = await page('markets.html');
-  if (indexPage === null) {
+  const pages = (await readdir(PUBLIC_DIR)).filter((name) => name.endsWith('.html')).sort();
+  if (!pages.includes('index.html')) {
     throw new Error(`missing page: ${join(PUBLIC_DIR, 'index.html')}`);
   }
-  files.set('index.html', indexPage);
-  if (marketsPage !== null) {
-    files.set('markets.html', marketsPage);
+  for (const name of pages) {
+    files.set(name, await readFile(join(PUBLIC_DIR, name), 'utf8'));
   }
   for (const [target, body] of await appFiles()) {
     files.set(target, body);
