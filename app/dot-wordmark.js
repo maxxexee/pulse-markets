@@ -1,30 +1,35 @@
 /**
  * Fills the sign-in plate with a field of dots that carries the PULSE wordmark.
  *
- * Dots sit on a grid across the whole card. Their brightness comes from a slow
- * moving noise field mixed with fixed per-dot speckle, and the cells inside the
- * letterforms are pushed to the top of the range, so the word reads out of the
- * grain rather than sitting on top of it. The noise drifting is what makes the
- * field shimmer.
+ * Dots sit on a grid across the whole card. Each dot holds one brightness for a
+ * few hundred milliseconds, then steps to a new one, so the field crackles like
+ * a field of stars instead of breathing as a single surface. The cells inside the
+ * letterforms sit at the top of the range, so the word reads out of the grain
+ * rather than sitting on top of it.
  *
- * Every frame is drawn in a handful of alpha buckets, one fill each, because a
- * full card of individually stroked circles is too slow to animate.
+ * Brightness also eases off towards the top edge, which keeps the eye on the
+ * word in the middle and stops the card reading as a flat texture.
+ *
+ * Every frame is drawn in a set of alpha buckets, one fill each, because a full
+ * card of individually stroked dots is too slow to animate.
  *
  * A reduced-motion reader gets the same field, frozen.
  */
 
 const WORD = 'PULSE';
 const GRID_PX = 5; // dot spacing, CSS px
-const DOT_SIZE_PX = 2.6; // dot edge, CSS px
+const DOT_SIZE_PX = 2; // dot edge, CSS px
 const WORD_WIDTH_SHARE = 0.72; // share of the card width the wordmark spans
-const FRAME_MS = 95; // about 10 fps, enough for a shimmer
-const ALPHA_STEPS = 20; // brightness buckets, one path and fill each
-const GRAIN_BASE = 0.022; // faintest the field ever gets
-const GRAIN_SWING = 0.095; // how far a dot moves between its dimmest and brightest
-const DRIFT_SHARE = 0.55; // share of the level that is wide, slow movement
-/* The word sits at nearly full brightness; the grain never rises to meet it. */
-const WORD_ALPHA = 0.98;
-const WORD_FLOOR = 0.92;
+const FRAME_MS = 95; // about 10 fps, enough for the stepping to read as motion
+const ALPHA_STEPS = 32; // brightness buckets, one path and fill each
+const TICKS_PER_SECOND = 2.5; // how often a dot picks a new brightness
+const GRAIN_LOW = 0.035; // dimmest a grain dot gets
+const GRAIN_HIGH = 0.32; // brightest a grain dot gets
+const WORD_LOW = 0.9; // dimmest a letter dot gets
+const WORD_HIGH = 1; // brightest a letter dot gets
+const WORD_TICKS = 0.6; // letters change rarely, so the word stays solid
+const TOP_FADE = 0.3; // share of the normal level kept at the very top
+const FADE_SHARE = 0.6; // fraction of the height the fade takes to lift
 const DOT_FILL = 'rgb(232, 228, 220)';
 const FONT_STACK = "-apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif";
 
@@ -54,13 +59,21 @@ function readWordMask(width, height, step) {
   glyphs.textBaseline = 'middle';
   glyphs.fillText(WORD, width / 2, height / 2);
 
-  const pixels = glyphs.getImageData(0, 0, width, height).data;
-  for (let row = 0; row < rows; row += 1) {
-    for (let col = 0; col < cols; col += 1) {
-      const x = Math.min(width - 1, col * step);
-      const y = Math.min(height - 1, row * step);
-      coverage[row * cols + col] = pixels[(y * width + x) * 4 + 3] / 255;
-    }
+  /* Shrinking the word to one pixel per cell averages each cell, so a stroke
+     that crosses half a cell lands at half strength instead of vanishing. */
+  const cells = document.createElement('canvas');
+  cells.width = cols;
+  cells.height = rows;
+  const sampler = cells.getContext('2d');
+  if (!sampler) return { coverage, cols, rows };
+  sampler.imageSmoothingEnabled = true;
+  sampler.drawImage(scratch, 0, 0, cols, rows);
+  const pixels = sampler.getImageData(0, 0, cols, rows).data;
+
+  for (let cell = 0; cell < coverage.length; cell += 1) {
+    const raw = pixels[cell * 4 + 3] / 255;
+    const t = Math.min(1, Math.max(0, (raw - 0.25) / 0.4));
+    coverage[cell] = t * t * (3 - 2 * t);
   }
   return { coverage, cols, rows };
 }
@@ -68,8 +81,8 @@ function readWordMask(width, height, step) {
 /**
  * Grid, word mask and per-dot phase for one canvas size.
  *
- * The phase is fixed per cell, so each dot twinkles on its own beat forever
- * instead of the whole field pulsing together.
+ * The phase is fixed per cell and offsets that dot's clock, so dots change on
+ * their own beats rather than the whole field switching at once.
  */
 function prepareGrid(width, height, step) {
   const mask = readWordMask(width, height, step);
@@ -81,35 +94,44 @@ function prepareGrid(width, height, step) {
   return { coverage: mask.coverage, cols: mask.cols, rows: mask.rows, phase };
 }
 
-/** Slow drift: three waves with long wavelengths, mixed to 0..1. */
-function grainAt(x, y, seconds) {
-  const a = Math.sin(x * 0.016 + seconds);
-  const b = Math.cos(y * 0.021 - seconds * 0.8);
-  const c = Math.sin((x - y) * 0.012 + seconds * 1.3);
-  return 0.5 + 0.5 * (0.55 * a * b + 0.45 * c);
+/** Stateless per-dot, per-tick value in 0..1. Same inputs always agree. */
+function hashAt(cell, tick) {
+  let h = Math.imul(cell + 1, 374761393) + Math.imul(tick + 1, 668265263);
+  h = Math.imul(h ^ (h >>> 13), 1274126177);
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+}
+
+/**
+ * Brightness for one cell at one moment.
+ *
+ * Field dots run on a fast clock so the grain crackles; letter dots run on a
+ * slow one over a narrower range, so the word holds its shape while the field
+ * moves around it.
+ */
+function dotAlpha(cell, phase, word, fade, seconds) {
+  const level = hashAt(cell, Math.floor(seconds * TICKS_PER_SECOND + phase * 40));
+  if (word <= 0.05) return (GRAIN_LOW + (GRAIN_HIGH - GRAIN_LOW) * level) * fade;
+  const slow = hashAt(cell, Math.floor(seconds * WORD_TICKS + phase * 40) + 7919);
+  return Math.max((GRAIN_LOW + (GRAIN_HIGH - GRAIN_LOW) * level) * fade,
+    (WORD_LOW + (WORD_HIGH - WORD_LOW) * slow) * word);
 }
 
 /**
  * Sorts one frame of dots into brightness buckets by cell index.
  *
- * A dot is a mix of the wide slow drift and its own twinkle, so the field
- * moves as a whole while every dot also pulses on its own beat.
+ * A dot's level is a function of its cell and its clock tick, so it snaps to a
+ * new value every few hundred milliseconds and holds it in between.
  */
 function collectDots(grid, buckets, step, seconds) {
   const { coverage, cols, rows, phase } = grid;
+  const fadeHeight = rows * step * FADE_SHARE;
   for (let row = 0; row < rows; row += 1) {
     const y = row * step;
+    const fade = TOP_FADE + (1 - TOP_FADE) * Math.min(1, y / fadeHeight);
     for (let col = 0; col < cols; col += 1) {
       const cell = row * cols + col;
-      const own = phase[cell] ?? 0.5;
-      const twinkle = 0.5 + 0.5 * Math.sin(seconds * 2.2 + own * 40);
-      const level =
-        DRIFT_SHARE * grainAt(col * step, y, seconds) + (1 - DRIFT_SHARE) * twinkle;
-      const field = GRAIN_BASE + GRAIN_SWING * level;
-      const word = coverage[cell] ?? 0;
-      const letter = WORD_FLOOR + (WORD_ALPHA - WORD_FLOOR) * level;
-      const alpha = word > 0.05 ? Math.max(field, letter * word) : field;
-      if (alpha < 0.02) continue;
+      const alpha = dotAlpha(cell, phase[cell] ?? 0.5, coverage[cell] ?? 0, fade, seconds);
+      if (alpha < 0.008) continue;
       buckets[Math.min(ALPHA_STEPS - 1, Math.floor(alpha * ALPHA_STEPS))].push(col * step, y);
     }
   }
@@ -118,7 +140,7 @@ function collectDots(grid, buckets, step, seconds) {
 /**
  * Paints the bucketed points, one pass per brightness level.
  *
- * Dots are squares: at this size a 2.6px square is indistinguishable from a
+ * Dots are squares: at this size a 2px square is indistinguishable from a
  * circle, and fillRect costs a fraction of a stroked arc, which is the
  * difference between a smooth field and a warm laptop.
  */
