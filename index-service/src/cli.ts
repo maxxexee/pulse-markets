@@ -3,6 +3,7 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
+import { AUTH_CLIENT_SOURCE, buildAuthClient } from './app/auth-bundle.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { calibrate } from './app/calibrate.ts';
 import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
@@ -23,6 +24,7 @@ import { missingEpochDays } from '@pulse/index-core/schedule.ts';
 import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
 const SERVICE_ROOT = resolve(import.meta.dirname, '..');
+const REPO_ROOT = resolve(SERVICE_ROOT, '..');
 const SNAPSHOTS_DIR = join(SERVICE_ROOT, 'snapshots');
 const DEFINITIONS_DIR = join(SERVICE_ROOT, 'definitions');
 const KEY_PATH = join(SERVICE_ROOT, '.keys', 'index-signer.pem');
@@ -281,7 +283,11 @@ async function verify(day: string): Promise<void> {
 async function appFiles(): Promise<ReadonlyArray<readonly [string, string | Uint8Array]>> {
   let names: string[];
   try {
-    names = (await readdir(APP_DIR)).filter((name) => !name.startsWith('.')).sort();
+    // The auth source ships as a bundle, so publishing it would only add a file
+    // the page cannot load.
+    names = (await readdir(APP_DIR))
+      .filter((name) => !name.startsWith('.') && name !== AUTH_CLIENT_SOURCE)
+      .sort();
   } catch {
     return [];
   }
@@ -430,6 +436,10 @@ async function main(): Promise<void> {
   if (command === 'discover') {
     await discover(values.day ?? (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1));
     return;
+  }
+  // Both commands serve the app files, so the auth bundle has to exist first.
+  if (command === 'export' || command === 'serve') {
+    await buildAuthClient(APP_DIR, REPO_ROOT);
   }
   if (command === 'export') {
     const outDir = values.out;

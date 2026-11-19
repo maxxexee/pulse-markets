@@ -172,6 +172,30 @@ left out.
 
 Devnet only. Nothing here handles real funds.
 
+## Accounts
+
+Sign-up on the app pages is Neon's Managed Better Auth, hosted on the
+`production` branch of the `pulse` project. `neon.ts` declares the service and
+`neon deploy` turns it on; the branch auth URL lands in `.env.local` as
+`NEON_AUTH_BASE_URL`.
+
+The pages are static, so `app/auth-client.js` imports the auth SDK and is
+bundled to `app/auth-client.bundle.js` by `export` and `serve` before the site
+is written. Both commands stop with an error when the auth URL is missing,
+rather than publish a page that cannot sign anyone up.
+
+Origins are allowlisted on the branch, and `localhost` is approved for local
+testing only as `localhost`, not `127.0.0.1`:
+
+```
+neon neon-auth domain add https://maxxexee.github.io
+neon neon-auth domain list
+```
+
+Google sign-in uses Neon's shared development credentials, which show Neon's
+name on the consent screen. Production needs your own OAuth client:
+`neon neon-auth oauth-provider add --provider-id google`.
+
 ## Built for
 
 Solana Perps and Prediction Markets hackathon, deadline 2026-12-05.
