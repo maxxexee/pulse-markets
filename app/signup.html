@@ -135,53 +135,84 @@
     .option:disabled { opacity: 0.55; cursor: not-allowed; }
     .option-icon { width: 17px; height: 17px; flex-shrink: 0; }
 
-    .email-block { margin-top: 24px; }
+    .email-block { margin-top: 20px; }
 
     .back {
-      display: inline-flex; align-items: center; height: 24px; margin-bottom: 18px;
+      display: inline-flex; align-items: center; gap: 5px;
+      height: 24px; margin-bottom: 20px;
       border: 0; padding: 0; background: none;
       color: var(--dim); font-family: inherit; font-size: 13px; cursor: pointer;
+      transition: color 0.15s ease;
     }
 
     .back:hover { color: var(--text); }
+    .back svg { transition: transform 0.15s ease; }
+    .back:hover svg { transform: translateX(-2px); }
 
-    .fields { display: flex; flex-direction: column; gap: 12px; }
+    .fields { display: flex; flex-direction: column; gap: 14px; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     @media (max-width: 420px) { .row { grid-template-columns: 1fr; } }
 
-    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
     .field-label { font-size: 13px; font-weight: 500; color: var(--text); }
     .req { color: var(--faint); font-weight: 400; }
     .input-wrap { position: relative; }
 
     .input {
-      width: 100%; height: 40px; padding: 0 12px;
+      width: 100%; height: 46px; padding: 0 14px;
       border: 1px solid var(--border); border-radius: 10px;
       background: var(--surface); color: var(--text);
       /* 16px keeps iOS from zooming the page when the field takes focus. */
       font-family: inherit; font-size: 16px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
     .input::placeholder { color: var(--faint); }
+    .input:hover { border-color: #2E2E2A; }
 
-    .input:focus { outline: none; border-color: #4A4A44; box-shadow: 0 0 0 3px rgba(232, 228, 220, 0.12); }
+    /* The green focus ring matches the primary button, so the two states read
+       as one surface rather than a form bolted onto the page. */
+    .input:focus {
+      outline: none; border-color: var(--live); background: #141414;
+      box-shadow: 0 0 0 3px rgba(110, 231, 154, 0.16);
+    }
+
     .input[aria-invalid='true'] { border-color: var(--error); }
-    .input[aria-invalid='true']:focus { box-shadow: 0 0 0 3px rgba(255, 122, 122, 0.18); }
-    .has-reveal .input { padding-right: 48px; }
+    .input[aria-invalid='true']:hover { border-color: var(--error); }
+
+    .input[aria-invalid='true']:focus {
+      border-color: var(--error); background: #1A1212;
+      box-shadow: 0 0 0 3px rgba(255, 122, 122, 0.18);
+    }
+
+    .has-reveal .input { padding-right: 52px; }
 
     .reveal {
       position: absolute; top: 0; right: 0;
-      display: grid; place-items: center; width: 40px; height: 40px;
+      display: grid; place-items: center; width: 46px; height: 46px;
       border: 0; border-radius: 10px; background: transparent; color: var(--dim); cursor: pointer;
+      transition: color 0.15s ease;
     }
 
     .reveal:hover { color: var(--text); }
-    .hint { font-size: 12px; color: var(--dim); }
-    .error { font-size: 12px; color: var(--error); }
+    .hint { font-size: 12.5px; color: var(--dim); }
+
+    /* The hint is redundant once the same rule is stated as an error. */
+    .field:has([aria-invalid='true']) .hint { display: none; }
+
+    .error {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12.5px; color: var(--error);
+    }
+
+    .error::before {
+      content: ''; flex-shrink: 0;
+      width: 4px; height: 4px; border-radius: 50%; background: currentColor;
+    }
 
     .cta {
-      width: 100%; height: 44px; margin-top: 20px;
+      width: 100%; height: 46px; margin-top: 22px;
       border: 1px solid var(--live); border-radius: 10px;
       background: var(--live); color: #07130C;
       font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
@@ -297,7 +328,13 @@
           </div>
 
           <div class="email-block" id="emailBlock" hidden>
-            <button type="button" class="back" id="backToOptions">All sign-up options</button>
+            <button type="button" class="back" id="backToOptions">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" aria-hidden="true">
+                <path d="m14.5 6-6 6 6 6" />
+              </svg>
+              All sign-up options
+            </button>
 
             <div class="fields" id="emailFields">
               <div class="row">
