@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
-import { fetchArticleImage, fetchTopArticles } from '../adapters/wikipedia-top.ts';
+import { fetchTopArticles } from '../adapters/wikipedia-top.ts';
 import { resolveTrendArticle } from '../adapters/wikipedia-search.ts';
 import { fetchXTrends, xTrendsKey, X_TRENDS_WOEIDS } from '../adapters/x-trends.ts';
 import type { EntityDefinition } from '../config/entities.ts';
@@ -17,15 +17,17 @@ import {
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
 import type { TrendSource } from '@pulse/index-core/trend-epoch.ts';
-import { curatedImage } from '../config/topic-images.ts';
+import { imageSearchKey, resolveTopicImage, type ResolvedImage } from './topic-image.ts';
 import { notesForTopics, type ContextNote } from './summaries.ts';
 
 /** A discovered topic with the fields the page needs but the rules do not own. */
 export interface DiscoveryEntry extends DiscoveredTopic {
   /** Article the numbers came from, for a reader to check. */
   readonly link: string;
-  /** Lead image, null when the article has no usable thumbnail. */
+  /** Lead image, null when no source had one. */
   readonly imageUrl: string | null;
+  /** Page the image came from, when it came from an image search rather than an article. */
+  readonly imageSource?: string;
   /** Generated context sentence, absent when no model was configured or it failed. */
   readonly context?: ContextNote;
   /** Present when the candidate came from the X trend list, not the Wikipedia ranking. */
@@ -62,6 +64,23 @@ export async function readDiscovery(
   }
 }
 
+/** One image per topic, in the order the topics were measured. */
+async function resolveImages(
+  topics: readonly DiscoveredTopic[],
+  args: {
+    readonly imageSearchKey?: string | null;
+    readonly fetchImpl?: typeof fetch;
+  },
+): Promise<readonly ResolvedImage[]> {
+  const searchKey = args.imageSearchKey === undefined ? imageSearchKey() : args.imageSearchKey;
+  return mapWithConcurrency(topics, 2, (topic) =>
+    resolveTopicImage(topic, {
+      searchKey,
+      ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
+    }),
+  );
+}
+
 /**
  * Joins each topic with its lead image and, when a model is configured, one
  * sentence of context. Context is optional by design: a build without a key
@@ -69,7 +88,7 @@ export async function readDiscovery(
  */
 async function buildEntries(args: {
   readonly topics: readonly DiscoveredTopic[];
-  readonly images: readonly (string | null)[];
+  readonly images: readonly ResolvedImage[];
   readonly day: string;
   readonly summary: ChatConfig | null;
   readonly sourcesByArticle: ReadonlyMap<string, readonly TrendSource[]>;
@@ -87,10 +106,12 @@ async function buildEntries(args: {
       });
   return args.topics.map((topic, index) => {
     const context = notes.get(topic.article);
+    const image = args.images[index] ?? { url: null, source: null };
     return {
       ...topic,
       link: `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.article)}`,
-      imageUrl: args.images[index] ?? curatedImage(topic.article),
+      imageUrl: image.url,
+      ...(image.source === null ? {} : { imageSource: image.source }),
       sources: args.sourcesByArticle.get(topic.article) ?? [],
       ...(context === undefined ? {} : { context }),
     };
@@ -216,6 +237,8 @@ export async function refreshDiscovery(args: {
   readonly summary?: ChatConfig | null;
   /** Overrides the env key; null disables the X trend list. */
   readonly xApiKey?: string | null;
+  /** Overrides the env key; null disables image search. */
+  readonly imageSearchKey?: string | null;
   readonly fetchImpl?: typeof fetch;
   readonly log?: (line: string) => void;
 }): Promise<DiscoveryRecord> {
@@ -245,7 +268,7 @@ export async function refreshDiscovery(args: {
 
   const sourcesByArticle = new Map(measured.map((entry) => [entry.article, entry.sources]));
   const topics = discoverTopics(measured, args.day, settings);
-  const images = await mapWithConcurrency(topics, 2, (topic) => fetchArticleImage(topic.article));
+  const images = await resolveImages(topics, args);
 
   const summary = args.summary === undefined ? chatConfigFromEnv() : args.summary;
   const built = await buildEntries({

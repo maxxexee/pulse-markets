@@ -146,10 +146,11 @@ X rank is never published as a number, only used to choose what to measure.
 
 It then fetches lead images, writes `snapshots/discovery/<day>.json`, and signs
 the entries into `snapshots/trends/<day>.json`. An image comes from the
-Wikipedia lead, then the Wikidata P18 file, then `config/topic-images.ts` for a
-curated replacement, then the card shows initials. Only free-licensed or
-project-owned images belong in that map. A failure is logged and never blocks
-the epoch. Verify the signature with:
+Wikipedia lead, then the Wikidata P18 file, then `config/topic-images.ts`, then
+a web image search when `SERPER_API_KEY` is set, then the card shows initials.
+A searched image is recorded in the entry as `imageSource`, the page it was
+found on. Without the key that step is skipped and nothing else changes. A
+failure is logged and never blocks the epoch. Verify the signature with:
 
 ```
 node src/cli.ts verify-trends --day 2026-11-15
