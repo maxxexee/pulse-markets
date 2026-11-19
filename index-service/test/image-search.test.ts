@@ -20,6 +20,18 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
+function picture(): Response {
+  return new Response(null, { status: 200, headers: { 'content-type': 'image/jpeg' } });
+}
+
+/** A search returning `results`, with every URL that is not the search serving a picture. */
+function searchWith(results: readonly unknown[]): typeof fetch {
+  return async (input) => {
+    const url = new URL(String(input));
+    return url.hostname === 'google.serper.dev' ? json({ images: results }) : picture();
+  };
+}
+
 test('a key is read from the environment and an empty value disables search', () => {
   assert.equal(imageSearchKey({ SERPER_API_KEY: 'abc' }), 'abc');
   assert.equal(imageSearchKey({ SERPER_API_KEY: '  ' }), null);
@@ -29,13 +41,10 @@ test('a key is read from the environment and an empty value disables search', ()
 test('the first wide enough https result is returned with its page', async () => {
   const image = await searchTopicImage('Manni L. Perez', {
     apiKey: 'abc',
-    fetchImpl: async () =>
-      json({
-        images: [
-          { imageUrl: 'https://cdn.example.com/small.jpg', imageWidth: 120 },
-          { imageUrl: 'https://cdn.example.com/face.webp', imageWidth: 800, link: 'https://example.com/a' },
-        ],
-      }),
+    fetchImpl: searchWith([
+      { imageUrl: 'https://cdn.example.com/small.jpg', imageWidth: 120 },
+      { imageUrl: 'https://cdn.example.com/face.webp', imageWidth: 800, link: 'https://example.com/a' },
+    ]),
   });
   assert.deepEqual(image, {
     imageUrl: 'https://cdn.example.com/face.webp',
@@ -46,16 +55,38 @@ test('the first wide enough https result is returned with its page', async () =>
 test('results the cards cannot paint are skipped', async () => {
   const image = await searchTopicImage('Someone', {
     apiKey: 'abc',
-    fetchImpl: async () =>
-      json({
-        images: [
-          { imageUrl: 'http://insecure.example.com/a.jpg', imageWidth: 900 },
-          { imageUrl: 'https://cdn.example.com/logo.svg', imageWidth: 900 },
-          { imageUrl: 'https://cdn.example.com/ok.jpg', imageWidth: 900 },
-        ],
-      }),
+    fetchImpl: searchWith([
+      { imageUrl: 'http://insecure.example.com/a.jpg', imageWidth: 900 },
+      { imageUrl: 'https://cdn.example.com/logo.svg', imageWidth: 900 },
+      { imageUrl: 'https://cdn.example.com/ok.jpg', imageWidth: 900 },
+    ]),
   });
   assert.equal(image?.imageUrl, 'https://cdn.example.com/ok.jpg');
+});
+
+test('a result that answers with a page instead of a picture is skipped', async () => {
+  const image = await searchTopicImage('Someone', {
+    apiKey: 'abc',
+    fetchImpl: async (input) => {
+      const url = new URL(String(input));
+      if (url.hostname === 'google.serper.dev') {
+        return json({
+          images: [
+            { imageUrl: 'https://lookaside.example.com/crawler/?media_id=1', imageWidth: 3000 },
+            { imageUrl: 'https://cdn.example.com/real.jpg', imageWidth: 900 },
+          ],
+        });
+      }
+      if (url.hostname === 'lookaside.example.com') {
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        });
+      }
+      return picture();
+    },
+  });
+  assert.equal(image?.imageUrl, 'https://cdn.example.com/real.jpg');
 });
 
 test('a topic with no article image is filled from the image search', async () => {
@@ -71,7 +102,7 @@ test('a topic with no article image is filled from the image search', async () =
         });
       }
       if (url.pathname === '/w/api.php') return json({ query: { pages: [{ pageprops: {} }] } });
-      return json({});
+      return picture();
     },
   });
   assert.deepEqual(image, {
@@ -85,10 +116,9 @@ test('without a key the search is never called and the card keeps its fallback',
   const image = await resolveTopicImage(topic, {
     searchKey: null,
     fetchImpl: async (input) => {
-      hosts.push(new URL(String(input)).hostname);
-      if (new URL(String(input)).pathname === '/w/api.php') {
-        return json({ query: { pages: [{ pageprops: {} }] } });
-      }
+      const url = new URL(String(input));
+      hosts.push(url.hostname);
+      if (url.pathname === '/w/api.php') return json({ query: { pages: [{ pageprops: {} }] } });
       return json({});
     },
   });
@@ -104,7 +134,7 @@ test('a rejected request or nothing usable returns null', async () => {
   assert.equal(rejected, null);
   const empty = await searchTopicImage('Someone', {
     apiKey: 'abc',
-    fetchImpl: async () => json({ images: [] }),
+    fetchImpl: searchWith([]),
   });
   assert.equal(empty, null);
   const failed = await searchTopicImage('Someone', {

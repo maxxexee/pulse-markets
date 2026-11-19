@@ -36,10 +36,27 @@ function usableImageUrl(value: unknown): string | null {
 }
 
 /**
+ * Whether the URL actually answers with a picture.
+ *
+ * A search result is a claim, not a file: social platforms hand out permalinks
+ * that redirect to a page, and those paint as nothing on a card. The answer is
+ * read and thrown away, so this costs a request and no memory.
+ */
+async function servesImage(url: string, fetchImpl: typeof fetch): Promise<boolean> {
+  try {
+    const response = await fetchImpl(url, { method: 'GET' });
+    await response.body?.cancel();
+    return response.ok && (response.headers.get('content-type') ?? '').startsWith('image/');
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Best image for a search phrase, or null.
  *
- * The first result wide enough wins. Getting nothing is a normal outcome and
- * never throws into a build: an image is presentation.
+ * The first result wide enough that also serves a picture wins. Getting nothing
+ * is a normal outcome and never throws into a build: an image is presentation.
  */
 export async function searchTopicImage(
   query: string,
@@ -65,6 +82,7 @@ export async function searchTopicImage(
       if (imageUrl === null) continue;
       const width = typeof result.imageWidth === 'number' ? result.imageWidth : 0;
       if (width > 0 && width < MIN_WIDTH) continue;
+      if (!(await servesImage(imageUrl, fetchImpl))) continue;
       const sourceUrl =
         typeof result.link === 'string' && result.link.startsWith('https://')
           ? result.link
