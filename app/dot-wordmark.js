@@ -15,17 +15,18 @@
 
 const WORD = 'PULSE';
 const GRID_PX = 5; // dot spacing, CSS px
-const DOT_RADIUS_PX = 1.1; // dot radius, CSS px
-const WORD_WIDTH_SHARE = 0.86; // share of the card width the wordmark spans
-const FRAME_MS = 80; // about 12 fps, enough for a shimmer
-const ALPHA_STEPS = 8; // brightness buckets, one path and fill each
-const GRAIN_BASE = 0.075; // faintest the field ever gets
-const GRAIN_SWING = 0.045; // how far the noise moves it
-const SPECKLE_SHARE = 0.45; // share of variation that is fixed, not drifting
-const WORD_ALPHA = 0.95;
+const DOT_SIZE_PX = 2.6; // dot edge, CSS px
+const WORD_WIDTH_SHARE = 0.72; // share of the card width the wordmark spans
+const FRAME_MS = 95; // about 10 fps, enough for a shimmer
+const ALPHA_STEPS = 20; // brightness buckets, one path and fill each
+const GRAIN_BASE = 0.022; // faintest the field ever gets
+const GRAIN_SWING = 0.095; // how far a dot moves between its dimmest and brightest
+const DRIFT_SHARE = 0.55; // share of the level that is wide, slow movement
+/* The word sits at nearly full brightness; the grain never rises to meet it. */
+const WORD_ALPHA = 0.98;
+const WORD_FLOOR = 0.92;
 const DOT_FILL = 'rgb(232, 228, 220)';
 const FONT_STACK = "-apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif";
-const TAU = Math.PI * 2;
 
 /** Font size that makes WORD span WORD_WIDTH_SHARE of the card width. */
 function fitFontSize(context, width) {
@@ -64,15 +65,20 @@ function readWordMask(width, height, step) {
   return { coverage, cols, rows };
 }
 
-/** Grid, word mask and speckle for one canvas size. */
+/**
+ * Grid, word mask and per-dot phase for one canvas size.
+ *
+ * The phase is fixed per cell, so each dot twinkles on its own beat forever
+ * instead of the whole field pulsing together.
+ */
 function prepareGrid(width, height, step) {
   const mask = readWordMask(width, height, step);
-  const speckle = new Float32Array(mask.cols * mask.rows);
-  for (let cell = 0; cell < speckle.length; cell += 1) {
+  const phase = new Float32Array(mask.cols * mask.rows);
+  for (let cell = 0; cell < phase.length; cell += 1) {
     const noise = Math.sin(cell * 12.9898) * 43758.5453;
-    speckle[cell] = noise - Math.floor(noise);
+    phase[cell] = noise - Math.floor(noise);
   }
-  return { coverage: mask.coverage, cols: mask.cols, rows: mask.rows, speckle };
+  return { coverage: mask.coverage, cols: mask.cols, rows: mask.rows, phase };
 }
 
 /** Slow drift: three waves with long wavelengths, mixed to 0..1. */
@@ -83,36 +89,48 @@ function grainAt(x, y, seconds) {
   return 0.5 + 0.5 * (0.55 * a * b + 0.45 * c);
 }
 
-/** Sorts one frame of dots into brightness buckets by cell index. */
+/**
+ * Sorts one frame of dots into brightness buckets by cell index.
+ *
+ * A dot is a mix of the wide slow drift and its own twinkle, so the field
+ * moves as a whole while every dot also pulses on its own beat.
+ */
 function collectDots(grid, buckets, step, seconds) {
-  const { coverage, cols, rows, speckle } = grid;
+  const { coverage, cols, rows, phase } = grid;
   for (let row = 0; row < rows; row += 1) {
     const y = row * step;
     for (let col = 0; col < cols; col += 1) {
       const cell = row * cols + col;
-      const grain = grainAt(col * step, y, seconds);
-      const dot = grain * (1 - SPECKLE_SHARE) + (speckle[cell] ?? 0.5) * SPECKLE_SHARE;
+      const own = phase[cell] ?? 0.5;
+      const twinkle = 0.5 + 0.5 * Math.sin(seconds * 2.2 + own * 40);
+      const level =
+        DRIFT_SHARE * grainAt(col * step, y, seconds) + (1 - DRIFT_SHARE) * twinkle;
+      const field = GRAIN_BASE + GRAIN_SWING * level;
       const word = coverage[cell] ?? 0;
-      const field = GRAIN_BASE + GRAIN_SWING * dot;
-      const alpha = word > 0.05 ? Math.max(field, WORD_ALPHA * word * (0.45 + 0.55 * dot)) : field;
-      if (alpha < 0.03) continue;
+      const letter = WORD_FLOOR + (WORD_ALPHA - WORD_FLOOR) * level;
+      const alpha = word > 0.05 ? Math.max(field, letter * word) : field;
+      if (alpha < 0.02) continue;
       buckets[Math.min(ALPHA_STEPS - 1, Math.floor(alpha * ALPHA_STEPS))].push(col * step, y);
     }
   }
 }
 
-/** Paints the bucketed points, one fill per brightness level. */
-function fillBuckets(context, buckets, radius) {
+/**
+ * Paints the bucketed points, one pass per brightness level.
+ *
+ * Dots are squares: at this size a 2.6px square is indistinguishable from a
+ * circle, and fillRect costs a fraction of a stroked arc, which is the
+ * difference between a smooth field and a warm laptop.
+ */
+function fillBuckets(context, buckets, size) {
+  const half = size / 2;
   for (let index = 0; index < ALPHA_STEPS; index += 1) {
     const points = buckets[index];
     if (points.length === 0) continue;
     context.globalAlpha = (index + 0.5) / ALPHA_STEPS;
-    context.beginPath();
     for (let point = 0; point < points.length; point += 2) {
-      context.moveTo(points[point] + radius, points[point + 1]);
-      context.arc(points[point], points[point + 1], radius, 0, TAU);
+      context.fillRect(points[point] - half, points[point + 1] - half, size, size);
     }
-    context.fill();
   }
   context.globalAlpha = 1;
 }
@@ -124,7 +142,7 @@ function createField(canvas) {
   const buckets = Array.from({ length: ALPHA_STEPS }, () => []);
   let grid = null;
   let step = GRID_PX;
-  let radius = DOT_RADIUS_PX;
+  let size = DOT_SIZE_PX;
   let width = 0;
   let height = 0;
 
@@ -143,7 +161,7 @@ function createField(canvas) {
     canvas.width = width;
     canvas.height = height;
     step = Math.max(4, Math.round(GRID_PX * scale));
-    radius = DOT_RADIUS_PX * scale;
+    size = DOT_SIZE_PX * scale;
     grid = prepareGrid(width, height, step);
     context.fillStyle = DOT_FILL;
     return true;
@@ -154,7 +172,7 @@ function createField(canvas) {
     context.clearRect(0, 0, width, height);
     for (const bucket of buckets) bucket.length = 0;
     collectDots(grid, buckets, step, seconds);
-    fillBuckets(context, buckets, radius);
+    fillBuckets(context, buckets, size);
   }
 
   return { resize, draw };
