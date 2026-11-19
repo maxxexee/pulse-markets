@@ -17,6 +17,7 @@ import {
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
 import type { TrendSource } from '@pulse/index-core/trend-epoch.ts';
+import { curatedImage } from '../config/topic-images.ts';
 import { notesForTopics, type ContextNote } from './summaries.ts';
 
 /** A discovered topic with the fields the page needs but the rules do not own. */
@@ -89,7 +90,7 @@ async function buildEntries(args: {
     return {
       ...topic,
       link: `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.article)}`,
-      imageUrl: args.images[index] ?? null,
+      imageUrl: args.images[index] ?? curatedImage(topic.article),
       sources: args.sourcesByArticle.get(topic.article) ?? [],
       ...(context === undefined ? {} : { context }),
     };
