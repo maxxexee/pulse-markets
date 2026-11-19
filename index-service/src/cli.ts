@@ -372,11 +372,11 @@ async function exportStatic(outDir: string): Promise<void> {
   }
   for (const day of await publishedTrendDays()) {
     const body = await readFile(join(SNAPSHOTS_DIR, 'trends', `${day}.json`), 'utf8');
-    files.set(`api/trends/epoch/${day}`, body);
+    files.set(`api/trend-epoch/${day}`, body);
   }
   try {
     files.set(
-      'api/trends/epoch/latest',
+      'api/trend-epoch/latest',
       await readFile(join(SNAPSHOTS_DIR, 'trends', 'latest.json'), 'utf8'),
     );
   } catch {

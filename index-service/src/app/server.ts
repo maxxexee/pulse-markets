@@ -97,11 +97,11 @@ async function route(
   if (pathname === '/api/social/latest') {
     return readPublished(join(options.snapshotsDir, 'social.json'));
   }
-  if (pathname === '/api/trends/epoch/latest') {
+  if (pathname === '/api/trend-epoch/latest') {
     return readPublished(join(options.snapshotsDir, 'trends', 'latest.json'));
   }
-  if (pathname.startsWith('/api/trends/epoch/')) {
-    const day = decodeURIComponent(pathname.slice('/api/trends/epoch/'.length));
+  if (pathname.startsWith('/api/trend-epoch/')) {
+    const day = decodeURIComponent(pathname.slice('/api/trend-epoch/'.length));
     if (!isValidDay(day)) {
       return json(400, JSON.stringify({ error: 'invalid-day' }));
     }

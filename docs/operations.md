@@ -124,7 +124,7 @@ against their own seven-day average, and are gated by `minViews` (20,000) and
 `minMomentum` (100 percent) in `snapshots/discovery/<day>.json`. The payload's
 `discovery` header repeats those thresholds. The same entries are published as
 a signed trend epoch at `snapshots/trends/<day>.json` and served at
-`/api/trends/epoch/<day>`, which is what trend markets settle against. The
+`/api/trend-epoch/<day>`, which is what trend markets settle against. The
 numbers stay outside the headline index: a trending topic never changes the
 index score.
 
