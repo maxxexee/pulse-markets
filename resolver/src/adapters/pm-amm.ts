@@ -9,8 +9,15 @@ const require = createRequire(import.meta.url);
 const DEFAULT_PROGRAM_ID = 'GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y';
 const DEFAULT_DEVNET_USDC = '3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ';
 const DEFAULT_RPC_URL = 'https://api.devnet.solana.com';
-/** pm-AMM refuses markets shorter than five minutes. */
-const MIN_DURATION_SECS = 300;
+/**
+ * Shortest market the deployed pm-AMM program accepts.
+ *
+ * The SDK documents five minutes, but the devnet program rejects a 300 second
+ * market with InvalidDuration (6012) and accepts 3600, so the floor enforced
+ * here is the one the chain actually applies. A shorter market is refused before
+ * it costs a simulation round trip.
+ */
+const MIN_DURATION_SECS = 3600;
 const MAX_NAME_BYTES = 64;
 
 export type ChainErrorKind = 'chain-config' | 'chain-input' | 'chain-send';
@@ -63,7 +70,7 @@ export function epochEndTs(epochDay: string): number {
 }
 
 export interface CreateOnChainOptions {
-  /** Seconds the market trades before expiry; at least 300. */
+  /** Seconds the market trades before expiry; at least 3600. */
   readonly durationSecs: number;
   /** Starting YES price in basis points of probability, 100 to 9900. */
   readonly initialPriceBps: number;

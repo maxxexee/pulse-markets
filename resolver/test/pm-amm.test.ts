@@ -56,8 +56,10 @@ test('epoch end is midnight UTC of the settlement day', () => {
 });
 
 test('rejects a duration the program will not accept before touching the chain', async () => {
+  // 300 is the floor the SDK documents; the deployed program refused it with
+  // InvalidDuration, so a five minute market must not reach the cluster.
   await assert.rejects(
-    createOnChain(CONFIG, SPEC, { durationSecs: 120, initialPriceBps: 5000, depositUsdc: 0 }),
+    createOnChain(CONFIG, SPEC, { durationSecs: 300, initialPriceBps: 5000, depositUsdc: 0 }),
     (error: unknown) => {
       assert.ok(error instanceof ChainError);
       assert.equal(error.kind, 'chain-input');
