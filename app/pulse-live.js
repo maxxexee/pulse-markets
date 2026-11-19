@@ -54,6 +54,17 @@ function cardGradient(status, index) {
   return `linear-gradient(${120 + index * 17}deg, ${a} 0%, ${b} 100%)`;
 }
 
+/** Two letters for topics with no usable image, so the card reads as a fallback. */
+function initials(topic) {
+  const words = topic
+    .split(/\s+/)
+    .filter((word) => /^[\p{L}\p{N}]/u.test(word) && !/^[\p{L}]\.?$/u.test(word));
+  return words
+    .slice(0, 2)
+    .map((word) => word[0].toUpperCase())
+    .join('');
+}
+
 function badgeClass(status) {
   if (status === 'surging') return 'surging';
   if (status === 'fading') return 'hot';
@@ -178,6 +189,13 @@ function buildCards(trends) {
         role="button" tabindex="0"
         aria-label="${escHtml(`${trend.topic}, ${badgeLabel(trend.status)}, ${move.text}`)}">
       <div class="trend-card-bg" style="${bgStyle}"></div>
+      ${
+        trend.imageUrl
+          ? ''
+          : `<span class="trend-card-initials" aria-hidden="true">${escHtml(
+              initials(trend.topic),
+            )}</span>`
+      }
       <span class="trend-card-move ${move.dir}">${escHtml(move.text)}</span>
       <div class="trend-card-body">
         <span class="trend-card-badge ${badgeClass(trend.status)}">
