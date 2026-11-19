@@ -1,6 +1,6 @@
 {
   "day": "2026-11-18",
-  "generatedAt": "2026-11-19T13:32:55.689Z",
+  "generatedAt": "2026-11-19T17:37:58.826Z",
   "method": "wikipedia-top-v1",
   "settings": {
     "candidateLimit": 24,
@@ -28,11 +28,12 @@
       "baselineDays": 7,
       "momentum": 1370.2,
       "link": "https://en.wikipedia.org/wiki/Manni_L._Perez",
-      "imageUrl": null,
+      "imageUrl": "https://i.redd.it/182hrus18sze1.jpg",
+      "imageSource": "https://www.reddit.com/r/GTA6/comments/1kimku2/even_more_proof_manni_l_perez_is_lucia/",
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Manni_L._Perez/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "ebfd75e60c0796bce5dd4a00256a90d52c932e6eae790970ca4f68bab0ee9e77"
         }
       ],
@@ -55,11 +56,10 @@
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Grand_Theft_Auto_VI/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "1b2a4fcbf8c4c62679638e8c1d01322764ea8e10e384413e91fb5a5f6ac4286f"
         }
-      ],
-      "via": "x"
+      ]
     },
     {
       "article": "Hunter_Schafer",
@@ -73,10 +73,16 @@
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hunter_Schafer/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "da08ac82e1b4588c9c10c12ddbf6e6e5596f499884c99c4253c08b8c3b912376"
         }
-      ]
+      ],
+      "context": {
+        "text": "Hunter Schafer is an American actress, model, and activist known for her activism against North Carolina's \"bathroom bill.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Hunter_Schafer"
+      }
     },
     {
       "article": "Mary_Peltola",
@@ -90,7 +96,7 @@
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mary_Peltola/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "72dd4fdf0a7f82c6aa642cbe353ca3592d9404e5df8769fd5729694a34383da1"
         }
       ],
@@ -113,7 +119,7 @@
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hakeem_Jeffries/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "5de6414933da0d43f20e6b034a1fe38485e480723c52f628c426e4a4fdee0d87"
         }
       ]
@@ -130,7 +136,7 @@
       "sources": [
         {
           "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Tatyana_Ali/daily/20261111/20261118",
-          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "retrievedAt": "2026-11-19T17:37:58.826Z",
           "payloadSha256": "c1533f46aadc08108f729e89b4e90f8090914fb6be6d1a01bd844b51f2cce6e5"
         }
       ],
