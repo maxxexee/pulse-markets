@@ -165,7 +165,10 @@ function buildCards(trends) {
     .slice(0, 20)
     .map((trend, index) => {
       const move = formatMomentum(trend.momentum);
-      const category = sourceLabel(trend.sources[0]?.source || '');
+      const category =
+        trend.discoveredVia === 'x'
+          ? 'X trend'
+          : sourceLabel(trend.sources[0]?.source || '');
       const bgStyle = trend.imageUrl
         ? `background-image:url('${escHtml(trend.imageUrl)}');` +
           'background-size:cover;background-position:center top;filter:grayscale(100%)'
@@ -200,9 +203,10 @@ function paintModalImage(trend, gradient) {
 
   for (const layer of [blur, sharp]) {
     if (!layer) continue;
-    // The shorthand resets every background property, so it has to go first.
-    layer.style.background = url ? '' : gradient;
-    layer.style.backgroundImage = url || '';
+    // A gradient is a background-image too, so only that property is set.
+    // Setting the shorthand and then clearing backgroundImage erased the
+    // fallback, which left the hero blank for topics with no lead image.
+    layer.style.backgroundImage = url || gradient;
   }
   if (sharp) sharp.classList.add('loaded');
 }

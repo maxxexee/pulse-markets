@@ -33,6 +33,8 @@ export interface Trend {
   readonly imageUrl?: string;
   /** True for a topic the daily ranking surfaced rather than the signed basket. */
   readonly discovered?: boolean;
+  /** Set when the topic first came from the X trend list. */
+  readonly discoveredVia?: 'x';
   /** Mean daily views over the comparison window, for discovered topics. */
   readonly baseline?: number;
   /** Days averaged into the baseline, for discovered topics. */
@@ -216,6 +218,7 @@ export async function trendsPayload(args: {
     sourceCount: 1,
     sources: [{ source: 'wikipedia', volume: entry.views, link: entry.link }],
     discovered: true,
+    ...(entry.via === undefined ? {} : { discoveredVia: entry.via }),
     baseline: entry.baseline,
     baselineDays: entry.baselineDays,
     ...(entry.context === undefined ? {} : { context: entry.context.text }),

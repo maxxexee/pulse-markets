@@ -3,6 +3,8 @@ import { join } from 'node:path';
 import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import { fetchArticleImage, fetchTopArticles } from '../adapters/wikipedia-top.ts';
+import { resolveTrendArticle } from '../adapters/wikipedia-search.ts';
+import { fetchXTrends, xTrendsKey } from '../adapters/x-trends.ts';
 import type { EntityDefinition } from '../config/entities.ts';
 import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
 import { addDays } from '@pulse/index-core/dates.ts';
@@ -10,6 +12,7 @@ import {
   DISCOVERY_V1,
   discoverTopics,
   selectCandidates,
+  type DiscoveryCandidate,
   type DiscoveredTopic,
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
@@ -23,6 +26,8 @@ export interface DiscoveryEntry extends DiscoveredTopic {
   readonly imageUrl: string | null;
   /** Generated context sentence, absent when no model was configured or it failed. */
   readonly context?: ContextNote;
+  /** Present when the candidate came from the X trend list, not the Wikipedia ranking. */
+  readonly via?: 'x';
 }
 
 /** The published record for one day of discovery. Display only, never signed. */
@@ -86,6 +91,80 @@ async function buildEntries(args: {
   });
 }
 
+/** Pageview series per candidate. A failing article becomes an empty series. */
+async function measureCandidates(
+  articles: readonly string[],
+  day: string,
+  settings: DiscoverySettings,
+  now: Date,
+  fetchImpl: typeof fetch | undefined,
+): Promise<readonly DiscoveryCandidate[]> {
+  return mapWithConcurrency(articles, 2, async (article) => {
+    try {
+      const fetched = await fetchPageviews(
+        article,
+        addDays(day, -settings.baselineWindowDays),
+        day,
+        { now: () => now, ...(fetchImpl === undefined ? {} : { fetchImpl }) },
+      );
+      return { article, observations: fetched.observations };
+    } catch {
+      return { article, observations: [] };
+    }
+  });
+}
+
+/** Trends resolved per build. The lower half of the list rarely maps to an article. */
+const X_CANDIDATE_LIMIT = 12;
+
+/**
+ * Resolves the day's X trends to Wikipedia articles.
+ *
+ * Rank is used only to pick which trends are worth the lookup. Nothing from the
+ * X response is published as a number: the resolved articles go through the same
+ * pageview measurement as the rest of discovery.
+ */
+async function xCandidates(
+  args: {
+    readonly xApiKey?: string | null;
+    readonly fetchImpl?: typeof fetch;
+    readonly log?: (line: string) => void;
+  },
+  basketArticles: ReadonlySet<string>,
+): Promise<readonly string[]> {
+  const key = args.xApiKey === undefined ? xTrendsKey() : args.xApiKey;
+  if (key === null) {
+    return [];
+  }
+  try {
+    const trends = await fetchXTrends({
+      apiKey: key,
+      ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
+    });
+    const resolved = await mapWithConcurrency(
+      trends.trends.slice(0, X_CANDIDATE_LIMIT),
+      2,
+      (trend) =>
+        resolveTrendArticle(
+          trend.name,
+          args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl },
+        ),
+    );
+    const articles: string[] = [];
+    for (const article of resolved) {
+      if (article === null) continue;
+      if (basketArticles.has(article) || articles.includes(article)) continue;
+      articles.push(article);
+    }
+    args.log?.(`x trends: ${trends.trends.length} listed, ${articles.length} resolved`);
+    return articles;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    args.log?.(`x trends skipped: ${detail}`);
+    return [];
+  }
+}
+
 /**
  * Finds what trended that day outside the basket and caches the result.
  *
@@ -101,39 +180,40 @@ export async function refreshDiscovery(args: {
   readonly now?: Date;
   readonly settings?: DiscoverySettings;
   readonly summary?: ChatConfig | null;
+  /** Overrides the env key; null disables the X trend list. */
+  readonly xApiKey?: string | null;
   readonly fetchImpl?: typeof fetch;
   readonly log?: (line: string) => void;
 }): Promise<DiscoveryRecord> {
   const settings = args.settings ?? DISCOVERY_V1;
   const now = args.now ?? new Date();
-  const top = await fetchTopArticles(args.day, { now: () => now });
-  const basketArticles = new Set(args.basket.map((entity) => entity.wikipediaArticle));
-  const candidates = selectCandidates(
-    top.articles,
-    basketArticles,
-    settings.candidateLimit,
-    settings.excludedTopicPrefixes,
-  );
-
-  const measured = await mapWithConcurrency(candidates, 2, async (article) => {
-    try {
-      const fetched = await fetchPageviews(
-        article,
-        addDays(args.day, -settings.baselineWindowDays),
-        args.day,
-        { now: () => now },
-      );
-      return { article, observations: fetched.observations };
-    } catch {
-      return { article, observations: [] };
-    }
+  const top = await fetchTopArticles(args.day, {
+    now: () => now,
+    ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
   });
+  const basketArticles = new Set(args.basket.map((entity) => entity.wikipediaArticle));
+
+  // The X list is a second way in for topics the Wikipedia ranking did not put
+  // near the top. Without a key it is skipped silently: discovery is optional
+  // and must never hold up a signed epoch.
+  const xArticles = await xCandidates(args, basketArticles);
+  const candidates = [
+    ...selectCandidates(
+      top.articles,
+      basketArticles,
+      settings.candidateLimit,
+      settings.excludedTopicPrefixes,
+    ),
+    ...xArticles,
+  ].filter((article, index, all) => all.indexOf(article) === index);
+
+  const measured = await measureCandidates(candidates, args.day, settings, now, args.fetchImpl);
 
   const topics = discoverTopics(measured, args.day, settings);
   const images = await mapWithConcurrency(topics, 2, (topic) => fetchArticleImage(topic.article));
 
   const summary = args.summary === undefined ? chatConfigFromEnv() : args.summary;
-  const entries = await buildEntries({
+  const built = await buildEntries({
     topics,
     images,
     day: args.day,
@@ -141,6 +221,10 @@ export async function refreshDiscovery(args: {
     ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
     ...(args.log === undefined ? {} : { log: args.log }),
   });
+  const fromX = new Set(xArticles);
+  const entries = built.map((entry) =>
+    fromX.has(entry.article) ? { ...entry, via: 'x' as const } : entry,
+  );
 
   const record: DiscoveryRecord = {
     day: args.day,
