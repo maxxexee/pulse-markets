@@ -1,32 +1,56 @@
 /**
- * Sign-up form behaviour.
+ * Sign-up form behaviour, backed by the branch's hosted Neon Auth server.
  *
- * There is no sign-up server yet, so the form validates in the browser and then
- * says plainly that nothing was sent. It never reports a success it did not get.
+ * The page only reports what the server returned: a created account, an error
+ * code, or a session it could read back. Nothing is shown as done that is not.
  */
+import {
+  getCurrentUser,
+  signInWithEmail,
+  signInWithGoogle,
+  signOut,
+  signUpWithEmail,
+} from './auth-client.bundle.js';
 
 const MIN_PASSWORD_LENGTH = 8;
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function setMethod(method) {
-  for (const button of document.querySelectorAll('.method')) {
-    button.setAttribute('aria-pressed', String(button.dataset.method === method));
-  }
-  const fields = document.getElementById('emailFields');
-  const note = document.getElementById('methodNote');
-  const submit = document.getElementById('submitButton');
-  const notice = document.getElementById('formNotice');
-  if (!fields || !note || !submit) return;
+/** Which call the email form makes. A returning reader needs a way back in. */
+let mode = 'signup';
 
-  fields.hidden = method !== 'email';
-  note.hidden = method === 'email';
-  submit.textContent = method === 'email' ? 'Create account' : 'Continue with Google';
-  if (notice) notice.hidden = true;
+function byId(id) {
+  return document.getElementById(id);
+}
+
+function showEmailForm() {
+  const options = byId('options');
+  const block = byId('emailBlock');
+  if (!options || !block) return;
+  options.hidden = true;
+  block.hidden = false;
+  hideNotice();
+  refreshSubmitLabel();
+  byId('email')?.focus();
+}
+
+function showOptions() {
+  const options = byId('options');
+  const block = byId('emailBlock');
+  if (!options || !block) return;
+  options.hidden = false;
+  block.hidden = true;
+  clearFieldErrors();
+  hideNotice();
+}
+
+function refreshSubmitLabel() {
+  const submit = byId('submitButton');
+  if (submit) submit.textContent = mode === 'signin' ? 'Sign in' : 'Create account';
 }
 
 function showFieldError(inputId, errorId, message) {
-  const input = document.getElementById(inputId);
-  const error = document.getElementById(errorId);
+  const input = byId(inputId);
+  const error = byId(errorId);
   if (!input || !error) return;
   input.setAttribute('aria-invalid', 'true');
   error.textContent = message;
@@ -44,16 +68,23 @@ function clearFieldErrors() {
 }
 
 function showNotice(text) {
-  const notice = document.getElementById('formNotice');
+  const notice = byId('formNotice');
   if (!notice) return;
   notice.textContent = text;
   notice.hidden = false;
 }
 
+function hideNotice() {
+  const notice = byId('formNotice');
+  if (!notice) return;
+  notice.textContent = '';
+  notice.hidden = true;
+}
+
 /** Returns true when the form is valid, and focuses the first field that is not. */
 function validateForm() {
-  const email = document.getElementById('email');
-  const password = document.getElementById('password');
+  const email = byId('email');
+  const password = byId('password');
   if (!email || !password) return false;
 
   let firstInvalid = null;
@@ -62,11 +93,7 @@ function validateForm() {
     firstInvalid = email;
   }
   if (password.value.length < MIN_PASSWORD_LENGTH) {
-    showFieldError(
-      'password',
-      'passwordError',
-      `Use at least ${MIN_PASSWORD_LENGTH} characters.`,
-    );
+    showFieldError('password', 'passwordError', `Use at least ${MIN_PASSWORD_LENGTH} characters.`);
     firstInvalid = firstInvalid ?? password;
   }
   if (firstInvalid) {
@@ -79,14 +106,15 @@ function validateForm() {
 /** Carries an address typed on the landing page into the form. */
 function prefillEmail() {
   const typed = new URLSearchParams(window.location.search).get('email');
-  const input = document.getElementById('email');
+  const input = byId('email');
   if (!input || typed === null || typed.trim() === '') return;
   input.value = typed.trim();
+  showEmailForm();
 }
 
 function wireReveal() {
-  const button = document.getElementById('revealPassword');
-  const input = document.getElementById('password');
+  const button = byId('revealPassword');
+  const input = byId('password');
   if (!button || !input) return;
   button.addEventListener('click', () => {
     const revealed = input.type === 'text';
@@ -96,35 +124,95 @@ function wireReveal() {
   });
 }
 
-function wireMethodPicker() {
-  for (const button of document.querySelectorAll('.method')) {
-    button.addEventListener('click', () => setMethod(button.dataset.method));
+function wireOptions() {
+  byId('googleOption')?.addEventListener('click', () => void submitGoogle());
+  byId('emailOption')?.addEventListener('click', showEmailForm);
+  byId('backToOptions')?.addEventListener('click', showOptions);
+}
+
+/** Blocks a second submit while one is in flight, without losing the label. */
+function setBusy(busy) {
+  const submit = byId('submitButton');
+  if (!submit) return;
+  submit.disabled = busy;
+  submit.setAttribute('aria-busy', String(busy));
+  for (const button of document.querySelectorAll('.option')) {
+    button.disabled = busy;
   }
 }
 
+function showSignedIn(user) {
+  const form = byId('signupForm');
+  const intro = document.querySelector('.intro .lead');
+  const session = byId('session');
+  const text = byId('sessionText');
+  if (!form || !session || !text) return;
+
+  form.hidden = true;
+  session.hidden = false;
+  text.textContent = `Signed in as ${user.email}`;
+  if (intro) intro.hidden = true;
+}
+
+function showSignedOut() {
+  const form = byId('signupForm');
+  const intro = document.querySelector('.intro .lead');
+  const session = byId('session');
+  const text = byId('sessionText');
+  if (form) form.hidden = false;
+  if (session) session.hidden = true;
+  if (text) text.textContent = '';
+  if (intro) intro.hidden = false;
+}
+
+/** Split name into the single field Better Auth stores; blank stays blank. */
+function displayName() {
+  const first = byId('firstName')?.value.trim() ?? '';
+  const last = byId('lastName')?.value.trim() ?? '';
+  return `${first} ${last}`.trim();
+}
+
+async function submitEmail() {
+  if (!validateForm()) return;
+  const credentials = {
+    email: byId('email').value.trim(),
+    password: byId('password').value,
+    name: displayName(),
+  };
+  setBusy(true);
+  const result =
+    mode === 'signin'
+      ? await signInWithEmail(credentials)
+      : await signUpWithEmail(credentials);
+  setBusy(false);
+  if (!result.ok) {
+    showNotice(result.message);
+    return;
+  }
+  showSignedIn(result.user);
+}
+
+async function submitGoogle() {
+  setBusy(true);
+  const result = await signInWithGoogle();
+  // A successful call navigates to Google, so only a failure returns here.
+  setBusy(false);
+  if (!result.ok) showNotice(result.message);
+}
+
 function wireForm() {
-  const form = document.getElementById('signupForm');
+  const form = byId('signupForm');
   if (!form) return;
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const method = document.querySelector('.method[aria-pressed="true"]')?.dataset.method;
+    hideNotice();
     clearFieldErrors();
-
-    if (method !== 'email') {
-      showNotice('Google sign-in is not connected on this build. Nothing was sent.');
-      return;
-    }
-    if (!validateForm()) return;
-
-    showNotice(
-      'Sign-up is not wired to a server yet, so nothing was sent. ' +
-        'The index and the markets are readable without an account.',
-    );
+    await submitEmail();
   });
 
   // Blur is late enough not to nag while someone is still typing an address.
-  document.getElementById('email')?.addEventListener('blur', (event) => {
+  byId('email')?.addEventListener('blur', (event) => {
     const input = event.target;
     if (input.value.trim() === '') return;
     if (EMAIL_SHAPE.test(input.value.trim())) return;
@@ -132,9 +220,50 @@ function wireForm() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  wireMethodPicker();
+function wireModeSwitch() {
+  const link = byId('modeSwitch');
+  if (!link) return;
+  link.addEventListener('click', () => {
+    mode = mode === 'signup' ? 'signin' : 'signup';
+    link.textContent =
+      mode === 'signin' ? 'New here? Create an account' : 'Already have an account? Sign in';
+    clearFieldErrors();
+    hideNotice();
+    refreshSubmitLabel();
+  });
+}
+
+function wireSignOut() {
+  const button = byId('signOut');
+  if (!button) return;
+  button.addEventListener('click', async () => {
+    button.disabled = true;
+    const result = await signOut();
+    button.disabled = false;
+    if (!result.ok) {
+      showNotice(result.message);
+      return;
+    }
+    showSignedOut();
+    showNotice('Signed out.');
+  });
+}
+
+/** A page reload keeps the session, so the form reflects it on load. */
+async function restoreSession() {
+  const result = await getCurrentUser();
+  if (result.ok && result.user) showSignedIn(result.user);
+}
+
+function init() {
+  wireOptions();
   wireReveal();
   wireForm();
+  wireModeSwitch();
+  wireSignOut();
   prefillEmail();
-});
+  void restoreSession();
+}
+
+// Module scripts are deferred, so the document is parsed by the time this runs.
+init();
