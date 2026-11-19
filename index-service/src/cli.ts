@@ -194,12 +194,14 @@ async function discover(day: string): Promise<void> {
       day,
       basket: ENTITY_BASKET,
       snapshotsDir: SNAPSHOTS_DIR,
+      log: (line) => console.log(line),
     });
     console.log(`discovery ${day}: ${record.entries.length} trending topics`);
     for (const entry of record.entries) {
       console.log(
         `  ${entry.topic.padEnd(30)} ${String(entry.views).padStart(8)} views` +
-          `  +${entry.momentum}% over ${entry.baselineDays}d`,
+          `  +${entry.momentum}% over ${entry.baselineDays}d` +
+          (entry.via === 'x' ? '  [X]' : ''),
       );
     }
   } catch (error) {

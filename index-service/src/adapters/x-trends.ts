@@ -12,8 +12,17 @@ const API_BASE = 'https://api.twitterapi.io';
 /** Same key as the social panel; one vendor account covers both. */
 export const X_TRENDS_KEY_ENV = 'TWITTERAPI_IO_KEY';
 
-/** Worldwide. A country list would narrow discovery to that country's news. */
+/** Worldwide. */
 export const X_TRENDS_WOEID = 1;
+
+/** United States, where the English Wikipedia audience and the basket overlap most. */
+export const X_TRENDS_US_WOEID = 23_424_977;
+
+/**
+ * Both lists are read because they disagree: a worldwide list is weighted to the
+ * loudest regions, and a topic can trend in the US without reaching it.
+ */
+export const X_TRENDS_WOEIDS: readonly number[] = [X_TRENDS_WOEID, X_TRENDS_US_WOEID];
 
 /** The vendor's minimum is 30, and the tail is noise for this purpose. */
 export const X_TRENDS_COUNT = 30;
@@ -87,11 +96,20 @@ export async function fetchXTrends(options: XTrendsOptions): Promise<XTrendsResu
   url.searchParams.set('woeid', String(options.woeid ?? X_TRENDS_WOEID));
   url.searchParams.set('count', String(options.count ?? X_TRENDS_COUNT));
 
-  let response: Response;
-  try {
-    response = await (options.fetchImpl ?? fetch)(url.toString(), {
+  const request = (): Promise<Response> =>
+    (options.fetchImpl ?? fetch)(url.toString(), {
       headers: { 'x-api-key': apiKey, accept: 'application/json' },
     });
+
+  let response: Response;
+  try {
+    response = await request();
+    // Free-tier keys allow one request every five seconds. Discovery is cheap
+    // to delay and optional, so one paced retry covers an overlap.
+    if (response.status === 429) {
+      await new Promise((resolve) => setTimeout(resolve, 6000));
+      response = await request();
+    }
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
     throw new XTrendsError('request-failed', `trends request failed: ${detail}`);

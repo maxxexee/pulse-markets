@@ -4,7 +4,7 @@ import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
 import { fetchArticleImage, fetchTopArticles } from '../adapters/wikipedia-top.ts';
 import { resolveTrendArticle } from '../adapters/wikipedia-search.ts';
-import { fetchXTrends, xTrendsKey } from '../adapters/x-trends.ts';
+import { fetchXTrends, xTrendsKey, X_TRENDS_WOEIDS } from '../adapters/x-trends.ts';
 import type { EntityDefinition } from '../config/entities.ts';
 import { mapWithConcurrency } from '@pulse/index-core/concurrency.ts';
 import { addDays } from '@pulse/index-core/dates.ts';
@@ -137,12 +137,35 @@ async function xCandidates(
     return [];
   }
   try {
-    const trends = await fetchXTrends({
-      apiKey: key,
-      ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
-    });
+    const lists: Awaited<ReturnType<typeof fetchXTrends>>[] = [];
+    for (const [index, woeid] of X_TRENDS_WOEIDS.entries()) {
+      if (index > 0) {
+        // One request every five seconds on the free tier, so the lists are
+        // read in sequence rather than as a burst.
+        await new Promise((resolve) => setTimeout(resolve, 5500));
+      }
+      lists.push(
+        await fetchXTrends({
+          apiKey: key,
+          woeid,
+          ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
+        }),
+      );
+    }
+    // The same phrase can rank in both lists, so names are merged on their best
+    // rank before anything is resolved.
+    const byName = new Map<string, { name: string; rank: number }>();
+    for (const list of lists) {
+      for (const trend of list.trends) {
+        const current = byName.get(trend.name.toLowerCase());
+        if (current === undefined || trend.rank < current.rank) {
+          byName.set(trend.name.toLowerCase(), trend);
+        }
+      }
+    }
+    const ranked = [...byName.values()].sort((a, b) => a.rank - b.rank);
     const resolved = await mapWithConcurrency(
-      trends.trends.slice(0, X_CANDIDATE_LIMIT),
+      ranked.slice(0, X_CANDIDATE_LIMIT),
       2,
       (trend) =>
         resolveTrendArticle(
@@ -156,7 +179,7 @@ async function xCandidates(
       if (basketArticles.has(article) || articles.includes(article)) continue;
       articles.push(article);
     }
-    args.log?.(`x trends: ${trends.trends.length} listed, ${articles.length} resolved`);
+    args.log?.(`x trends: ${ranked.length} listed, ${articles.length} resolved`);
     return articles;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
