@@ -16,6 +16,7 @@ import {
   type DiscoveredTopic,
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
+import type { TrendSource } from '@pulse/index-core/trend-epoch.ts';
 import { notesForTopics, type ContextNote } from './summaries.ts';
 
 /** A discovered topic with the fields the page needs but the rules do not own. */
@@ -28,6 +29,8 @@ export interface DiscoveryEntry extends DiscoveredTopic {
   readonly context?: ContextNote;
   /** Present when the candidate came from the X trend list, not the Wikipedia ranking. */
   readonly via?: 'x';
+  /** Pageview sources behind the numbers, so the signed epoch can be checked. */
+  readonly sources: readonly TrendSource[];
 }
 
 /** The published record for one day of discovery. Display only, never signed. */
@@ -68,6 +71,7 @@ async function buildEntries(args: {
   readonly images: readonly (string | null)[];
   readonly day: string;
   readonly summary: ChatConfig | null;
+  readonly sourcesByArticle: ReadonlyMap<string, readonly TrendSource[]>;
   readonly fetchImpl?: typeof fetch;
   readonly log?: (line: string) => void;
 }): Promise<readonly DiscoveryEntry[]> {
@@ -86,6 +90,7 @@ async function buildEntries(args: {
       ...topic,
       link: `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.article)}`,
       imageUrl: args.images[index] ?? null,
+      sources: args.sourcesByArticle.get(topic.article) ?? [],
       ...(context === undefined ? {} : { context }),
     };
   });
@@ -98,7 +103,7 @@ async function measureCandidates(
   settings: DiscoverySettings,
   now: Date,
   fetchImpl: typeof fetch | undefined,
-): Promise<readonly DiscoveryCandidate[]> {
+): Promise<readonly (DiscoveryCandidate & { sources: readonly TrendSource[] })[]> {
   return mapWithConcurrency(articles, 2, async (article) => {
     try {
       const fetched = await fetchPageviews(
@@ -107,9 +112,14 @@ async function measureCandidates(
         day,
         { now: () => now, ...(fetchImpl === undefined ? {} : { fetchImpl }) },
       );
-      return { article, observations: fetched.observations };
+      const sources = fetched.urls.map((url) => ({
+        url,
+        retrievedAt: fetched.retrievedAt,
+        payloadSha256: fetched.payloadSha256,
+      }));
+      return { article, observations: fetched.observations, sources };
     } catch {
-      return { article, observations: [] };
+      return { article, observations: [], sources: [] };
     }
   });
 }
@@ -232,6 +242,7 @@ export async function refreshDiscovery(args: {
 
   const measured = await measureCandidates(candidates, args.day, settings, now, args.fetchImpl);
 
+  const sourcesByArticle = new Map(measured.map((entry) => [entry.article, entry.sources]));
   const topics = discoverTopics(measured, args.day, settings);
   const images = await mapWithConcurrency(topics, 2, (topic) => fetchArticleImage(topic.article));
 
@@ -241,6 +252,7 @@ export async function refreshDiscovery(args: {
     images,
     day: args.day,
     summary,
+    sourcesByArticle,
     ...(args.fetchImpl === undefined ? {} : { fetchImpl: args.fetchImpl }),
     ...(args.log === undefined ? {} : { log: args.log }),
   });

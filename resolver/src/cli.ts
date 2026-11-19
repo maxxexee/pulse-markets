@@ -9,7 +9,17 @@ import {
   type MarketSpec,
 } from './domain/market.ts';
 import { resolveMarket } from './domain/resolution.ts';
+import {
+  createTrendMarketSpec,
+  TrendMarketError,
+  type TrendComparison,
+  type TrendMarketDefinition,
+  type TrendMarketSpec,
+} from './domain/trend-market.ts';
+import { resolveTrendMarket } from './domain/trend-resolution.ts';
 import { readSignedSnapshot, SnapshotReadError } from './adapters/snapshot.ts';
+import { readSignedTrendEpochFile, TrendEpochReadError } from './adapters/trends.ts';
+import { TREND_DEFINITION_ID } from '@pulse/index-core/trend-epoch.ts';
 import {
   ChainError,
   chainConfigFromEnv,
@@ -19,7 +29,10 @@ import {
 
 const USAGE = `Usage:
   node src/cli.ts create --threshold 55 --comparison above --day 2026-11-20 --signer <base58>
+  node src/cli.ts create --kind trend --article Grand_Theft_Auto_VI --threshold 300 \\
+    --comparison above --day 2026-11-20 --signer <base58> --definition-sha256 <64 hex>
   node src/cli.ts resolve --spec market.json --snapshot snapshots/2026-11-20.json [--now ISO] [--out resolution.json]
+  node src/cli.ts resolve --kind trend --spec market.json --trends snapshots/trends/2026-11-20.json
 
 create prints the full market spec, including the id derived from its terms.
 resolve prints the settlement record. Both exit 1 on a rejected input.
@@ -51,7 +64,33 @@ function pinnedFrom(hash: string | undefined): { definitionSha256?: string } {
   return hash === undefined ? {} : { definitionSha256: hash };
 }
 
-function marketFrom(values: Record<string, string | boolean | undefined>): MarketSpec {
+function trendMarketFrom(
+  values: Record<string, string | boolean | undefined>,
+): TrendMarketSpec {
+  const article = required(values, 'article');
+  const definition: TrendMarketDefinition = {
+    kind: 'trend-momentum',
+    definitionId: TREND_DEFINITION_ID,
+    definitionSha256: required(values, 'definition-sha256'),
+    signer: required(values, 'signer'),
+    article,
+    topic: optional(values, 'topic') ?? article.replaceAll('_', ' '),
+    threshold: Number(required(values, 'threshold')),
+    comparison: required(values, 'comparison') as TrendComparison,
+    epochDay: required(values, 'day'),
+    minViews: Number(values['min-views'] ?? 20_000),
+    minBaselineDays: Number(values['min-baseline-days'] ?? 3),
+    createdAt: required(values, 'created-at'),
+  };
+  return createTrendMarketSpec(definition);
+}
+
+function marketFrom(
+  values: Record<string, string | boolean | undefined>,
+): MarketSpec | TrendMarketSpec {
+  if (values.kind === 'trend') {
+    return trendMarketFrom(values);
+  }
   const definition: MarketDefinition = {
     definitionId: required(values, 'definition'),
     ...pinnedFrom(optional(values, 'definition-sha256')),
@@ -99,24 +138,33 @@ function specFromFile(raw: Partial<MarketSpec>): MarketSpec {
   return spec;
 }
 
-async function resolve(values: Record<string, string | boolean | undefined>): Promise<void> {
-  const specPath = required(values, 'spec');
-  const snapshotPath = required(values, 'snapshot');
-  const raw = JSON.parse(await readFile(specPath, 'utf8')) as Partial<MarketSpec>;
-  const spec = specFromFile(raw);
-  const signed = await readSignedSnapshot(snapshotPath);
-  const nowValue = values['now'];
-  const now = typeof nowValue === 'string' ? new Date(nowValue) : new Date();
-  if (Number.isNaN(now.getTime())) {
-    throw new Error(`--now is not a timestamp: ${String(nowValue)}`);
+/** Rebuilds trend terms from their fields so stray keys cannot change the id. */
+function trendSpecFromFile(raw: Partial<TrendMarketSpec>): TrendMarketSpec {
+  const spec = createTrendMarketSpec({
+    kind: 'trend-momentum',
+    definitionId: raw.definitionId as typeof TREND_DEFINITION_ID,
+    definitionSha256: raw.definitionSha256 as string,
+    signer: raw.signer as string,
+    article: raw.article as string,
+    topic: raw.topic as string,
+    threshold: raw.threshold as number,
+    comparison: raw.comparison as TrendComparison,
+    epochDay: raw.epochDay as string,
+    minViews: raw.minViews as number,
+    minBaselineDays: raw.minBaselineDays as number,
+    createdAt: raw.createdAt as string,
+  });
+  if (spec.id !== raw.id) {
+    throw new TrendMarketError('invalid-definition', 'market id does not match its terms');
   }
-  const result = resolveMarket(spec, signed, now);
-  if (!result.ok) {
-    process.stderr.write(`not settled: ${result.error.kind}: ${result.error.message}\n`);
-    process.exitCode = 1;
-    return;
-  }
-  const body = `${JSON.stringify(result.resolution, null, 2)}\n`;
+  return spec;
+}
+
+async function emitResolution(
+  values: Record<string, string | boolean | undefined>,
+  body: string,
+  outcome: 'yes' | 'no',
+): Promise<void> {
   const out = values.out;
   if (typeof out === 'string') {
     await writeFile(out, body, 'utf8');
@@ -127,10 +175,54 @@ async function resolve(values: Record<string, string | boolean | undefined>): Pr
     const signature = await resolveOnChain(
       chainConfigFromEnv(process.env),
       market,
+      outcome,
+    );
+    process.stderr.write(`on-chain resolved ${outcome} signature ${signature}\n`);
+  }
+}
+
+async function resolve(values: Record<string, string | boolean | undefined>): Promise<void> {
+  const specPath = required(values, 'spec');
+  const nowValue = values['now'];
+  const now = typeof nowValue === 'string' ? new Date(nowValue) : new Date();
+  if (Number.isNaN(now.getTime())) {
+    throw new Error(`--now is not a timestamp: ${String(nowValue)}`);
+  }
+
+  if (values.kind === 'trend') {
+    const trendsPath = required(values, 'trends');
+    const raw = JSON.parse(await readFile(specPath, 'utf8')) as Partial<TrendMarketSpec>;
+    const spec = trendSpecFromFile(raw);
+    const signed = await readSignedTrendEpochFile(trendsPath);
+    const result = resolveTrendMarket(spec, signed, now);
+    if (!result.ok) {
+      process.stderr.write(`not settled: ${result.error.kind}: ${result.error.message}\n`);
+      process.exitCode = 1;
+      return;
+    }
+    await emitResolution(
+      values,
+      `${JSON.stringify(result.resolution, null, 2)}\n`,
       result.resolution.outcome,
     );
-    process.stderr.write(`on-chain resolved ${result.resolution.outcome} signature ${signature}\n`);
+    return;
   }
+
+  const snapshotPath = required(values, 'snapshot');
+  const raw = JSON.parse(await readFile(specPath, 'utf8')) as Partial<MarketSpec>;
+  const spec = specFromFile(raw);
+  const signed = await readSignedSnapshot(snapshotPath);
+  const result = resolveMarket(spec, signed, now);
+  if (!result.ok) {
+    process.stderr.write(`not settled: ${result.error.kind}: ${result.error.message}\n`);
+    process.exitCode = 1;
+    return;
+  }
+  await emitResolution(
+    values,
+    `${JSON.stringify(result.resolution, null, 2)}\n`,
+    result.resolution.outcome,
+  );
 }
 
 async function main(): Promise<void> {
@@ -140,12 +232,17 @@ async function main(): Promise<void> {
     const { values } = parseArgs({
       args: rest,
       options: {
+        kind: { type: 'string' },
         definition: { type: 'string', default: ACTIVE_DEFINITION_ID },
         'definition-sha256': { type: 'string' },
         signer: { type: 'string' },
         threshold: { type: 'string' },
         comparison: { type: 'string' },
         day: { type: 'string' },
+        article: { type: 'string' },
+        topic: { type: 'string' },
+        'min-views': { type: 'string' },
+        'min-baseline-days': { type: 'string' },
         'min-confidence': { type: 'string' },
         'created-at': { type: 'string', default: new Date().toISOString() },
         'on-chain': { type: 'boolean', default: false },
@@ -162,8 +259,10 @@ async function main(): Promise<void> {
     const { values } = parseArgs({
       args: rest,
       options: {
+        kind: { type: 'string' },
         spec: { type: 'string' },
         snapshot: { type: 'string' },
+        trends: { type: 'string' },
         now: { type: 'string' },
         out: { type: 'string' },
         'on-chain': { type: 'boolean', default: false },
@@ -179,7 +278,13 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  if (error instanceof MarketError || error instanceof SnapshotReadError || error instanceof ChainError) {
+  if (
+    error instanceof MarketError ||
+    error instanceof SnapshotReadError ||
+    error instanceof ChainError ||
+    error instanceof TrendMarketError ||
+    error instanceof TrendEpochReadError
+  ) {
     process.stderr.write(`${error.kind}: ${error.message}\n`);
   } else {
     process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);

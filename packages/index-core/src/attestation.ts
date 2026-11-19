@@ -45,19 +45,21 @@ export function signingPayload(snapshot: IndexSnapshot): Buffer {
   return Buffer.from(canonicalJson(snapshot), 'utf8');
 }
 
+/** Signs any canonical document with the publisher key. */
+export function signPayload(payload: Uint8Array, signer: Signer): Attestation {
+  return {
+    alg: 'ed25519',
+    publicKey: signer.publicKey,
+    signature: Buffer.from(signer.sign(payload)).toString('base64'),
+    payloadSha256: sha256Hex(payload),
+    canonicalization: 'json-sorted-keys-v1',
+  };
+}
+
 /** Signs a snapshot over its canonical serialisation. */
 export function signSnapshot(snapshot: IndexSnapshot, signer: Signer): SignedSnapshot {
   const payload = signingPayload(snapshot);
-  return {
-    snapshot,
-    attestation: {
-      alg: 'ed25519',
-      publicKey: signer.publicKey,
-      signature: Buffer.from(signer.sign(payload)).toString('base64'),
-      payloadSha256: sha256Hex(payload),
-      canonicalization: 'json-sorted-keys-v1',
-    },
-  };
+  return { snapshot, attestation: signPayload(payload, signer) };
 }
 
 /**
@@ -68,11 +70,20 @@ export function signSnapshot(snapshot: IndexSnapshot, signer: Signer): SignedSna
  * signer address can then accept the snapshot without trusting the publisher.
  */
 export function verifySignedSnapshot(signed: SignedSnapshot): boolean {
-  const payload = signingPayload(signed.snapshot);
-  if (sha256Hex(payload) !== signed.attestation.payloadSha256) {
+  return verifyAttestation(signingPayload(signed.snapshot), signed.attestation);
+}
+
+/**
+ * Checks a signature against arbitrary canonical bytes.
+ *
+ * Shared by the index snapshot and the signed trend epoch so both documents
+ * have exactly one verification rule.
+ */
+export function verifyAttestation(payload: Uint8Array, attestation: Attestation): boolean {
+  if (sha256Hex(payload) !== attestation.payloadSha256) {
     return false;
   }
-  if (signed.attestation.alg !== 'ed25519') {
+  if (attestation.alg !== 'ed25519') {
     return false;
   }
   let publicKey;
@@ -80,7 +91,7 @@ export function verifySignedSnapshot(signed: SignedSnapshot): boolean {
     publicKey = createPublicKey({
       key: Buffer.concat([
         ED25519_SPKI_PREFIX,
-        Buffer.from(decodeBase58(signed.attestation.publicKey)),
+        Buffer.from(decodeBase58(attestation.publicKey)),
       ]),
       format: 'der',
       type: 'spki',
@@ -93,7 +104,7 @@ export function verifySignedSnapshot(signed: SignedSnapshot): boolean {
       null,
       payload,
       publicKey,
-      Buffer.from(signed.attestation.signature, 'base64'),
+      Buffer.from(attestation.signature, 'base64'),
     );
   } catch {
     return false;

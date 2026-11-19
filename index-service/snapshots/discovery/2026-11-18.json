@@ -1,0 +1,145 @@
+{
+  "day": "2026-11-18",
+  "generatedAt": "2026-11-19T13:32:55.689Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": "google/gemini-2.5-flash",
+  "entries": [
+    {
+      "article": "Manni_L._Perez",
+      "topic": "Manni L. Perez",
+      "views": 67267,
+      "baseline": 4575,
+      "baselineDays": 7,
+      "momentum": 1370.2,
+      "link": "https://en.wikipedia.org/wiki/Manni_L._Perez",
+      "imageUrl": null,
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Manni_L._Perez/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "ebfd75e60c0796bce5dd4a00256a90d52c932e6eae790970ca4f68bab0ee9e77"
+        }
+      ],
+      "context": {
+        "text": "Manni L. Perez is an American actress and weightlifter known for portraying Lucia Caminos in the video game Grand Theft Auto VI.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Manni_L._Perez"
+      }
+    },
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "views": 519632,
+      "baseline": 89480,
+      "baselineDays": 7,
+      "momentum": 480.7,
+      "link": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_VI",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/46/Grand_Theft_Auto_VI.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Grand_Theft_Auto_VI/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "1b2a4fcbf8c4c62679638e8c1d01322764ea8e10e384413e91fb5a5f6ac4286f"
+        }
+      ],
+      "via": "x"
+    },
+    {
+      "article": "Hunter_Schafer",
+      "topic": "Hunter Schafer",
+      "views": 101368,
+      "baseline": 17990,
+      "baselineDays": 7,
+      "momentum": 463.5,
+      "link": "https://en.wikipedia.org/wiki/Hunter_Schafer",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Hunter_Schafer-64188.jpg/330px-Hunter_Schafer-64188.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hunter_Schafer/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "da08ac82e1b4588c9c10c12ddbf6e6e5596f499884c99c4253c08b8c3b912376"
+        }
+      ]
+    },
+    {
+      "article": "Mary_Peltola",
+      "topic": "Mary Peltola",
+      "views": 133395,
+      "baseline": 25032,
+      "baselineDays": 7,
+      "momentum": 432.9,
+      "link": "https://en.wikipedia.org/wiki/Mary_Peltola",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Mary_Peltola_Congressional_Member_Portrait_%282%29.jpeg/330px-Mary_Peltola_Congressional_Member_Portrait_%282%29.jpeg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mary_Peltola/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "72dd4fdf0a7f82c6aa642cbe353ca3592d9404e5df8769fd5729694a34383da1"
+        }
+      ],
+      "context": {
+        "text": "Mary Peltola is a Native American politician and former judge who is a United States senator-elect from Alaska.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Mary_Peltola"
+      }
+    },
+    {
+      "article": "Hakeem_Jeffries",
+      "topic": "Hakeem Jeffries",
+      "views": 92218,
+      "baseline": 18825,
+      "baselineDays": 7,
+      "momentum": 389.9,
+      "link": "https://en.wikipedia.org/wiki/Hakeem_Jeffries",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg/330px-Rep-Hakeem-Jeffries-Official-Portrait_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hakeem_Jeffries/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "5de6414933da0d43f20e6b034a1fe38485e480723c52f628c426e4a4fdee0d87"
+        }
+      ]
+    },
+    {
+      "article": "Tatyana_Ali",
+      "topic": "Tatyana Ali",
+      "views": 63987,
+      "baseline": 13315,
+      "baselineDays": 7,
+      "momentum": 380.6,
+      "link": "https://en.wikipedia.org/wiki/Tatyana_Ali",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Streamy_Awards_Photo_1302_%284513297565%29.jpg/330px-Streamy_Awards_Photo_1302_%284513297565%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Tatyana_Ali/daily/20261111/20261118",
+          "retrievedAt": "2026-11-19T13:32:55.689Z",
+          "payloadSha256": "c1533f46aadc08108f729e89b4e90f8090914fb6be6d1a01bd844b51f2cce6e5"
+        }
+      ],
+      "context": {
+        "text": "Tatyana Ali is an American actress and singer known for her role as Ashley Banks on The Fresh Prince of Bel-Air.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Tatyana_Ali"
+      }
+    }
+  ]
+}

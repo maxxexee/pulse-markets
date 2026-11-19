@@ -155,27 +155,75 @@ export async function fetchArticleExtract(
   }
 }
 
+const PAGE_PROPS_ROOT = 'https://en.wikipedia.org/w/api.php';
+const WIKIDATA_ENTITY_ROOT = 'https://www.wikidata.org/wiki/Special:EntityData';
+const COMMONS_FILE_ROOT = 'https://commons.wikimedia.org/wiki/Special:FilePath';
+
+/** Width the cards and modal can use without downloading a full original. */
+const IMAGE_WIDTH = 330;
+
+/**
+ * Image recorded on the Wikidata item, when the article itself has none.
+ *
+ * P18 is curated and file-scoped, unlike a Commons category search, which can
+ * return a photo of the subject's office and look like a wrong portrait.
+ */
+async function imageFromWikidata(
+  article: string,
+  fetchImpl: typeof fetch,
+): Promise<string | null> {
+  const propsUrl = new URL(PAGE_PROPS_ROOT);
+  propsUrl.searchParams.set('action', 'query');
+  propsUrl.searchParams.set('titles', article.replaceAll('_', ' '));
+  propsUrl.searchParams.set('prop', 'pageprops');
+  propsUrl.searchParams.set('format', 'json');
+  propsUrl.searchParams.set('formatversion', '2');
+  const props = JSON.parse(await fetchText(propsUrl.toString(), fetchImpl)) as {
+    query?: { pages?: Array<{ pageprops?: { wikibase_item?: unknown } }> };
+  };
+  const qid = props.query?.pages?.[0]?.pageprops?.wikibase_item;
+  if (typeof qid !== 'string' || !/^Q\d+$/.test(qid)) {
+    return null;
+  }
+  const entity = JSON.parse(
+    await fetchText(`${WIKIDATA_ENTITY_ROOT}/${qid}.json`, fetchImpl),
+  ) as {
+    entities?: Record<string, { claims?: { P18?: Array<{ mainsnak?: { datavalue?: { value?: unknown } } }> } }>;
+  };
+  const file = entity.entities?.[qid]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+  if (typeof file !== 'string' || file.trim() === '') {
+    return null;
+  }
+  return `${COMMONS_FILE_ROOT}/${encodeURIComponent(file.replaceAll(' ', '_'))}?width=${IMAGE_WIDTH}`;
+}
+
 /**
  * Lead image for one article, at a width the cards can use.
  *
- * Presentation only: a missing thumbnail returns null and the card falls back to
- * its gradient, so an image problem can never block a build.
+ * The Wikipedia summary is tried first, then the Wikidata image. Presentation
+ * only: when both are missing this returns null and the card shows initials, so
+ * an image problem can never block a build.
  */
 export async function fetchArticleImage(
   article: string,
   options: { fetchImpl?: typeof fetch } = {},
 ): Promise<string | null> {
+  const fetchImpl = options.fetchImpl ?? fetch;
   const url = `${SUMMARY_ROOT}/${encodeURIComponent(article.replaceAll(' ', '_'))}`;
   try {
-    const text = await fetchText(url, options.fetchImpl);
+    const text = await fetchText(url, fetchImpl);
     const payload = JSON.parse(text) as { thumbnail?: { source?: unknown } };
     const source = payload.thumbnail?.source;
-    if (typeof source !== 'string' || !source.startsWith('https://')) {
-      return null;
+    if (typeof source === 'string' && source.startsWith('https://')) {
+      // Keep the width the API chose: asking the thumbnail service for an
+      // arbitrary one returns 400 for files whose size is already cached.
+      return source.split('?')[0] ?? null;
     }
-    // Keep the width the API chose: asking the thumbnail service for an
-    // arbitrary one returns 400 for files whose size is already cached.
-    return source.split('?')[0] ?? null;
+  } catch {
+    // Fall through to Wikidata: an article with no summary can still have one.
+  }
+  try {
+    return await imageFromWikidata(article, fetchImpl);
   } catch {
     return null;
   }

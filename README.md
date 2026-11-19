@@ -156,6 +156,13 @@ cd resolver
 node src/cli.ts create  --threshold 55 --comparison above --day 2026-11-20 --signer <base58> \
                         --definition-sha256 <64 hex>   # optional: pin the exact terms
 node src/cli.ts resolve --spec market.json --snapshot ../index-service/snapshots/2026-11-20.json
+
+# A discovered topic settles on the signed trend epoch, not the index score.
+node src/cli.ts create  --kind trend --article Grand_Theft_Auto_VI --threshold 300 \
+                        --comparison above --day 2026-11-20 --signer <base58> \
+                        --definition-sha256 <64 hex>
+node src/cli.ts resolve --kind trend --spec trend-market.json \
+                        --trends ../index-service/snapshots/trends/2026-11-20.json
 ```
 
 The social panel is fetched from twitterapi.io and shown beside the index. It is

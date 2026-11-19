@@ -1,6 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import type { MarketSpec } from '../domain/market.ts';
+import type { TrendMarketSpec } from '../domain/trend-market.ts';
+
+/** Terms pm-AMM needs to name a market, whichever rule settles it. */
+type ChainMarketSpec = MarketSpec | TrendMarketSpec;
 import type { ResolutionOutcome } from '../domain/resolution.ts';
 
 const require = createRequire(import.meta.url);
@@ -54,9 +58,10 @@ export function chainConfigFromEnv(env: NodeJS.ProcessEnv): ChainConfig {
 }
 
 /** The market question, cut on a byte boundary so the name stays valid UTF-8. */
-export function marketName(spec: MarketSpec): string {
+export function marketName(spec: ChainMarketSpec): string {
   const side = spec.comparison === 'below' ? 'below' : 'above';
-  const name = `PULSE attention close ${side} ${spec.threshold} on ${spec.epochDay}?`;
+  const subject = 'kind' in spec ? 'trend momentum' : 'attention close';
+  const name = `PULSE ${subject} ${side} ${spec.threshold} on ${spec.epochDay}?`;
   const bytes = Buffer.from(name, 'utf8');
   if (bytes.length <= MAX_NAME_BYTES) {
     return name;
@@ -159,7 +164,7 @@ function sendFailure(action: string, error: unknown): ChainError {
  */
 export async function createOnChain(
   config: ChainConfig,
-  spec: MarketSpec,
+  spec: ChainMarketSpec,
   options: CreateOnChainOptions,
 ): Promise<OnChainMarket> {
   if (!Number.isInteger(options.durationSecs) || options.durationSecs < MIN_DURATION_SECS) {

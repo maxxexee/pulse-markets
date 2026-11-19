@@ -17,6 +17,14 @@ export type { Attestation, SignedSnapshot, Signer } from '@pulse/index-core/atte
  * snapshots can no longer be added to under the same signer, so it is kept
  * outside version control and backed up.
  */
+/** Loads the key only when it already exists, never creating a new identity. */
+export function loadSignerIfPresent(keyPath: string): Signer | null {
+  if (!existsSync(keyPath)) {
+    return null;
+  }
+  return signerFromKey(createPrivateKey(readFileSync(keyPath, 'utf8')));
+}
+
 export function loadOrCreateSigner(keyPath: string): Signer {
   if (existsSync(keyPath)) {
     return signerFromKey(createPrivateKey(readFileSync(keyPath, 'utf8')));

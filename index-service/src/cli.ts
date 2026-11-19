@@ -2,7 +2,12 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
-import { loadOrCreateSigner, signSnapshot, verifySignedSnapshot } from './adapters/attestation.ts';
+import {
+  loadOrCreateSigner,
+  loadSignerIfPresent,
+  signSnapshot,
+  verifySignedSnapshot,
+} from './adapters/attestation.ts';
 import { AUTH_CLIENT_SOURCE, buildAuthClient } from './app/auth-bundle.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { calibrate } from './app/calibrate.ts';
@@ -13,6 +18,7 @@ import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
 import { trendsPayload } from './app/trends.ts';
+import { publishTrendEpoch, verifyTrendEpoch } from './app/trend-epoch.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { ACTIVE_DEFINITION_ID, CALIBRATION_DAYS } from './config/index-definition.ts';
 import { socialQuery } from './config/social.ts';
@@ -48,6 +54,8 @@ const USAGE = `pulse index-service
                              serve the public index and the latest snapshot
   verify [--day YYYY-MM-DD]  recompute a published epoch from its sources and
                              compare it with the signed snapshot
+  verify-trends [--day YYYY-MM-DD]
+                             check a signed trend epoch's signature and terms
 
 Days are UTC. build defaults to the previous UTC day. A day that is already
 published is left alone unless --force is given, so a rerun never replaces a
@@ -59,6 +67,19 @@ social reads its key from ${SOCIAL_KEY_ENV} and never affects the index.`;
 async function publishedDays(): Promise<readonly string[]> {
   try {
     const names = await readdir(SNAPSHOTS_DIR);
+    return names
+      .filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))
+      .map((name) => name.slice(0, 10))
+      .sort();
+  } catch {
+    return [];
+  }
+}
+
+/** Days that already have a signed trend epoch, oldest first. */
+async function publishedTrendDays(): Promise<readonly string[]> {
+  try {
+    const names = await readdir(join(SNAPSHOTS_DIR, 'trends'));
     return names
       .filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))
       .map((name) => name.slice(0, 10))
@@ -204,6 +225,27 @@ async function discover(day: string): Promise<void> {
           (entry.via === 'x' ? '  [X]' : ''),
       );
     }
+    const signer = loadSignerIfPresent(KEY_PATH);
+    if (signer === null) {
+      console.log(`trend epoch not signed: no key at ${KEY_PATH}`);
+      return;
+    }
+    // The index epoch is already published at this point. A signing problem here
+    // must not fail the whole build, or the job would retry a day it cannot
+    // publish again and leave the trend epoch missing anyway.
+    try {
+      const signed = await publishTrendEpoch({
+        record,
+        snapshotsDir: SNAPSHOTS_DIR,
+        signer,
+        now: new Date(),
+      });
+      console.log(`signed trend epoch by ${signed.attestation.publicKey}`);
+      console.log(`trend payload sha256 ${signed.attestation.payloadSha256}`);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      console.log(`trend epoch not signed: ${detail}`);
+    }
   } catch (error) {
     console.warn(
       `discovery skipped for ${day}: ${error instanceof Error ? error.message : String(error)}`,
@@ -327,6 +369,18 @@ async function exportStatic(outDir: string): Promise<void> {
   for (const day of await publishedDays()) {
     const body = await readFile(join(SNAPSHOTS_DIR, `${day}.json`), 'utf8');
     files.set(`api/index/snapshot/${day}`, body);
+  }
+  for (const day of await publishedTrendDays()) {
+    const body = await readFile(join(SNAPSHOTS_DIR, 'trends', `${day}.json`), 'utf8');
+    files.set(`api/trends/epoch/${day}`, body);
+  }
+  try {
+    files.set(
+      'api/trends/epoch/latest',
+      await readFile(join(SNAPSHOTS_DIR, 'trends', 'latest.json'), 'utf8'),
+    );
+  } catch {
+    // No signed epoch yet: the route stays absent rather than empty.
   }
   const optional: ReadonlyArray<readonly [string, string]> = [
     ['api/index/latest', 'latest.json'],
@@ -467,6 +521,21 @@ async function main(): Promise<void> {
         ? values.day
         : (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1);
     await verify(day);
+    return;
+  }
+  if (command === 'verify-trends') {
+    const result = await verifyTrendEpoch({
+      snapshotsDir: SNAPSHOTS_DIR,
+      ...(typeof values.day === 'string' ? { day: values.day } : {}),
+    });
+    if (!result.ok) {
+      console.log(`trend epoch failed: ${result.error}`);
+      process.exitCode = 1;
+      return;
+    }
+    console.log(`trend epoch ${result.epochDay}: ${result.entries} topics, signature valid`);
+    console.log(`signer ${result.signer}`);
+    console.log(`payload sha256 ${result.payloadSha256}`);
     return;
   }
   if (command === 'serve') {

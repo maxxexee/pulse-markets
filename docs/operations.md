@@ -122,9 +122,11 @@ After the basket, the payload appends the topics that trended on their own.
 Those come from the daily Wikipedia ranking (`wikipedia-top-v1`), are compared
 against their own seven-day average, and are gated by `minViews` (20,000) and
 `minMomentum` (100 percent) in `snapshots/discovery/<day>.json`. The payload's
-`discovery` header repeats those thresholds. This list is display only: it is
-not signed and never feeds settlement, which is why the page labels those
-summaries as outside the index.
+`discovery` header repeats those thresholds. The same entries are published as
+a signed trend epoch at `snapshots/trends/<day>.json` and served at
+`/api/trends/epoch/<day>`, which is what trend markets settle against. The
+numbers stay outside the headline index: a trending topic never changes the
+index score.
 
 ## Trending discovery
 
@@ -136,10 +138,19 @@ node src/cli.ts discover --day 2026-11-15
 ```
 
 It fetches the day's top English Wikipedia articles, drops utility namespaces
-and standing list pages, measures the biggest unclaimed articles over the seven
-days before the epoch, fetches their lead images, and writes
-`snapshots/discovery/<day>.json`. A failure is logged and never blocks the epoch:
-the page then shows only measured basket trends.
+and standing list pages, and measures the biggest unclaimed articles over the
+seven days before the epoch. When `TWITTERAPI_IO_KEY` is set it also reads the
+worldwide and US X trend lists, resolves each name to an article, and adds those
+articles as candidates; a topic that reached the list through X is marked `via`.
+X rank is never published as a number, only used to choose what to measure.
+
+It then fetches lead images, writes `snapshots/discovery/<day>.json`, and signs
+the entries into `snapshots/trends/<day>.json`. A failure is logged and never
+blocks the epoch. Verify the signature with:
+
+```
+node src/cli.ts verify-trends --day 2026-11-15
+```
 
 Pages that tell one story (an article and its filmography, or two people
 sharing a surname) collapse to the most read page before the cards are capped,
