@@ -158,7 +158,7 @@ test('cards are ordered by momentum, with unmeasured trends last', () => {
   assert.equal(buildTrends(now, null, basket)[0]?.momentum, null);
 });
 
-test('discovered topics follow the basket in the payload, flagged as discovery', async () => {
+test('discovered topics are ranked with the basket and flagged as discovery', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'pulse-trends-'));
   try {
     const current = snapshot('2026-11-15', [series('wikipedia-pageviews', [score('openai', 2)])]);
@@ -191,7 +191,8 @@ test('discovered topics follow the basket in the payload, flagged as discovery',
       discovery: { day: string; minMomentum: number } | null;
     };
     assert.equal(payload.trends.length, 2);
-    const discovered = payload.trends[1];
+    // Ranking is by momentum, so the discovered topic leads the basket entity.
+    const discovered = payload.trends.find((trend) => trend['id'] === 'wiki:UFC_334');
     assert.equal(discovered?.id, 'wiki:UFC_334');
     assert.equal(discovered?.topic, 'UFC 334');
     assert.equal(discovered?.discovered, true);

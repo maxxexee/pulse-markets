@@ -221,8 +221,13 @@ export async function trendsPayload(args: {
     ...(entry.context === undefined ? {} : { context: entry.context.text }),
     ...(entry.imageUrl === null ? {} : { imageUrl: entry.imageUrl }),
   }));
+  // Discovered topics are ranked with the basket rather than appended after it.
+  // Appending put a +480% mover behind every basket card, off the first screen.
+  const trends = [...buildTrends(current, reference, args.basket), ...discovered].sort(
+    (a, b) => (b.momentum ?? -1000) - (a.momentum ?? -1000),
+  );
   return JSON.stringify({
-    trends: [...buildTrends(current, reference, args.basket), ...discovered],
+    trends,
     discovery:
       discovery === null
         ? null
