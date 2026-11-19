@@ -194,6 +194,14 @@ test('discovered topics are ranked with the basket and flagged as discovery', as
     // Ranking is by momentum, so the discovered topic leads the basket entity.
     const discovered = payload.trends.find((trend) => trend['id'] === 'wiki:UFC_334');
     assert.equal(discovered?.id, 'wiki:UFC_334');
+    // The merged list is ordered, not basket-then-discovery, so a big mover
+    // cannot be pushed behind the basket cards again.
+    const momenta = payload.trends.map((trend) => trend['momentum'] as number | null);
+    assert.deepEqual(
+      momenta,
+      [...momenta].sort((a, b) => (b ?? -1000) - (a ?? -1000)),
+    );
+    assert.equal(payload.trends[0]?.id, 'wiki:UFC_334');
     assert.equal(discovered?.topic, 'UFC 334');
     assert.equal(discovered?.discovered, true);
     assert.equal(discovered?.status, 'surging');
