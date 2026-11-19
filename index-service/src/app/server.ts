@@ -5,6 +5,8 @@ import type { EntityDefinition } from '../config/entities.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from '../adapters/health.ts';
 import { basketPayload, historyPayload, marketsPayload } from './payloads.ts';
 import { trendsPayload } from './trends.ts';
+import { rejectionsPayload } from './discovery.ts';
+import { ARTIFACT_TYPES, publishedArtifacts } from './published-artifacts.ts';
 import { isValidDay } from '@pulse/index-core/dates.ts';
 import { isHealthy } from '@pulse/index-core/health.ts';
 
@@ -17,6 +19,8 @@ export interface ServerOptions {
   readonly marketsDir: string;
   /** Directory of the landing page, served under /app/ for local checks. */
   readonly appDir: string;
+  /** Directory of published docs, for the methodology contract. */
+  readonly docsDir?: string;
   /** Days of lag tolerated before /api/health reports stale. */
   readonly maxAgeDays?: number;
 }
@@ -78,6 +82,35 @@ async function readPublished(path: string): Promise<RouteResult> {
   }
 }
 
+/**
+ * Serves the artifacts that are built from the signed record rather than read
+ * straight off disk: the chain, the coverage inventory and the methodology.
+ * Returns null for every other path, so the route table stays in one place.
+ */
+async function artifactRoute(
+  pathname: string,
+  options: ServerOptions,
+): Promise<RouteResult | null> {
+  if (options.docsDir === undefined) return null;
+  if (
+    pathname !== '/api/trend-epoch/chain' &&
+    pathname !== '/api/trend-coverage' &&
+    !pathname.startsWith('/api/methodology')
+  ) {
+    return null;
+  }
+  const files = await publishedArtifacts({
+    snapshotsDir: options.snapshotsDir,
+    docsDir: options.docsDir,
+  });
+  const key = pathname.slice(1);
+  const body = files.get(key);
+  if (body === undefined) {
+    return json(404, JSON.stringify({ error: 'not-found' }));
+  }
+  return { status: 200, body, contentType: ARTIFACT_TYPES[key] ?? JSON_TYPE };
+}
+
 /** Resolves a pathname against the fixed route table. No filesystem paths from URLs. */
 async function route(
   pathname: string,
@@ -99,6 +132,17 @@ async function route(
   }
   if (pathname === '/api/trend-epoch/latest') {
     return readPublished(join(options.snapshotsDir, 'trends', 'latest.json'));
+  }
+  const artifact = await artifactRoute(pathname, options);
+  if (artifact !== null) {
+    return artifact;
+  }
+  if (pathname.startsWith('/api/trend-rejections/')) {
+    const day = decodeURIComponent(pathname.slice('/api/trend-rejections/'.length));
+    if (!isValidDay(day)) {
+      return json(400, JSON.stringify({ error: 'invalid-day' }));
+    }
+    return json(200, await rejectionsPayload(options.snapshotsDir, day));
   }
   if (pathname.startsWith('/api/trend-epoch/')) {
     const day = decodeURIComponent(pathname.slice('/api/trend-epoch/'.length));

@@ -4,11 +4,14 @@ import { isTopicArticle, parseTopArticles, WikipediaTopError } from '../src/adap
 import {
   DISCOVERY_V1,
   discoverTopics,
+  rejectedCandidates,
   selectCandidates,
   storyKey,
   topicLabel,
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
+import { methodologyFor } from '../src/app/methodology.ts';
+import { trendDefinitionDigest } from '@pulse/index-core/trend-epoch.ts';
 
 const settings: DiscoverySettings = {
   ...DISCOVERY_V1,
@@ -186,4 +189,56 @@ test('a baseline under the floor cannot produce a percentage', () => {
     { ...settings, minBaselineViews: 100 },
   );
   assert.deepEqual(found, []);
+});
+
+test('the rejection ledger names the bar each dropped topic failed', () => {
+  const rejected = rejectedCandidates(
+    [
+      { article: 'Flop', observations: series([15_000, 15_000, 15_000, 21_000]) },
+      { article: 'Small', observations: series([1000, 1000, 1000, 5_000]) },
+      { article: 'New', observations: series([500_000]) },
+      { article: 'Winner', observations: series([10_000, 10_000, 10_000, 90_000]) },
+    ],
+    '2026-11-15',
+    settings,
+  );
+  assert.deepEqual(
+    rejected.map((entry) => [entry.article, entry.reason]),
+    [
+      ['Flop', 'momentum-below-floor'],
+      ['Small', 'views-below-floor'],
+      ['New', 'too-few-baseline-days'],
+    ],
+  );
+  assert.equal(rejected[0]?.views, 21_000);
+  assert.equal(rejected[0]?.baseline, 15_000);
+  assert.equal(rejected[0]?.momentum, 40);
+});
+
+test('a topic the rules kept is not in the rejection ledger', () => {
+  const candidates = [
+    { article: 'Winner', observations: series([10_000, 10_000, 10_000, 90_000]) },
+  ];
+  assert.equal(discoverTopics(candidates, '2026-11-15', settings).length, 1);
+  assert.deepEqual(rejectedCandidates(candidates, '2026-11-15', settings), []);
+});
+
+test('a topic dropped by the result cap is not recorded as a rule failure', () => {
+  const candidates = [
+    { article: 'First', observations: series([10_000, 10_000, 10_000, 90_000]) },
+    { article: 'Second', observations: series([10_000, 10_000, 10_000, 80_000]) },
+  ];
+  const capped = { ...settings, maxResults: 1 };
+  assert.deepEqual(
+    discoverTopics(candidates, '2026-11-15', capped).map((entry) => entry.article),
+    ['First'],
+  );
+  assert.deepEqual(rejectedCandidates(candidates, '2026-11-15', capped), []);
+});
+
+test('the published methodology digest is the digest epochs are signed under', () => {
+  const document = methodologyFor(DISCOVERY_V1, '# changelog\n');
+  assert.equal(document.digest, trendDefinitionDigest('wikipedia-top-v1', DISCOVERY_V1));
+  assert.equal(document.changelogSha256.length, 64);
+  assert.match(document.bars.join(' '), /at least 20,000/);
 });

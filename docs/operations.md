@@ -156,6 +156,21 @@ failure is logged and never blocks the epoch. Verify the signature with:
 node src/cli.ts verify-trends --day 2026-11-15
 ```
 
+Every epoch published from 2026-11-19 on commits to the payload hash of the one
+before it, and the day after a gap in signing will not close that gap silently:
+
+```
+node src/cli.ts verify-chain
+```
+
+The export writes the chain to `api/trend-epoch/chain`, the topic inventory to
+`api/trend-coverage`, the thresholds and their digest to `api/methodology`, the
+dated rule changes to `api/methodology-changelog`, and each day's dropped topics
+to `api/trend-rejections/<day>`. Days published before the rejection ledger
+existed have an empty `rejected` list; that is a gap in the record, not a day
+where nothing failed. `docs/trend-settlement.md` is the contract an operator
+implements against these files.
+
 Pages that tell one story (an article and its filmography, or two people
 sharing a surname) collapse to the most read page before the cards are capped,
 so one family cannot fill the strip. The absorbed titles stay on the entry as

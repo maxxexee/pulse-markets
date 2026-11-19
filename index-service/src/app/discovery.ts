@@ -11,9 +11,11 @@ import { addDays } from '@pulse/index-core/dates.ts';
 import {
   DISCOVERY_V1,
   discoverTopics,
+  rejectedCandidates,
   selectCandidates,
   type DiscoveryCandidate,
   type DiscoveredTopic,
+  type DiscoveryRejection,
   type DiscoverySettings,
 } from '@pulse/index-core/discovery.ts';
 import type { TrendSource } from '@pulse/index-core/trend-epoch.ts';
@@ -45,6 +47,11 @@ export interface DiscoveryRecord {
   /** Model that wrote the context notes, null when none were written. */
   readonly contextModel: string | null;
   readonly entries: readonly DiscoveryEntry[];
+  /**
+   * Topics that were measured and dropped by a threshold, with the numbers.
+   * Topics dropped by the result cap are not listed: they qualified.
+   */
+  readonly rejected?: readonly DiscoveryRejection[];
 }
 
 function discoveryPath(snapshotsDir: string, day: string): string {
@@ -221,6 +228,26 @@ async function xCandidates(
 }
 
 /**
+ * The other half of a day: every measured topic a threshold dropped, and which.
+ *
+ * Published so a NO resolution can be checked after the fact. Without this, a
+ * reader can see what made the page and never what was held back.
+ */
+export async function rejectionsPayload(snapshotsDir: string, day: string): Promise<string> {
+  const record = await readDiscovery(snapshotsDir, day);
+  return JSON.stringify(
+    {
+      day,
+      method: record?.method ?? 'wikipedia-top-v1',
+      settings: record?.settings ?? DISCOVERY_V1,
+      rejected: record?.rejected ?? [],
+    },
+    null,
+    2,
+  );
+}
+
+/**
  * Finds what trended that day outside the basket and caches the result.
  *
  * Runs at build time, not per request: the page stays a static artifact and a
@@ -292,6 +319,7 @@ export async function refreshDiscovery(args: {
     settings,
     contextModel: summary === null ? null : summary.model,
     entries,
+    rejected: rejectedCandidates(measured, args.day, settings),
   };
 
   const path = discoveryPath(args.snapshotsDir, args.day);

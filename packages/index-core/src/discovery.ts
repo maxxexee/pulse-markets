@@ -168,6 +168,93 @@ function valueOn(observations: readonly DailyObservation[], day: string): number
  * published epoch). It is kept in its own artifact and never mixes into the
  * index numbers.
  */
+/**
+ * A candidate the rules dropped, and the measurement that dropped it.
+ *
+ * Kept because the negatives are the part of the record nobody else can
+ * reproduce: a settled NO is only checkable if it says what it was holding.
+ */
+export interface DiscoveryRejection {
+  readonly article: string;
+  readonly topic: string;
+  readonly reason:
+    | 'no-views'
+    | 'views-below-floor'
+    | 'too-few-baseline-days'
+    | 'baseline-below-floor'
+    | 'momentum-below-floor';
+  readonly views: number | null;
+  readonly baseline: number | null;
+  readonly baselineDays: number;
+  readonly momentum: number | null;
+}
+
+type Assessment =
+  | { readonly topic: DiscoveredTopic }
+  | { readonly rejection: DiscoveryRejection };
+
+/** One candidate through the three bars, returning why it failed when it did. */
+function assess(
+  candidate: DiscoveryCandidate,
+  day: string,
+  settings: DiscoverySettings,
+): Assessment {
+  const reason = (
+    why: DiscoveryRejection['reason'],
+    numbers: { views: number | null; baseline: number | null; baselineDays: number; momentum: number | null },
+  ): Assessment => ({
+    rejection: {
+      article: candidate.article,
+      topic: topicLabel(candidate.article),
+      reason: why,
+      ...numbers,
+    },
+  });
+  const views = valueOn(candidate.observations, day);
+  if (views === null) {
+    return reason('no-views', { views: null, baseline: null, baselineDays: 0, momentum: null });
+  }
+  const prior = candidate.observations
+    .filter((entry) => entry.day < day)
+    .slice(-settings.baselineWindowDays);
+  const baseline =
+    prior.length === 0 ? null : prior.reduce((total, entry) => total + entry.value, 0) / prior.length;
+  const shared = {
+    views,
+    baseline: baseline === null ? null : Math.round(baseline),
+    baselineDays: prior.length,
+  };
+  if (views < settings.minViews) {
+    return reason('views-below-floor', { ...shared, momentum: null });
+  }
+  if (prior.length < settings.minBaselineDays) {
+    return reason('too-few-baseline-days', { ...shared, momentum: null });
+  }
+  const momentum = round1(((views - (baseline ?? 0)) / (baseline ?? 1)) * 100);
+  if ((baseline ?? 0) < settings.minBaselineViews) {
+    return reason('baseline-below-floor', { ...shared, momentum });
+  }
+  if (momentum < settings.minMomentum) {
+    return reason('momentum-below-floor', { ...shared, momentum });
+  }
+  return {
+    topic: {
+      article: candidate.article,
+      topic: topicLabel(candidate.article),
+      views,
+      baseline: Math.round(baseline ?? 0),
+      baselineDays: prior.length,
+      momentum,
+    },
+  };
+}
+
+/**
+ * Candidates that cleared every bar, biggest change first.
+ *
+ * Order matters for settlement: the cap and the story collapse both drop topics
+ * that passed the thresholds, so they are applied here and nowhere else.
+ */
 export function discoverTopics(
   candidates: readonly DiscoveryCandidate[],
   day: string,
@@ -175,35 +262,35 @@ export function discoverTopics(
 ): readonly DiscoveredTopic[] {
   const found: DiscoveredTopic[] = [];
   for (const candidate of candidates) {
-    const views = valueOn(candidate.observations, day);
-    if (views === null || views < settings.minViews) {
-      continue;
+    const assessed = assess(candidate, day, settings);
+    if ('topic' in assessed) {
+      found.push(assessed.topic);
     }
-    const prior = candidate.observations
-      .filter((entry) => entry.day < day)
-      .slice(-settings.baselineWindowDays);
-    if (prior.length < settings.minBaselineDays) {
-      continue;
-    }
-    const baseline = prior.reduce((total, entry) => total + entry.value, 0) / prior.length;
-    if (baseline < settings.minBaselineViews) {
-      continue;
-    }
-    const momentum = round1(((views - baseline) / baseline) * 100);
-    if (momentum < settings.minMomentum) {
-      continue;
-    }
-    found.push({
-      article: candidate.article,
-      topic: topicLabel(candidate.article),
-      views,
-      baseline: Math.round(baseline),
-      baselineDays: prior.length,
-      momentum,
-    });
   }
   const ranked = found.sort((a, b) => b.momentum - a.momentum);
   return [...collapseStories(ranked)]
     .sort((a, b) => b.momentum - a.momentum)
     .slice(0, settings.maxResults);
+}
+
+/**
+ * The candidates the thresholds dropped, in ranking order.
+ *
+ * Topics dropped by the result cap after passing every threshold are not here:
+ * they qualified and did not make the page, which is a different statement from
+ * failing the rule, and a NO resolution should not conflate the two.
+ */
+export function rejectedCandidates(
+  candidates: readonly DiscoveryCandidate[],
+  day: string,
+  settings: DiscoverySettings = DISCOVERY_V1,
+): readonly DiscoveryRejection[] {
+  const rejected: DiscoveryRejection[] = [];
+  for (const candidate of candidates) {
+    const assessed = assess(candidate, day, settings);
+    if ('rejection' in assessed) {
+      rejected.push(assessed.rejection);
+    }
+  }
+  return rejected;
 }

@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import {
   loadOrCreateSigner,
@@ -8,17 +8,17 @@ import {
   signSnapshot,
   verifySignedSnapshot,
 } from './adapters/attestation.ts';
-import { AUTH_CLIENT_SOURCE, buildAuthClient } from './app/auth-bundle.ts';
+import { buildAuthClient } from './app/auth-bundle.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { calibrate } from './app/calibrate.ts';
 import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
+import { exportStatic } from './app/export-site.ts';
+import { verifyChain, verifyTrends } from './app/report-commands.ts';
 import { startServer } from './app/server.ts';
 import { verifyDay } from './app/verify.ts';
 import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
-import { basketPayload, historyPayload, marketsPayload } from './app/payloads.ts';
-import { trendsPayload } from './app/trends.ts';
-import { publishTrendEpoch, verifyTrendEpoch } from './app/trend-epoch.ts';
+import { publishTrendEpoch, verifyTrendChain, verifyTrendEpoch } from './app/trend-epoch.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { ACTIVE_DEFINITION_ID, CALIBRATION_DAYS } from './config/index-definition.ts';
 import { socialQuery } from './config/social.ts';
@@ -26,6 +26,7 @@ import type { IndexDefinition } from '@pulse/index-core/index-definition.ts';
 import { MIN_PUBLISH_CONFIDENCE } from '@pulse/index-core/coverage.ts';
 import { addDays, isValidDay, toDay } from '@pulse/index-core/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from '@pulse/index-core/momentum.ts';
+import { DISCOVERY_V1 } from '@pulse/index-core/discovery.ts';
 import { missingEpochDays } from '@pulse/index-core/schedule.ts';
 import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
 
@@ -56,6 +57,8 @@ const USAGE = `pulse index-service
                              compare it with the signed snapshot
   verify-trends [--day YYYY-MM-DD]
                              check a signed trend epoch's signature and terms
+  verify-chain              check that every published trend epoch commits to
+                             its predecessor, and list the chain
 
 Days are UTC. build defaults to the previous UTC day. A day that is already
 published is left alone unless --force is given, so a rerun never replaces a
@@ -63,23 +66,15 @@ signed epoch. --catch-up N publishes every day in the trailing N-day window that
 has no snapshot yet, which is what a scheduled run uses after a skipped day.
 social reads its key from ${SOCIAL_KEY_ENV} and never affects the index.`;
 
+/** The newest published day, or yesterday when nothing is published yet. */
+async function defaultDay(): Promise<string> {
+  return (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1);
+}
+
 /** Days that already have a published snapshot, oldest first. */
 async function publishedDays(): Promise<readonly string[]> {
   try {
     const names = await readdir(SNAPSHOTS_DIR);
-    return names
-      .filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))
-      .map((name) => name.slice(0, 10))
-      .sort();
-  } catch {
-    return [];
-  }
-}
-
-/** Days that already have a signed trend epoch, oldest first. */
-async function publishedTrendDays(): Promise<readonly string[]> {
-  try {
-    const names = await readdir(join(SNAPSHOTS_DIR, 'trends'));
     return names
       .filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))
       .map((name) => name.slice(0, 10))
@@ -323,85 +318,6 @@ async function verify(day: string): Promise<void> {
   process.exitCode = 1;
 }
 
-/** Files of the marketing and markets app, published under /app/. */
-async function appFiles(): Promise<ReadonlyArray<readonly [string, string | Uint8Array]>> {
-  let names: string[];
-  try {
-    // The auth source ships as a bundle, so publishing it would only add a file
-    // the page cannot load.
-    names = (await readdir(APP_DIR))
-      .filter((name) => !name.startsWith('.') && name !== AUTH_CLIENT_SOURCE)
-      .sort();
-  } catch {
-    return [];
-  }
-  const files: Array<readonly [string, string | Uint8Array]> = [];
-  for (const name of names) {
-    files.push([`app/${name}`, await readFile(join(APP_DIR, name))]);
-  }
-  return files;
-}
-
-/**
- * Writes the site and every JSON route as static files.
- *
- * The page asks for the same relative paths either way, so one build serves both
- * from this server and from a plain file host. No route here does per-request
- * work, which is why the export cannot fall behind the server.
- */
-async function exportStatic(outDir: string): Promise<void> {
-  const files = new Map<string, string | Uint8Array>();
-  const pages = (await readdir(PUBLIC_DIR)).filter((name) => name.endsWith('.html')).sort();
-  if (!pages.includes('index.html')) {
-    throw new Error(`missing page: ${join(PUBLIC_DIR, 'index.html')}`);
-  }
-  for (const name of pages) {
-    files.set(name, await readFile(join(PUBLIC_DIR, name), 'utf8'));
-  }
-  for (const [target, body] of await appFiles()) {
-    files.set(target, body);
-  }
-  files.set('api/basket', basketPayload(ENTITY_BASKET));
-  files.set('api/markets', await marketsPayload(MARKETS_DIR));
-  files.set('api/index/history', await historyPayload(SNAPSHOTS_DIR));
-  files.set('api/trends', await trendsPayload({ snapshotsDir: SNAPSHOTS_DIR, basket: ENTITY_BASKET }));
-
-  for (const day of await publishedDays()) {
-    const body = await readFile(join(SNAPSHOTS_DIR, `${day}.json`), 'utf8');
-    files.set(`api/index/snapshot/${day}`, body);
-  }
-  for (const day of await publishedTrendDays()) {
-    const body = await readFile(join(SNAPSHOTS_DIR, 'trends', `${day}.json`), 'utf8');
-    files.set(`api/trend-epoch/${day}`, body);
-  }
-  try {
-    files.set(
-      'api/trend-epoch/latest',
-      await readFile(join(SNAPSHOTS_DIR, 'trends', 'latest.json'), 'utf8'),
-    );
-  } catch {
-    // No signed epoch yet: the route stays absent rather than empty.
-  }
-  const optional: ReadonlyArray<readonly [string, string]> = [
-    ['api/index/latest', 'latest.json'],
-    ['api/social/latest', 'social.json'],
-  ];
-  for (const [target, name] of optional) {
-    try {
-      files.set(target, await readFile(join(SNAPSHOTS_DIR, name), 'utf8'));
-    } catch {
-      continue;
-    }
-  }
-
-  for (const [path, body] of files) {
-    const target = join(outDir, path);
-    await mkdir(dirname(target), { recursive: true });
-    await writeFile(target, body);
-  }
-  console.log(`exported ${files.size} files to ${outDir}`);
-}
-
 async function serve(port: number, maxAgeDays: number): Promise<void> {
   const server = await startServer({
     port,
@@ -410,6 +326,7 @@ async function serve(port: number, maxAgeDays: number): Promise<void> {
     basket: ENTITY_BASKET,
     marketsDir: MARKETS_DIR,
     appDir: APP_DIR,
+    docsDir: join(REPO_ROOT, 'docs'),
     maxAgeDays,
   });
   console.log(`serving on http://127.0.0.1:${port}`);
@@ -452,6 +369,23 @@ async function runBuild(values: Record<string, string | boolean | undefined>): P
   }
 }
 
+/** Writes the site and every JSON route as plain files under `outDir`. */
+async function exportCommand(out: string | boolean | undefined): Promise<void> {
+  if (typeof out !== 'string' || out.trim() === '') {
+    throw new Error('--out DIR is required');
+  }
+  const written = await exportStatic({
+    outDir: resolve(out),
+    publicDir: PUBLIC_DIR,
+    appDir: APP_DIR,
+    snapshotsDir: SNAPSHOTS_DIR,
+    marketsDir: MARKETS_DIR,
+    docsDir: join(REPO_ROOT, 'docs'),
+    basket: ENTITY_BASKET,
+  });
+  console.log(`exported ${written} files to ${resolve(out)}`);
+}
+
 async function main(): Promise<void> {
   const { positionals, values } = parseArgs({
     allowPositionals: true,
@@ -490,7 +424,7 @@ async function main(): Promise<void> {
     return;
   }
   if (command === 'discover') {
-    await discover(values.day ?? (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1));
+    await discover(typeof values.day === 'string' ? values.day : await defaultDay());
     return;
   }
   // Both commands serve the app files, so the auth bundle has to exist first.
@@ -498,11 +432,7 @@ async function main(): Promise<void> {
     await buildAuthClient(APP_DIR, REPO_ROOT);
   }
   if (command === 'export') {
-    const outDir = values.out;
-    if (typeof outDir !== 'string' || outDir.trim() === '') {
-      throw new Error('--out DIR is required');
-    }
-    await exportStatic(resolve(outDir));
+    await exportCommand(values.out);
     return;
   }
   if (command === 'health') {
@@ -516,26 +446,15 @@ async function main(): Promise<void> {
     return;
   }
   if (command === 'verify') {
-    const day =
-      typeof values.day === 'string'
-        ? values.day
-        : (await publishedDays()).at(-1) ?? addDays(toDay(new Date()), -1);
-    await verify(day);
+    await verify(typeof values.day === 'string' ? values.day : await defaultDay());
     return;
   }
   if (command === 'verify-trends') {
-    const result = await verifyTrendEpoch({
-      snapshotsDir: SNAPSHOTS_DIR,
-      ...(typeof values.day === 'string' ? { day: values.day } : {}),
-    });
-    if (!result.ok) {
-      console.log(`trend epoch failed: ${result.error}`);
-      process.exitCode = 1;
-      return;
-    }
-    console.log(`trend epoch ${result.epochDay}: ${result.entries} topics, signature valid`);
-    console.log(`signer ${result.signer}`);
-    console.log(`payload sha256 ${result.payloadSha256}`);
+    await verifyTrends(SNAPSHOTS_DIR, values.day);
+    return;
+  }
+  if (command === 'verify-chain') {
+    await verifyChain(SNAPSHOTS_DIR);
     return;
   }
   if (command === 'serve') {

@@ -14,6 +14,15 @@ export const TREND_EPOCH_SCHEMA = 'pulse-trends/1';
 /** Definition id for the discovery rules a trend market settles under. */
 export const TREND_DEFINITION_ID = 'discovery-v1';
 
+/**
+ * What the first chained epoch points at.
+ *
+ * A published day either commits to its predecessor's payload hash or says it
+ * is the start of the chain. There is no third state, so a day cannot be
+ * inserted into the middle of the record later without breaking a link.
+ */
+export const GENESIS_DIGEST = 'genesis';
+
 export interface TrendSource {
   /** Public URL the measurement was read from. */
   readonly url: string;
@@ -46,6 +55,12 @@ export interface TrendEpoch {
   readonly definitionSha256: string;
   readonly settings: DiscoverySettings;
   readonly entries: readonly TrendEntry[];
+  /**
+   * Payload hash of the most recent earlier epoch, or `genesis` for the first
+   * chained day. Added 2026-11-19, additive: epochs signed before chaining
+   * carry no field and still verify on their own, they just cannot prove order.
+   */
+  readonly prevDigest?: string;
 }
 
 export interface SignedTrendEpoch {
