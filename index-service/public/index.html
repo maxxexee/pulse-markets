@@ -209,7 +209,9 @@
       async function loadSocial() {
         const target = document.getElementById('social');
         const response = await fetch('./api/social/latest', { cache: 'no-store' });
-        if (!response.ok) {
+        // A missing panel answers with the site's own HTML and a 200, so the
+        // content type is what separates "not published" from a real panel.
+        if (!response.ok || (response.headers.get('content-type') ?? '').includes('html')) {
           target.innerHTML =
             '<div class="empty">Social panel is not configured. It never affects the score.</div>';
           return;
@@ -229,6 +231,15 @@
           `These posts are not an input to the index.</p><ul>${items}</ul>`;
       }
 
+      /** Names the epoch by its age: the date alone reads as current either way. */
+      function epochLabel(epochDay) {
+        const then = Date.parse(`${epochDay}T00:00:00Z`);
+        if (Number.isNaN(then)) return `epoch ${epochDay} UTC`;
+        const days = Math.max(0, Math.floor((Date.now() - then) / 86400000));
+        const when = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
+        return `epoch ${epochDay} UTC \u00b7 as of ${when}${days >= 3 ? ' \u2014 stale' : ''}`;
+      }
+
       async function main() {
         await loadBasket();
         loadSocial().catch(() => {
@@ -243,7 +254,7 @@
         }
         const signed = await response.json();
         const snapshot = signed.snapshot;
-        document.getElementById('epoch').textContent = `epoch ${snapshot.epochDay} UTC`;
+        document.getElementById('epoch').textContent = epochLabel(snapshot.epochDay);
         document.getElementById('index-score').innerHTML =
           snapshot.index.score === null ? '--' : snapshot.index.score.toFixed(2);
         const momentum = snapshot.momentum;

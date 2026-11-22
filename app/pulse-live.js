@@ -415,10 +415,36 @@ function setMeta(text) {
   if (meta) meta.textContent = text;
 }
 
+/** Whole days since an epoch day, or null when the value cannot be read. */
+function epochAge(epochDay) {
+  if (typeof epochDay !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(epochDay)) return null;
+  const then = Date.parse(`${epochDay}T00:00:00Z`);
+  if (Number.isNaN(then)) return null;
+  const days = Math.floor((Date.now() - then) / 86_400_000);
+  return days < 0 ? null : days;
+}
+
+/**
+ * Names the epoch by its age, not just its date: a page that prints only the day
+ * reads as current whether it was built this morning or last week.
+ */
+function epochMeta(epochDay) {
+  const days = epochAge(epochDay);
+  if (days === null) return `Epoch ${epochDay}`;
+  const when = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
+  return `Epoch ${epochDay} \u00b7 as of ${when}${days >= 3 ? ' \u2014 stale' : ''}`;
+}
+
 async function loadTrends() {
   try {
     const response = await fetch(`${PULSE_API}?filter=all`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    // The static host answers a missing path with the site's own HTML and a 200,
+    // so an unpublished endpoint would otherwise parse as "no data" instead of
+    // failing.
+    if ((response.headers.get('content-type') ?? '').includes('html')) {
+      throw new Error('endpoint not published');
+    }
     const payload = await response.json();
     const trends = Array.isArray(payload.trends) ? payload.trends : [];
     if (trends.length === 0) {
@@ -437,7 +463,7 @@ async function loadTrends() {
 
     buildTicker(trends);
     buildCards(trends);
-    setMeta(`Epoch ${payload.epochDay}`);
+    setMeta(epochMeta(payload.epochDay));
   } catch (error) {
     console.warn('[Pulse] Could not load published trends:', error.message);
     if (liveData.length === 0) {
