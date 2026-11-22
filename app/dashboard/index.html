@@ -124,10 +124,12 @@ a{color:inherit;text-decoration:none}
 .hun{display:flex;align-items:center;gap:12px}
 .hun .ava{width:38px;height:38px}
 .hun>div:nth-child(2){flex:1}
-.soc{border-top:1px solid var(--ln);margin-top:14px;padding-top:10px;display:grid;gap:5px}
+.soc{border-top:1px solid var(--ln);margin-top:14px;padding-top:10px;display:grid;gap:5px;min-width:0;grid-template-columns:minmax(0,1fr)}
 .soc .ch{margin:0 0 3px}
-.tp{display:block;font-size:11px;line-height:1.45;color:var(--tx);opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp{display:flex;gap:8px;min-width:0;font-size:11px;line-height:1.45;color:var(--tx);opacity:.8}
 .tp b{font-weight:500}.tp:hover{opacity:1}
+.tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tw{flex-shrink:0}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .timer{text-align:center}.timer .bb{font-size:40px;line-height:1.1}
 /* buttons */
@@ -390,7 +392,7 @@ function socStrip(label){
  const hits=SPOSTS.filter(p=>p.text.toLowerCase().includes(key)).slice(0,2);
  if(!hits.length)return '';
  return `<div class="soc"><div class="ch"><span class="lbl">On X</span><span class="mono mu">display only</span></div>${
-  hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><b>@${esc(p.author)}</b> ${esc(p.text.slice(0,70))}${p.text.length>70?'…':''}<span class="mu"> · ${ago(p.createdAt)}</span></a>`).join('')}</div>`}
+  hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="tt"><b>@${esc(p.author)}</b> ${esc(p.text)}</span><span class="mu tw">${ago(p.createdAt)}</span></a>`).join('')}</div>`}
 function loadSocial(){
  const json={'cache':'no-store'};
  return fetch(SOC_API,json)
@@ -400,7 +402,7 @@ function loadSocial(){
   .catch(()=>null)
   .then(p=>{SPOSTS=(p&&p.posts)||[]})
   // The strip only exists on rendered pages, so repaint the one on screen.
-  .then(()=>{if(/^#\/(d|g)\//.test(location.hash))route()})}
+  .then(()=>{if(/^#\/(m|g)\//.test(location.hash))route()})}
 const card=(m,meta,b)=>`<a ${ph(m,'fc')} href="#/m/${m.k}"><b style="font-size:48px">${ini(m)}</b><span class="bd ${b}">${{hot:'Hot',cool:'Cooling',new:'New',user:'Live'}[b]}</span><div class="fb"><div class="rn bb">${esc(m.n)}</div><div class="mu">${meta}</div></div></a>`;
 let QG='';
 function renderFeed(){const m=M[0];
