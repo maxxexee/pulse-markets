@@ -1,10 +1,23 @@
-import { summarizeSocial, type SocialPanel, type SocialPost } from '@pulse/index-core/social.ts';
+import {
+  mentionKey,
+  summarizeSocial,
+  summarizeTopic,
+  type SocialPanel,
+  type SocialPost,
+  type SocialTopicPanel,
+} from '@pulse/index-core/social.ts';
 
 /** Vendor endpoint the vendor documents for search. */
 const API_BASE = 'https://api.twitterapi.io';
 
 /** Pages fetched per build: 40 posts is enough to read the room. */
 export const SOCIAL_PAGE_LIMIT = 2;
+
+/** One page per topic is 20 posts, which is more than a two-line strip can use. */
+export const TOPIC_PAGE_LIMIT = 1;
+
+/** Topics fetched at once. The vendor answers a burst with 429, so this stays low. */
+export const TOPIC_CONCURRENCY = 3;
 
 /**
  * The vendor's ranked list, not a recency feed. `Latest` answers with whatever
@@ -158,12 +171,12 @@ async function fetchPage(
  * `not-configured` so the caller can report the panel as absent rather than
  * publish an empty one that looks like nobody is talking.
  */
-export async function fetchSocialPanel(options: SocialFetchOptions): Promise<SocialPanel> {
-  if (options.apiKey.trim() === '') {
-    throw new SocialError('not-configured', `${SOCIAL_KEY_ENV} is not set`);
-  }
-  const fetchImpl = options.fetchImpl ?? fetch;
-  const pageLimit = options.pageLimit ?? SOCIAL_PAGE_LIMIT;
+async function fetchPosts(
+  apiKey: string,
+  query: string,
+  fetchImpl: typeof fetch,
+  pageLimit: number,
+): Promise<{ readonly posts: readonly SocialPost[]; readonly truncated: boolean }> {
   const posts: SocialPost[] = [];
   const seen = new Set<string>();
   let cursor: string | null = null;
@@ -171,7 +184,7 @@ export async function fetchSocialPanel(options: SocialFetchOptions): Promise<Soc
   let truncated = false;
 
   while (pages < pageLimit) {
-    const page = await fetchPage(options.apiKey, options.query, cursor, fetchImpl);
+    const page = await fetchPage(apiKey, query, cursor, fetchImpl);
     pages += 1;
     for (const tweet of page.tweets) {
       if (!seen.has(tweet.id)) {
@@ -186,10 +199,78 @@ export async function fetchSocialPanel(options: SocialFetchOptions): Promise<Soc
     truncated = pages >= pageLimit;
   }
 
+  return { posts, truncated };
+}
+
+function assertConfigured(apiKey: string): void {
+  if (apiKey.trim() === '') {
+    throw new SocialError('not-configured', `${SOCIAL_KEY_ENV} is not set`);
+  }
+}
+
+export async function fetchSocialPanel(options: SocialFetchOptions): Promise<SocialPanel> {
+  assertConfigured(options.apiKey);
+  const { posts, truncated } = await fetchPosts(
+    options.apiKey,
+    options.query,
+    options.fetchImpl ?? fetch,
+    options.pageLimit ?? SOCIAL_PAGE_LIMIT,
+  );
   return summarizeSocial({
     query: options.query,
     fetchedAt: options.now.toISOString(),
     posts,
     truncated,
   });
+}
+
+/** One page's worth of posts, filed under a key the dashboard already routes by. */
+export interface SocialTopicQuery {
+  /** Entity id for a constituent, `g:<topic-slug>` for a discovered topic. */
+  readonly key: string;
+  readonly label: string;
+  readonly query: string;
+}
+
+/**
+ * Fetches one panel per page instead of one for the whole basket.
+ *
+ * A shared basket query is what put posts about Nvidia on Jensen Huang's page:
+ * the vendor answered a single OR of every label, and the page then kept any
+ * post containing the word. Asking per topic keeps the page about its topic, and
+ * the label check drops the posts the vendor matched on something other than
+ * the text.
+ *
+ * A topic that fails is left out and the rest still publish: the strip is
+ * display only, so one odd query must not blank every page.
+ */
+export async function fetchSocialTopics(options: {
+  readonly apiKey: string;
+  readonly topics: readonly SocialTopicQuery[];
+  readonly now: Date;
+  readonly fetchImpl?: typeof fetch;
+  readonly pageLimit?: number;
+}): Promise<Record<string, SocialTopicPanel>> {
+  assertConfigured(options.apiKey);
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const pageLimit = options.pageLimit ?? TOPIC_PAGE_LIMIT;
+  const panels: Record<string, SocialTopicPanel> = {};
+  const queue = [...options.topics];
+  const workers = Array.from({ length: Math.min(TOPIC_CONCURRENCY, queue.length) }, async () => {
+    for (let topic = queue.shift(); topic !== undefined; topic = queue.shift()) {
+      try {
+        const { posts } = await fetchPosts(options.apiKey, topic.query, fetchImpl, pageLimit);
+        const key = mentionKey(topic.label);
+        panels[topic.key] = summarizeTopic({
+          label: topic.label,
+          query: topic.query,
+          posts: key === '' ? posts : posts.filter((post) => post.text.toLowerCase().includes(key)),
+        });
+      } catch {
+        // The page simply has no strip; the rest of the panel is still published.
+      }
+    }
+  });
+  await Promise.all(workers);
+  return panels;
 }

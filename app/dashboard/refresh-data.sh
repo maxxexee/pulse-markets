@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # Refresh pulse-data.js from the private maxxexee/pulse-markets repo.
 # Requires an authenticated gh CLI. Regenerates both data files from signed snapshots.
+#
+# The publish job no longer depends on this: `export` builds pulse-data.js from
+# the signed snapshots it is exporting, so the dashboard cannot lag the epochs.
+# Run this only for a local preview, or to warm the images/ and lead-summary
+# cache the export reads.
 set -euo pipefail
 cd "$(dirname "$0")"
 REPO=maxxexee/pulse-markets

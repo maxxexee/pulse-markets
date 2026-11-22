@@ -381,18 +381,18 @@ function renderLive(){const p=$('#mini');if(!p)return;p.innerHTML=GT.length?GT.s
 // Display only and weight zero; an unpublished or unreachable panel simply
 // leaves the strip out rather than claiming a silence.
 const SOC_API='../../api/social/latest';
-let SPOSTS=[];
+// One panel per page, keyed by entity id or g:<topic-slug>. The combined list is
+// no longer read here: a basket-wide query is what put Nvidia posts on a page
+// about Jensen Huang.
+let STOPICS={};
 function ago(iso){const s=Math.max(1,Math.round((Date.now()-Date.parse(iso))/1000));
  if(s<60)return s+'s ago';const m=Math.floor(s/60);if(m<60)return m+'m ago';
  const h=Math.floor(m/60);if(h<24)return h+'h ago';return Math.floor(h/24)+'d ago'}
-function socStrip(label){
- // Article titles carry a parenthetical, so "Claude (language model)" matches on Claude.
- const key=String(label||'').replace(/\s*\([^)]*\)\s*/g,' ').trim().toLowerCase();
- if(key.length<3)return '';
- const hits=SPOSTS.filter(p=>p.text.toLowerCase().includes(key)).slice(0,2);
+function socStrip(key){
+ const hits=((STOPICS[key]||{}).posts||[]).slice(0,2);
  if(!hits.length)return '';
  return `<div class="soc"><div class="ch"><span class="lbl">On X</span><span class="mono mu">display only</span></div>${
-  hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="tt"><b>@${esc(p.author)}</b> ${esc(p.text)}</span><span class="mu tw">${ago(p.createdAt)}</span></a>`).join('')}</div>`}
+  hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="tt"><b>@${esc(p.author)}</b> ${esc(p.text)}</span><span class="mu tw">♥ ${vk(p.likes||0)} · ${ago(p.createdAt)}</span></a>`).join('')}</div>`}
 function loadSocial(){
  const json={'cache':'no-store'};
  return fetch(SOC_API,json)
@@ -400,10 +400,10 @@ function loadSocial(){
   // content type separates "not configured" from a real panel.
   .then(r=>r.ok&&!(r.headers.get('content-type')||'').includes('html')?r.json():null)
   .catch(()=>null)
-  .then(p=>{SPOSTS=(p&&p.posts)||[]})
+  .then(p=>{STOPICS=(p&&p.topics)||{}})
   // The strip only exists on rendered pages, so repaint the one on screen.
   .then(()=>{if(/^#\/(m|g)\//.test(location.hash))route()})}
-const card=(m,meta,b)=>`<a ${ph(m,'fc')} href="#/m/${m.k}"><b style="font-size:48px">${ini(m)}</b><span class="bd ${b}">${{hot:'Hot',cool:'Cooling',new:'New',user:'Live'}[b]}</span><div class="fb"><div class="rn bb">${esc(m.n)}</div><div class="mu">${meta}</div></div></a>`;
+const card=(m,meta,b)=>`<a ${ph(m,'fc')} href="#/m/${m.k}"><b style="font-size:48px">${ini(m)}</b><span class="bd ${b}">${{hot:'Hot',cool:'Cooling',new:'Steady',user:'Live'}[b]}</span><div class="fb"><div class="rn bb">${esc(m.n)}</div><div class="mu">${meta}</div></div></a>`;
 let QG='';
 function renderFeed(){const m=M[0];
  if(QG){const t=QG.toLowerCase(),hits=M.filter(x=>(x.n+' '+x.g.join(' ')).toLowerCase().includes(t)),lh=GALL.filter(e=>e.n.toLowerCase().includes(t)),n=hits.length+lh.length;
@@ -453,7 +453,7 @@ function renderDetail(k){const m=MK[k],sc=m.level>=2?'up':m.level<1.1?'dn':'mu',
   <div class="c"><div class="ch"><span class="lbl">Wikipedia views · ${eh.length} epochs</span><span class="mu mono">${eh.length?vk(eh[eh.length-1].value):'—'}</span></div><canvas class="cv sm" id="dc" role="img" aria-label="Wikipedia pageviews for ${esc(m.t)} over the last ${eh.length} epochs"></canvas></div></div>
  <div class="dr c"><div><div class="ch" style="margin:0"><span class="lbl">Index weight</span><span class="mono mu">cap 25%</span></div><div class="track"><i style="width:${Math.min(100,m.weight*4)}%"></i></div><div class="split"><span class="up">${m.weight.toFixed(1)}% of index</span><span class="mu">${Math.round(m.baseline).toLocaleString('en-US')} median</span></div></div>
   <div class="hun"><div class="ava">${esc((SIG?SIG.label:'—')[0])}</div><div><div class="mono" style="font-size:13px">${esc(SIG?SIG.label:'signal')}</div><div class="mu">${esc(SIG?SIG.unit:'')} · ${m.baselineDays}-day median baseline</div></div><div class="mono up">${m.level.toFixed(2)}×</div></div>
-  ${socStrip(m.n)}
+  ${socStrip(k)}
   <div class="pair"><button class="btn w" data-tx="ride" data-k="${k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${k}">${ic('dn')}FADE</button></div>
   <div class="timer"><div class="lbl">Epoch closes in</div><div class="bb" data-end="${m.end}">${clock(m.end)}</div></div></div></div>`;
  const cv=$('#detail #dc');cv._p=eh.length>1?eh.map(x=>x.value):[m.value];ro.observe(cv);requestAnimationFrame(()=>chart(cv,cv._p))}
@@ -481,7 +481,7 @@ function renderTrend(slug){const g=GM[slug];
    :'<div class="note">No summary was generated for this topic, and its article has no lead to fall back on. The measured numbers above are unaffected.</div>'}</div>
  <div class="dr c"><div><div class="ch" style="margin:0"><span class="lbl">Momentum</span><span class="mono mu">baseline +${Math.round(g.mom).toLocaleString('en-US')}%</span></div><div class="track"><i style="width:${Math.min(100,Math.log10(Math.max(2,g.mom))/4*100)}%"></i></div><div class="split"><span class="up">${vk(g.v)} views</span><span class="mu">${vk(g.base)} median</span></div></div>
   <div class="hun"><div class="ava">${esc(g.lead?'W':'AI')}</div><div><div class="mono" style="font-size:13px">${g.ctx?'model summary':'article lead'}</div><div class="mu">${esc(g.model||'Wikipedia')} · ${esc(g.day)}</div></div><div class="mono up">+${Math.round(g.mom).toLocaleString('en-US')}%</div></div>
-  ${socStrip(g.n)}
+  ${socStrip('g:'+gslug(g.n))}
   <div class="pair"><button class="btn w" data-tx="ride" data-k="${k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${k}">${ic('dn')}FADE</button></div>
   <div class="timer"><div class="lbl">Epoch closes in</div><div class="bb" data-end="${m.end}">${clock(m.end)}</div></div>
   <div class="note">Discovery topic, not a published threshold spec. RIDE and FADE open a demo position in your portfolio at score ${m.r}; nothing is sent on chain.</div></div></div>`;

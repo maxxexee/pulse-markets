@@ -3,6 +3,7 @@ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, posix } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { AUTH_CLIENT_SOURCE } from './auth-bundle.ts';
+import { dashboardData } from './dashboard-data.ts';
 import { rejectionsPayload } from './discovery.ts';
 import { basketPayload, historyPayload, marketsPayload } from './payloads.ts';
 import { publishedArtifacts } from './published-artifacts.ts';
@@ -164,6 +165,17 @@ export async function exportStatic(options: ExportOptions): Promise<number> {
   for (const [target, body] of await appFiles(options.appDir)) {
     files.set(target, body);
   }
+  // The dashboard reads this one script rather than the JSON routes, so it is
+  // rebuilt from the snapshots on every export. A committed copy would only be
+  // the day someone last ran the pipeline by hand.
+  files.set(
+    'app/dashboard/pulse-data.js',
+    await dashboardData({
+      snapshotsDir: options.snapshotsDir,
+      marketsDir: options.marketsDir,
+      imagesDir: join(options.appDir, 'dashboard', 'images'),
+    }),
+  );
   const snapshotsDir = options.snapshotsDir;
   files.set('api/basket', basketPayload(options.basket));
   files.set('api/markets', await marketsPayload(options.marketsDir));

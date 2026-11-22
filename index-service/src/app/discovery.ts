@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { chatConfigFromEnv, type ChatConfig } from '../adapters/chat-completion.ts';
 import { fetchPageviews } from '../adapters/wikipedia-pageviews.ts';
@@ -56,6 +56,19 @@ export interface DiscoveryRecord {
 
 function discoveryPath(snapshotsDir: string, day: string): string {
   return join(snapshotsDir, 'discovery', `${day}.json`);
+}
+
+/** Newest day with a discovery record, or null when none was ever built. */
+export async function latestDiscoveryDay(snapshotsDir: string): Promise<string | null> {
+  try {
+    const names = (await readdir(join(snapshotsDir, 'discovery')))
+      .filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))
+      .sort();
+    const newest = names.at(-1);
+    return newest === undefined ? null : newest.slice(0, 10);
+  } catch {
+    return null;
+  }
 }
 
 /** Reads the discovery record for one day, or null when it was never built. */
@@ -298,6 +311,11 @@ export async function refreshDiscovery(args: {
   const images = await resolveImages(topics, args);
 
   const summary = args.summary === undefined ? chatConfigFromEnv() : args.summary;
+  if (summary === null) {
+    // A board without notes looks like a model that failed on every topic, so
+    // the reason is logged where the build ran.
+    args.log?.('context notes skipped: PULSE_SUMMARY_API_KEY is not set');
+  }
   const built = await buildEntries({
     topics,
     images,

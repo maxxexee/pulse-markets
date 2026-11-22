@@ -1,0 +1,121 @@
+{
+  "day": "2026-11-20",
+  "method": "wikipedia-top-v1",
+  "contextModel": null,
+  "entries": [
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "views": 295157,
+      "baseline": 1171,
+      "baselineDays": 7,
+      "momentum": 25096.3,
+      "link": "https://en.wikipedia.org/wiki/Riemann_hypothesis",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Riemann_zeta_function_absolute_value.png/330px-Riemann_zeta_function_absolute_value.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Riemann_hypothesis/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "5a31ba8444d012dbab6753b06c2211d5f0d6a0d4f7e3bc1db708991797f39cee"
+        }
+      ],
+      "leadSummary": "In mathematics, the Riemann hypothesis asserts that the Riemann zeta function has its zeros only at the negative even integers and at complex numbers with real part. First posed in 1859 by Bernhard Riemann, it is considered by pure mathematicians to be one of the most important unsolved problems in the field. The result has importance in number theory because it implies bounds on the distribution of prime numbers. The name is also used for some closely related analogues such as the Riemann hypothesis for curves over finite fields, which was proved by André Weil.",
+      "leadSource": "https://en.wikipedia.org/wiki/Riemann_hypothesis"
+    },
+    {
+      "article": "Lance_Broadway",
+      "topic": "Lance Broadway",
+      "views": 79751,
+      "baseline": 2940,
+      "baselineDays": 7,
+      "momentum": 2612.9,
+      "link": "https://en.wikipedia.org/wiki/Lance_Broadway",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Lance_Broadway_on_RealTVfilms.jpg/330px-Lance_Broadway_on_RealTVfilms.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Lance_Broadway/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "d27ef2a685c0993f9b9fd4a869d9625d31e9fdf4b2ac48dff2886fe4ab6fc49b"
+        }
+      ],
+      "leadSummary": "Lance Daniel Broadway was an American actor and professional baseball pitcher. He played in Major League Baseball (MLB) for the Chicago White Sox and New York Mets from 2007 to 2009. After his baseball career, he became an actor.",
+      "leadSource": "https://en.wikipedia.org/wiki/Lance_Broadway"
+    },
+    {
+      "article": "Harambe",
+      "topic": "Harambe",
+      "views": 67020,
+      "baseline": 4477,
+      "baselineDays": 7,
+      "momentum": 1396.9,
+      "link": "https://en.wikipedia.org/wiki/Harambe",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/ee/Harambe_with_boy.jpg/330px-Harambe_with_boy.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Harambe/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "5028683c3faf907b008d47b9d1b09291dc449015e558ddfddb0b7aff3f7b0227"
+        }
+      ],
+      "leadSummary": "Harambe was a western lowland gorilla who lived at the Cincinnati Zoo. On May 28, 2016, a three-year-old boy visiting the zoo climbed under a fence into an outdoor gorilla enclosure where he was grabbed and violently dragged and thrown by Harambe. Fearing for the boy's life, a zoo worker shot and killed Harambe. The incident was recorded on video and received broad international coverage and commentary, including controversy over the choice to use lethal force. Several primatologists and conservationists wrote later that the zoo had no other choice under the circumstances, and that it highlighted the danger of zoo animals near humans and the need for better standards of care.",
+      "leadSource": "https://en.wikipedia.org/wiki/Harambe"
+    },
+    {
+      "article": "privacy_policy",
+      "topic": "privacy policy",
+      "views": 78955,
+      "baseline": 8009,
+      "baselineDays": 4,
+      "momentum": 885.9,
+      "link": "https://en.wikipedia.org/wiki/privacy_policy",
+      "imageUrl": null,
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/privacy_policy/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "fdec461dbfc0ff335fd4f420f848d2b7d7b2661ae81d100b0fb02b452fd2bb2c"
+        }
+      ],
+      "leadSummary": "\n\nA privacy policy is a statement or legal document that discloses some or all of the ways a party gathers, uses, discloses, and manages a customer or client's data, while a privacy notice tells clients or data subjects what data is held by an organisation and how that data will be handled.",
+      "leadSource": "https://en.wikipedia.org/wiki/Privacy_policy"
+    },
+    {
+      "article": "Fiona_(hippopotamus)",
+      "topic": "Fiona (hippopotamus)",
+      "views": 124449,
+      "baseline": 13135,
+      "baselineDays": 7,
+      "momentum": 847.5,
+      "link": "https://en.wikipedia.org/wiki/Fiona_(hippopotamus)",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Fiona_the_Hippopotamus_%28detail%29.jpg/330px-Fiona_the_Hippopotamus_%28detail%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Fiona_(hippopotamus)/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "d56cce6f546e9cf98608b9cbe99b4a4df456ffa6a9f117593fdc82a3e551c48b"
+        }
+      ],
+      "leadSummary": "Fiona was a female hippopotamus who lived at the Cincinnati Zoo and Botanical Garden in Cincinnati, Ohio, United States. She was the first Nile hippo imaged on ultrasound prenatally, as well the first Nile hippo to be born at the Cincinnati Zoo in over fifty years. She was born six weeks premature and was not expected to survive. After a weeks-long effort by a team of veterinarians and clinicians from the Cincinnati Children's Hospital contributed to her care, Fiona survived. Videos of Fiona became popular on the Internet and her presence increased attendance at the zoo.",
+      "leadSource": "https://en.wikipedia.org/wiki/Fiona_(hippopotamus)"
+    },
+    {
+      "article": "Bruno_Mars",
+      "topic": "Bruno Mars",
+      "views": 60612,
+      "baseline": 7170,
+      "baselineDays": 7,
+      "momentum": 745.4,
+      "link": "https://en.wikipedia.org/wiki/Bruno_Mars",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/BrunoMars24KMagicWorldTourLive_%28cropped%29.jpg/330px-BrunoMars24KMagicWorldTourLive_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Bruno_Mars/daily/20261113/20261120",
+          "retrievedAt": "2026-11-21T23:38:30.654Z",
+          "payloadSha256": "331d94908ee7cffe3ed75d1504bb2fa7020d891e8ccf67dbf9873e389ded4d0c"
+        }
+      ],
+      "leadSummary": "Peter Gene Hernandez, known professionally as Bruno Mars, is an American singer-songwriter, record producer, and dancer. Regarded as a pop icon, he is known for his three-octave tenor vocal range, retro showmanship, musical versatility, and live performances, accompanied by his band, the Hooligans. Raised in Honolulu, Mars gained recognition in Hawaii as a child for his impersonation of Elvis Presley, before moving to Los Angeles in 2003 to pursue a musical career.",
+      "leadSource": "https://en.wikipedia.org/wiki/Bruno_Mars"
+    }
+  ]
+}

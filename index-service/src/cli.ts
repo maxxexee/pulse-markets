@@ -11,17 +11,21 @@ import {
 import { buildAuthClient } from './app/auth-bundle.ts';
 import { buildSnapshot } from './app/build-snapshot.ts';
 import { calibrate } from './app/calibrate.ts';
-import { refreshDiscovery as refreshDiscoveryRecord } from './app/discovery.ts';
+import {
+  latestDiscoveryDay,
+  readDiscovery,
+  refreshDiscovery as refreshDiscoveryRecord,
+} from './app/discovery.ts';
 import { exportStatic } from './app/export-site.ts';
 import { verifyChain, verifyTrends } from './app/report-commands.ts';
 import { startServer } from './app/server.ts';
 import { verifyDay } from './app/verify.ts';
-import { fetchSocialPanel, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
+import { fetchSocialPanel, fetchSocialTopics, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { publishTrendEpoch, verifyTrendChain, verifyTrendEpoch } from './app/trend-epoch.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
 import { ACTIVE_DEFINITION_ID, CALIBRATION_DAYS } from './config/index-definition.ts';
-import { socialQuery } from './config/social.ts';
+import { socialQuery, socialTopicQueries } from './config/social.ts';
 import type { IndexDefinition } from '@pulse/index-core/index-definition.ts';
 import { MIN_PUBLISH_CONFIDENCE } from '@pulse/index-core/coverage.ts';
 import { addDays, isValidDay, toDay } from '@pulse/index-core/dates.ts';
@@ -261,16 +265,38 @@ async function social(): Promise<void> {
     console.log(`social panel not configured: set ${SOCIAL_KEY_ENV} to fetch it`);
     return;
   }
+  const now = new Date();
   const panel = await fetchSocialPanel({
     apiKey,
     query: socialQuery(ENTITY_BASKET),
-    now: new Date(),
+    now,
+  });
+  // Per-page panels, so a market shows what is being said about that market
+  // rather than about the basket. The topics come from the newest board, which
+  // is the one the site is showing.
+  const day = await latestDiscoveryDay(SNAPSHOTS_DIR);
+  const record = day === null ? null : await readDiscovery(SNAPSHOTS_DIR, day);
+  const topics = await fetchSocialTopics({
+    apiKey,
+    topics: socialTopicQueries(
+      ENTITY_BASKET,
+      (record?.entries ?? []).map((entry) => entry.topic),
+    ),
+    now,
   });
   await mkdir(SNAPSHOTS_DIR, { recursive: true });
-  await writeFile(join(SNAPSHOTS_DIR, 'social.json'), JSON.stringify(panel, null, 2));
+  await writeFile(
+    join(SNAPSHOTS_DIR, 'social.json'),
+    JSON.stringify({ ...panel, topics }, null, 2),
+  );
+  const covered = Object.values(topics).filter((topic) => topic.posts.length > 0);
   console.log(
     `social panel: ${panel.totals.posts} posts, ${panel.totals.likes} likes` +
       `${panel.truncated ? ', page budget reached' : ''} (display only, weight 0)`,
+  );
+  console.log(
+    `social topics: ${covered.length}/${Object.keys(topics).length} with posts` +
+      (day === null ? '' : ` (board ${day})`),
   );
 }
 

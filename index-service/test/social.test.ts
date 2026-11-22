@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { fetchSocialPanel, SocialError } from '../src/adapters/twitter.ts';
-import { summarizeSocial, type SocialPost } from '@pulse/index-core/social.ts';
+import {
+  fetchSocialPanel,
+  fetchSocialTopics,
+  SocialError,
+} from '../src/adapters/twitter.ts';
+import { summarizeSocial, topicSlug, type SocialPost } from '@pulse/index-core/social.ts';
 import { ENTITY_BASKET } from '../src/config/entities.ts';
-import { socialQuery } from '../src/config/social.ts';
+import { socialQuery, socialTopicQueries } from '../src/config/social.ts';
 
 function page(body: unknown): Response {
   return new Response(JSON.stringify(body), {
@@ -151,6 +155,70 @@ test('skips unusable tweets and deduplicates ids across pages', async () => {
     pageLimit: 2,
   });
   assert.deepEqual(panel.posts.map((post) => post.id), ['t1', 't2']);
+});
+
+test('every page gets its own query, keyed the way the dashboard routes it', () => {
+  const specs = socialTopicQueries(ENTITY_BASKET, ['Fiona (hippopotamus)', 'Bruno Mars']);
+  assert.equal(specs.length, ENTITY_BASKET.length + 2);
+  const jensen = specs.find((spec) => spec.key === 'jensen-huang');
+  assert.equal(jensen?.query, '"Jensen Huang" lang:en');
+  assert.equal(jensen?.label, 'Jensen Huang');
+  // The disambiguation suffix is searched without but kept in the key, because
+  // that key is the topic's own route.
+  const fiona = specs.find((spec) => spec.key === 'g:fiona-hippopotamus');
+  assert.equal(fiona?.query, '"Fiona" lang:en');
+  assert.equal(topicSlug('Fiona (hippopotamus)'), 'fiona-hippopotamus');
+});
+
+test('a topic panel holds only posts that mention the topic', async () => {
+  const fakeFetch: typeof fetch = async (input) => {
+    const query = new URL(String(input)).searchParams.get('query') ?? '';
+    return page({
+      tweets:
+        query === '"Jensen Huang" lang:en'
+          ? [
+              tweet('j1', { text: 'Jensen Huang says the roadmap slips' }),
+              tweet('j2', { text: 'Elon Musk may buy a stake in Nvidia' }),
+            ]
+          : [tweet('n1', { text: 'Nvidia ships a new chip' })],
+      has_next_page: false,
+    });
+  };
+  const topics = await fetchSocialTopics({
+    apiKey: 'key',
+    topics: [
+      { key: 'jensen-huang', label: 'Jensen Huang', query: '"Jensen Huang" lang:en' },
+      { key: 'nvidia', label: 'Nvidia', query: '"Nvidia" lang:en' },
+    ],
+    now: new Date(),
+    fetchImpl: fakeFetch,
+  });
+  // A post that only the basket-wide query would have matched never lands here.
+  assert.deepEqual(topics['jensen-huang']?.posts.map((post) => post.id), ['j1']);
+  assert.deepEqual(topics['nvidia']?.posts.map((post) => post.id), ['n1']);
+  assert.deepEqual(topics['nvidia']?.totals, { posts: 1, likes: 10, views: 1000 });
+  assert.equal(topics['nvidia']?.label, 'Nvidia');
+});
+
+test('one failing topic leaves the rest of the panel published', async () => {
+  const fakeFetch: typeof fetch = async (input) => {
+    const query = new URL(String(input)).searchParams.get('query') ?? '';
+    if (query.includes('Solana')) {
+      return new Response('{}', { status: 500 });
+    }
+    return page({ tweets: [tweet('ok', { text: 'OpenAI ships a thing' })], has_next_page: false });
+  };
+  const topics = await fetchSocialTopics({
+    apiKey: 'key',
+    topics: [
+      { key: 'openai', label: 'OpenAI', query: '"OpenAI" lang:en' },
+      { key: 'solana', label: 'Solana', query: '"Solana" lang:en' },
+    ],
+    now: new Date(),
+    fetchImpl: fakeFetch,
+  });
+  assert.equal(topics['solana'], undefined);
+  assert.deepEqual(topics['openai']?.posts.map((post) => post.id), ['ok']);
 });
 
 test('a missing key is reported as not configured, never as an empty panel', async () => {
