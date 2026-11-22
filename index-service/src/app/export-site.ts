@@ -1,5 +1,6 @@
+import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname, join, posix } from 'node:path';
 import type { EntityDefinition } from '../config/entities.ts';
 import { AUTH_CLIENT_SOURCE } from './auth-bundle.ts';
 import { rejectionsPayload } from './discovery.ts';
@@ -73,6 +74,77 @@ async function appFiles(
   return files;
 }
 
+/** Assets a file host caches by URL, rather than revalidating every time. */
+const VERSIONED_EXTENSIONS = ['.js', '.css'];
+
+function digestOf(body: string | Uint8Array): string {
+  const hash = createHash('sha256');
+  hash.update(typeof body === 'string' ? Buffer.from(body, 'utf8') : body);
+  return hash.digest('hex').slice(0, 10);
+}
+
+/** Resolves a relative reference against the file that made it, or null. */
+function resolveRef(fromPath: string, ref: string): string | null {
+  const clean = ref.split('?')[0]?.split('#')[0] ?? '';
+  if (clean === '' || clean.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(clean)) return null;
+  if (!VERSIONED_EXTENSIONS.some((extension) => clean.endsWith(extension))) return null;
+  return posix.normalize(posix.join(posix.dirname(fromPath), clean));
+}
+
+/**
+ * Stamps every reference to a published script or stylesheet with that file's own
+ * digest.
+ *
+ * The host caches these paths as immutable for a year and nothing purges them on
+ * deploy, so a rebuilt file would keep serving the old bytes from the edge. The
+ * digest changes the URL with the content, which keeps them in step without
+ * renaming anything.
+ */
+function versionAssetReferences(files: Map<string, string | Uint8Array>): void {
+  const versions = new Map<string, string>();
+  for (const [path, body] of files) {
+    if (VERSIONED_EXTENSIONS.some((extension) => path.endsWith(extension))) {
+      versions.set(path, digestOf(body));
+    }
+  }
+  const stamp = (fromPath: string, ref: string): string => {
+    if (ref.includes('?')) return ref;
+    const version = versions.get(resolveRef(fromPath, ref) ?? '');
+    return version === undefined ? ref : `${ref}?v=${version}`;
+  };
+
+  for (const [path, body] of files) {
+    const isHtml = path.endsWith('.html');
+    if (!isHtml && !path.endsWith('.js')) continue;
+    // App files are read as bytes, so text has to come back out before the
+    // references in them can be rewritten.
+    const text = typeof body === 'string' ? body : Buffer.from(body).toString('utf8');
+    if (isHtml) {
+      files.set(
+        path,
+        text.replace(
+          /\b(src|href)=(["'])([^"']+)\2/g,
+          (whole, attribute: string, quote: string, ref: string) => {
+            const stamped = stamp(path, ref);
+            return stamped === ref ? whole : `${attribute}=${quote}${stamped}${quote}`;
+          },
+        ),
+      );
+    } else {
+      files.set(
+        path,
+        text.replace(
+          /(\bfrom\s*|\bimport\s*\(\s*)(["'])([^"']+)\2/g,
+          (whole, lead: string, quote: string, ref: string) => {
+            const stamped = stamp(path, ref);
+            return stamped === ref ? whole : `${lead}${quote}${stamped}${quote}`;
+          },
+        ),
+      );
+    }
+  }
+}
+
 /**
  * Writes the site and every JSON route as static files.
  *
@@ -129,6 +201,8 @@ export async function exportStatic(options: ExportOptions): Promise<number> {
       // No signed epoch or panel yet: the route stays absent rather than empty.
     }
   }
+
+  versionAssetReferences(files);
 
   for (const [path, body] of files) {
     const target = join(options.outDir, path);
