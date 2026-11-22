@@ -192,6 +192,8 @@ test('a topic panel holds only posts that mention the topic', async () => {
     ],
     now: new Date(),
     fetchImpl: fakeFetch,
+    delayMs: 0,
+    retryMs: 0,
   });
   // A post that only the basket-wide query would have matched never lands here.
   assert.deepEqual(topics['jensen-huang']?.posts.map((post) => post.id), ['j1']);
@@ -208,6 +210,7 @@ test('one failing topic leaves the rest of the panel published', async () => {
     }
     return page({ tweets: [tweet('ok', { text: 'OpenAI ships a thing' })], has_next_page: false });
   };
+  const lines: string[] = [];
   const topics = await fetchSocialTopics({
     apiKey: 'key',
     topics: [
@@ -216,8 +219,13 @@ test('one failing topic leaves the rest of the panel published', async () => {
     ],
     now: new Date(),
     fetchImpl: fakeFetch,
+    delayMs: 0,
+    retryMs: 0,
+    log: (line) => lines.push(line),
   });
   assert.equal(topics['solana'], undefined);
+  // A page with no tweets and a refused query look the same on the site.
+  assert.ok(lines.some((line) => line.includes('solana') && line.includes('skipped')));
   assert.deepEqual(topics['openai']?.posts.map((post) => post.id), ['ok']);
 });
 

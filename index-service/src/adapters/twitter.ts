@@ -16,8 +16,17 @@ export const SOCIAL_PAGE_LIMIT = 2;
 /** One page per topic is 20 posts, which is more than a two-line strip can use. */
 export const TOPIC_PAGE_LIMIT = 1;
 
-/** Topics fetched at once. The vendor answers a burst with 429, so this stays low. */
-export const TOPIC_CONCURRENCY = 3;
+/**
+ * One topic at a time, with a pause between them.
+ *
+ * The vendor answers a burst with 403/429 rather than a partial result, and one
+ * run of thirteen parallel queries published four pages and dropped nine
+ * silently.
+ */
+export const TOPIC_DELAY_MS = 1_200;
+
+/** How long a refused topic waits before its one retry. */
+const TOPIC_RETRY_MS = 8_000;
 
 /**
  * The vendor's ranked list, not a recency feed. `Latest` answers with whatever
@@ -250,27 +259,49 @@ export async function fetchSocialTopics(options: {
   readonly now: Date;
   readonly fetchImpl?: typeof fetch;
   readonly pageLimit?: number;
+  /** Pause between topics; zero keeps the loop instant for tests. */
+  readonly delayMs?: number;
+  /** Pause before a topic's retry; zero keeps the loop instant for tests. */
+  readonly retryMs?: number;
+  readonly log?: (line: string) => void;
 }): Promise<Record<string, SocialTopicPanel>> {
   assertConfigured(options.apiKey);
   const fetchImpl = options.fetchImpl ?? fetch;
   const pageLimit = options.pageLimit ?? TOPIC_PAGE_LIMIT;
+  const delayMs = options.delayMs ?? TOPIC_DELAY_MS;
+  const retryMs = options.retryMs ?? TOPIC_RETRY_MS;
+  const log = options.log ?? ((): void => undefined);
   const panels: Record<string, SocialTopicPanel> = {};
-  const queue = [...options.topics];
-  const workers = Array.from({ length: Math.min(TOPIC_CONCURRENCY, queue.length) }, async () => {
-    for (let topic = queue.shift(); topic !== undefined; topic = queue.shift()) {
+
+  for (const [index, topic] of options.topics.entries()) {
+    if (index > 0 && delayMs > 0) {
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+    const read = async () => fetchPosts(options.apiKey, topic.query, fetchImpl, pageLimit);
+    let posts: readonly SocialPost[];
+    try {
+      ({ posts } = await read());
+    } catch (error) {
+      // One retry, then the page is left without a strip rather than taking the
+      // rest of the panel down with it. The reason goes to the build log, because
+      // a page with no tweets and a refused query look identical on the site.
+      const detail = error instanceof Error ? error.message : String(error);
+      log(`social topic ${topic.key} failed (${detail}), retrying`);
       try {
-        const { posts } = await fetchPosts(options.apiKey, topic.query, fetchImpl, pageLimit);
-        const key = mentionKey(topic.label);
-        panels[topic.key] = summarizeTopic({
-          label: topic.label,
-          query: topic.query,
-          posts: key === '' ? posts : posts.filter((post) => post.text.toLowerCase().includes(key)),
-        });
-      } catch {
-        // The page simply has no strip; the rest of the panel is still published.
+        await new Promise((resolve) => setTimeout(resolve, retryMs));
+        ({ posts } = await read());
+      } catch (retryError) {
+        const retryDetail = retryError instanceof Error ? retryError.message : String(retryError);
+        log(`social topic ${topic.key} skipped: ${retryDetail}`);
+        continue;
       }
     }
-  });
-  await Promise.all(workers);
+    const key = mentionKey(topic.label);
+    panels[topic.key] = summarizeTopic({
+      label: topic.label,
+      query: topic.query,
+      posts: key === '' ? posts : posts.filter((post) => post.text.toLowerCase().includes(key)),
+    });
+  }
   return panels;
 }

@@ -283,6 +283,7 @@ async function social(): Promise<void> {
       (record?.entries ?? []).map((entry) => entry.topic),
     ),
     now,
+    log: (line) => console.log(line),
   });
   await mkdir(SNAPSHOTS_DIR, { recursive: true });
   await writeFile(
