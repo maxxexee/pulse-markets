@@ -12,6 +12,8 @@ export const SOCIAL_PANEL_SCHEMA = 'pulse.social.panel/1';
 export interface SocialPost {
   readonly id: string;
   readonly author: string;
+  /** Whitespace-collapsed post text, so the panel shows what was said. */
+  readonly text: string;
   readonly createdAt: string;
   readonly likes: number;
   /** Null when the API omits the count; unknown is not zero. */
@@ -42,9 +44,15 @@ export interface SocialSummaryInput {
   readonly truncated: boolean;
 }
 
-/** Sorts newest first and totals the counts that are known. */
+/**
+ * Keeps the source's order and totals the counts that are known.
+ *
+ * The adapter asks the vendor for its ranked list (queryType=Top), so the order
+ * arriving here is the engagement rank; re-sorting by date would discard it and
+ * put the newest unread post on top.
+ */
 export function summarizeSocial(input: SocialSummaryInput): SocialPanel {
-  const posts = [...input.posts].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+  const posts = [...input.posts];
   return {
     schema: SOCIAL_PANEL_SCHEMA,
     fetchedAt: input.fetchedAt,

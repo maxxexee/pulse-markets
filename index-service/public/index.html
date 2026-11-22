@@ -44,6 +44,7 @@
       .bar span { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
       .cell-score { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
       .reason { color: var(--muted); font-size: 13px; }
+      .post-text { margin-bottom: 4px; line-height: 1.45; }
       h2 {
         font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
         color: var(--muted); font-weight: 500; margin: 44px 0 14px;
@@ -119,6 +120,14 @@
     <script>
       const labels = new Map();
       const format = new Intl.NumberFormat('en-US');
+
+      /** Post text, handles and urls come from X, so none of them is trusted markup. */
+      function escHtml(value) {
+        return String(value ?? '').replace(
+          /[&<>"']/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
+        );
+      }
 
       async function loadBasket() {
         const response = await fetch('./api/basket', { cache: 'no-store' });
@@ -223,7 +232,8 @@
             const views =
               post.views === null ? '' : ` &middot; ${format.format(post.views)} views`;
             const when = post.createdAt.slice(0, 16).replace('T', ' ');
-            return `<li><a href="${post.url}">@${post.author}</a> ${when} UTC &middot; ${format.format(post.likes)} likes${views}</li>`;
+            const text = post.text.length > 160 ? `${post.text.slice(0, 159)}\u2026` : post.text;
+            return `<li><div class="post-text">${escHtml(text)}</div><a href="${escHtml(post.url)}">@${escHtml(post.author)}</a> ${when} UTC &middot; ${format.format(post.likes)} likes${views}</li>`;
           })
           .join('');
         target.innerHTML =

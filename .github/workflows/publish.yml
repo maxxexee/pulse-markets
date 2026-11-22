@@ -81,6 +81,10 @@ jobs:
         working-directory: index-service
         env:
           CATCH_UP: ${{ inputs.catch_up || '14' }}
+          # Read only to widen the discovery candidate pool: trends resolve to
+          # Wikipedia articles that are then measured with the pageview baseline
+          # like any other candidate. An unset key only narrows discovery.
+          TWITTERAPI_IO_KEY: ${{ secrets.TWITTERAPI_IO_KEY }}
         run: node src/cli.ts build --catch-up "$CATCH_UP"
 
       # Display only, weight zero: an unset key leaves the panel unpublished, and

@@ -6,6 +6,14 @@ const API_BASE = 'https://api.twitterapi.io';
 /** Pages fetched per build: 40 posts is enough to read the room. */
 export const SOCIAL_PAGE_LIMIT = 2;
 
+/**
+ * The vendor's ranked list, not a recency feed. `Latest` answers with whatever
+ * was posted in the last minute — measured at 40 posts spanning 46 seconds and
+ * 5 likes in total — so the panel is built from `Top`, which ranks by
+ * engagement and mixes in older posts that people actually read.
+ */
+const QUERY_TYPE = 'Top';
+
 /** Environment variable holding the vendor key. Keys are never CLI arguments. */
 export const SOCIAL_KEY_ENV = 'TWITTERAPI_IO_KEY';
 
@@ -63,9 +71,12 @@ function parseTweet(raw: unknown): SocialPost | null {
     return null;
   }
   const url = text(tweet['url']) ?? `https://x.com/${userName}/status/${id}`;
+  // Collapsed so a post renders on one line whatever the source formatting is.
+  const body = (text(tweet['text']) ?? '').replace(/\s+/g, ' ').trim();
   return {
     id,
     author: userName,
+    text: body,
     createdAt,
     likes: count(tweet['likeCount']) ?? 0,
     views: count(tweet['viewCount']),
@@ -110,7 +121,7 @@ async function fetchPage(
 ): Promise<TweetPage> {
   const url = new URL('/twitter/tweet/advanced_search', API_BASE);
   url.searchParams.set('query', query);
-  url.searchParams.set('queryType', 'Latest');
+  url.searchParams.set('queryType', QUERY_TYPE);
   if (cursor !== null) {
     url.searchParams.set('cursor', cursor);
   }

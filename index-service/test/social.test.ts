@@ -23,19 +23,37 @@ function tweet(id: string, overrides: Record<string, unknown> = {}): Record<stri
   };
 }
 
-test('the query names every basket entity once and excludes retweets', () => {
+test('the query names every basket entity once and leaves retweets to the parser', () => {
   const query = socialQuery(ENTITY_BASKET);
   for (const entity of ENTITY_BASKET) {
     assert.ok(query.includes(entity.label), entity.label);
   }
-  assert.ok(query.includes('-filter:retweets'));
+  // The operator was rejected by the vendor mid-search, so the query must not
+  // depend on it: retweets are dropped in parseTweet instead.
+  assert.equal(query.includes('filter:retweets'), false);
   assert.equal(query.split(' OR ').length, ENTITY_BASKET.length);
 });
 
-test('a panel is always weight zero and totals only known counts', () => {
+test('a panel is always weight zero, keeps the source order and totals known counts', () => {
   const posts: SocialPost[] = [
-    { id: 'b', author: 'x', createdAt: '2026-11-15T09:00:00.000Z', likes: 2, views: null, url: 'u' },
-    { id: 'a', author: 'y', createdAt: '2026-11-15T11:00:00.000Z', likes: 5, views: 40, url: 'u' },
+    {
+      id: 'b',
+      author: 'x',
+      text: 'older but ranked first',
+      createdAt: '2026-11-15T09:00:00.000Z',
+      likes: 2,
+      views: null,
+      url: 'u',
+    },
+    {
+      id: 'a',
+      author: 'y',
+      text: 'newer',
+      createdAt: '2026-11-15T11:00:00.000Z',
+      likes: 5,
+      views: 40,
+      url: 'u',
+    },
   ];
   const panel = summarizeSocial({
     query: 'q',
@@ -44,8 +62,34 @@ test('a panel is always weight zero and totals only known counts', () => {
     truncated: false,
   });
   assert.equal(panel.settlementWeight, 0);
-  assert.deepEqual(panel.posts.map((post) => post.id), ['a', 'b']);
+  // The vendor ranked these; sorting by date here would undo that.
+  assert.deepEqual(panel.posts.map((post) => post.id), ['b', 'a']);
   assert.deepEqual(panel.totals, { posts: 2, likes: 7, views: 40 });
+});
+
+test('drops retweets and keeps the post text', async () => {
+  const fakeFetch: typeof fetch = async () =>
+    page({
+      tweets: [
+        tweet('t1', { text: '  Anthropic   ships a thing\n' }),
+        tweet('rt', { isRetweet: true, text: 'RT @someone' }),
+        tweet('nested', { retweeted_tweet: { id: 'x' }, text: 'RT @other' }),
+      ],
+      has_next_page: false,
+    });
+  const panel = await fetchSocialPanel({ apiKey: 'key', query: 'q', now: new Date(), fetchImpl: fakeFetch });
+  assert.deepEqual(panel.posts.map((post) => post.id), ['t1']);
+  assert.equal(panel.posts[0]?.text, 'Anthropic ships a thing');
+});
+
+test('asks for the ranked list, not the newest posts', async () => {
+  let seen: string | null = null;
+  const fakeFetch: typeof fetch = async (input) => {
+    seen = new URL(String(input)).searchParams.get('queryType');
+    return page({ tweets: [tweet('t1')], has_next_page: false });
+  };
+  await fetchSocialPanel({ apiKey: 'key', query: 'q', now: new Date(), fetchImpl: fakeFetch });
+  assert.equal(seen, 'Top');
 });
 
 test('stops at the page budget and reports truncation', async () => {

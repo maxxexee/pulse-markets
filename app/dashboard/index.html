@@ -229,6 +229,7 @@ a{color:inherit;text-decoration:none}
           <div class="axis mu"><span>7 days ago</span><span>Now</span></div></div>
         <div class="c g8 eq"><div class="ch"><h2 class="lbl">Active positions</h2><span class="cnt" id="cnt"></span></div><div id="plist" class="list"></div></div>
         <div class="c g4 eq"><div class="ch"><h2 class="lbl">Trending now</h2><a class="mu" href="#/trending">View all</a></div><div id="mini" class="list"></div></div>
+        <div class="c g12"><div class="ch"><h2 class="lbl">Social talk</h2><span class="mu mono" id="soc-meta">display only</span></div><div id="soclist" class="list" aria-busy="true"></div></div>
         <div class="c g12"><div class="ch"><h2 class="lbl">Live markets</h2><span class="mu mono" id="mkcount"></span></div><div id="mlist" class="list"></div></div>
       </div></div>
     </section>
@@ -370,6 +371,23 @@ const gini=g=>esc(g.n.split(' ').map(w=>w[0]).join('').slice(0,2));
 const gRow=g=>`<a class="row" href="#/g/${g.k}"><div class="ph th ${g.noimg?'n':''}" style="--img:url(images/${g.img})"><b style="font-size:14px">${gini(g)}</b></div><div class="ri"><div class="rn bb">${esc(g.n)}</div><div class="mu">${g.live?vk(g.v)+' views · '+vk(g.base)+' baseline':g.day+' · '+vk(g.v)+' views'}</div></div><span class="mono ${g.live?'up':'mu'}">+${Math.round(g.mom).toLocaleString('en-US')}%</span></a>`;
 const gCard=g=>`<a href="#/g/${g.k}" class="fc ph ${g.noimg?'n':''}" style="--img:url(images/${g.img})"><b style="font-size:48px">${gini(g)}</b><span class="bd ${g.mom>1000?'hot':'new'}">${g.mom>1000?'Hot':'Rising'}</span><div class="fb"><div class="rn bb">${esc(g.n)}</div><div class="mu">${vk(g.v)} views · +${Math.round(g.mom).toLocaleString('en-US')}%</div></div></a>`;
 function renderLive(){const p=$('#mini');if(!p)return;p.innerHTML=GT.length?GT.slice(0,3).map(gRow).join(''):'<div class="empty">No trend snapshot loaded.</div>'}
+
+// ── social talk: fetched live and display only, never an input to the index
+const SOC_API='../../api/social/latest';
+async function renderSocial(){
+ const box=$('#soclist');if(!box)return;
+ const r=await fetch(SOC_API,{cache:'no-store'});
+ // An unpublished panel answers with the site's own HTML and a 200, so the
+ // content type separates "not configured" from a real panel.
+ if(!r.ok||(r.headers.get('content-type')||'').includes('html'))throw new Error('unconfigured');
+ const p=await r.json(),posts=p.posts||[];
+ $('#soc-meta').textContent=`display only wt ${p.settlementWeight} · ${vk(p.totals.posts)} posts · ${vk(p.totals.likes)} likes`;
+ box.innerHTML=posts.length?posts.slice(0,8).map(s=>{const t=s.text||'',c=t.length>140?t.slice(0,139)+'…':t;
+  return`<a class="row" href="${esc(s.url)}" target="_blank" rel="noopener"><div class="ph th n"><b style="font-size:13px">${esc(s.author.slice(0,2).toUpperCase())}</b></div><div class="ri"><div class="rn bb">@${esc(s.author)}</div><div class="mu">${esc(c)}</div></div><span class="mono mu">${vk(s.likes)} likes</span></a>`}).join(''):'<div class="empty">The panel published no posts.</div>';
+ box.removeAttribute('aria-busy')}
+renderSocial().catch(()=>{const box=$('#soclist');if(!box)return;
+ box.removeAttribute('aria-busy');
+ box.innerHTML='<div class="empty">Social panel is not configured. It never affects the score.</div>'});
 const card=(m,meta,b)=>`<a ${ph(m,'fc')} href="#/m/${m.k}"><b style="font-size:48px">${ini(m)}</b><span class="bd ${b}">${{hot:'Hot',cool:'Cooling',new:'New',user:'Live'}[b]}</span><div class="fb"><div class="rn bb">${esc(m.n)}</div><div class="mu">${meta}</div></div></a>`;
 let QG='';
 function renderFeed(){const m=M[0];
