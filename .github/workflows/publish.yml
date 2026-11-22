@@ -1,0 +1,139 @@
+name: Publish index
+
+# The site is generated output, not a live server: every published epoch has to
+# come from a build that fetches its sources, signs the snapshot and re-exports
+# the files. Doing that here is what keeps the site from drifting behind.
+#
+# This is the only builder. A local `build` in a checkout that does not have the
+# days this job published would recompute them and sign different numbers under
+# the same identity, so run the pipeline from here rather than by hand.
+
+on:
+  schedule:
+    # 07:17 UTC. Wikipedia finishes the previous UTC day's pageviews a few hours
+    # after midnight, so an earlier run would usually miss them and trip the
+    # coverage floor.
+    - cron: '17 7 * * *'
+  workflow_dispatch:
+    inputs:
+      catch_up:
+        description: Trailing days to backfill
+        required: false
+        default: '14'
+
+concurrency:
+  # A run that overlaps the next one would race on the same signed day.
+  group: publish-index
+  cancel-in-progress: false
+
+# The epochs this job signs are committed back, so the repo stays the record of
+# what was published. Without that, every run would check out a tree that still
+# ends at the last committed day, treat the days it published since as missing,
+# and re-sign them with different bytes.
+permissions:
+  contents: write
+
+env:
+  PROJECT: pulse-markets
+  SITE_DIR: index-service/.site
+  BRIMBLE_NO_UPDATE_NOTIFIER: '1'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      # The key file is deliberately outside version control: it holds the index
+      # identity, and a build that cannot find it would create a new one and
+      # silently publish the next epoch under a different signer.
+      - name: Restore the index signing key
+        working-directory: index-service
+        env:
+          INDEX_SIGNER_PEM: ${{ secrets.INDEX_SIGNER_PEM }}
+        run: |
+          set -euo pipefail
+          if [ -z "${INDEX_SIGNER_PEM:-}" ]; then
+            echo "::error::INDEX_SIGNER_PEM is not set. build would mint a new signing key and break the published attestation chain, so this job refuses to run."
+            exit 1
+          fi
+          install -d -m 700 .keys
+          printf '%s\n' "$INDEX_SIGNER_PEM" > .keys/index-signer.pem
+          chmod 600 .keys/index-signer.pem
+
+      - name: Install dependencies
+        run: npm ci
+
+      # --catch-up republishes any day the schedule missed, so one failed run
+      # heals on the next one instead of leaving a hole in the chain.
+      - name: Build the epoch
+        working-directory: index-service
+        env:
+          CATCH_UP: ${{ inputs.catch_up || '14' }}
+        run: node src/cli.ts build --catch-up "$CATCH_UP"
+
+      # Display only, weight zero: an unset key leaves the panel unpublished and
+      # must not fail the run.
+      - name: Refresh the social panel
+        working-directory: index-service
+        env:
+          TWITTERAPI_IO_KEY: ${{ secrets.TWITTERAPI_IO_KEY }}
+        run: node src/cli.ts social
+
+      # Each trend epoch has to commit to its predecessor. A key that did not
+      # match the published chain would break this, so it gates the deploy.
+      - name: Check the trend chain
+        working-directory: index-service
+        run: node src/cli.ts verify-chain
+
+      # Fails the job rather than publishing an index that is behind.
+      - name: Check the published index is current
+        working-directory: index-service
+        run: node src/cli.ts health --max-age-days 2
+
+      - name: Export the site
+        working-directory: index-service
+        run: node src/cli.ts export --out .site
+
+      - name: Install the Brimble CLI
+        run: |
+          set -euo pipefail
+          curl -fsSL https://brimble-cli.t3.tigrisfiles.io/install.sh \
+            | BRIMBLE_VERSION=v0.4.0 BRIMBLE_INSTALL_DIR="$HOME/.local/bin" sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Deploy to Brimble
+        env:
+          BRIMBLE_API_KEY: ${{ secrets.BRIMBLE_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BRIMBLE_API_KEY:-}" ]; then
+            echo "::error::BRIMBLE_API_KEY is not set, so the export cannot be published."
+            exit 1
+          fi
+          # The upload can outlast the CLI's default wait even when it lands, so
+          # the timeout is generous and the exit code decides the run.
+          brimble deploy "$PROJECT" --dir "$SITE_DIR" --timeout 300s
+
+      # After the deploy, so a failed publish is retried with a rebuild rather
+      # than recorded as done.
+      - name: Record the published epochs
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain index-service/snapshots)" ]; then
+            echo "no new epochs to record"
+            exit 0
+          fi
+          newest=$(ls index-service/snapshots \
+            | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}\.json$' | tail -1 | cut -c1-10)
+          git config user.name "pulse-indexer"
+          git config user.email "indexer@pulse.markets"
+          git add index-service/snapshots
+          git commit -m "Publish the signed epochs through $newest"
+          git push
