@@ -56,6 +56,12 @@ function parseTweet(raw: unknown): SocialPost | null {
   if (id === null || createdAt === null || userName === null) {
     return null;
   }
+  // Retweets are the cheapest thing to inflate, so they never reach the panel.
+  // The query cannot exclude them (see socialQuery), so they are dropped here.
+  const retweeted = tweet['retweeted_tweet'];
+  if (tweet['isRetweet'] === true || (retweeted !== null && retweeted !== undefined)) {
+    return null;
+  }
   const url = text(tweet['url']) ?? `https://x.com/${userName}/status/${id}`;
   return {
     id,
@@ -108,19 +114,30 @@ async function fetchPage(
   if (cursor !== null) {
     url.searchParams.set('cursor', cursor);
   }
-  let response: Response;
-  try {
-    response = await fetchImpl(url.toString(), {
-      headers: { 'x-api-key': apiKey, accept: 'application/json' },
-    });
-  } catch (error) {
-    const detail = error instanceof Error ? error.message : String(error);
-    throw new SocialError('request-failed', `social request failed: ${detail}`);
-  }
-  if (!response.ok) {
+  // The vendor answers a slice of otherwise identical searches with 503
+  // ("couldn't be completed right now", uncharged) and 429 on bursts. Both are
+  // transient, so the page is retried before the panel gives up.
+  const RESPONSE_ATTEMPTS = 4;
+  for (let attempt = 1; ; attempt += 1) {
+    let response: Response;
+    try {
+      response = await fetchImpl(url.toString(), {
+        headers: { 'x-api-key': apiKey, accept: 'application/json' },
+      });
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      throw new SocialError('request-failed', `social request failed: ${detail}`);
+    }
+    if (response.ok) {
+      return parsePage(await response.text());
+    }
+    const transient = response.status === 503 || response.status === 429;
+    if (transient && attempt < RESPONSE_ATTEMPTS) {
+      await new Promise((resolve) => setTimeout(resolve, 1500 * attempt));
+      continue;
+    }
     throw new SocialError('request-failed', `social request returned HTTP ${response.status}`);
   }
-  return parsePage(await response.text());
 }
 
 /**

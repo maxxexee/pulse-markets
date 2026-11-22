@@ -83,9 +83,10 @@ jobs:
           CATCH_UP: ${{ inputs.catch_up || '14' }}
         run: node src/cli.ts build --catch-up "$CATCH_UP"
 
-      # Display only, weight zero: an unset key leaves the panel unpublished and
-      # must not fail the run.
+      # Display only, weight zero: an unset key leaves the panel unpublished, and
+      # a vendor outage must not keep a signed epoch off the site.
       - name: Refresh the social panel
+        continue-on-error: true
         working-directory: index-service
         env:
           TWITTERAPI_IO_KEY: ${{ secrets.TWITTERAPI_IO_KEY }}
