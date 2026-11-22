@@ -203,9 +203,6 @@ Google sign-in uses Neon's shared development credentials, which show Neon's
 name on the consent screen. Production needs your own OAuth client:
 `neon neon-auth oauth-provider add --provider-id google`.
 
-## Built for
-
-Solana Perps and Prediction Markets hackathon, deadline 2026-12-05.
 
 - pm-AMM program: `GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`
 - Devnet collateral mint (mUSDC, 6 decimals):
