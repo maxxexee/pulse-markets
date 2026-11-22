@@ -1,10 +1,11 @@
 import {
-  mentionKey,
+  mentionsTopic,
   summarizeSocial,
   summarizeTopic,
   type SocialPanel,
   type SocialPost,
   type SocialTopicPanel,
+  type SocialTopicQuery,
 } from '@pulse/index-core/social.ts';
 
 /** Vendor endpoint the vendor documents for search. */
@@ -103,6 +104,7 @@ function parseTweet(raw: unknown): SocialPost | null {
     likes: count(tweet['likeCount']) ?? 0,
     views: count(tweet['viewCount']),
     url,
+    source: 'x',
   };
 }
 
@@ -233,14 +235,6 @@ export async function fetchSocialPanel(options: SocialFetchOptions): Promise<Soc
   });
 }
 
-/** One page's worth of posts, filed under a key the dashboard already routes by. */
-export interface SocialTopicQuery {
-  /** Entity id for a constituent, `g:<topic-slug>` for a discovered topic. */
-  readonly key: string;
-  readonly label: string;
-  readonly query: string;
-}
-
 /**
  * Fetches one panel per page instead of one for the whole basket.
  *
@@ -296,11 +290,10 @@ export async function fetchSocialTopics(options: {
         continue;
       }
     }
-    const key = mentionKey(topic.label);
     panels[topic.key] = summarizeTopic({
       label: topic.label,
       query: topic.query,
-      posts: key === '' ? posts : posts.filter((post) => post.text.toLowerCase().includes(key)),
+      posts: posts.filter((post) => mentionsTopic(post.text, topic.label)),
     });
   }
   return panels;

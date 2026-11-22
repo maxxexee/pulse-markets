@@ -391,7 +391,10 @@ function ago(iso){const s=Math.max(1,Math.round((Date.now()-Date.parse(iso))/100
 function socStrip(key){
  const hits=((STOPICS[key]||{}).posts||[]).slice(0,2);
  if(!hits.length)return '';
- return `<div class="soc"><div class="ch"><span class="lbl">On X</span><span class="mono mu">display only</span></div>${
+ // Both networks can land on one page, so the header names what is actually there.
+ const nets=[...new Set(hits.map(p=>p.source||'x'))];
+ const where=nets.length>1?'On social':nets[0]==='bluesky'?'On Bluesky':'On X';
+ return `<div class="soc"><div class="ch"><span class="lbl">${where}</span><span class="mono mu">display only</span></div>${
   hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="tt"><b>@${esc(p.author)}</b> ${esc(p.text)}</span><span class="mu tw">♥ ${vk(p.likes||0)} · ${ago(p.createdAt)}</span></a>`).join('')}</div>`}
 function loadSocial(){
  const json={'cache':'no-store'};

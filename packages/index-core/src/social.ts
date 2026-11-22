@@ -9,6 +9,9 @@
  */
 export const SOCIAL_PANEL_SCHEMA = 'pulse.social.panel/2';
 
+/** Network a post came from, so a page can say where it is linking to. */
+export type SocialSource = 'x' | 'bluesky';
+
 export interface SocialPost {
   readonly id: string;
   readonly author: string;
@@ -19,6 +22,8 @@ export interface SocialPost {
   /** Null when the API omits the count; unknown is not zero. */
   readonly views: number | null;
   readonly url: string;
+  /** Absent on panels published before more than one network was read. */
+  readonly source?: SocialSource;
 }
 
 /**
@@ -88,11 +93,61 @@ export function mentionKey(label: string): string {
   return label.replace(/\s*\([^)]*\)\s*/g, ' ').trim().toLowerCase();
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** True when the text contains the phrase as whole words. */
+function hasPhrase(haystack: string, phrase: string): boolean {
+  if (phrase === '') {
+    return false;
+  }
+  const edge = '[^\\p{L}\\p{N}]';
+  return new RegExp(`(^|${edge})${escapeRegExp(phrase)}($|${edge})`, 'u').test(haystack);
+}
+
+/**
+ * Whether a post is about this topic, as opposed to merely containing its word.
+ *
+ * Substring matching put a post about "steps down" on the page for `Steps
+ * (film)`, and a post about a dog called Solana on the crypto page. A mention
+ * therefore has to be the whole phrase, and a topic whose title needed a
+ * disambiguator - `Fiona (hippopotamus)`, `Steps (film)` - only counts when the
+ * post carries one of that qualifier's words as well.
+ *
+ * A page with no posts is a better outcome than a page with the wrong ones.
+ */
+export function mentionsTopic(text: string, label: string): boolean {
+  const body = text.toLowerCase();
+  if (!hasPhrase(body, mentionKey(label))) {
+    return false;
+  }
+  const disambiguator = /\(([^)]*)\)/.exec(label)?.[1]?.trim().toLowerCase() ?? '';
+  const words = disambiguator.split(/[^a-z0-9]+/).filter((word) => word.length > 2);
+  if (words.length === 0) {
+    return true;
+  }
+  return words.some((word) => hasPhrase(body, word));
+}
+
 export interface SocialSummaryInput {
   readonly query: string;
   readonly fetchedAt: string;
   readonly posts: readonly SocialPost[];
   readonly truncated: boolean;
+}
+
+/**
+ * What to search for on one page.
+ *
+ * `query` is the X-side search string. A network that searches on a bare term
+ * reads `label` instead, which is why both are carried.
+ */
+export interface SocialTopicQuery {
+  /** Entity id for a constituent, `g:<topic-slug>` for a discovered topic. */
+  readonly key: string;
+  readonly label: string;
+  readonly query: string;
 }
 
 /** One page's panel, totalled the same way the whole panel is. */

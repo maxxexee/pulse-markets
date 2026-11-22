@@ -21,6 +21,7 @@ import { verifyChain, verifyTrends } from './app/report-commands.ts';
 import { startServer } from './app/server.ts';
 import { verifyDay } from './app/verify.ts';
 import { fetchSocialPanel, fetchSocialTopics, SOCIAL_KEY_ENV } from './adapters/twitter.ts';
+import { fetchBlueskyTopics } from './adapters/bluesky.ts';
 import { DEFAULT_MAX_AGE_DAYS, readSnapshotHealth } from './adapters/health.ts';
 import { publishTrendEpoch, verifyTrendChain, verifyTrendEpoch } from './app/trend-epoch.ts';
 import { ENTITY_BASKET } from './config/entities.ts';
@@ -30,6 +31,8 @@ import type { IndexDefinition } from '@pulse/index-core/index-definition.ts';
 import { MIN_PUBLISH_CONFIDENCE } from '@pulse/index-core/coverage.ts';
 import { addDays, isValidDay, toDay } from '@pulse/index-core/dates.ts';
 import { MOMENTUM_WINDOW_DAYS } from '@pulse/index-core/momentum.ts';
+import { SOCIAL_PANEL_SCHEMA, summarizeTopic } from '@pulse/index-core/social.ts';
+import type { SocialPanel, SocialPost, SocialTopicPanel } from '@pulse/index-core/social.ts';
 import { DISCOVERY_V1 } from '@pulse/index-core/discovery.ts';
 import { missingEpochDays } from '@pulse/index-core/schedule.ts';
 import type { IndexSnapshot } from '@pulse/index-core/snapshot.ts';
@@ -69,6 +72,15 @@ published is left alone unless --force is given, so a rerun never replaces a
 signed epoch. --catch-up N publishes every day in the trailing N-day window that
 has no snapshot yet, which is what a scheduled run uses after a skipped day.
 social reads its key from ${SOCIAL_KEY_ENV} and never affects the index.`;
+
+/** Reads a JSON file, or null when it is absent or unreadable. */
+async function readJsonFile<T>(path: string): Promise<T | null> {
+  try {
+    return JSON.parse(await readFile(path, 'utf8')) as T;
+  } catch {
+    return null;
+  }
+}
 
 /** The newest published day, or yesterday when nothing is published yet. */
 async function defaultDay(): Promise<string> {
@@ -260,43 +272,116 @@ async function discover(day: string): Promise<void> {
  * rather than empty.
  */
 async function social(): Promise<void> {
-  const apiKey = process.env[SOCIAL_KEY_ENV];
-  if (apiKey === undefined || apiKey.trim() === '') {
-    console.log(`social panel not configured: set ${SOCIAL_KEY_ENV} to fetch it`);
-    return;
-  }
   const now = new Date();
-  const panel = await fetchSocialPanel({
-    apiKey,
-    query: socialQuery(ENTITY_BASKET),
-    now,
-  });
-  // Per-page panels, so a market shows what is being said about that market
-  // rather than about the basket. The topics come from the newest board, which
-  // is the one the site is showing.
   const day = await latestDiscoveryDay(SNAPSHOTS_DIR);
   const record = day === null ? null : await readDiscovery(SNAPSHOTS_DIR, day);
-  const topics = await fetchSocialTopics({
-    apiKey,
-    topics: socialTopicQueries(
-      ENTITY_BASKET,
-      (record?.entries ?? []).map((entry) => entry.topic),
-    ),
+  const specs = socialTopicQueries(
+    ENTITY_BASKET,
+    (record?.entries ?? []).map((entry) => entry.topic),
+  );
+
+  // Bluesky first, because it is free and keyless: whatever the paid vendor is
+  // doing, the pages get posts. A page is merged below rather than replaced.
+  const bluesky = await fetchBlueskyTopics(specs, {
     now,
     log: (line) => console.log(line),
   });
+
+  const apiKey = process.env[SOCIAL_KEY_ENV];
+  const configured = apiKey !== undefined && apiKey.trim() !== '';
+  const previous = await readJsonFile<{ posts?: readonly SocialPost[]; totals?: SocialPanel['totals'] }>(
+    join(SNAPSHOTS_DIR, 'social.json'),
+  );
+  if (!configured) {
+    console.log(`social panel not configured: set ${SOCIAL_KEY_ENV} to fetch it`);
+  }
+
+  // A vendor outage keeps the last published list rather than blanking the
+  // site-wide panel, and never stops the per-page panels being written.
+  let combined: { posts: readonly SocialPost[]; totals: SocialPanel['totals']; query: string; truncated: boolean } | null =
+    null;
+  let xTopics: Record<string, SocialTopicPanel> = {};
+  if (configured) {
+    try {
+      const panel = await fetchSocialPanel({
+        apiKey: apiKey as string,
+        query: socialQuery(ENTITY_BASKET),
+        now,
+      });
+      combined = {
+        posts: panel.posts,
+        totals: panel.totals,
+        query: panel.query,
+        truncated: panel.truncated,
+      };
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      console.log(`social panel kept as published: ${detail}`);
+    }
+    try {
+      xTopics = await fetchSocialTopics({
+        apiKey: apiKey as string,
+        topics: specs,
+        now,
+        log: (line) => console.log(line),
+      });
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      console.log(`social topics not read from X: ${detail}`);
+    }
+  }
+
+  // One list per page: both networks, most liked first. Two lines are shown, so
+  // the ranking is what decides which posts a reader sees.
+  const topics: Record<string, SocialTopicPanel> = {};
+  for (const spec of specs) {
+    const posts = [...(xTopics[spec.key]?.posts ?? []), ...(bluesky[spec.key]?.posts ?? [])].sort(
+      (a, b) => b.likes - a.likes,
+    );
+    if (posts.length === 0) continue;
+    topics[spec.key] = summarizeTopic({ label: spec.label, query: spec.query, posts });
+  }
+
+  if (Object.keys(topics).length === 0 && combined === null) {
+    console.log('social panel left as published: no source returned posts');
+    return;
+  }
+
+  const posts = combined?.posts ?? previous?.posts ?? [];
+  const totals =
+    combined?.totals ??
+    previous?.totals ?? {
+      posts: 0,
+      likes: 0,
+      views: 0,
+    };
   await mkdir(SNAPSHOTS_DIR, { recursive: true });
   await writeFile(
     join(SNAPSHOTS_DIR, 'social.json'),
-    JSON.stringify({ ...panel, topics }, null, 2),
+    JSON.stringify(
+      {
+        schema: SOCIAL_PANEL_SCHEMA,
+        fetchedAt: now.toISOString(),
+        query: combined?.query ?? socialQuery(ENTITY_BASKET),
+        settlementWeight: 0,
+        posts,
+        totals,
+        truncated: combined?.truncated ?? false,
+        topics,
+      },
+      null,
+      2,
+    ),
   );
-  const covered = Object.values(topics).filter((topic) => topic.posts.length > 0);
+  const fromX = Object.values(xTopics).filter((topic) => topic.posts.length > 0).length;
+  const fromBluesky = Object.values(bluesky).filter((topic) => topic.posts.length > 0).length;
   console.log(
-    `social panel: ${panel.totals.posts} posts, ${panel.totals.likes} likes` +
-      `${panel.truncated ? ', page budget reached' : ''} (display only, weight 0)`,
+    `social panel: ${totals.posts} posts, ${totals.likes} likes` +
+      `${combined?.truncated ? ', page budget reached' : ''} (display only, weight 0)`,
   );
   console.log(
-    `social topics: ${covered.length}/${Object.keys(topics).length} with posts` +
+    `social topics: ${Object.keys(topics).length}/${specs.length} pages` +
+      ` (x ${fromX}, bluesky ${fromBluesky})` +
       (day === null ? '' : ` (board ${day})`),
   );
 }
