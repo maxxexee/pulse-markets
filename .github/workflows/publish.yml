@@ -36,6 +36,7 @@ permissions:
 env:
   PROJECT: pulse-markets
   SITE_DIR: index-service/.site
+  SITE_URL: https://pulse-markets.brimble.app
   BRIMBLE_NO_UPDATE_NOTIFIER: '1'
   # Public: the export bakes it into the auth bundle the sign-up page loads.
   # Without it the export refuses to run rather than shipping a bundle that
@@ -116,14 +117,31 @@ jobs:
         env:
           BRIMBLE_API_KEY: ${{ secrets.BRIMBLE_API_KEY }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
           if [ -z "${BRIMBLE_API_KEY:-}" ]; then
             echo "::error::BRIMBLE_API_KEY is not set, so the export cannot be published."
             exit 1
           fi
-          # The upload can outlast the CLI's default wait even when it lands, so
-          # the timeout is generous and the exit code decides the run.
-          brimble deploy "$PROJECT" --dir "$SITE_DIR" --timeout 300s
+          if brimble deploy "$PROJECT" --dir "$SITE_DIR" --timeout 300s; then
+            exit 0
+          fi
+          # The upload routinely outlasts the CLI's wait and comes back 504 after
+          # the files are already live, so the exit code alone cannot decide this:
+          # the deployed content is what has to match what was just built.
+          local_asset=$(grep -oE 'pulse-live\.js\?v=[a-f0-9]+' "$SITE_DIR/app/index.html" | head -1)
+          local_epoch=$(python3 -c "import json;print(json.load(open('$SITE_DIR/api/index/latest'))['snapshot']['epochDay'])")
+          for attempt in $(seq 1 10); do
+            live_asset=$(curl -fsS --max-time 30 "$SITE_URL/app/index.html" | grep -oE 'pulse-live\.js\?v=[a-f0-9]+' | head -1)
+            live_epoch=$(curl -fsS --max-time 30 "$SITE_URL/api/index/latest" | python3 -c "import json,sys;print(json.load(sys.stdin)['snapshot']['epochDay'])")
+            if [ "$live_asset" = "$local_asset" ] && [ "$live_epoch" = "$local_epoch" ]; then
+              echo "the CLI reported a timeout, but the deploy landed: $live_epoch, $live_asset"
+              exit 0
+            fi
+            echo "attempt $attempt: live is $live_epoch $live_asset, built $local_epoch $local_asset"
+            sleep 15
+          done
+          echo "::error::deploy did not land: live is $live_epoch $live_asset, built $local_epoch $local_asset"
+          exit 1
 
       # After the deploy, so a failed publish is retried with a rebuild rather
       # than recorded as done.
