@@ -37,6 +37,10 @@ env:
   PROJECT: pulse-markets
   SITE_DIR: index-service/.site
   BRIMBLE_NO_UPDATE_NOTIFIER: '1'
+  # Public: the export bakes it into the auth bundle the sign-up page loads.
+  # Without it the export refuses to run rather than shipping a bundle that
+  # signs nobody up.
+  NEON_AUTH_BASE_URL: ${{ vars.NEON_AUTH_BASE_URL }}
 
 jobs:
   publish:
