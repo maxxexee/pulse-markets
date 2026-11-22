@@ -41,14 +41,18 @@ const APP_TYPES: Readonly<Record<string, string>> = {
 };
 
 /**
- * Serves the landing page's own files. Only a bare file name is accepted, so a
- * request cannot walk out of the directory, and only the types it ships.
+ * Serves the landing page's own files, including the dashboard under its own directory.
+ * Every segment is restricted to a bare name, so a request cannot walk out of the app.
  */
 async function readAppFile(name: string, appDir: string): Promise<RouteResult> {
-  if (name === '') {
-    return readAppFile('index.html', appDir);
+  if (name === '' || name.endsWith('/')) {
+    return readAppFile(`${name}index.html`, appDir);
   }
-  if (!/^[A-Za-z0-9._-]+$/.test(name)) {
+  const segments = name.split('/');
+  const safe = segments.every(
+    (segment) => segment !== '.' && segment !== '..' && /^[A-Za-z0-9._-]+$/.test(segment),
+  );
+  if (!safe) {
     return json(404, JSON.stringify({ error: 'not-found' }));
   }
   const type = APP_TYPES[extname(name)] ?? 'text/html; charset=utf-8';

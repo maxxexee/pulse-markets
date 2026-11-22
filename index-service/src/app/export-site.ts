@@ -43,21 +43,32 @@ async function publishedTrendDays(snapshotsDir: string): Promise<readonly string
   }
 }
 
-/** Files of the marketing and markets app, published under /app/. */
-async function appFiles(appDir: string): Promise<ReadonlyArray<readonly [string, string | Uint8Array]>> {
-  let names: string[];
+/**
+ * Files of the marketing and markets app, published under /app/. Subdirectories hold the
+ * signed-in dashboard and the assets it loads, so the walk has to go deeper than one level.
+ */
+async function appFiles(
+  appDir: string,
+  prefix = 'app',
+): Promise<ReadonlyArray<readonly [string, string | Uint8Array]>> {
+  let entries;
   try {
-    // The auth source ships as a bundle, so publishing it would only add a file
-    // the page cannot load.
-    names = (await readdir(appDir))
-      .filter((name) => !name.startsWith('.') && name !== AUTH_CLIENT_SOURCE)
-      .sort();
+    entries = (await readdir(appDir, { withFileTypes: true }))
+      // The auth source ships as a bundle, so publishing it would only add a file
+      // the page cannot load.
+      .filter((entry) => !entry.name.startsWith('.') && entry.name !== AUTH_CLIENT_SOURCE)
+      .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
   } catch {
     return [];
   }
   const files: Array<readonly [string, string | Uint8Array]> = [];
-  for (const name of names) {
-    files.push([`app/${name}`, await readFile(join(appDir, name))]);
+  for (const entry of entries) {
+    const path = join(appDir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await appFiles(path, `${prefix}/${entry.name}`)));
+      continue;
+    }
+    files.push([`${prefix}/${entry.name}`, await readFile(path)]);
   }
   return files;
 }
