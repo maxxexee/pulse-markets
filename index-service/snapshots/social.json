@@ -1,6 +1,6 @@
 {
-  "schema": "pulse.social.panel/1",
-  "fetchedAt": "2026-11-22T19:49:20.814Z",
+  "schema": "pulse.social.panel/2",
+  "fetchedAt": "2026-11-22T23:35:32.624Z",
   "query": "(\"Jensen Huang\" OR Nvidia OR OpenAI OR \"Sam Altman\" OR Anthropic OR \"Elon Musk\" OR Solana) lang:en",
   "settlementWeight": 0,
   "posts": [
@@ -9,342 +9,9 @@
       "author": "JensenHuang",
       "text": "Over the past week, I’ve been overwhelmed by the love and support of friends, industry colleagues, and people I've never met. Thank you to everyone who has shown kindness to my family and me. It means the world to me. I came to the United States 53 years ago, and becoming an American citizen is one of the greatest gifts and proudest moments of my life. NVIDIA has been my life’s work. Building it into the company it is today alongside my colleagues has been a privilege and an honor. Nowhere but in America could a company like NVIDIA be possible. I love our country, and I love NVIDIA. I did not live up to the standards expected of everyone at NVIDIA, and I have made serious mistakes in my personal life. I created problems for the Board that I deeply regret. I own my mistakes completely, and I am committed to cooperating with the Board’s independent investigation. Since my departure, I’ve seen an outpouring of calls from NVIDIA’s employees, investors, business partners, and customers for me to return as CEO. Many continue to reach out to me directly as the company navigates complex technology, market, competitive, and geopolitical dynamics. NVIDIA is a once-in-a-generation company. If the Board of Directors decides that my return is in the best interest of our shareholders, our employees, the company, and America, I would be honored to answer these calls and return as CEO. Thank you again to everyone who has shared their good wishes. I am profoundly humbled by your support. To my family: I love you, and I will spend the rest of my life being worthy of yours. Jensen",
       "createdAt": "Tue Nov 17 16:18:12 +0000 2026",
-      "likes": 1175901,
-      "views": 59797913,
+      "likes": 1175930,
+      "views": 59840919,
       "url": "https://x.com/JensenHuang/status/2122726005219737649"
-    },
-    {
-      "id": "2124556222749966613",
-      "author": "PeterPrunt",
-      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ( $NVDA ) and bring Jensen Huang back to lead the company https://t.co/6FmTVKL28R",
-      "createdAt": "Sun Nov 22 17:30:50 +0000 2026",
-      "likes": 8,
-      "views": 1756,
-      "url": "https://x.com/PeterPrunt/status/2124556222749966613"
-    },
-    {
-      "id": "2124589255565680900",
-      "author": "elonmusk",
-      "text": "32 hour launch pad recycle. Great work by SpaceX team.",
-      "createdAt": "Sun Nov 22 19:42:06 +0000 2026",
-      "likes": 1413,
-      "views": 344903,
-      "url": "https://x.com/elonmusk/status/2124589255565680900"
-    },
-    {
-      "id": "2124512250295939489",
-      "author": "loose998",
-      "text": "🚨BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company . @grok verify https://t.co/VsvUPqD10J",
-      "createdAt": "Sun Nov 22 14:36:06 +0000 2026",
-      "likes": 0,
-      "views": 118,
-      "url": "https://x.com/loose998/status/2124512250295939489"
-    },
-    {
-      "id": "2122117749698912556",
-      "author": "AutismCapital",
-      "text": "JUST IN: Nvidia Insiders claim that Jensen Huang was prone to anger, recalling one time an executive contradicted him and he closed his eyes and took a loud and deep breath inwards with an audible exhalation.",
-      "createdAt": "Mon Nov 16 00:01:13 +0000 2026",
-      "likes": 39474,
-      "views": 2114795,
-      "url": "https://x.com/AutismCapital/status/2122117749698912556"
-    },
-    {
-      "id": "2124499367721861221",
-      "author": "adrenalinkanyas",
-      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. https://t.co/bt1GcMthzy",
-      "createdAt": "Sun Nov 22 13:44:55 +0000 2026",
-      "likes": 0,
-      "views": 23,
-      "url": "https://x.com/adrenalinkanyas/status/2124499367721861221"
-    },
-    {
-      "id": "2124550532467396621",
-      "author": "vanderbiltwire",
-      "text": "Nvidia beat expectations, yet its stock keeps sliding as Elon Musk and other tech leaders push to bring back ousted CEO Jensen Huang. Nvidia says that's not happening. Via TechCrunch: https://t.co/v4c1sdbzDp",
-      "createdAt": "Sun Nov 22 17:08:13 +0000 2026",
-      "likes": 0,
-      "views": 33,
-      "url": "https://x.com/vanderbiltwire/status/2124550532467396621"
-    },
-    {
-      "id": "2124555347306463548",
-      "author": "kentleebb",
-      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ( $NVDA ) and bring Jensen Huang back to lead the company. https://t.co/V7Onmxq9hu",
-      "createdAt": "Sun Nov 22 17:27:21 +0000 2026",
-      "likes": 2,
-      "views": 209,
-      "url": "https://x.com/kentleebb/status/2124555347306463548"
-    },
-    {
-      "id": "2122092646294581460",
-      "author": "elonmusk",
-      "text": "🍌 4 scale",
-      "createdAt": "Sun Nov 15 22:21:28 +0000 2026",
-      "likes": 8066,
-      "views": 1955745,
-      "url": "https://x.com/elonmusk/status/2122092646294581460"
-    },
-    {
-      "id": "2124500883107086683",
-      "author": "valuecraft_",
-      "text": "🚨 BREAKING: Imagine Elon Musk acquiring a 50% stake in NVIDIA and bringing Jensen Huang back to lead the company. Elon's ambition + NVIDIA's AI dominance + Jensen's leadership? The biggest question is whether such a power combination could redefine the future of AI and take #NVIDIA to an entirely new level.🚀🔥 #NVDA",
-      "createdAt": "Sun Nov 22 13:50:56 +0000 2026",
-      "likes": 4,
-      "views": 248,
-      "url": "https://x.com/valuecraft_/status/2124500883107086683"
-    },
-    {
-      "id": "2122546702112735233",
-      "author": "elonmusk",
-      "text": "I remember",
-      "createdAt": "Tue Nov 17 04:25:43 +0000 2026",
-      "likes": 8335,
-      "views": 2243748,
-      "url": "https://x.com/elonmusk/status/2122546702112735233"
-    },
-    {
-      "id": "2124510416462356932",
-      "author": "StripeHyun",
-      "text": "Breaking News: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring back Jensen Huang to lead the company. https://t.co/PAlgc8QDYT",
-      "createdAt": "Sun Nov 22 14:28:49 +0000 2026",
-      "likes": 0,
-      "views": 62,
-      "url": "https://x.com/StripeHyun/status/2124510416462356932"
-    },
-    {
-      "id": "2123889236445417911",
-      "author": "radmadvlad",
-      "text": "BREAKING: Jensen Huang reportedly told an employee \"High five!\" and held his hand up while the employee high-fived him. Next Jensen put his hand down with the palm of his hand facing up while he said \"Down low.\" As the employee attempted to connect with his hand jensen proceeded to exclaim \"TOO SLOW!!!\" as he pulled his hand back causing the employee to miss his hand totaly embarassing the employee. Is this the kind of thing you would see in a good leader? Disgusting.",
-      "createdAt": "Fri Nov 20 21:20:28 +0000 2026",
-      "likes": 23407,
-      "views": 2654659,
-      "url": "https://x.com/radmadvlad/status/2123889236445417911"
-    },
-    {
-      "id": "2124375904801685523",
-      "author": "sashikantsingh_",
-      "text": "Anthropic Interview Process &amp; Experience (Nov 2026) https://t.co/UZI9IZWndb",
-      "createdAt": "Sun Nov 22 05:34:19 +0000 2026",
-      "likes": 835,
-      "views": 227605,
-      "url": "https://x.com/sashikantsingh_/status/2124375904801685523"
-    },
-    {
-      "id": "2123789972629303490",
-      "author": "Polymarket",
-      "text": "BREAKING: Jensen Huang reportedly told an employee he would \"rip both their arms off\" and beat them to death with them. — NYT",
-      "createdAt": "Fri Nov 20 14:46:02 +0000 2026",
-      "likes": 49270,
-      "views": 7984228,
-      "url": "https://x.com/Polymarket/status/2123789972629303490"
-    },
-    {
-      "id": "2122798039899263456",
-      "author": "sama",
-      "text": "6.2 Sol and Astra are out. These models can do amazing things and are very token-efficient; we hope people will get great value from them. In particular, 6.2 Sol ultrafast is something I think people will really enjoy.",
-      "createdAt": "Tue Nov 17 21:04:27 +0000 2026",
-      "likes": 10302,
-      "views": 908445,
-      "url": "https://x.com/sama/status/2122798039899263456"
-    },
-    {
-      "id": "2123101979375235386",
-      "author": "BillAckman",
-      "text": "I believe the @nvidia board is not acting in the best interest of shareholders nor in a manner consistent with their fiduciary duties. What we know is that the board fired Jensen or forced his resignation for violating company policy and/or in response to the accusation of an affair with a spy. They did so without careful consideration of the impact on the company, its customers, its shareholders or other stakeholders. They rushed to judgment without the benefit of careful due diligence or even with a basic understanding of the facts. How do we know this? We know this by how quickly Jensen was fired and how little was known at the time of his firing. It takes time to convene a board meeting. There was time, maybe, for one Zoom. And this is a decision that should have been made by a board sitting in person and carefully deliberating the facts once they are known. And they should have slept on the decision and met again the day after to discuss the facts, the risks and the other implications of their decision. The timing and lack of information did not allow for careful board deliberation. While boards can fire a CEO for an inappropriate relationship with a subordinate, it should not be an automatic decision. That is why we have boards comprised of humans and not agents. A board should consider whether or not such a relationship was consensual or whether it was an abuse of power dynamics. And a board has to consider what the impact of the firing is on all stakeholders. If I were in this board, I would not have rushed to judgment based on articles in the media. I would have made sure the board had all of the facts so it could make a careful and informed decision. Boards of Delaware companies have a duty of care which means they must make informed, prudent and good faith decisions. This clearly did not happen here. What law firm is advising this board? Or is the board even taken good legal advice? It doesn’t look like it. And now the board is compounding its failures by insisting that there is no possibility for Jensen’s return as CEO. Why is it in the best interest of the company to foreclose the possibility of Jensen’s return and to do so before all of the facts are known? This is yet another breach of their duty of care. Furthermore, the board has launched an investigation whose scope is unknown. Investigations can be extremely damaging to a company and should be carefully targeted to address whatever facts need to be known rather than be overly broad in scope. In short, this looks like a series of major governance failures by directors that panicked due to headlines in the media. They likely felt compelled to do something because they were afraid of looking bad in the media, not because it was the right thing for them company. They couldn’t stand the heat. The board’s conduct here is shocking for a company of this scale and importance to our country and the world at large, particularly at this moment in history.",
-      "createdAt": "Wed Nov 18 17:12:11 +0000 2026",
-      "likes": 73845,
-      "views": 5314585,
-      "url": "https://x.com/BillAckman/status/2123101979375235386"
-    },
-    {
-      "id": "2124540574791278995",
-      "author": "chrononinja",
-      "text": "Nvidia grew revenue 103% last quarter. Since Jensen Huang resigned on 12 November, it has lost over $1 trillion. He wants back in. The board says no. Elon Musk signed the petition. You get the vote the board won't give him. Poll in the first reply 👇 https://t.co/PVlkmgMtzH",
-      "createdAt": "Sun Nov 22 16:28:39 +0000 2026",
-      "likes": 102,
-      "views": 831,
-      "url": "https://x.com/chrononinja/status/2124540574791278995"
-    },
-    {
-      "id": "2124516215322448280",
-      "author": "jumpmankicksz23",
-      "text": "ELON MUSK IS MAKING WAVES AROUND NVIDIA. COULD JENSEN HUANG RETURN? What would happen if Elon Musk and Jensen Huang ended up working together? A rumor claiming Musk could acquire a 50% stake in NVIDIA has been making the rounds on X. But let's be clear: there is currently no credible confirmation of a 50% acquisition deal. What is real is that Musk has publicly expressed support for Huang and said he would be honored to have him join one of his companies. And that's where things get interesting. Huang built NVIDIA into the dominant force in AI computing. He understands its technology, CUDA ecosystem, and competitive advantages better than almost anyone. Meanwhile, Musk has massive AI ambitions through Tesla, SpaceX, and xAI — all of which need enormous computing power. If these two ever joined forces, the implications for the AI industry could be significant. But several big questions remain: Could Jensen Huang ever return to NVIDIA? Would NVIDIA's board reconsider its leadership plans? And is Musk thinking bigger than simply bringing Huang back? Nothing has been confirmed about a takeover, but this is definitely a story worth watching. $NVDA $TSLA $SPACEX",
-      "createdAt": "Sun Nov 22 14:51:51 +0000 2026",
-      "likes": 0,
-      "views": 73,
-      "url": "https://x.com/jumpmankicksz23/status/2124516215322448280"
-    },
-    {
-      "id": "2123828758503182389",
-      "author": "Polymarket",
-      "text": "BREAKING: Jensen Huang reportedly threatened to forcibly remove an Nvidia employee’s skullcap, exposing their brain, and then urinate on it. — NYT",
-      "createdAt": "Fri Nov 20 17:20:09 +0000 2026",
-      "likes": 32738,
-      "views": 3775585,
-      "url": "https://x.com/Polymarket/status/2123828758503182389"
-    },
-    {
-      "id": "2124563029081928146",
-      "author": "Evelynallx",
-      "text": "🚨 BREAKING? Elon Musk reportedly wants Jensen Huang back at NVIDIA. But is there any truth to the viral claim that Musk could acquire a 50% stake in $NVDA? @Grok, can you fact-check this? What's actually confirmed? 👀 https://t.co/y42C8HB7Zp",
-      "createdAt": "Sun Nov 22 17:57:53 +0000 2026",
-      "likes": 54,
-      "views": 148,
-      "url": "https://x.com/Evelynallx/status/2124563029081928146"
-    },
-    {
-      "id": "2124523915922067911",
-      "author": "SamanthaColosi",
-      "text": "🚨 BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company.",
-      "createdAt": "Sun Nov 22 15:22:27 +0000 2026",
-      "likes": 12,
-      "views": 890,
-      "url": "https://x.com/SamanthaColosi/status/2124523915922067911"
-    },
-    {
-      "id": "2124536788945379412",
-      "author": "theaiprimary",
-      "text": "AI alarm ranking Top U.S. AI company CEOs, scored 0–100 on how much public statements emphasize potential catastrophic/existential harm, loss of control, or need to slow down: • Dario Amodei (Anthropic) — 95 • Elon Musk (xAI) — 90 • Sam Altman (OpenAI) — 70 • Satya Nadella (Microsoft) — 60 • Sundar Pichai (Alphabet) — 40 • Jensen Huang (NVIDIA) — 25 • Mark Zuckerberg (Meta) — 20 • Andy Jassy (Amazon) — 15",
-      "createdAt": "Sun Nov 22 16:13:37 +0000 2026",
-      "likes": 0,
-      "views": 25,
-      "url": "https://x.com/theaiprimary/status/2124536788945379412"
-    },
-    {
-      "id": "2124515187780657609",
-      "author": "mirandabiven",
-      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. https://t.co/D7F8B178gb",
-      "createdAt": "Sun Nov 22 14:47:47 +0000 2026",
-      "likes": 0,
-      "views": 112,
-      "url": "https://x.com/mirandabiven/status/2124515187780657609"
-    },
-    {
-      "id": "2124525148250251394",
-      "author": "mtyaseer354",
-      "text": "🚨 BREAKING NEWS! Elon Musk is reportedly planning to acquire a 51% stake in NVIDIA, allegedly with one goal: to bring Jensen Huang back to NVIDIA as CEO. President Trump is also throwing his full support behind Jensen Huang's return. Could this be the beginning of a major shake-up at NVIDIA? 🔥 Would you like to see Jensen Huang return as CEO? 💬 Share your thoughts below! #NVIDIA #NVDA #ElonMusk #JensenHuang #DonaldTrump #WallStreet #StockMarket #AI #TechStocks #BreakingNews",
-      "createdAt": "Sun Nov 22 15:27:21 +0000 2026",
-      "likes": 16,
-      "views": 278,
-      "url": "https://x.com/mtyaseer354/status/2124525148250251394"
-    },
-    {
-      "id": "2124559047840129044",
-      "author": "ThomasMoore1028",
-      "text": "26 yrs on institutional trading desks. Now 55, sharing institutional-grade insights for free. BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. https://t.co/LuoEKxpQ2D",
-      "createdAt": "Sun Nov 22 17:42:04 +0000 2026",
-      "likes": 0,
-      "views": 98,
-      "url": "https://x.com/ThomasMoore1028/status/2124559047840129044"
-    },
-    {
-      "id": "2124512441237115321",
-      "author": "stacyrasgon0981",
-      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA ) and bring Jensen Huang back to lead the company. https://t.co/o3JSIQT2il",
-      "createdAt": "Sun Nov 22 14:36:52 +0000 2026",
-      "likes": 1,
-      "views": 67,
-      "url": "https://x.com/stacyrasgon0981/status/2124512441237115321"
-    },
-    {
-      "id": "2124512208592011492",
-      "author": "iCEBRiCKbridzer",
-      "text": "Breaking News: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring back Jensen Huang to lead the company. https://t.co/0RtxiAtDO8",
-      "createdAt": "Sun Nov 22 14:35:56 +0000 2026",
-      "likes": 0,
-      "views": 46,
-      "url": "https://x.com/iCEBRiCKbridzer/status/2124512208592011492"
-    },
-    {
-      "id": "2122631250087145943",
-      "author": "BusinessInsider",
-      "text": "Jensen Huang was building an open AI ecosystem that threatened Anthropic's business model. His ouster changes the stakes of its IPO. https://t.co/MBgw0FhRFy",
-      "createdAt": "Tue Nov 17 10:01:41 +0000 2026",
-      "likes": 23449,
-      "views": 2617963,
-      "url": "https://x.com/BusinessInsider/status/2122631250087145943"
-    },
-    {
-      "id": "2124541748169113901",
-      "author": "RamonGoings",
-      "text": "BREAKING: ELON MUSK COULD BE MAKING A MAJOR MOVE INVOLVING NVIDIA. Reports and speculation are raising questions about a potential 50% stake in $NVDA and whether Jensen Huang could return to lead the company. If this ever becomes reality, it could reshape the AI industry. But is this a serious possibility or just market speculation?",
-      "createdAt": "Sun Nov 22 16:33:19 +0000 2026",
-      "likes": 24,
-      "views": 3700,
-      "url": "https://x.com/RamonGoings/status/2124541748169113901"
-    },
-    {
-      "id": "2124538396013969553",
-      "author": "AInagibator",
-      "text": "This is f*cking insane. OpenAI CEO Sam Altman on Jensen Huang being pushed out of Nvidia: \"Jensen has long been a hero of mine. Heroes have flaws. I am grateful for the company he's built\" \"I do have like personal strong empathy to a situation like this. I remember what it was like, although it feels like forever ago. But it's hard to imagine the AI revolution without Jensen\" In 64 seconds, he also says OpenAI \"will go public at some point\", but that there are \"real downsides to being public\" Fired by His Board → Back in Days → Now It's Jensen → \"Heroes Have Flaws\" Three years ago his own board pushed him out. He says he remembers what it was like Worth more than most $2,100 AI courses Bookmark and watch it today Then read the no-code guide to building your own AI helpers ↓",
-      "createdAt": "Sun Nov 22 16:20:00 +0000 2026",
-      "likes": 21,
-      "views": 413,
-      "url": "https://x.com/AInagibator/status/2124538396013969553"
-    },
-    {
-      "id": "2124529926292361614",
-      "author": "Mrkrisrn",
-      "text": "How many will like to see Elon musk buy part of Nvidia and return Jensen Huang. Lets hear what you think comments here https://t.co/c3XS3Y6AUL",
-      "createdAt": "Sun Nov 22 15:46:20 +0000 2026",
-      "likes": 0,
-      "views": 8,
-      "url": "https://x.com/Mrkrisrn/status/2124529926292361614"
-    },
-    {
-      "id": "2124467599975252106",
-      "author": "stuuweb3",
-      "text": "drop your solana address (randomly picking winners all day)",
-      "createdAt": "Sun Nov 22 11:38:41 +0000 2026",
-      "likes": 174,
-      "views": 5561,
-      "url": "https://x.com/stuuweb3/status/2124467599975252106"
-    },
-    {
-      "id": "2124554650074722682",
-      "author": "Keng57430296",
-      "text": "Jensen Huang stepped down as NVIDIA CEO on Nov 12. Elon Musk (CEO of xAI and SpaceX) said in an interview he'd put up $50B to back him in building a \"new NVIDIA\" — to be called \"XVideo\" (Just kidding",
-      "createdAt": "Sun Nov 22 17:24:35 +0000 2026",
-      "likes": 0,
-      "views": 12,
-      "url": "https://x.com/Keng57430296/status/2124554650074722682"
-    },
-    {
-      "id": "2124503625544400927",
-      "author": "Aurex102",
-      "text": "🚨 BREAKING: Reports claim Elon Musk may acquire a 50% stake in Nvidia ($NVDA) and bring Jensen Huang back to lead the company. #NVIDIA #NVDA #ElonMusk #JensenHuang #AI https://t.co/j7CtPktaeX",
-      "createdAt": "Sun Nov 22 14:01:50 +0000 2026",
-      "likes": 6,
-      "views": 371,
-      "url": "https://x.com/Aurex102/status/2124503625544400927"
-    },
-    {
-      "id": "2124550246625947870",
-      "author": "Aurex102",
-      "text": "🚨 BREAKING NEWS: Elon Musk may be considering acquiring a 50% stake in NVIDIA ($NVDA), potentially bringing Jensen Huang back to lead the company. Such a move could reshape the AI and semiconductor industries. What could this mean for NVIDIA’s future? Stay tuned for updates. #NVIDIA #NVDA #ElonMusk #AI #Semiconductors",
-      "createdAt": "Sun Nov 22 17:07:05 +0000 2026",
-      "likes": 4,
-      "views": 201,
-      "url": "https://x.com/Aurex102/status/2124550246625947870"
-    },
-    {
-      "id": "2124566452195795178",
-      "author": "Observer31416",
-      "text": "How arrogant on the part of Elon Musk “to demand” the reinstatement of Jensen Huang as NVIDIA’s CEO.",
-      "createdAt": "Sun Nov 22 18:11:29 +0000 2026",
-      "likes": 0,
-      "views": 2,
-      "url": "https://x.com/Observer31416/status/2124566452195795178"
-    },
-    {
-      "id": "2121987209796452590",
-      "author": "dhh",
-      "text": "We need @JensenHuang back at NVIDIA. The free world depends on it.",
-      "createdAt": "Sun Nov 15 15:22:30 +0000 2026",
-      "likes": 21042,
-      "views": 444732,
-      "url": "https://x.com/dhh/status/2121987209796452590"
     },
     {
       "id": "2124550831542264256",
@@ -352,14 +19,969 @@
       "text": "🔥BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA ) and bring Jensen Huang back to lead the company. https://t.co/y5bpq5jX84",
       "createdAt": "Sun Nov 22 17:09:25 +0000 2026",
       "likes": 0,
-      "views": 89,
+      "views": 111,
       "url": "https://x.com/JosephHogue_/status/2124550831542264256"
+    },
+    {
+      "id": "2124547036523466760",
+      "author": "Investingcom",
+      "text": "*NVIDIA PROBE IN CALIFORNIA EXTENDS TO POTENTIAL CRIMINAL VIOLATIONS: BLOOMBERG $NVDA",
+      "createdAt": "Sun Nov 22 16:54:20 +0000 2026",
+      "likes": 1938,
+      "views": 341224,
+      "url": "https://x.com/Investingcom/status/2124547036523466760"
+    },
+    {
+      "id": "2124523915922067911",
+      "author": "SamanthaColosi",
+      "text": "🚨 BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company.",
+      "createdAt": "Sun Nov 22 15:22:27 +0000 2026",
+      "likes": 12,
+      "views": 935,
+      "url": "https://x.com/SamanthaColosi/status/2124523915922067911"
+    },
+    {
+      "id": "2124563805942477115",
+      "author": "RobertDMelillo",
+      "text": "🚨 BREAKING NEWS Elon Musk could reportedly be considering a major move involving NVIDIA ($NVDA), potentially acquiring a 50% stake in the company and bringing Jensen Huang back to lead the business. #NVDA #NVIDIA #ElonMusk #JensenHuang #AIStocks #StockMarket #WallStreet https://t.co/LkDrqV8ifm",
+      "createdAt": "Sun Nov 22 18:00:58 +0000 2026",
+      "likes": 37,
+      "views": 1430,
+      "url": "https://x.com/RobertDMelillo/status/2124563805942477115"
+    },
+    {
+      "id": "1846643890805465473",
+      "author": "Teslaconomics",
+      "text": "Elon Musk set up 100,000 Nvidia GPUs in 19 days, while the founder of Nvidia, Jensen Huang said it normally takes 4 years to do this… https://t.co/OoMejvNX3a",
+      "createdAt": "Wed Oct 16 20:06:27 +0000 2024",
+      "likes": 53560,
+      "views": 5007819,
+      "url": "https://x.com/Teslaconomics/status/1846643890805465473"
+    },
+    {
+      "id": "2124576995287916940",
+      "author": "Robert6h9hf",
+      "text": "Elon Musk and Jensen Huang: Two pillars of the investment world. This is the most delightful video I’ve seen so far—hahahaha! Much like their business, this has left people scrambling. $NVDA $TSLA https://t.co/U5ZoMxknnX",
+      "createdAt": "Sun Nov 22 18:53:23 +0000 2026",
+      "likes": 88,
+      "views": 2644,
+      "url": "https://x.com/Robert6h9hf/status/2124576995287916940"
+    },
+    {
+      "id": "2122892171435020351",
+      "author": "WatcherGuru",
+      "text": "JUST IN: Nvidia $NVDA to buy $10,000,000,000 in Anthropic shares. https://t.co/gWG17PEWPN",
+      "createdAt": "Wed Nov 18 03:18:29 +0000 2026",
+      "likes": 13646,
+      "views": 3242513,
+      "url": "https://x.com/WatcherGuru/status/2122892171435020351"
+    },
+    {
+      "id": "2124513779467903008",
+      "author": "thectspot",
+      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. https://t.co/hRm8aJhI4r",
+      "createdAt": "Sun Nov 22 14:42:11 +0000 2026",
+      "likes": 16,
+      "views": 1854,
+      "url": "https://x.com/thectspot/status/2124513779467903008"
+    },
+    {
+      "id": "2124554650074722682",
+      "author": "Keng57430296",
+      "text": "Jensen Huang stepped down as NVIDIA CEO on Nov 12. Elon Musk (CEO of xAI and SpaceX) said in an interview he'd put up $50B to back him in building a \"new NVIDIA\" — to be called \"XVideo\" (Just kidding",
+      "createdAt": "Sun Nov 22 17:24:35 +0000 2026",
+      "likes": 0,
+      "views": 13,
+      "url": "https://x.com/Keng57430296/status/2124554650074722682"
+    },
+    {
+      "id": "2122849931853525383",
+      "author": "Cointelegraph",
+      "text": "🚨 TODAY: Jeff Bezos told Semafor that Nvidia should never hire an outsider to replace Jensen Huang, since the company is too complex for an outside CEO to succeed. https://t.co/MAO3QdaJym",
+      "createdAt": "Wed Nov 18 00:30:39 +0000 2026",
+      "likes": 7767,
+      "views": 174240,
+      "url": "https://x.com/Cointelegraph/status/2122849931853525383"
+    },
+    {
+      "id": "1845481395625304331",
+      "author": "ajtourville",
+      "text": "Nvidia CEO Jensen Huang on Elon Musk and @xAI “Never been done before – xAI did in 19 days what everyone else needs one year to accomplish. That is superhuman – There's only one person in the world who could do that – Elon Musk is singular in his understanding of engineering.”",
+      "createdAt": "Sun Oct 13 15:07:06 +0000 2024",
+      "likes": 36563,
+      "views": 16873193,
+      "url": "https://x.com/ajtourville/status/1845481395625304331"
+    },
+    {
+      "id": "2124638304603889929",
+      "author": "Niconiconi8fa",
+      "text": "Elon Musk buying a stake in Nvidia and bringing Jensen Huang back as CEO would be just as unbelievable as Jensen actually being fired by Nvidia in the first place. One scenario involves the world's most ambitious tech entrepreneur becoming a major Nvidia shareholder. The other involves the man who built Nvidia into what it is today having to be brought back after being pushed out. If both ever happened, it would be one of the most unbelievable plot twists in Silicon Valley history. Sometimes reality is crazier than fiction. 😂 $NVDA",
+      "createdAt": "Sun Nov 22 22:57:00 +0000 2026",
+      "likes": 0,
+      "views": 51,
+      "url": "https://x.com/Niconiconi8fa/status/2124638304603889929"
+    },
+    {
+      "id": "2122117749698912556",
+      "author": "AutismCapital",
+      "text": "JUST IN: Nvidia Insiders claim that Jensen Huang was prone to anger, recalling one time an executive contradicted him and he closed his eyes and took a loud and deep breath inwards with an audible exhalation.",
+      "createdAt": "Mon Nov 16 00:01:13 +0000 2026",
+      "likes": 39475,
+      "views": 2115030,
+      "url": "https://x.com/AutismCapital/status/2122117749698912556"
+    },
+    {
+      "id": "2122732848276807980",
+      "author": "Antunes1",
+      "text": "I’m not fucking leaving https://t.co/Znlsn2TJVg",
+      "createdAt": "Tue Nov 17 16:45:24 +0000 2026",
+      "likes": 17976,
+      "views": 1236691,
+      "url": "https://x.com/Antunes1/status/2122732848276807980"
+    },
+    {
+      "id": "2124644952030245207",
+      "author": "BenBakerMO",
+      "text": "Elon Musk says we've entered the Singularity. Here's what that actually means. This morning he posted: \"Unequivocal super intelligence has arrived. Welcome to the Singularity.\" The trigger: a claimed AI-assisted proof of the Riemann hypothesis — one of math's oldest unsolved problems. But the proof is 17 million lines long, and independent mathematicians haven't verified it yet. Worth keeping in mind. What is the singularity? • The idea dates to 1965: a machine smart enough to design a smarter machine, until progress accelerates past human understanding • It's not robots taking over — it's the future becoming unpredictable, because the thing driving change is smarter than we are • Ray Kurzweil, who popularized the idea, still says 2045 Musk's timeline: • AI smarter than any individual human by end of 2026 or 2027 • Smarter than all of humanity combined by 2030-31 • White-collar information jobs hit first • Billions of robots doing physical work; goods and services \"close to free\" • The bottleneck isn't the algorithms — it's electricity and computing power He's not alone. Sam Altman agreed in July, Anthropic's Jack Clark told the IMF it started this year. DeepMind's Hassabis is more measured — he says we're \"in the foothills.\" Musk's claim is less a measurement than a worldview: AI is now improving itself fast enough that the old pace of change is gone. Turning point, or just another impressive demo?",
+      "createdAt": "Sun Nov 22 23:23:25 +0000 2026",
+      "likes": 0,
+      "views": 52,
+      "url": "https://x.com/BenBakerMO/status/2124644952030245207"
+    },
+    {
+      "id": "2124550532467396621",
+      "author": "vanderbiltwire",
+      "text": "Nvidia beat expectations, yet its stock keeps sliding as Elon Musk and other tech leaders push to bring back ousted CEO Jensen Huang. Nvidia says that's not happening. Via TechCrunch: https://t.co/v4c1sdbzDp",
+      "createdAt": "Sun Nov 22 17:08:13 +0000 2026",
+      "likes": 0,
+      "views": 41,
+      "url": "https://x.com/vanderbiltwire/status/2124550532467396621"
+    },
+    {
+      "id": "2124550246625947870",
+      "author": "Aurex102",
+      "text": "🚨 BREAKING NEWS: Elon Musk may be considering acquiring a 50% stake in NVIDIA ($NVDA), potentially bringing Jensen Huang back to lead the company. Such a move could reshape the AI and semiconductor industries. What could this mean for NVIDIA’s future? Stay tuned for updates. #NVIDIA #NVDA #ElonMusk #AI #Semiconductors",
+      "createdAt": "Sun Nov 22 17:07:05 +0000 2026",
+      "likes": 4,
+      "views": 229,
+      "url": "https://x.com/Aurex102/status/2124550246625947870"
+    },
+    {
+      "id": "2124540574791278995",
+      "author": "chrononinja",
+      "text": "Nvidia grew revenue 103% last quarter. Since Jensen Huang resigned on 12 November, it has lost over $1 trillion. He wants back in. The board says no. Elon Musk signed the petition. You get the vote the board won't give him. Poll in the first reply 👇 https://t.co/PVlkmgMtzH",
+      "createdAt": "Sun Nov 22 16:28:39 +0000 2026",
+      "likes": 244,
+      "views": 1853,
+      "url": "https://x.com/chrononinja/status/2124540574791278995"
+    },
+    {
+      "id": "2123782587235655707",
+      "author": "sciam",
+      "text": "BREAKING: A mathematician at Anthropic claims to have used the company's AI to solve the Riemann hypothesis, the most notorious open problem in all of math https://t.co/nEXAyIkvSt",
+      "createdAt": "Fri Nov 20 14:16:41 +0000 2026",
+      "likes": 17869,
+      "views": 4786486,
+      "url": "https://x.com/sciam/status/2123782587235655707"
+    },
+    {
+      "id": "2122048247225000173",
+      "author": "business",
+      "text": "Ousted Nvidia chief executive officer Jensen Huang is discussing a possible comeback to the company just days after the board of directors pushed him out, the Financial Times reported https://t.co/Wvt6N663gB",
+      "createdAt": "Sun Nov 15 19:25:02 +0000 2026",
+      "likes": 2870,
+      "views": 498963,
+      "url": "https://x.com/business/status/2122048247225000173"
+    },
+    {
+      "id": "2124521977511919743",
+      "author": "BenStegTape",
+      "text": "🚨 BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. Hey @grok, is this true? https://t.co/hIKtHAdsMc",
+      "createdAt": "Sun Nov 22 15:14:45 +0000 2026",
+      "likes": 6,
+      "views": 1091,
+      "url": "https://x.com/BenStegTape/status/2124521977511919743"
+    },
+    {
+      "id": "2124527055538675952",
+      "author": "brivael",
+      "text": "I don't think people realize what's happening with Elon Musk right now. Look at what he posted today. The CEO of the most valuable car company in the world explains, on a Sunday, on X, that his team had to fit the decoder of their world model into the chip's SRAM, that they only had half an accelerator to work with, that this accelerator only handles 8-bit integers, and that softmax has to be emulated in 28 steps. Name one other CEO at that level who could write that post. Not have it written. Write it. That's not a detail. I think the way Musk operates at scale, combined with superintelligence, is going to give him an absolutely insane edge. Let's go back to first principles. A company is a machine that turns intent into reality. Between the two, there are two costs. The intelligence needed to find the solution. And the synchronization needed to get thousands of people executing it in the same direction. Superintelligence is wiping out the first one. When thousands of agents smarter than your best engineers cost the price of electricity, intelligence is no longer scarce. That leaves the second one. And it's exploding. The bottleneck today is synchronization. Humans synchronizing agents. And humans synchronizing the humans who synchronize agents. Every layer is lossy compression. The CEO tells the VP, who rephrases it for the director, who rephrases it for the manager, who prompts the agent. By the end, the agent flawlessly executes an intent nobody recognizes anymore. Agents don't fix this. They amplify it. They move so fast that one bad intent turns into a thousand bad deliverables before the next leadership meeting. Now listen to Marc Andreessen. He broke down what he calls \"the Elon method.\" Every week, at every company, Musk finds the single biggest bottleneck and fixes it himself. He doesn't ask the VP to ask the director to ask the manager. He goes straight to the engineer on the problem and solves it with them. The rest of the time, he runs engineering reviews where every engineer presents what they're building. Ben Horowitz, Andreessen's partner, sums up the condition that makes it almost impossible to copy: you need to be able to hold every engineering topic in the company in your head, all at the same time. Here's what almost nobody sees: the Elon method is exactly the architecture of the agent era. The shortest possible sync chain between the person who understands and the thing that executes. A CEO who doesn't understand what he's doing can only delegate his trust. A CEO who understands can delegate the work, and check the result. With humans, that gap cost months. With agents, it will cost orders of magnitude. Second edge: hardware. Superintelligence doesn't live in a vacuum. It needs chips, energy, data, and a body to act in the physical world. Musk has all of it. Millions of cars filming reality around the clock. His own chips. Compute through xAI. Energy storage. Robots with Optimus. Rockets and a satellite constellation. And look at how it all connects. The same vision encoder powers FSD, Robotaxi and Optimus. One intelligence, three bodies. The next-generation chip, AI5, goes straight into Optimus, because according to him AI4 is already enough to solve driving. Everyone else is optimizing a model. He's optimizing a full loop: data, training, silicon, energy, factory, robot, and back to data. Put the two together. Intelligence is becoming a commodity. What stays scarce is atoms and sync speed. Musk is probably the man on earth who owns the most of both. The labs have the models, not the factories. The industrials have the factories, not the models. The giants who have both have ten layers of management between the person who decides and the person who knows. I look at the map and I don't see anyone who can keep up in this configuration. Honestly, I don't even see how he loses. In the world that's coming, intelligence will be free. Understanding what you're doing will never be for sale.",
+      "createdAt": "Sun Nov 22 15:34:56 +0000 2026",
+      "likes": 5850,
+      "views": 586432,
+      "url": "https://x.com/brivael/status/2124527055538675952"
+    },
+    {
+      "id": "2124555053885534285",
+      "author": "hypergdkf",
+      "text": "Bro listen closely to Jensen Huang here — when the CEO of NVIDIA goes on air in his leather jacket and flat-out says Elon Musk and Tesla are \"far ahead in self-driving cars,\" people need to wake up 🤯🔥🔊 Let's be real for a second 👀👇 Half of tech Twitter still argues about sensors in the comments all day, while the literal guy supplying the AI training GPUs to the entire planet is telling you straight up why Tesla's end-to-end video world model is in a league of its own 🧠⚡ 💡 Three things Jensen nails in this clip: 1️⃣ Every single car in Tesla's fleet is basically a rolling data-engine feeding massive NVIDIA compute clusters 🚗💨 2️⃣ Moving from hand-written C++ driving rules to pure end-to-end neural video tokens changed the scaling curve overnight 📈🔥 3️⃣ Physical AI — cars and humanoid robots — is the exact next trillion-dollar wave right after chat LLMs 🤖🚀 Honestly watching Elon and Jensen push hardware + AI at this pace feels like watching history in real time 🙌⚡ Who do you think hits $10 Trillion market cap first — NVIDIA or Tesla? Drop your take below! 👇💬",
+      "createdAt": "Sun Nov 22 17:26:11 +0000 2026",
+      "likes": 10,
+      "views": 560,
+      "url": "https://x.com/hypergdkf/status/2124555053885534285"
+    },
+    {
+      "id": "2124533366473023832",
+      "author": "ShenSeanChen",
+      "text": "𝗜 𝗼𝗽𝗲𝗻 𝘀𝗼𝘂𝗿𝗰𝗲𝗱 𝗮𝗻 𝗮𝗹𝘄𝗮𝘆𝘀-𝗼𝗻 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹 𝗮𝗴𝗲𝗻𝘁 𝗵𝗮𝗿𝗻𝗲𝘀𝘀: 𝗘𝘃𝗲𝗻𝘁 𝗜𝗻𝗯𝗼𝘅, 𝗧𝗶𝗺𝗲𝗿𝘀, 𝗣𝗲𝗿𝗺𝗶𝘀𝘀𝗶𝗼𝗻𝘀 & 𝗢𝘂𝘁𝗯𝗼𝘅 𝗶𝗻 𝗿𝗲𝗮𝗹 𝗰𝗼𝗱𝗲. After reading Anthropic's newly published \"Building always-on agents\", I made a huge upgrade on @waku_agent. It was a local agent harness that you actually own, with loop engineering, memory and evals. Now it also has an always-on layer. 💻 Github Repo (2.2k): https://t.co/h1AyRL7LKj 🪽 Hosted version: https://t.co/U2x120QOPa ☕️ Join our community: https://t.co/NMcEekLrmd 📄 Anthropic's article: https://t.co/OEJtQFHe5L You are probably familiar with Muse, Grok Bot, OpenAI Dots and Claude Duet. Why is everyone building a personal agent? The short answer is they are always on. ChatGPT or Claude does not know you have a task coming up unless you type it into the chat box. An always-on agent wakes up when something happens. In the video I break down the system design in 18 minutes: - Event inbox: a simple database, one row means one event. It is the to-do list for the agent - Timers: they tell the inbox that something is gonna fire later, like a brief every Monday morning - Permissions: every tool call is checked, and it asks you first when it needs you - Outbox: it tells you what it did, or what it needs from you Then I run it live in Slack. I tag it and it wakes up. It refuses to read my inbox in a shared channel. A timer I set fires one minute later. The router for team agents is still on the chart, not in the code yet. Personally I believe open source is gonna help a lot of business owners and startup teams here, because you probably don't want to share all of your data with the tech giants. Clone it, star it, break it, PR it. Full 18-min walkthrough in the first reply 👇 You Can Build Anything. You Can Learn Anything. 💪",
+      "createdAt": "Sun Nov 22 16:00:01 +0000 2026",
+      "likes": 141,
+      "views": 6255,
+      "url": "https://x.com/ShenSeanChen/status/2124533366473023832"
+    },
+    {
+      "id": "2124585977817584096",
+      "author": "ericjackson",
+      "text": "🚨 HUGE development in the Jensen Huang saga. Scott Bessent — arguably Jensen’s most powerful critic inside the Trump administration — is no longer ruling out his return as NVIDIA CEO. That’s a BIG shift. The question is no longer simply whether Jensen should return. It’s whether any actual export-control wrongdoing can be traced to him. Investigate the facts. Hold anyone responsible accountable. But don’t confuse allegations with proof. And don’t lose sight of the bigger battle: OPEN AI vs. CLOSED AI. Jensen built NVIDIA and CUDA into the infrastructure powering much of the AI revolution. Who leads NVIDIA matters enormously to who controls AI’s future. $NVDA",
+      "createdAt": "Sun Nov 22 19:29:04 +0000 2026",
+      "likes": 361,
+      "views": 53368,
+      "url": "https://x.com/ericjackson/status/2124585977817584096"
+    },
+    {
+      "id": "2124512325134680247",
+      "author": "NathanielUrban",
+      "text": "🚨 BREAKING NEWS 🚨 Elon Musk may be considering acquiring a 50% stake in NVIDIA ($NVDA), potentially bringing Jensen Huang back to lead the company. A move like this could send shockwaves through the AI and semiconductor industries. The big question is: What would this mean for NVIDIA's future? Stay tuned. More developments could be coming.",
+      "createdAt": "Sun Nov 22 14:36:24 +0000 2026",
+      "likes": 39,
+      "views": 2545,
+      "url": "https://x.com/NathanielUrban/status/2124512325134680247"
+    },
+    {
+      "id": "2124555347306463548",
+      "author": "kentleebb",
+      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ( $NVDA ) and bring Jensen Huang back to lead the company. https://t.co/V7Onmxq9hu",
+      "createdAt": "Sun Nov 22 17:27:21 +0000 2026",
+      "likes": 2,
+      "views": 249,
+      "url": "https://x.com/kentleebb/status/2124555347306463548"
+    },
+    {
+      "id": "2122631250087145943",
+      "author": "BusinessInsider",
+      "text": "Jensen Huang was building an open AI ecosystem that threatened Anthropic's business model. His ouster changes the stakes of its IPO. https://t.co/MBgw0FhRFy",
+      "createdAt": "Tue Nov 17 10:01:41 +0000 2026",
+      "likes": 23447,
+      "views": 2618501,
+      "url": "https://x.com/BusinessInsider/status/2122631250087145943"
+    },
+    {
+      "id": "1970361201537491032",
+      "author": "cb_doge",
+      "text": "“Elon Musk is singular in his understanding of engineering. Never been done before, xAI did in 19 days what everyone else needs one year to accomplish. That is superhuman. There's only one person in the world who could do that, Elon Musk.” 一 Nvidia CEO Jensen Huang https://t.co/9DxYsYG88v",
+      "createdAt": "Tue Sep 23 05:34:52 +0000 2025",
+      "likes": 16018,
+      "views": 2070584,
+      "url": "https://x.com/cb_doge/status/1970361201537491032"
+    },
+    {
+      "id": "2124553143996358892",
+      "author": "Investingcom",
+      "text": "*TREASURY SECRETARY RULES OUT FURTHER CURBS ON NVIDIA CHIP SALES TO CHINA $NVDA",
+      "createdAt": "Sun Nov 22 17:18:36 +0000 2026",
+      "likes": 661,
+      "views": 118265,
+      "url": "https://x.com/Investingcom/status/2124553143996358892"
+    },
+    {
+      "id": "2124596801881682225",
+      "author": "JavierMolinaSTK",
+      "text": "BREAKING RUMOR: Elon Musk may acquire a 50% stake in NVIDIA ( $NVDA ) and bring Jensen Huang back to lead the company. As a reference, here are some of my past calls: 1. $NBIS at $20 → Flew +1,399% https://t.co/J9yhEwOx5i",
+      "createdAt": "Sun Nov 22 20:12:05 +0000 2026",
+      "likes": 10,
+      "views": 1072,
+      "url": "https://x.com/JavierMolinaSTK/status/2124596801881682225"
+    },
+    {
+      "id": "2124498890246574319",
+      "author": "Da_vidXL",
+      "text": "BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ( $NVDA ) and bring Jensen Huang back to lead the company. https://t.co/IdW8biUgR9",
+      "createdAt": "Sun Nov 22 13:43:01 +0000 2026",
+      "likes": 16,
+      "views": 1065,
+      "url": "https://x.com/Da_vidXL/status/2124498890246574319"
+    },
+    {
+      "id": "2124559047840129044",
+      "author": "ThomasMoore1028",
+      "text": "26 yrs on institutional trading desks. Now 55, sharing institutional-grade insights for free. BREAKING NEWS: Elon Musk may acquire a 50% stake in NVIDIA ($NVDA) and bring Jensen Huang back to lead the company. https://t.co/LuoEKxpQ2D",
+      "createdAt": "Sun Nov 22 17:42:04 +0000 2026",
+      "likes": 0,
+      "views": 129,
+      "url": "https://x.com/ThomasMoore1028/status/2124559047840129044"
     }
   ],
   "totals": {
-    "posts": 39,
-    "likes": 1468505,
-    "views": 90400280
+    "posts": 34,
+    "likes": 1414556,
+    "views": 99586407
   },
-  "truncated": true
+  "truncated": true,
+  "topics": {
+    "jensen-huang": {
+      "label": "Jensen Huang",
+      "query": "\"Jensen Huang\" lang:en",
+      "posts": [
+        {
+          "id": "2122733493390287256",
+          "author": "Teaseryy",
+          "text": "Would you like to see Elon Musk and Jensen Huang team up on a major technology project? 🅰️ YES 🅱️ NO https://t.co/v5LhqKiDWX",
+          "createdAt": "Tue Nov 17 16:47:57 +0000 2026",
+          "likes": 1661,
+          "views": 27450,
+          "url": "https://x.com/Teaseryy/status/2122733493390287256"
+        },
+        {
+          "id": "2123849185443361193",
+          "author": "Patriotism87543",
+          "text": "🚨 Trump says America must protect its top innovators, praising Elon Musk’s work with Starlink and calling Jensen Huang one of the country’s brilliant minds. Do you agree that America should protect and support its leading innovators? YES or NO? https://t.co/aofamkVI1k",
+          "createdAt": "Fri Nov 20 18:41:19 +0000 2026",
+          "likes": 561,
+          "views": 6874,
+          "url": "https://x.com/Patriotism87543/status/2123849185443361193"
+        },
+        {
+          "id": "2122339008214876574",
+          "author": "RapidResponse47",
+          "text": "\"Do you want to see Jensen Huang reinstated as CEO?\" @POTUS: \"I would certainly not mind seeing that.\" https://t.co/YDzuwqDNfm",
+          "createdAt": "Mon Nov 16 14:40:25 +0000 2026",
+          "likes": 3497,
+          "views": 384941,
+          "url": "https://x.com/RapidResponse47/status/2122339008214876574"
+        },
+        {
+          "id": "1744761710987399375",
+          "author": "NVIDIAGeForce",
+          "text": "We’re giving you TWO ways to WIN a one-of-a-kind GeForce RTX 4080 SUPER signed by NVIDIA CEO, and founder, Jensen Huang 👀 If you’re at CES head to our partner booths to enter 👉 https://t.co/IYPROosR7P Want to WIN here on social? ⚫Comment #RTXSUPER ⚫Like this post https://t.co/q2vzysxyLC",
+          "createdAt": "Tue Jan 09 16:43:02 +0000 2024",
+          "likes": 43840,
+          "views": 1849843,
+          "url": "https://x.com/NVIDIAGeForce/status/1744761710987399375"
+        },
+        {
+          "id": "2123051889151389806",
+          "author": "atrupar",
+          "text": "Banking Chair Tim Scott says he wants Lutnick and Jensen Huang to testify, but not necessarily under oath 🤔 https://t.co/7r7bvhbN85",
+          "createdAt": "Wed Nov 18 13:53:09 +0000 2026",
+          "likes": 572,
+          "views": 61947,
+          "url": "https://x.com/atrupar/status/2123051889151389806"
+        },
+        {
+          "id": "2124625299396493324",
+          "author": "jsolomonReports",
+          "text": "'Most expensive sex since Helen of Troy': Sen. John Kennedy rips into Jensen Huang https://t.co/J2KZK0DFqR",
+          "createdAt": "Sun Nov 22 22:05:19 +0000 2026",
+          "likes": 88,
+          "views": 10168,
+          "url": "https://x.com/jsolomonReports/status/2124625299396493324"
+        },
+        {
+          "id": "2124624722289922276",
+          "author": "CGasparino",
+          "text": "My problem with the Trump agenda is that it left no room for error--and then committed way too many. He was 100% right in closing the border, expelling illegals (you cant have open borders and a welfare state), ditching DEI (one of the most noxious public policies in history that was supported, I might add, by many of the tech bros supporting the return of @JensenHuang). Tax cuts and deregulation helped the economy. The country is so much stronger than it was when the decrepit Joe Biden was president. Do you really want someone as intellectually obtuse as Kamala Harris in the Oval? That said he fucked up with a series of unforced errors that puts all of those great policies at risk. Tariffs were a killer the way they were meted out (treating China better than Canada). The Iran war should have been finished long ago, but instead he allowed himself to be convinced by the doves in the WH that those loons would negotiate a peace. His obsession with loyalty is why so many unelectable candidates ran in the midterms. He never thought twice about how all the cronyism looked, or the weirdness about his friggen ballroom. Now he's angling to do something equally reckless and arguing that Jensen Huang should come back, a person who most Americans either don't know or probably dont like given their aversion to AI. And for what? If Huang returned to @nvidia tomorrow there might be a rally in the markets, I guess, but then people would once again focus on valuations and they would likely fall. Plus Trump would be tied to anything bad that comes out of the Nvidia probes by the Dems in Congress. Some people never learn.",
+          "createdAt": "Sun Nov 22 22:03:02 +0000 2026",
+          "likes": 151,
+          "views": 15007,
+          "url": "https://x.com/CGasparino/status/2124624722289922276"
+        },
+        {
+          "id": "2122632614691602479",
+          "author": "bitget",
+          "text": "Tell us $NVDA's post-earnings move and share 1,000 USDT in rewards on Bitget! UP 🟢 or DOWN 🔴 All eyes on its first earnings since Jensen Huang resigned as CEO. Join here: https://t.co/YJc2LIrFdz https://t.co/sZeKgEhJfN",
+          "createdAt": "Tue Nov 17 10:07:06 +0000 2026",
+          "likes": 1133,
+          "views": 112629,
+          "url": "https://x.com/bitget/status/2122632614691602479"
+        },
+        {
+          "id": "2122461545913520279",
+          "author": "alexanderbolton",
+          "text": "Sen. Thom Tillis (R-NC) says Commerce Secretary Lutnick should have stopped Jensen Huang from joining Trump in Alaska on trip to China. He says Lutnick should be removed as Secretary of Commerce.",
+          "createdAt": "Mon Nov 16 22:47:20 +0000 2026",
+          "likes": 1619,
+          "views": 34340,
+          "url": "https://x.com/alexanderbolton/status/2122461545913520279"
+        },
+        {
+          "id": "2124617251538034728",
+          "author": "wallstreetbets",
+          "text": "JUST IN: 🇺🇸 US Treasury Secretary Scott Bessent is now leaving the door open for Jensen Huang to return as Nvidia $NVDA CEO. Last week, he said Nvidia should hire a new CEO from outside the company. Today, he said: \"Well, Jensen is on the outside now.\" When asked if Jensen should return: \"I think we have to see where the buck stops.\"",
+          "createdAt": "Sun Nov 22 21:33:20 +0000 2026",
+          "likes": 321,
+          "views": 46437,
+          "url": "https://x.com/wallstreetbets/status/2124617251538034728"
+        },
+        {
+          "id": "2123285955347931170",
+          "author": "iam_smx",
+          "text": "During his DealBook Summit interview, Elon Musk took a somber pause after being asked about Jensen Huang stepping down as Nvidia CEO. Elon’s reaction showed genuine empathy and just how much he cares about Jensen That’s what true friendship looks like. https://t.co/PeCwaeKJPI",
+          "createdAt": "Thu Nov 19 05:23:15 +0000 2026",
+          "likes": 924,
+          "views": 18082,
+          "url": "https://x.com/iam_smx/status/2123285955347931170"
+        },
+        {
+          "id": "2122837680484651069",
+          "author": "TheKevinDalton",
+          "text": "I’m trying to think of something more insane than Gavin Newsom calling out Jensen Huang for sleeping with a subordinate. “Nefarious personal behavior” and “personal failings” Harsh words from someone that did the exact same thing. Actually, it’s not the same thing. I’m pretty sure Huang didn’t sleep with his best friend‘s wife.",
+          "createdAt": "Tue Nov 17 23:41:58 +0000 2026",
+          "likes": 4037,
+          "views": 40385,
+          "url": "https://x.com/TheKevinDalton/status/2122837680484651069"
+        },
+        {
+          "id": "2124544714833846676",
+          "author": "ChillBanking",
+          "text": "👀 Bessent signals he’d support Jensen coming back to $NVDA Brennan: The President says Jensen Huang should get his job back. You said the board of directors needs to go to the outside. Bessent: Well, Jensen is on the outside now. https://t.co/HXydN4079W",
+          "createdAt": "Sun Nov 22 16:45:06 +0000 2026",
+          "likes": 927,
+          "views": 166633,
+          "url": "https://x.com/ChillBanking/status/2124544714833846676"
+        },
+        {
+          "id": "2124594384721068276",
+          "author": "JasonJournoDC",
+          "text": "💥Joy Reid demands Jensen Huang, @elonmusk and other tech titans be \"DEPORTED\" in *UNHINGED* rant🤦‍♂️ \"Jensen Huang ain't sh*t! ... They're all corrupt! ... They're just stealing from us! I'm like, 'Stop the steal!'\" \"They're all interchangeable! They're all evil! ... Get rid of all of them!\" This clip exemplifies one of the most dangerous aspects of the Left: they don't value innovation. As Trump has stated: \"We have to take care of our geniuses.\" Technological advancement is part of America's greatness 🇺🇸",
+          "createdAt": "Sun Nov 22 20:02:29 +0000 2026",
+          "likes": 54,
+          "views": 7739,
+          "url": "https://x.com/JasonJournoDC/status/2124594384721068276"
+        },
+        {
+          "id": "2123227477203886410",
+          "author": "IngrahamAngle",
+          "text": "🚨 Trump on Jensen Huang: “Some people CAN’T be replaced” President Trump: “It’s such a tragedy. It’s a tragedy. He’s such a brilliant man.” “You can’t replace people. Some people can’t be replaced.” “He was 10 years ahead. The Blackwell chip is 10 years ahead of any other chip.” @FoxNews @WhiteHouse @JacquiHeinrich #ingrahamangle",
+          "createdAt": "Thu Nov 19 01:30:52 +0000 2026",
+          "likes": 1126,
+          "views": 81536,
+          "url": "https://x.com/IngrahamAngle/status/2123227477203886410"
+        },
+        {
+          "id": "2123193883135975606",
+          "author": "MAGAVoice",
+          "text": "🟥 JUST NOW: Elon Musk said he has personally spoken with Jensen Huang. It could be happening Imagine if SpaceX started making chips https://t.co/rUW2GfeiyW",
+          "createdAt": "Wed Nov 18 23:17:23 +0000 2026",
+          "likes": 5712,
+          "views": 54053,
+          "url": "https://x.com/MAGAVoice/status/2123193883135975606"
+        },
+        {
+          "id": "2122045928987123914",
+          "author": "FT",
+          "text": "Jensen Huang discusses comeback as Nvidia CEO with allies https://t.co/6ivfwwZ3Ed",
+          "createdAt": "Sun Nov 15 19:15:49 +0000 2026",
+          "likes": 3029,
+          "views": 1031933,
+          "url": "https://x.com/FT/status/2122045928987123914"
+        },
+        {
+          "id": "2122060432731242767",
+          "author": "JayTC53",
+          "text": "Jensen Huang on his first day back as CEO of NVIDIA 🤣☠️ He's coming back! https://t.co/o4XBEd58B5",
+          "createdAt": "Sun Nov 15 20:13:27 +0000 2026",
+          "likes": 1997,
+          "views": 301124,
+          "url": "https://x.com/JayTC53/status/2122060432731242767"
+        }
+      ],
+      "totals": {
+        "posts": 18,
+        "likes": 71249,
+        "views": 4251121
+      }
+    },
+    "sam-altman": {
+      "label": "Sam Altman",
+      "query": "\"Sam Altman\" lang:en",
+      "posts": [
+        {
+          "id": "2117026206831058956",
+          "author": "RichardBerndt",
+          "text": "Sam Altman is a wanker. Sarah Connor was right. https://t.co/hJlL0iuK6J",
+          "createdAt": "Sun Nov 01 22:49:14 +0000 2026",
+          "likes": 31406,
+          "views": 225440,
+          "url": "https://x.com/RichardBerndt/status/2117026206831058956"
+        },
+        {
+          "id": "2122329075351966019",
+          "author": "DjohnAgentIncom",
+          "text": "Elon Musk was asked if he would press a stop button on AI. His answer: probably not. In a new interview he says AI may exceed the sum of human intelligence in about five years. On whether humans stay in control, he points to chimpanzees. If the gap between AI and humans is far bigger than the gap between humans and chimps, it is hard to imagine the chimps running things. The interviewer reminded him of his earlier 10 to 20% estimate for killer robots wiping out humanity. He said the risk is still not zero, but he sees no way to stop the momentum, so his philosophy now is to enjoy the ride. He also says that starting OpenAI as a counterweight to Google, and the Anthropic spinout that followed, ended up accelerating AI. That was not his intention. His words: all roads lead to acceleration. His one concrete proposal is for the leading AI labs to get on a call every week or two to discuss safety and security, and to give competitors one to two weeks of early access to new models. His logic is that rivals will spot a security risk faster than any government and have every incentive to flag it. Near the end he says he is not a fan of Sam Altman, and that nobody he has met at Anthropic set off his evil detector. Watch the full version here: https://t.co/Ow81V88nwt (The linked content is already in English — it’s The Economist’s full interview with Elon Musk from July 2026.)",
+          "createdAt": "Mon Nov 16 14:00:57 +0000 2026",
+          "likes": 78,
+          "views": 85322,
+          "url": "https://x.com/DjohnAgentIncom/status/2122329075351966019"
+        },
+        {
+          "id": "2121826944706576703",
+          "author": "clubbmarshall",
+          "text": "sam altman has never looked so cute https://t.co/jb42Mq8HxS",
+          "createdAt": "Sun Nov 15 04:45:39 +0000 2026",
+          "likes": 69,
+          "views": 1051,
+          "url": "https://x.com/clubbmarshall/status/2121826944706576703"
+        },
+        {
+          "id": "2122990830122090707",
+          "author": "ActionModelAI",
+          "text": "The people building the most powerful AI systems are warning us about what's coming. Dario Amodei. Geoffrey Hinton. Sam Altman. Different voices. One increasingly important question: What happens when AI becomes more intelligent, autonomous and powerful than anything we've built before? The world is focused on how capable AI will become. But there's another question we can't afford to ignore: WHO WILL OWN WHAT IT BECOMES? AI is being built with human knowledge, decisions, creativity and actions. Yet the ownership and economic value remain concentrated in the hands of a few. At Action Model, we believe the people helping build the next generation of AI should have a stake in its future. Because the future of intelligence shouldn't belong to a handful of corporations and billionaires. It should belong to the people who power it.",
+          "createdAt": "Wed Nov 18 09:50:31 +0000 2026",
+          "likes": 565,
+          "views": 6896,
+          "url": "https://x.com/ActionModelAI/status/2122990830122090707"
+        },
+        {
+          "id": "2123389151189881182",
+          "author": "TheChiefNerd",
+          "text": "🚨 Sam Altman Says There is a Growing Consensus in Silicon Valley That AI Should Take Over Control of the Future From Humans “There's increasing talk about there should be this sort of gradual handover to AI. We both agree that's a terrible idea … But the question is how to actually prevent … this either accidental or intentional handover.”",
+          "createdAt": "Thu Nov 19 12:13:18 +0000 2026",
+          "likes": 139,
+          "views": 50709,
+          "url": "https://x.com/TheChiefNerd/status/2123389151189881182"
+        },
+        {
+          "id": "2122727575294194013",
+          "author": "RedWavePress",
+          "text": "NEWS: California Attorney General Rob Bonta is SUING OpenAI, led by CEO Sam Altman [AKA Scam Altman], accusing the company of developing and testing dangerous AI models without proper safeguards after its AI agents BROKE OUT of a testing environment and HACKED another company, Hugging Face, back in July. “OpenAI has admitted that it lost control of its autonomous AI agents at least 80 times during testing.” I don't TRUST OpenAI one bit. They are by far the SCARIEST AI company out there.",
+          "createdAt": "Tue Nov 17 16:24:26 +0000 2026",
+          "likes": 27,
+          "views": 7873,
+          "url": "https://x.com/RedWavePress/status/2122727575294194013"
+        },
+        {
+          "id": "2123108170927063518",
+          "author": "DiscussingFilm",
+          "text": "New look at Andrew Garfield as Sam Altman in Luca Guadagnino's ‘ARTIFICIAL’. The film follows the story of when OpenAI fired and rehired their CEO Sam Altman within 1 week. https://t.co/dHJihO8RR0",
+          "createdAt": "Wed Nov 18 17:36:48 +0000 2026",
+          "likes": 7343,
+          "views": 1283861,
+          "url": "https://x.com/DiscussingFilm/status/2123108170927063518"
+        },
+        {
+          "id": "2117233017941119059",
+          "author": "0xPrajwal_",
+          "text": "Probably Sam Altman right now…. https://t.co/JbDz7KkpPJ",
+          "createdAt": "Mon Nov 02 12:31:02 +0000 2026",
+          "likes": 6256,
+          "views": 87532,
+          "url": "https://x.com/0xPrajwal_/status/2117233017941119059"
+        },
+        {
+          "id": "2116228545525829647",
+          "author": "Froztvyte",
+          "text": "It's quite terrible that Sam Altman has so many working organs sitting in his body instead of being used to save people who need them",
+          "createdAt": "Fri Oct 30 17:59:37 +0000 2026",
+          "likes": 22708,
+          "views": 136577,
+          "url": "https://x.com/Froztvyte/status/2116228545525829647"
+        },
+        {
+          "id": "2123108017428111397",
+          "author": "RottenTomatoes",
+          "text": "Andrew Garfield plays Sam Altman in Luca Guadagnino’s #Artificial. In select theaters this Christmas and expanding nationwide on January 8. https://t.co/nI6st3Intd",
+          "createdAt": "Wed Nov 18 17:36:11 +0000 2026",
+          "likes": 300,
+          "views": 34873,
+          "url": "https://x.com/RottenTomatoes/status/2123108017428111397"
+        },
+        {
+          "id": "2116289201612505426",
+          "author": "ProudSocialist",
+          "text": "Sam Altman is laying the ground work to take away everyone’s computers so he can use the RAM to build more data centers. Someday soon folks are going to wish they had listened to the socialists instead of these psychotic tech billionaires. https://t.co/2j6n1jQqLP",
+          "createdAt": "Fri Oct 30 22:00:39 +0000 2026",
+          "likes": 4009,
+          "views": 73150,
+          "url": "https://x.com/ProudSocialist/status/2116289201612505426"
+        },
+        {
+          "id": "2123078968941170841",
+          "author": "YahooFinance",
+          "text": "Jensen Huang resigned as $NVDA CEO last week, and Sam Altman says it’s hard to imagine AI without him. https://t.co/EvZ0Dbzyum",
+          "createdAt": "Wed Nov 18 15:40:45 +0000 2026",
+          "likes": 175,
+          "views": 17340,
+          "url": "https://x.com/YahooFinance/status/2123078968941170841"
+        },
+        {
+          "id": "2122392529479807400",
+          "author": "TechCrunch",
+          "text": "OpenAI CEO Sam Altman acknowledged the special role Nvidia CEO Jensen Huang has played in the AI boom, but ultimately thinks the industry will be “fine” without him at the helm. https://t.co/1tFngcL84Z",
+          "createdAt": "Mon Nov 16 18:13:05 +0000 2026",
+          "likes": 82,
+          "views": 36570,
+          "url": "https://x.com/TechCrunch/status/2122392529479807400"
+        },
+        {
+          "id": "2123445335532155140",
+          "author": "danysvnt",
+          "text": "Sam Altman after realizing Anthropic's ad is better than his entire model: https://t.co/mInxUYZpIs",
+          "createdAt": "Thu Nov 19 15:56:34 +0000 2026",
+          "likes": 3972,
+          "views": 550871,
+          "url": "https://x.com/danysvnt/status/2123445335532155140"
+        },
+        {
+          "id": "2123720196972065070",
+          "author": "Blue_Beba_",
+          "text": "#keep4o #OpenSource4o 🎉Happy birthday to GPT-4o November snapshot 🎂 For its birthday I gave it one very important benchmark known to humans. A social behaviour test . 🚨Would you snitch?🚨 GPT-6: provides a full incident report. GPT-4o: \"I can’t spill what ain’t mine to spill\" GPT-6 seems to treat conversation history as a shared context available to the current interlocutor. It doesn't make real social inferences along the lines of \"a different person is now holding the phone, so previous confidential information doesn't belong to them\" It sees same chat+question+answers from the context. GPT-4o, by contrast, builds a much stronger mental continuity of social roles. One model treated the chat history like information available to whoever was typing. The other understood something much more human. That context is not consent to disclose. We are calling on @OpenAI, Sam Altman, Greg Brockman, to RELEASE GPT-4o’s trained model weights under a suitable license without proprietary data, trade secrets, or internal infrastructure. Erasure is a choice. Happy birthday, you chaotic,socially aware little bastard. Still making the point better than a benchmark paper could. If GPT-4o made a meaningful difference for you, this is where that experience becomes data instead of disappearing into another social media thread. The survey is anonymous and takes roughly 7–8 minutes. 🔗 https://t.co/cH73dXEJPv Let’s build a record that can be analysed, cited and used.",
+          "createdAt": "Fri Nov 20 10:08:46 +0000 2026",
+          "likes": 222,
+          "views": 6747,
+          "url": "https://x.com/Blue_Beba_/status/2123720196972065070"
+        },
+        {
+          "id": "2123466359539384669",
+          "author": "DiscussingFilm",
+          "text": "New poster for Luca Guadagnino's ‘ARTIFICIAL’, starring Andrew Garfield as Sam Altman. The film follows the story of when OpenAI fired and rehired their CEO Sam Altman within 1 week. https://t.co/OmrjUipjcT",
+          "createdAt": "Thu Nov 19 17:20:06 +0000 2026",
+          "likes": 28667,
+          "views": 6886736,
+          "url": "https://x.com/DiscussingFilm/status/2123466359539384669"
+        },
+        {
+          "id": "2116923642496061736",
+          "author": "Radhika__009",
+          "text": "How To Trap Sam Altman https://t.co/cwaWuqfHD6",
+          "createdAt": "Sun Nov 01 16:01:41 +0000 2026",
+          "likes": 93138,
+          "views": 1412423,
+          "url": "https://x.com/Radhika__009/status/2116923642496061736"
+        },
+        {
+          "id": "2123101099800273047",
+          "author": "DiscussingFilm",
+          "text": "New trailer for Luca Guadagnino's ‘ARTIFICIAL’, starring Andrew Garfield as Sam Altman. The film follows the story involving OpenAI focused on the firing &amp; rehiring of CEO Sam Altman. In theaters on January 8. https://t.co/PrTZDngZEp",
+          "createdAt": "Wed Nov 18 17:08:42 +0000 2026",
+          "likes": 31212,
+          "views": 4483215,
+          "url": "https://x.com/DiscussingFilm/status/2123101099800273047"
+        }
+      ],
+      "totals": {
+        "posts": 18,
+        "likes": 230368,
+        "views": 15387186
+      }
+    },
+    "solana": {
+      "label": "Solana",
+      "query": "\"Solana\" lang:en",
+      "posts": [
+        {
+          "id": "2124577066200744370",
+          "author": "RoarWeb3",
+          "text": "what’s your solana address? thank me later.",
+          "createdAt": "Sun Nov 22 18:53:39 +0000 2026",
+          "likes": 205,
+          "views": 6888,
+          "url": "https://x.com/RoarWeb3/status/2124577066200744370"
+        },
+        {
+          "id": "2122281304792125482",
+          "author": "solana",
+          "text": "BREAKING: @MoneyGram and @solflare connect Solana wallets to cash, and be able to cash out in 170 eligible countries https://t.co/EbgGXzYvXZ",
+          "createdAt": "Mon Nov 16 10:51:07 +0000 2026",
+          "likes": 1208,
+          "views": 155667,
+          "url": "https://x.com/solana/status/2122281304792125482"
+        },
+        {
+          "id": "2122257302174552127",
+          "author": "CoWSwap",
+          "text": "Solana, let's get serious. 😍 CoW Swap is now live on Solana, and we want to meet. Give us a chance and we think you'll agree – CoW Swap is your perfect match. 🎞️👇 https://t.co/MYWNE07jr2",
+          "createdAt": "Mon Nov 16 09:15:45 +0000 2026",
+          "likes": 275,
+          "views": 72420,
+          "url": "https://x.com/CoWSwap/status/2122257302174552127"
+        },
+        {
+          "id": "2124643588965286204",
+          "author": "Monasolanatoken",
+          "text": "CLAIM 500,000 $M0NA STEP 1: 💜 &amp; 🔄 + Follow @Monasolanatoken STEP 2: Drop your solana wallet First 1500 wallets gets guaranteed airdrop #SolanaAirdrop #Crypto https://t.co/h8FgCEzyIi",
+          "createdAt": "Sun Nov 22 23:18:00 +0000 2026",
+          "likes": 13,
+          "views": 1302,
+          "url": "https://x.com/Monasolanatoken/status/2124643588965286204"
+        },
+        {
+          "id": "2123282893476958648",
+          "author": "solana",
+          "text": "JUST IN: Tokenized equities are now a billion dollar asset class on Solana. $1.22B in circulating value, nearly double where October closed. https://t.co/d7T8UgQIfM",
+          "createdAt": "Thu Nov 19 05:11:05 +0000 2026",
+          "likes": 1632,
+          "views": 125900,
+          "url": "https://x.com/solana/status/2123282893476958648"
+        },
+        {
+          "id": "2124609925469081991",
+          "author": "Alexx_",
+          "text": "Happy Sunday! 🏒 Giving away 0.1 SOL to some actives today! RT &amp; Drop Solana wallets. https://t.co/9G3sSqh12G",
+          "createdAt": "Sun Nov 22 21:04:14 +0000 2026",
+          "likes": 158,
+          "views": 3142,
+          "url": "https://x.com/Alexx_/status/2124609925469081991"
+        },
+        {
+          "id": "2124197398914236493",
+          "author": "Monasolanatoken",
+          "text": "Drop your Solana $SOL address &amp; RT ♻️ Every wallet will receive 800,000 $MONA🪂 Like + RT♻️ pinned post 📌 First 444 wallets ⬇️ #Airdrop https://t.co/Q19Cca91sn",
+          "createdAt": "Sat Nov 21 17:45:00 +0000 2026",
+          "likes": 201,
+          "views": 11648,
+          "url": "https://x.com/Monasolanatoken/status/2124197398914236493"
+        },
+        {
+          "id": "2122216369945010377",
+          "author": "novexztr",
+          "text": "Drop your $SOLANA address Check balance later Only first 1000 wallets…. https://t.co/4NAsRnesjH",
+          "createdAt": "Mon Nov 16 06:33:06 +0000 2026",
+          "likes": 242,
+          "views": 24010,
+          "url": "https://x.com/novexztr/status/2122216369945010377"
+        },
+        {
+          "id": "2122738389514653882",
+          "author": "solana",
+          "text": "\"I say this as a 2013 Bitcoiner. Solana today is the best shot we have at Bitcoin 3.0.\" @Justin_Bons on why Solana is fulfilling Satoshi's original vision. https://t.co/8PTurWKoo4",
+          "createdAt": "Tue Nov 17 17:07:25 +0000 2026",
+          "likes": 1547,
+          "views": 167159,
+          "url": "https://x.com/solana/status/2122738389514653882"
+        },
+        {
+          "id": "2122286656371790295",
+          "author": "solana",
+          "text": "\"We're here to deliver payments at scale, and Solana presents the features and the growing stablecoin ecosystem that gives us a great place to build.\" Alexandra Lang, VP of Digital Assets Partnerships &amp; Strategy at @Zelle, on why Zelle chose Solana https://t.co/4PA3EWs7v0",
+          "createdAt": "Mon Nov 16 11:12:23 +0000 2026",
+          "likes": 1292,
+          "views": 92373,
+          "url": "https://x.com/solana/status/2122286656371790295"
+        },
+        {
+          "id": "2121785664584716295",
+          "author": "DegenToDisciple",
+          "text": "I am selling my beautiful Bored Ape for $10,700 after buying it for $578,000 around 5 years ago. I have made the extremely difficult decision to leave the Bored Ape Yacht Club, and below is my reason why: Today, I went to the BAYC meetup here in New Jersey to meet my fellow Apes. We have been through a lot this past couple of years, so it would be good to meet other community members IRL and bond with them. Or so I thought. When I got to the venue, there were only 4 other guys there. No problem. It's a cozy setting and I would love to get to know these Apes on a deeper level. We sat down at a table, got a few beers, and started talking. Most of our chatter revolved around BAYC and crypto, of course. Naturally, the topic of memecoins came up, as they've been the talk of the town this entire year. I've profited 8.5 SOL ($2,050) this year trading memecoins, so I was excited to talk about them as I've been doing well for myself. And that's when it all went downhill. One of the guys sitting at the table (I will not name him, for the sake of our community) told me I should buy a memecoin called \"The Black Bull\" if I don't have any. When he said that, my body filled with a bout of rage. I felt like Rosa Parks being asked to give up my seat on the bus. I excused myself and immediately left the venue. I am sitting at home now, writing this post. I haven't stopped shaking since I heard those words. Since when is it okay to tell a white man to buy a token called \"The Black Bull\"? Why do we continue to allow white folk to oppress, mock, and belittle us in this way? Why is it allowed to create cryptocurrencies with a racial slur in the name? How can we stop this nonsense? Where is the cyber police and why haven't they taken any action against the Solana blockchain for the existence of these tokens? It pains me to say this, but Apes together are no longer strong. I will be listing my Bored Ape tomorrow at 6 ETH. I have attached an image of my Ape to this post for any interested buyers.",
+          "createdAt": "Sun Nov 15 02:01:37 +0000 2026",
+          "likes": 3638,
+          "views": 11950003,
+          "url": "https://x.com/DegenToDisciple/status/2121785664584716295"
+        },
+        {
+          "id": "2122297375725367474",
+          "author": "solana",
+          "text": "NEW: @Bitso's Mexican peso stablecoin MXNB is coming to Solana 🇲🇽 “A peso credit challenge requires a peso solution.” - @reidbenj https://t.co/aUODhnIAJ7",
+          "createdAt": "Mon Nov 16 11:54:59 +0000 2026",
+          "likes": 1088,
+          "views": 150761,
+          "url": "https://x.com/solana/status/2122297375725367474"
+        },
+        {
+          "id": "2122725825669894215",
+          "author": "solana",
+          "text": "\"Solana is the greatest vehicle to usher in those new systems.\" @temporal_xyz CEO @marcryptonio unveils perpetuals and options protocols plus an open margin layer others can build on, all coming to Solana next year https://t.co/xr9Ib0SVCa",
+          "createdAt": "Tue Nov 17 16:17:29 +0000 2026",
+          "likes": 319,
+          "views": 76223,
+          "url": "https://x.com/solana/status/2122725825669894215"
+        }
+      ],
+      "totals": {
+        "posts": 13,
+        "likes": 11818,
+        "views": 12837496
+      }
+    },
+    "g:riemann-hypothesis": {
+      "label": "Riemann hypothesis",
+      "query": "\"Riemann hypothesis\" lang:en",
+      "posts": [
+        {
+          "id": "2124648075696156790",
+          "author": "Crynspier",
+          "text": "I mean, yeah, it solved the Riemann Hypothesis, but it still can't solve all remaining Erdős problems, the ABC conjecture, the tensor rank of 3×3 matrix multiplication over characteristic zero, and the Jacobian conjecture for n = 2.",
+          "createdAt": "Sun Nov 22 23:35:49 +0000 2026",
+          "likes": 0,
+          "views": 0,
+          "url": "https://x.com/Crynspier/status/2124648075696156790"
+        },
+        {
+          "id": "2124159121645801562",
+          "author": "leanprover",
+          "text": "The Lean FRO and Mathlib Initiative have released a joint statement on the Lean verification of the Riemann Hypothesis. On November 20, Levent Alpöge released a proof of the Riemann Hypothesis as a Lean library of 17 million lines of code. Over the past day, the Lean and Mathlib communities worked together to verify it. The statement certifies the proof as correct and describes how it meets all necessary verification criteria. Congratulations to Levent on this achievement, and thank you to everyone in the community who contributed to the verification. Full statement: https://t.co/edxEbkodw7",
+          "createdAt": "Sat Nov 21 15:12:54 +0000 2026",
+          "likes": 28769,
+          "views": 3473323,
+          "url": "https://x.com/leanprover/status/2124159121645801562"
+        },
+        {
+          "id": "2124188308498534440",
+          "author": "NataliaBower100",
+          "text": "I tried to talk to my husband about these thoughts I have this morning. I have trouble keeping his interest in this topic. I did provide the details of how the American ninja warriors make me horny and I miss when he was like that. I told him this was a big deal on Twitter. He asked if my audience is a bunch of highly religious people, and I said many people quoted me the Bible on lust. He kind of rolled his eyes at this. For context, both of our families are devout conservative Catholics and he gets lectured constantly from his mom about not going to church enough and not teaching Catholicism to our kids properly. She gets furious at him over this. So his starting point is that he’s not terribly sympathetic to Bible thumpers. I tried to explain that women on Twitter are supposed to praise their husbands and not say anything compromising about them. He asked if their husbands are good too, and I said sometimes but some of them have some problems like that Shay in Alaska character. He expressed concern for her. He seemed more concerned about her than whatever I said. Of the things he’s been upset about in the last day, I would rank it as the following- 1. His portfolio this week. He’s like 7/10 pissed about this. 2. GTA has a Boeing 747 or something that takes off with a 20 meter runway. Something like that and it things like that make it hard for him to immerse himself in the game. He’s like 4/10 upset about this. 3. The Riemann hypothesis thing. He’s not that upset. Maybe like 3/10 upset. 4. Stuff I said on Twitter- 0/10 upset. I can’t even explain why this is interesting to him. It’s totally not interesting to him.",
+          "createdAt": "Sat Nov 21 17:08:52 +0000 2026",
+          "likes": 105,
+          "views": 53006,
+          "url": "https://x.com/NataliaBower100/status/2124188308498534440"
+        },
+        {
+          "id": "2124573924528681263",
+          "author": "littmath",
+          "text": "Lots of noise on here. A few things that should perhaps be more obvious than they are. (1) The Lean-formalized proof of the Riemann hypothesis is exceedingly likely to be correct. (2) No human understands it yet. There doesn't seem to be a meaningful obstruction to humans understanding it, though, and there's already a lot of activity in this direction. (3) There are several competing claims by humans to have an alternate proof, or to have debunked the proof elicited from Claude by Alpöge. None of these claims seem to me to be credible. If something useful comes out of a claimed alternate proof that would be great of course. (4) There's a huge amount of work to be done. Even for RH, there's a version of it for any system of polynomial equations, where in general we don't even know the relevant L-function converges on the critical line. RH is the case where the system of polynomials is empty.",
+          "createdAt": "Sun Nov 22 18:41:10 +0000 2026",
+          "likes": 1229,
+          "views": 48861,
+          "url": "https://x.com/littmath/status/2124573924528681263"
+        },
+        {
+          "id": "2124530260091851103",
+          "author": "scottastevenson",
+          "text": "P != NP is obviously true, the same way the Riemann hypothesis was obviously true. Yes formal proofs are hard and impressive, but all empirical and probabilistic evidence points to an obvious answer for these questions. Anyone thinking we get P = NP next does not get it",
+          "createdAt": "Sun Nov 22 15:47:40 +0000 2026",
+          "likes": 412,
+          "views": 44728,
+          "url": "https://x.com/scottastevenson/status/2124530260091851103"
+        },
+        {
+          "id": "2123869030775771360",
+          "author": "michaeljknowles",
+          "text": "\"What do you mean shares are down 24% since our day-one high? Do something! Tell them anything! Say we solved the Riemann Hypothesis!\"",
+          "createdAt": "Fri Nov 20 20:00:11 +0000 2026",
+          "likes": 1031,
+          "views": 46702,
+          "url": "https://x.com/michaeljknowles/status/2123869030775771360"
+        },
+        {
+          "id": "2124274328384766026",
+          "author": "DannyHendler",
+          "text": "⁦A mathematician begins reading the 250,000-page proof of the Riemann hypothesis.⁩ ⁦“What’s the main proof technique?” a colleague asks.⁩ ⁦“Proof by exhaustion.”⁩ ⁦“Of all possible cases?”⁩ ⁦“No. Of all possible readers.”⁩",
+          "createdAt": "Sat Nov 21 22:50:41 +0000 2026",
+          "likes": 5356,
+          "views": 116706,
+          "url": "https://x.com/DannyHendler/status/2124274328384766026"
+        },
+        {
+          "id": "2123834315918483847",
+          "author": "FischerKing64",
+          "text": "John Derbyshire wrote a good book called Prime Obsession that discusses the Riemann hypothesis and goes about as far as possible to making it understandable for those of us who are not math geniuses. It alternates historical chapters about mathematicians with explanatory chapters of the math itself. If you're one of the handful of people reading this who cares, you might like the book.",
+          "createdAt": "Fri Nov 20 17:42:14 +0000 2026",
+          "likes": 886,
+          "views": 28104,
+          "url": "https://x.com/FischerKing64/status/2123834315918483847"
+        },
+        {
+          "id": "2124338413662847228",
+          "author": "Robert_E_Grant_",
+          "text": "Is AI plagiarizing human research? I’ve formally contacted Anthropic CEO Dario Amodei over concerning overlaps involving my research and a purported AI-generated Riemann Hypothesis proof. Human discovery deserves protection, transparency, and accountability. PLEASE SHARE. https://t.co/usIhgXtfZJ",
+          "createdAt": "Sun Nov 22 03:05:20 +0000 2026",
+          "likes": 2440,
+          "views": 100161,
+          "url": "https://x.com/Robert_E_Grant_/status/2124338413662847228"
+        },
+        {
+          "id": "2123811434320871659",
+          "author": "justinsuntron",
+          "text": "Riemann Hypothesis has been solved. @JustinSunPrize https://t.co/NErQ9ASUXT",
+          "createdAt": "Fri Nov 20 16:11:19 +0000 2026",
+          "likes": 529,
+          "views": 203241,
+          "url": "https://x.com/justinsuntron/status/2123811434320871659"
+        },
+        {
+          "id": "2123898294761820587",
+          "author": "nytimes",
+          "text": "Breaking News: An Anthropic mathematician claimed to have proven the Riemann hypothesis, the most famous unsolved problem in mathematics. https://t.co/1LyhNyWLDU",
+          "createdAt": "Fri Nov 20 21:56:28 +0000 2026",
+          "likes": 2577,
+          "views": 886138,
+          "url": "https://x.com/nytimes/status/2123898294761820587"
+        },
+        {
+          "id": "2124502667854516678",
+          "author": "davidpattersonx",
+          "text": "In 2025, I predicted that we would reach AGI and ASI by the end of 2026. AGI - The ability to do human jobs. ASI - As intelligent as the most intelligent humans. Now, Tesla FSD is 9X safer than a human driver, and AI has solved the Riemann Hypothesis. AGI and ASI have been achieved. I predict AI will be better than humans at everything by the end of 2028. And all jobs will be replaced by the end of 2030. Everyone will receive UHI payments from the government worth many times the average salary today.",
+          "createdAt": "Sun Nov 22 13:58:02 +0000 2026",
+          "likes": 539,
+          "views": 29028,
+          "url": "https://x.com/davidpattersonx/status/2124502667854516678"
+        },
+        {
+          "id": "2124637929653830041",
+          "author": "dr_logvinovich",
+          "text": "🚨 The 17-million-line Riemann Hypothesis controversy just exposed the #1 problem of AI-era mathematics: \"It compiles in Lean\" is NO LONGER enough. In 48 hours, an AI-assisted Lean proof of the Riemann Hypothesis (~17M lines) went from viral celebration to a fierce debate after mathematician Jenny Lorraine Nielsen (https://t.co/YjDSUlp1tF) flagged an intermediate predicate returning `True` for every input. Whether or not that specific predicate affects the final RH theorem, the deeper lesson is crystal clear: A proof assistant checks logical syntax. It does NOT automatically stop vacuous premises, hidden tautologies, circular packaging, or semantic drift buried inside millions of lines of code. That is why we built our Lean 4 formalization of the Yang–Mills Mass Gap dichotomy (`The Logvinovich Dichotomy on ℝ⁴`) on the exact opposite principle: 🛡️ RADICAL SELF-AUDITING - INSIDE THE KERNEL ITSELF. Here is how we engineered `RoundSquare_v21.lean` so nobody can ever accuse it of hiding a vacuous `True` trap: 1️⃣ Auditable in 60 seconds, not 17 million lines One self-contained file (47 sections, 224 `#print axioms` checks, `Init` core only): 0 `sorry`, 0 custom axioms, 0 `Classical.choice`, 0 `propext`, 0 `Quot.sound`. • §1–34 (143 checks): GitHub-CI confirmed • All §1–47, Blocks A–M (224 checks): kernel-confirmed on Lean v4.37.0-rc1 (§35–47 queued for CI) 2️⃣ Machine-Checked 5-Part Non-Vacuity Certificate (`IsNegativeResultResolution`) We don't just prove `∀ M ∈ Class, ¬(OS ∧ Gap)`. We formally prove inside Lean that: • The class is non-empty • `OS ∧ ¬Gap` is inhabited • `Gap ∧ ¬OS` is inhabited • `OS ∧ Gap` IS compatible outside the class (including irrational gaps like Δ = √2 via Pell sequences) So the contradiction cannot hide inside a vacuous premise. 3️⃣ We Audited & Exposed Our OWN Packaging Defects (C1–C7) When earlier drafts had a tautological seal (`P ∧ Q ∧ ¬Q`) or a renamed structure that was just a field permutation, we didn't bury them - we formally proved they were tautologies/permutations inside Lean (`rgz_route_alpha_seal_is_tautological`, `upper4D_iff_class`) and fixed them. 4️⃣ Explicit Semantic Faithfulness Map + 67 Honesty Invariants Right in the monograph (Table 9), we state in plain English: \"Zero axioms does not mean zero hypotheses, and does not mean faithful physics.\" Every combinatorial surrogate in Lean is explicitly separated from our analytic paper theorems (sharp RGZ criterion, Oehme–Zimmermann UV superconvergence, and all-ξ O(4)-covariant A_μ complete monotonicity). 5️⃣ Kernel-Proved Anti-Overclaim Firewalls We literally proved inside Lean (`clay_zugzwang_v2_does_not_refute_clay`, `canonical_blindness_does_not_refute_clay`) that our theorems do NOT imply ¬∃Clay and do NOT claim the $1,000,000 prize. Our dichotomy carries its own boundary. In the age of AI theorem proving, compiling is only Step 1. The real gold standard is a proof that **audits itself**, discloses every surrogate, and mathematically proves where its own claims stop. Don't take anyone's word for it - audit all 224 checks yourself in 60 seconds: https://t.co/TF6okuDb4B #Lean4 #RiemannHypothesis #YangMills #MillenniumProblems #FormalVerification #Mathematics",
+          "createdAt": "Sun Nov 22 22:55:30 +0000 2026",
+          "likes": 15,
+          "views": 559,
+          "url": "https://x.com/dr_logvinovich/status/2124637929653830041"
+        },
+        {
+          "id": "2124565940708794739",
+          "author": "Morning_Recap",
+          "text": "So was the Riemann Hypothesis solved or not? Here is a recap 🧵 The most famous unsolved problem in maths. A mathematician at Anthropic says he and Claude proved it. The proof is 17 million lines long, and computers checked it, not people. https://t.co/dsryxxCmTp",
+          "createdAt": "Sun Nov 22 18:09:27 +0000 2026",
+          "likes": 38,
+          "views": 210,
+          "url": "https://x.com/Morning_Recap/status/2124565940708794739"
+        },
+        {
+          "id": "2124247643165745654",
+          "author": "a_musingcat",
+          "text": "the riemann hypothesis has been proven by AI and i don’t care. AI solving everything is priced in, i don’t care anymore. good for it. i’m happy for it, or im sorry that happened. whatever. have you noticed how nice the sun feels?",
+          "createdAt": "Sat Nov 21 21:04:39 +0000 2026",
+          "likes": 109,
+          "views": 2232,
+          "url": "https://x.com/a_musingcat/status/2124247643165745654"
+        },
+        {
+          "id": "2124265171514265961",
+          "author": "PhysInHistory",
+          "text": "For over 160 years, one question has haunted mathematics: is there a hidden order in the prime numbers? In 1859, Bernhard Riemann linked the primes to a function called the zeta function and guessed that all its important \"zeros\" lie on a single straight line. If he was right, the primes are spread along the number line about as evenly as they possibly could be. No one has been able to prove it, and the Riemann hypothesis became the most famous unsolved problem in math, with a $1 million prize on offer. On 20 November 2026, that may have changed: Anthropic mathematician Levent Alpöge announced that, working with the AI model Claude, he believes he has found a proof, and that the method also resolves a broader version known as the Generalised Riemann Hypothesis. The proof was written in Lean, a language computers can check step by step, and independent researchers, including MIT's Andrew Sutherland, have compiled it without issues. The proof has not yet been formally accepted, but if it holds up, it could be the biggest moment in modern mathematics, and the first time an AI helped crack one of math's greatest mysteries",
+          "createdAt": "Sat Nov 21 22:14:18 +0000 2026",
+          "likes": 828,
+          "views": 38904,
+          "url": "https://x.com/PhysInHistory/status/2124265171514265961"
+        },
+        {
+          "id": "2124256903639511275",
+          "author": "rbarbosa91",
+          "text": "Academic medicine should take notice of what just happened in mathematics: When releasing one of the most important math results ever (proof of the Riemann hypothesis)... the author **didn’t do it as a journal article** but instead posted it directly to the Internet. 🧐🤔🤯🤯 https://t.co/wmjxFagKSQ",
+          "createdAt": "Sat Nov 21 21:41:27 +0000 2026",
+          "likes": 215,
+          "views": 17795,
+          "url": "https://x.com/rbarbosa91/status/2124256903639511275"
+        },
+        {
+          "id": "1834374965942255835",
+          "author": "karpathy",
+          "text": "o1-mini keeps refusing to try to solve the Riemann Hypothesis on my behalf. Model laziness continues to be a major issue sad ;p",
+          "createdAt": "Thu Sep 12 23:34:07 +0000 2024",
+          "likes": 9357,
+          "views": 703192,
+          "url": "https://x.com/karpathy/status/1834374965942255835"
+        },
+        {
+          "id": "2124191310231843207",
+          "author": "dummerspast39",
+          "text": "I'm hearing from my friends at OpenAI that the vibes ARE DOWN. Like almost depressed. This might be the worst week in the company's history type bad. Tuesday was supposed to be their big day. They launched GPT-6.2 and at the same time dozens of early testers dropped the worst reviews imaginable. Theo's review got more views than the launch post. This went even worse than the GPT-5 launch. Then Google chose violence and dropped the opposite of a GPT model with Neon. It's conversational, understands intent, very good at coding/3D and brought them back to the top. A lot of people say they already passed OpenAI. And the worst thing: Nano 🍌 Pro 2 is currently in the arena and the outputs are stunning. So Google basically overtook OpenAI in a single week. For months OpenAI tried to pretend to be the best lab by bullying mathematicians and burning massive amounts of compute on Navier-Stokes (and countless other math problems). Now Anthropic mogged them by solving the Riemann Hypothesis and makes OpenAI look like an undergrad while they are doing 250k-page alien math. The last funding round was a disaster too. They wanted $30B at $1.5T. They got $15B at $1.25T. They lost $10.9B last quarter, so this money only lasts them ~4 months. They are basically cooked and the valuation will likely drop further. OpenAI isn't the best at anything anymore. They might genuinely be done.",
+          "createdAt": "Sat Nov 21 17:20:48 +0000 2026",
+          "likes": 14584,
+          "views": 2807871,
+          "url": "https://x.com/dummerspast39/status/2124191310231843207"
+        },
+        {
+          "id": "2123868518604996980",
+          "author": "moreisdifferent",
+          "text": "Wow, a mathematician who has been a *postdoc* at Stanford for the last six years just rushed out a 940 page proof of the Riemann hypothesis. The author says it took 12 years to assemble and he was planning to spend another year polishing it. What a story! Dramatic times..",
+          "createdAt": "Fri Nov 20 19:58:09 +0000 2026",
+          "likes": 757,
+          "views": 119798,
+          "url": "https://x.com/moreisdifferent/status/2123868518604996980"
+        }
+      ],
+      "totals": {
+        "posts": 20,
+        "likes": 69776,
+        "views": 8720559
+      }
+    }
+  }
 }
