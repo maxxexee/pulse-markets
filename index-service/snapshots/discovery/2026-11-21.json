@@ -1,0 +1,275 @@
+{
+  "day": "2026-11-21",
+  "generatedAt": "2026-11-22T17:19:55.149Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": null,
+  "entries": [
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "views": 388288,
+      "baseline": 43185,
+      "baselineDays": 7,
+      "momentum": 799.1,
+      "link": "https://en.wikipedia.org/wiki/Riemann_hypothesis",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Riemann_zeta_function_absolute_value.png/330px-Riemann_zeta_function_absolute_value.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Riemann_hypothesis/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "b93f43c8f982bb7eb33ace48e3a41063d20a6a89b9bae5a23723236ef7ace881"
+        }
+      ]
+    },
+    {
+      "article": "Steps_(film)",
+      "topic": "Steps (film)",
+      "views": 67976,
+      "baseline": 10376,
+      "baselineDays": 7,
+      "momentum": 555.1,
+      "link": "https://en.wikipedia.org/wiki/Steps_(film)",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/18/Steps_2026_poster.jpeg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Steps_(film)/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "915bf1f06b7fa18700fdad81d83bd6dc5eaa62d30edd8abee64313097c3d1233"
+        }
+      ]
+    },
+    {
+      "article": "Levent_Alpöge",
+      "topic": "Levent Alpöge",
+      "views": 102891,
+      "baseline": 18168,
+      "baselineDays": 7,
+      "momentum": 466.3,
+      "link": "https://en.wikipedia.org/wiki/Levent_Alp%C3%B6ge",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Levent_Alp%C3%B6ge_2024_MFO.jpg/330px-Levent_Alp%C3%B6ge_2024_MFO.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Levent_Alp%C3%B6ge/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "1d540d47d6333ffb620f1c6b496840b709b9a315639829a5046335e70334ddba"
+        }
+      ]
+    },
+    {
+      "article": "Joseph_Zada",
+      "topic": "Joseph Zada",
+      "views": 82604,
+      "baseline": 27549,
+      "baselineDays": 7,
+      "momentum": 199.8,
+      "link": "https://en.wikipedia.org/wiki/Joseph_Zada",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Joseph_Zada_pour_la_promotion_d%27Hunger_Games_%C3%A0_Sydney_%28cropped%29.webp/330px-Joseph_Zada_pour_la_promotion_d%27Hunger_Games_%C3%A0_Sydney_%28cropped%29.webp",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joseph_Zada/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "815a3f1e9e315c1404ce56f1cc892cbd85602b6ae7cd5fabf127c77a79b5b5e5"
+        }
+      ]
+    },
+    {
+      "article": "XXX_(2002_film)",
+      "topic": "XXX (2002 film)",
+      "views": 92338,
+      "baseline": 33303,
+      "baselineDays": 7,
+      "momentum": 177.3,
+      "alsoRanked": [
+        "XXX (Kendrick Lamar song)"
+      ],
+      "link": "https://en.wikipedia.org/wiki/XXX_(2002_film)",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/09/Xxx_movie.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/XXX_(2002_film)/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "709cda0fad6ad1438801fae71af2223d4b584fc55a0ce3085c536ac2a61858de"
+        }
+      ]
+    },
+    {
+      "article": "Sunrise_on_the_Reaping",
+      "topic": "Sunrise on the Reaping",
+      "views": 71460,
+      "baseline": 33417,
+      "baselineDays": 7,
+      "momentum": 113.8,
+      "link": "https://en.wikipedia.org/wiki/Sunrise_on_the_Reaping",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/20/Sunrise_on_the_Reaping_book_cover.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sunrise_on_the_Reaping/daily/20261114/20261121",
+          "retrievedAt": "2026-11-22T17:19:55.149Z",
+          "payloadSha256": "fb8e730c61e630d2c74df06c3be463672401b57bdc8f5a01654d35ed07199637"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 393338,
+      "baseline": 317906,
+      "baselineDays": 7,
+      "momentum": 23.7
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 148049,
+      "baseline": 145139,
+      "baselineDays": 7,
+      "momentum": 2
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 121328,
+      "baseline": 89998,
+      "baselineDays": 7,
+      "momentum": 34.8
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "reason": "momentum-below-floor",
+      "views": 119357,
+      "baseline": 413166,
+      "baselineDays": 7,
+      "momentum": -71.1
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 109819,
+      "baseline": 116680,
+      "baselineDays": 7,
+      "momentum": -5.9
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 103318,
+      "baseline": 76457,
+      "baselineDays": 7,
+      "momentum": 35.1
+    },
+    {
+      "article": "Nikhil_Chaudhary_(cricketer)",
+      "topic": "Nikhil Chaudhary (cricketer)",
+      "reason": "baseline-below-floor",
+      "views": 100364,
+      "baseline": 195,
+      "baselineDays": 7,
+      "momentum": 51482.1
+    },
+    {
+      "article": "Jeff_Bezos",
+      "topic": "Jeff Bezos",
+      "reason": "momentum-below-floor",
+      "views": 86703,
+      "baseline": 67987,
+      "baselineDays": 7,
+      "momentum": 27.5
+    },
+    {
+      "article": "Rockstar_Games",
+      "topic": "Rockstar Games",
+      "reason": "momentum-below-floor",
+      "views": 77791,
+      "baseline": 53125,
+      "baselineDays": 7,
+      "momentum": 46.4
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 76587,
+      "baseline": 74450,
+      "baselineDays": 7,
+      "momentum": 2.9
+    },
+    {
+      "article": "The_Odyssey_(2026_film)",
+      "topic": "The Odyssey (2026 film)",
+      "reason": "momentum-below-floor",
+      "views": 73833,
+      "baseline": 62047,
+      "baselineDays": 7,
+      "momentum": 19
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 71854,
+      "baseline": 57386,
+      "baselineDays": 7,
+      "momentum": 25.2
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 69610,
+      "baseline": 38194,
+      "baselineDays": 7,
+      "momentum": 82.3
+    },
+    {
+      "article": "Lewis_Moody",
+      "topic": "Lewis Moody",
+      "reason": "baseline-below-floor",
+      "views": 69243,
+      "baseline": 862,
+      "baselineDays": 7,
+      "momentum": 7934.2
+    },
+    {
+      "article": "Grand_Theft_Auto_V",
+      "topic": "Grand Theft Auto V",
+      "reason": "momentum-below-floor",
+      "views": 67990,
+      "baseline": 54936,
+      "baselineDays": 7,
+      "momentum": 23.8
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 63411,
+      "baseline": 37344,
+      "baselineDays": 7,
+      "momentum": 69.8
+    }
+  ]
+}

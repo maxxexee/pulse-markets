@@ -1,8 +1,8 @@
 {
   "trends": {
     "schema": "pulse-trends/1",
-    "epochDay": "2026-11-18",
-    "generatedAt": "2026-11-19T13:33:15.329Z",
+    "epochDay": "2026-11-21",
+    "generatedAt": "2026-11-22T17:20:02.507Z",
     "method": "wikipedia-top-v1",
     "definitionId": "discovery-v1",
     "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
@@ -24,103 +24,103 @@
     },
     "entries": [
       {
-        "article": "Manni_L._Perez",
-        "topic": "Manni L. Perez",
-        "views": 67267,
-        "baseline": 4575,
+        "article": "Riemann_hypothesis",
+        "topic": "Riemann hypothesis",
+        "views": 388288,
+        "baseline": 43185,
         "baselineDays": 7,
-        "momentum": 1370.2,
+        "momentum": 799.1,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Manni_L._Perez/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "ebfd75e60c0796bce5dd4a00256a90d52c932e6eae790970ca4f68bab0ee9e77"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Riemann_hypothesis/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "b93f43c8f982bb7eb33ace48e3a41063d20a6a89b9bae5a23723236ef7ace881"
           }
         ]
       },
       {
-        "article": "Grand_Theft_Auto_VI",
-        "topic": "Grand Theft Auto VI",
-        "views": 519632,
-        "baseline": 89480,
+        "article": "Steps_(film)",
+        "topic": "Steps (film)",
+        "views": 67976,
+        "baseline": 10376,
         "baselineDays": 7,
-        "momentum": 480.7,
+        "momentum": 555.1,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Grand_Theft_Auto_VI/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "1b2a4fcbf8c4c62679638e8c1d01322764ea8e10e384413e91fb5a5f6ac4286f"
-          }
-        ],
-        "via": "x"
-      },
-      {
-        "article": "Hunter_Schafer",
-        "topic": "Hunter Schafer",
-        "views": 101368,
-        "baseline": 17990,
-        "baselineDays": 7,
-        "momentum": 463.5,
-        "sources": [
-          {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hunter_Schafer/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "da08ac82e1b4588c9c10c12ddbf6e6e5596f499884c99c4253c08b8c3b912376"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Steps_(film)/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "915bf1f06b7fa18700fdad81d83bd6dc5eaa62d30edd8abee64313097c3d1233"
           }
         ]
       },
       {
-        "article": "Mary_Peltola",
-        "topic": "Mary Peltola",
-        "views": 133395,
-        "baseline": 25032,
+        "article": "Levent_Alpöge",
+        "topic": "Levent Alpöge",
+        "views": 102891,
+        "baseline": 18168,
         "baselineDays": 7,
-        "momentum": 432.9,
+        "momentum": 466.3,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mary_Peltola/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "72dd4fdf0a7f82c6aa642cbe353ca3592d9404e5df8769fd5729694a34383da1"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Levent_Alp%C3%B6ge/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "1d540d47d6333ffb620f1c6b496840b709b9a315639829a5046335e70334ddba"
           }
         ]
       },
       {
-        "article": "Hakeem_Jeffries",
-        "topic": "Hakeem Jeffries",
-        "views": 92218,
-        "baseline": 18825,
+        "article": "Joseph_Zada",
+        "topic": "Joseph Zada",
+        "views": 82604,
+        "baseline": 27549,
         "baselineDays": 7,
-        "momentum": 389.9,
+        "momentum": 199.8,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hakeem_Jeffries/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "5de6414933da0d43f20e6b034a1fe38485e480723c52f628c426e4a4fdee0d87"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joseph_Zada/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "815a3f1e9e315c1404ce56f1cc892cbd85602b6ae7cd5fabf127c77a79b5b5e5"
           }
         ]
       },
       {
-        "article": "Tatyana_Ali",
-        "topic": "Tatyana Ali",
-        "views": 63987,
-        "baseline": 13315,
+        "article": "XXX_(2002_film)",
+        "topic": "XXX (2002 film)",
+        "views": 92338,
+        "baseline": 33303,
         "baselineDays": 7,
-        "momentum": 380.6,
+        "momentum": 177.3,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Tatyana_Ali/daily/20261111/20261118",
-            "retrievedAt": "2026-11-19T13:32:55.689Z",
-            "payloadSha256": "c1533f46aadc08108f729e89b4e90f8090914fb6be6d1a01bd844b51f2cce6e5"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/XXX_(2002_film)/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "709cda0fad6ad1438801fae71af2223d4b584fc55a0ce3085c536ac2a61858de"
+          }
+        ]
+      },
+      {
+        "article": "Sunrise_on_the_Reaping",
+        "topic": "Sunrise on the Reaping",
+        "views": 71460,
+        "baseline": 33417,
+        "baselineDays": 7,
+        "momentum": 113.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sunrise_on_the_Reaping/daily/20261114/20261121",
+            "retrievedAt": "2026-11-22T17:19:55.149Z",
+            "payloadSha256": "fb8e730c61e630d2c74df06c3be463672401b57bdc8f5a01654d35ed07199637"
           }
         ]
       }
-    ]
+    ],
+    "prevDigest": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
   },
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "+mcOztTo859k0icv927MXANPQz1oYhQN6T82Omm36vD3Vg20PLN5qB+TiQiYdZqYF3ZobXFH2k0ah9MYnYY9Bw==",
-    "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87",
+    "signature": "dyLd00qNZ4CL0BJefRjT4nItvvicg0TxHnnB/B7EzrlBfLpKRQvEdrLo0FYdqWIDZ1XE7EVpxtL9D2lhoeEqBQ==",
+    "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a",
     "canonicalization": "json-sorted-keys-v1"
   }
 }

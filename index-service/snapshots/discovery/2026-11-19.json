@@ -1,0 +1,308 @@
+{
+  "day": "2026-11-19",
+  "generatedAt": "2026-11-20T13:10:35.142Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": "google/gemini-2.5-flash",
+  "entries": [
+    {
+      "article": "Stephen_Wilson_Jr.",
+      "topic": "Stephen Wilson Jr.",
+      "views": 327962,
+      "baseline": 4298,
+      "baselineDays": 7,
+      "momentum": 7531.1,
+      "alsoRanked": [
+        "Lainey Wilson"
+      ],
+      "link": "https://en.wikipedia.org/wiki/Stephen_Wilson_Jr.",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/SWJr_15MAR25.jpg/330px-SWJr_15MAR25.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Stephen_Wilson_Jr./daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "07612631d553b25e1897d3bb8f5a1eb525a59d7f0f0b2426496aedcdc27b7948"
+        }
+      ],
+      "context": {
+        "text": "Stephen Wilson Jr. is an American country and rock singer, guitarist, and songwriter.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Stephen_Wilson_Jr."
+      }
+    },
+    {
+      "article": "Fiona_(hippopotamus)",
+      "topic": "Fiona (hippopotamus)",
+      "views": 83965,
+      "baseline": 1149,
+      "baselineDays": 7,
+      "momentum": 7206.8,
+      "link": "https://en.wikipedia.org/wiki/Fiona_(hippopotamus)",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Fiona_the_Hippopotamus_%28detail%29.jpg/330px-Fiona_the_Hippopotamus_%28detail%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Fiona_(hippopotamus)/daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "e9a89d7c05e88ec1ea49ec17624c97e1e3bb8f7dba43f5e60fa2197a0fb5c896"
+        }
+      ],
+      "context": {
+        "text": "Fiona is a hippopotamus at the Cincinnati Zoo, known for being born prematurely and for being the first Nile hippo imaged on ultrasound prenatally.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Fiona_(hippopotamus)"
+      }
+    },
+    {
+      "article": "Leigh_Nash",
+      "topic": "Leigh Nash",
+      "views": 95384,
+      "baseline": 2126,
+      "baselineDays": 7,
+      "momentum": 4386.2,
+      "link": "https://en.wikipedia.org/wiki/Leigh_Nash",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Leigh_Nash_-_May%2C_2025_%28cropped%29.jpg/330px-Leigh_Nash_-_May%2C_2025_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Leigh_Nash/daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "83669eefd88515537b1e0b9a9646e126d52662fba0dced5e453ab23587fe2abb"
+        }
+      ],
+      "context": {
+        "text": "Leigh Nash is an American singer and songwriter known as the lead vocalist for the band Sixpence None the Richer.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Leigh_Nash"
+      }
+    },
+    {
+      "article": "International_Men's_Day",
+      "topic": "International Men's Day",
+      "views": 118074,
+      "baseline": 4113,
+      "baselineDays": 7,
+      "momentum": 2770.7,
+      "link": "https://en.wikipedia.org/wiki/International_Men's_Day",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_de_la_Journ%C3%A9e_Internationale_de_l'Homme.png?width=330",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/International_Men's_Day/daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "9854faefd0ac6791171922152e8d2133bad2e87d8e797c85d2b8209f4564b73a"
+        }
+      ]
+    },
+    {
+      "article": "Ella_Langley",
+      "topic": "Ella Langley",
+      "views": 189264,
+      "baseline": 11415,
+      "baselineDays": 7,
+      "momentum": 1558.1,
+      "link": "https://en.wikipedia.org/wiki/Ella_Langley",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Ella_Langley_2026_%28cropped%29.jpg/330px-Ella_Langley_2026_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ella_Langley/daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "69bd930b41a43dc5b999ae06d67eee45646fe3f469943ce268acc2bfa95ba57e"
+        }
+      ],
+      "context": {
+        "text": "Ella Langley is an American singer-songwriter known for her breakthrough country hits \"You Look Like You Love Me\" and \"Weren't for the Wind.",
+        "model": "google/gemini-2.5-flash",
+        "promptVersion": "trend-context-v1",
+        "sourceUrl": "https://en.wikipedia.org/wiki/Ella_Langley"
+      }
+    },
+    {
+      "article": "Susan_Smith",
+      "topic": "Susan Smith",
+      "views": 81561,
+      "baseline": 7211,
+      "baselineDays": 7,
+      "momentum": 1031.1,
+      "link": "https://en.wikipedia.org/wiki/Susan_Smith",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/1f/Susan_Smith_%28SC_convict%29.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Susan_Smith/daily/20261112/20261119",
+          "retrievedAt": "2026-11-20T13:10:35.142Z",
+          "payloadSha256": "b7f2d1e9d25bae7390204d1ac41f84ddd02a51dd5040c97d53f9bedcc9543b67"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "article": "Ken_McElroy",
+      "topic": "Ken McElroy",
+      "reason": "baseline-below-floor",
+      "views": 172820,
+      "baseline": 671,
+      "baselineDays": 7,
+      "momentum": 25666.6
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "reason": "momentum-below-floor",
+      "views": 172742,
+      "baseline": 376711,
+      "baselineDays": 7,
+      "momentum": -54.1
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 128793,
+      "baseline": 215655,
+      "baselineDays": 7,
+      "momentum": -40.3
+    },
+    {
+      "article": "Larry_Poindexter",
+      "topic": "Larry Poindexter",
+      "reason": "baseline-below-floor",
+      "views": 124373,
+      "baseline": 70,
+      "baselineDays": 7,
+      "momentum": 176494.5
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 111521,
+      "baseline": 108665,
+      "baselineDays": 7,
+      "momentum": 2.6
+    },
+    {
+      "article": "Jeff_Bezos",
+      "topic": "Jeff Bezos",
+      "reason": "momentum-below-floor",
+      "views": 93836,
+      "baseline": 64646,
+      "baselineDays": 7,
+      "momentum": 45.2
+    },
+    {
+      "article": "Suki_Waterhouse",
+      "topic": "Suki Waterhouse",
+      "reason": "momentum-below-floor",
+      "views": 75449,
+      "baseline": 122707,
+      "baselineDays": 7,
+      "momentum": -38.5
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 74494,
+      "baseline": 90741,
+      "baselineDays": 7,
+      "momentum": -17.9
+    },
+    {
+      "article": "Music_Station",
+      "topic": "Music Station",
+      "reason": "views-below-floor",
+      "views": 7,
+      "baseline": 17,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Earthquake",
+      "topic": "Earthquake",
+      "reason": "views-below-floor",
+      "views": 942,
+      "baseline": 939,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Good_Friday",
+      "topic": "Good Friday",
+      "reason": "views-below-floor",
+      "views": 296,
+      "baseline": 350,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Raul_(entertainer)",
+      "topic": "Raul (entertainer)",
+      "reason": "views-below-floor",
+      "views": 49,
+      "baseline": 49,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Red_Friday",
+      "topic": "Red Friday",
+      "reason": "views-below-floor",
+      "views": 3,
+      "baseline": 3,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Enhypen",
+      "topic": "Enhypen",
+      "reason": "views-below-floor",
+      "views": 885,
+      "baseline": 949,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Al-Nassr_FC",
+      "topic": "Al-Nassr FC",
+      "reason": "views-below-floor",
+      "views": 1742,
+      "baseline": 1997,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "FX_Fighter_Kurumi-chan",
+      "topic": "FX Fighter Kurumi-chan",
+      "reason": "views-below-floor",
+      "views": 892,
+      "baseline": 912,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Ginny_&_Georgia_season_2",
+      "topic": "Ginny & Georgia season 2",
+      "reason": "views-below-floor",
+      "views": 109,
+      "baseline": 60,
+      "baselineDays": 7,
+      "momentum": null
+    }
+  ]
+}
