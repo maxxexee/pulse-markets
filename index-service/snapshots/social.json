@@ -1,0 +1,334 @@
+{
+  "schema": "pulse.social.panel/1",
+  "fetchedAt": "2026-11-22T17:54:48.254Z",
+  "query": "(\"Jensen Huang\" OR Nvidia OR OpenAI OR \"Sam Altman\" OR Anthropic OR \"Elon Musk\" OR Solana) lang:en",
+  "settlementWeight": 0,
+  "posts": [
+    {
+      "id": "2124562286589235308",
+      "author": "space_oddesy",
+      "createdAt": "Sun Nov 22 17:54:56 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/space_oddesy/status/2124562286589235308"
+    },
+    {
+      "id": "2124562285649641589",
+      "author": "gk19811168",
+      "createdAt": "Sun Nov 22 17:54:56 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/gk19811168/status/2124562285649641589"
+    },
+    {
+      "id": "2124562285330854291",
+      "author": "KadenaNexus",
+      "createdAt": "Sun Nov 22 17:54:55 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/KadenaNexus/status/2124562285330854291"
+    },
+    {
+      "id": "2124562280440332546",
+      "author": "DanieldeLind",
+      "createdAt": "Sun Nov 22 17:54:54 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/DanieldeLind/status/2124562280440332546"
+    },
+    {
+      "id": "2124562279781798350",
+      "author": "only1mrwhite",
+      "createdAt": "Sun Nov 22 17:54:54 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/only1mrwhite/status/2124562279781798350"
+    },
+    {
+      "id": "2124562278641238269",
+      "author": "grandpa_mo8881",
+      "createdAt": "Sun Nov 22 17:54:54 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/grandpa_mo8881/status/2124562278641238269"
+    },
+    {
+      "id": "2124562271309574429",
+      "author": "STILOWORLD",
+      "createdAt": "Sun Nov 22 17:54:52 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/STILOWORLD/status/2124562271309574429"
+    },
+    {
+      "id": "2124562261427769824",
+      "author": "Anutr_Amr",
+      "createdAt": "Sun Nov 22 17:54:50 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/Anutr_Amr/status/2124562261427769824"
+    },
+    {
+      "id": "2124562259271622839",
+      "author": "solblender99",
+      "createdAt": "Sun Nov 22 17:54:49 +0000 2026",
+      "likes": 1,
+      "views": 3,
+      "url": "https://x.com/solblender99/status/2124562259271622839"
+    },
+    {
+      "id": "2124562253978783977",
+      "author": "lor1961",
+      "createdAt": "Sun Nov 22 17:54:48 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/lor1961/status/2124562253978783977"
+    },
+    {
+      "id": "2124562252988649762",
+      "author": "ELT1691",
+      "createdAt": "Sun Nov 22 17:54:48 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/ELT1691/status/2124562252988649762"
+    },
+    {
+      "id": "2124562243555901532",
+      "author": "IAmAlenSultanic",
+      "createdAt": "Sun Nov 22 17:54:45 +0000 2026",
+      "likes": 0,
+      "views": 5,
+      "url": "https://x.com/IAmAlenSultanic/status/2124562243555901532"
+    },
+    {
+      "id": "2124562242100461621",
+      "author": "Meowlnvda",
+      "createdAt": "Sun Nov 22 17:54:45 +0000 2026",
+      "likes": 0,
+      "views": 2,
+      "url": "https://x.com/Meowlnvda/status/2124562242100461621"
+    },
+    {
+      "id": "2124562234357510440",
+      "author": "RatesTape",
+      "createdAt": "Sun Nov 22 17:54:43 +0000 2026",
+      "likes": 0,
+      "views": 2,
+      "url": "https://x.com/RatesTape/status/2124562234357510440"
+    },
+    {
+      "id": "2124562233342710084",
+      "author": "simonateba",
+      "createdAt": "Sun Nov 22 17:54:43 +0000 2026",
+      "likes": 0,
+      "views": 165,
+      "url": "https://x.com/simonateba/status/2124562233342710084"
+    },
+    {
+      "id": "2124562216448081992",
+      "author": "someRandomDev5",
+      "createdAt": "Sun Nov 22 17:54:39 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/someRandomDev5/status/2124562216448081992"
+    },
+    {
+      "id": "2124562210613854415",
+      "author": "00Q__",
+      "createdAt": "Sun Nov 22 17:54:38 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/00Q__/status/2124562210613854415"
+    },
+    {
+      "id": "2124562208654790793",
+      "author": "Tomhohu",
+      "createdAt": "Sun Nov 22 17:54:37 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/Tomhohu/status/2124562208654790793"
+    },
+    {
+      "id": "2124562206188880121",
+      "author": "llvmvsllm",
+      "createdAt": "Sun Nov 22 17:54:37 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/llvmvsllm/status/2124562206188880121"
+    },
+    {
+      "id": "2124562204921860226",
+      "author": "callanxai",
+      "createdAt": "Sun Nov 22 17:54:36 +0000 2026",
+      "likes": 1,
+      "views": 3,
+      "url": "https://x.com/callanxai/status/2124562204921860226"
+    },
+    {
+      "id": "2124562203554582786",
+      "author": "_callerhex1",
+      "createdAt": "Sun Nov 22 17:54:36 +0000 2026",
+      "likes": 0,
+      "views": 5,
+      "url": "https://x.com/_callerhex1/status/2124562203554582786"
+    },
+    {
+      "id": "2124562200123863276",
+      "author": "Chaos2Cured",
+      "createdAt": "Sun Nov 22 17:54:35 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/Chaos2Cured/status/2124562200123863276"
+    },
+    {
+      "id": "2124562191903080540",
+      "author": "JAlthoffMarkets",
+      "createdAt": "Sun Nov 22 17:54:33 +0000 2026",
+      "likes": 1,
+      "views": 0,
+      "url": "https://x.com/JAlthoffMarkets/status/2124562191903080540"
+    },
+    {
+      "id": "2124562190296641632",
+      "author": "RiloProtocol",
+      "createdAt": "Sun Nov 22 17:54:33 +0000 2026",
+      "likes": 0,
+      "views": 3,
+      "url": "https://x.com/RiloProtocol/status/2124562190296641632"
+    },
+    {
+      "id": "2124562190279881081",
+      "author": "grandpa_mo8881",
+      "createdAt": "Sun Nov 22 17:54:33 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/grandpa_mo8881/status/2124562190279881081"
+    },
+    {
+      "id": "2124562178233557134",
+      "author": "dyt5050",
+      "createdAt": "Sun Nov 22 17:54:30 +0000 2026",
+      "likes": 1,
+      "views": 5,
+      "url": "https://x.com/dyt5050/status/2124562178233557134"
+    },
+    {
+      "id": "2124562176249622973",
+      "author": "MEMECHAD004",
+      "createdAt": "Sun Nov 22 17:54:29 +0000 2026",
+      "likes": 0,
+      "views": 11,
+      "url": "https://x.com/MEMECHAD004/status/2124562176249622973"
+    },
+    {
+      "id": "2124562174597296271",
+      "author": "akshuBuilds",
+      "createdAt": "Sun Nov 22 17:54:29 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/akshuBuilds/status/2124562174597296271"
+    },
+    {
+      "id": "2124562155793940741",
+      "author": "EarthProtective",
+      "createdAt": "Sun Nov 22 17:54:25 +0000 2026",
+      "likes": 1,
+      "views": 0,
+      "url": "https://x.com/EarthProtective/status/2124562155793940741"
+    },
+    {
+      "id": "2124562128833241254",
+      "author": "thebeanboi13",
+      "createdAt": "Sun Nov 22 17:54:18 +0000 2026",
+      "likes": 0,
+      "views": 7,
+      "url": "https://x.com/thebeanboi13/status/2124562128833241254"
+    },
+    {
+      "id": "2124562123225477260",
+      "author": "LDSCultureNerd",
+      "createdAt": "Sun Nov 22 17:54:17 +0000 2026",
+      "likes": 0,
+      "views": 3,
+      "url": "https://x.com/LDSCultureNerd/status/2124562123225477260"
+    },
+    {
+      "id": "2124562121975582911",
+      "author": "00Q__",
+      "createdAt": "Sun Nov 22 17:54:16 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/00Q__/status/2124562121975582911"
+    },
+    {
+      "id": "2124562117105983987",
+      "author": "bspence5",
+      "createdAt": "Sun Nov 22 17:54:15 +0000 2026",
+      "likes": 0,
+      "views": 3,
+      "url": "https://x.com/bspence5/status/2124562117105983987"
+    },
+    {
+      "id": "2124562113221791959",
+      "author": "cychosiis",
+      "createdAt": "Sun Nov 22 17:54:14 +0000 2026",
+      "likes": 0,
+      "views": 1,
+      "url": "https://x.com/cychosiis/status/2124562113221791959"
+    },
+    {
+      "id": "2124562109585334486",
+      "author": "BexcDegenPass",
+      "createdAt": "Sun Nov 22 17:54:14 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/BexcDegenPass/status/2124562109585334486"
+    },
+    {
+      "id": "2124562103969149258",
+      "author": "EBethandBS",
+      "createdAt": "Sun Nov 22 17:54:12 +0000 2026",
+      "likes": 0,
+      "views": 5,
+      "url": "https://x.com/EBethandBS/status/2124562103969149258"
+    },
+    {
+      "id": "2124562101033390183",
+      "author": "ZairRahaman",
+      "createdAt": "Sun Nov 22 17:54:11 +0000 2026",
+      "likes": 0,
+      "views": 2,
+      "url": "https://x.com/ZairRahaman/status/2124562101033390183"
+    },
+    {
+      "id": "2124562100517556608",
+      "author": "trhiking",
+      "createdAt": "Sun Nov 22 17:54:11 +0000 2026",
+      "likes": 0,
+      "views": 0,
+      "url": "https://x.com/trhiking/status/2124562100517556608"
+    },
+    {
+      "id": "2124562099653554265",
+      "author": "Ieeveeyou",
+      "createdAt": "Sun Nov 22 17:54:11 +0000 2026",
+      "likes": 0,
+      "views": 2,
+      "url": "https://x.com/Ieeveeyou/status/2124562099653554265"
+    },
+    {
+      "id": "2124562093617946885",
+      "author": "snoopscult",
+      "createdAt": "Sun Nov 22 17:54:10 +0000 2026",
+      "likes": 0,
+      "views": 5,
+      "url": "https://x.com/snoopscult/status/2124562093617946885"
+    }
+  ],
+  "totals": {
+    "posts": 40,
+    "likes": 5,
+    "views": 237
+  },
+  "truncated": true
+}
