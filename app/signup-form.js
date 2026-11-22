@@ -15,6 +15,9 @@ import {
 const MIN_PASSWORD_LENGTH = 8;
 const EMAIL_SHAPE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** Where a signed-in reader belongs. Both auth paths end here. */
+const DASHBOARD_URL = './dashboard/';
+
 /** Which call the email form makes. A returning reader needs a way back in. */
 let mode = 'signup';
 
@@ -190,6 +193,7 @@ async function submitEmail() {
     return;
   }
   showSignedIn(result.user);
+  window.location.assign(DASHBOARD_URL);
 }
 
 async function submitGoogle() {
@@ -249,10 +253,15 @@ function wireSignOut() {
   });
 }
 
-/** A page reload keeps the session, so the form reflects it on load. */
+/**
+ * A page reload keeps the session, so the form reflects it on load. Google sends the
+ * reader back to this page rather than the dashboard, so a live session forwards on.
+ */
 async function restoreSession() {
   const result = await getCurrentUser();
-  if (result.ok && result.user) showSignedIn(result.user);
+  if (!result.ok || !result.user) return;
+  showSignedIn(result.user);
+  window.location.assign(DASHBOARD_URL);
 }
 
 function init() {

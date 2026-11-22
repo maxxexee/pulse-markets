@@ -23,6 +23,14 @@ The page here started as the live document, with the images and `pulse-live.js`
 fetched from the live host and committed beside it. Those images are WebP now,
 and the hardcoded cards and ticker values are gone.
 
+## The dashboard
+
+`dashboard/` is the signed-in product surface: portfolio, the index constituents, the
+threshold markets and the trending board, every page tradeable with RIDE/FADE. It is
+static too — `pulse-data.js` is generated, and `refresh-data.sh` rebuilds it from the
+signed snapshots (`gh api`, or a local `SNAP_DIR` when you have one). Sign-up and sign-in
+land here (`signup-form.js`), including the Google round trip.
+
 ## Run it
 
 ```
