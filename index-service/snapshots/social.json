@@ -1,6 +1,6 @@
 {
   "schema": "pulse.social.panel/2",
-  "fetchedAt": "2026-11-22T23:56:53.634Z",
+  "fetchedAt": "2026-11-22T23:59:22.399Z",
   "query": "(\"Jensen Huang\" OR Nvidia OR OpenAI OR \"Sam Altman\" OR Anthropic OR \"Elon Musk\" OR Solana) lang:en",
   "settlementWeight": 0,
   "posts": [
@@ -367,7 +367,7 @@
           "author": "atrupar.com",
           "text": "Sen. John Kennedy on Jensen Huang: \"It was the most expensive sex since Helen of Troy\" (Note how he goes on to sharply criticize Howard Lutnick)",
           "createdAt": "2026-11-22T14:43:25.259Z",
-          "likes": 1692,
+          "likes": 1693,
           "views": null,
           "url": "https://bsky.app/profile/atrupar.com/post/3n2vtzymfck2q",
           "source": "bluesky"
@@ -505,7 +505,7 @@
       ],
       "totals": {
         "posts": 18,
-        "likes": 23119,
+        "likes": 23120,
         "views": 0
       }
     },
@@ -518,7 +518,7 @@
           "author": "edzitron.com",
           "text": "NVIDIA replaced Enron on November 28 2001",
           "createdAt": "2026-11-22T00:13:22.096Z",
-          "likes": 5880,
+          "likes": 5881,
           "views": null,
           "url": "https://bsky.app/profile/edzitron.com/post/3n2udg7scw22y",
           "source": "bluesky"
@@ -528,7 +528,7 @@
           "author": "xelahart.bsky.social",
           "text": "Meanwhile, the representatives Raskin of Maryland, Meeks of New York and Kamlager-Dove of California havelaunched an inquiry into whether Lutnick used his office to help Cantor Fitzgerald, now controlled by his sons, avoid losses connected to scrutiny of Nvidia. www.theguardian.com/us-news/2026...",
           "createdAt": "2026-11-22T13:21:50.140Z",
-          "likes": 3555,
+          "likes": 3559,
           "views": null,
           "url": "https://bsky.app/profile/xelahart.bsky.social/post/3n2vpi4bbmc2m",
           "source": "bluesky"
@@ -736,7 +736,7 @@
       ],
       "totals": {
         "posts": 22,
-        "likes": 26191,
+        "likes": 26196,
         "views": 0
       }
     },
@@ -779,7 +779,7 @@
           "author": "emilymbender.bsky.social",
           "text": "Remember folks that Anthropic & OpenAI are only going after famous math problems because they want you to believe that they're building machine gods. Meanwhile, they're burning untold amounts of carbon to do so and I'm reminded of this:",
           "createdAt": "2026-11-22T00:04:38.349Z",
-          "likes": 533,
+          "likes": 534,
           "views": null,
           "url": "https://bsky.app/profile/emilymbender.bsky.social/post/3n2ucwmctac2c",
           "source": "bluesky"
@@ -987,7 +987,7 @@
       ],
       "totals": {
         "posts": 24,
-        "likes": 14948,
+        "likes": 14949,
         "views": 0
       }
     },
@@ -1532,7 +1532,7 @@
           "author": "nothoodlum.bsky.social",
           "text": "Elon Musk says he’s not MAGA. Apparently, he just collects the hats and the occasional guest appearance. 🥴",
           "createdAt": "2026-11-21T21:38:06.475Z",
-          "likes": 1116,
+          "likes": 1117,
           "views": null,
           "url": "https://bsky.app/profile/nothoodlum.bsky.social/post/3n2u2qlq5r224",
           "source": "bluesky"
@@ -1542,7 +1542,7 @@
           "author": "papacitogordo.bsky.social",
           "text": "Who thinks Elon Musk hacked all the voting machines in the 2024 election?",
           "createdAt": "2026-11-21T15:33:14.023Z",
-          "likes": 936,
+          "likes": 937,
           "views": null,
           "url": "https://bsky.app/profile/papacitogordo.bsky.social/post/3n2tge5hmzs2a",
           "source": "bluesky"
@@ -1608,19 +1608,19 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:lzhoiqcmix7x4umnzrtxzd5h/app.bsky.feed.post/3n2tjf5z2qk2e",
-          "author": "bireeves95.bsky.social",
-          "text": "Elon Musk is a criminal…..",
-          "createdAt": "2026-11-21T16:27:29.371Z",
-          "likes": 105,
+          "id": "at://did:plc:4z7le4gy5xiioq2l7ptdhps7/app.bsky.feed.post/3n2wq7vr2rs2m",
+          "author": "thebeaverton.com",
+          "text": "Elon Musk insists Nazi salute was actually him making “D” for “Democrat”",
+          "createdAt": "2026-11-22T23:07:48.363Z",
+          "likes": 438,
           "views": null,
-          "url": "https://bsky.app/profile/bireeves95.bsky.social/post/3n2tjf5z2qk2e",
+          "url": "https://bsky.app/profile/thebeaverton.com/post/3n2wq7vr2rs2m",
           "source": "bluesky"
         }
       ],
       "totals": {
         "posts": 19,
-        "likes": 50815,
+        "likes": 51150,
         "views": 0
       }
     },
@@ -1794,7 +1794,7 @@
           "author": "acollierastro.bsky.social",
           "text": "My 'AI' solved the Riemann Hypothesis I cannot check it nor do I understand it It's 250,000 pages so you cannot check it Please give me credit for 'my' work",
           "createdAt": "2026-11-22T15:51:21.701Z",
-          "likes": 1766,
+          "likes": 1771,
           "views": null,
           "url": "https://bsky.app/profile/acollierastro.bsky.social/post/3n2vxti7lnk27",
           "source": "bluesky"
@@ -1827,16 +1827,6 @@
           "likes": 483,
           "views": null,
           "url": "https://bsky.app/profile/bloomfilters.plus/post/3n2tvagjyfs2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:myqic77tkmdhmaufgkvj43hr/app.bsky.feed.post/3n2qy2sqrj22z",
-          "author": "kjhealy.co",
-          "text": "Why a Claude-assisted proof of the Riemann hypothesis accompanied by a 17-million-line Lean formalization means trouble for the Democrats",
-          "createdAt": "2026-11-20T16:12:08.941Z",
-          "likes": 469,
-          "views": null,
-          "url": "https://bsky.app/profile/kjhealy.co/post/3n2qy2sqrj22z",
           "source": "bluesky"
         },
         {
@@ -2031,8 +2021,8 @@
         }
       ],
       "totals": {
-        "posts": 24,
-        "likes": 7447,
+        "posts": 23,
+        "likes": 6983,
         "views": 0
       }
     },
