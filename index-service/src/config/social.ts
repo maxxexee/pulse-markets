@@ -24,6 +24,8 @@ export interface SocialTopicSpec {
   readonly key: string;
   readonly label: string;
   readonly query: string;
+  /** Words a post must also carry, where the label alone is too generic. */
+  readonly requires?: readonly string[];
 }
 
 /**
@@ -40,14 +42,19 @@ export function socialTopicQueries(
 ): readonly SocialTopicSpec[] {
   const seen = new Set<string>();
   const specs: SocialTopicSpec[] = [];
-  const add = (key: string, label: string): void => {
+  const add = (key: string, label: string, requires?: readonly string[]): void => {
     if (seen.has(key)) return;
     seen.add(key);
     const search = label.replace(/\s*\([^)]*\)\s*/g, ' ').trim();
-    specs.push({ key, label, query: `"${search}" lang:en` });
+    specs.push({
+      key,
+      label,
+      query: `"${search}" lang:en`,
+      ...(requires === undefined ? {} : { requires }),
+    });
   };
   for (const entity of basket) {
-    add(entity.id, entity.label);
+    add(entity.id, entity.label, entity.socialTerms);
   }
   for (const topic of topics) {
     add(`g:${topicSlug(topic)}`, topic);

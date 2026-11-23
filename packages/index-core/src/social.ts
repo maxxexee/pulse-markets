@@ -111,16 +111,25 @@ function hasPhrase(haystack: string, phrase: string): boolean {
  *
  * Substring matching put a post about "steps down" on the page for `Steps
  * (film)`, and a post about a dog called Solana on the crypto page. A mention
- * therefore has to be the whole phrase, and a topic whose title needed a
- * disambiguator - `Fiona (hippopotamus)`, `Steps (film)` - only counts when the
- * post carries one of that qualifier's words as well.
+ * therefore has to be the whole phrase, and one of the topic's qualifying words
+ * has to be there too: the caller's `requires` list, or the words of the
+ * disambiguator the article title already carries (`Fiona (hippopotamus)`, `Steps
+ * (film)`).
  *
  * A page with no posts is a better outcome than a page with the wrong ones.
  */
-export function mentionsTopic(text: string, label: string): boolean {
+export function mentionsTopic(
+  text: string,
+  label: string,
+  requires: readonly string[] = [],
+): boolean {
   const body = text.toLowerCase();
   if (!hasPhrase(body, mentionKey(label))) {
     return false;
+  }
+  const declared = requires.map((word) => word.toLowerCase()).filter((word) => word !== '');
+  if (declared.length > 0) {
+    return declared.some((word) => hasPhrase(body, word));
   }
   const disambiguator = /\(([^)]*)\)/.exec(label)?.[1]?.trim().toLowerCase() ?? '';
   const words = disambiguator.split(/[^a-z0-9]+/).filter((word) => word.length > 2);
@@ -148,6 +157,12 @@ export interface SocialTopicQuery {
   readonly key: string;
   readonly label: string;
   readonly query: string;
+  /**
+   * Words a post must also contain to count. Required where the label on its
+   * own is an ordinary word or name: without it, "Solana" pulls in a dog and a
+   * fan character before it pulls in the blockchain.
+   */
+  readonly requires?: readonly string[];
 }
 
 /** One page's panel, totalled the same way the whole panel is. */

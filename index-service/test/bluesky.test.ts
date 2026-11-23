@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { fetchBlueskyTopics, parsePost } from '../src/adapters/bluesky.ts';
+import { mentionsTopic } from '@pulse/index-core/social.ts';
 
 function searchBody(posts: unknown[]): Response {
   return new Response(JSON.stringify({ posts }), {
@@ -105,6 +106,18 @@ test('a refused page is retried once, logged, and left out without stopping the 
   assert.equal(panels['nvidia'], undefined);
   assert.equal(panels['solana']?.posts.length, 1);
   assert.ok(lines.some((line) => line.includes('nvidia') && line.includes('skipped')));
+});
+
+test('a label that is also an ordinary name needs its qualifying words', () => {
+  const dog = "Meet 2 new additions to the Blazin' Drakes crew, Solana & Comet!";
+  const crypto = 'Solana fees dropped again this week';
+  // Without a co-term the dog is accepted; that was the bug the page shipped with.
+  assert.equal(mentionsTopic(dog, 'Solana'), true);
+  const requires = ['sol', 'blockchain', 'crypto', 'defi', 'wallet', 'token', 'chain', 'web3'];
+  assert.equal(mentionsTopic(dog, 'Solana', requires), false);
+  assert.equal(mentionsTopic(`${crypto} and the wallet is live`, 'Solana', requires), true);
+  // "sol" must be its own word, not a piece of "solana".
+  assert.equal(mentionsTopic('Solana is a word', 'Solana', ['sol']), false);
 });
 
 test('a page with no mention in any result is left out rather than shown empty', async () => {

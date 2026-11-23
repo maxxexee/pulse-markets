@@ -1,6 +1,6 @@
 {
   "schema": "pulse.social.panel/2",
-  "fetchedAt": "2026-11-22T23:59:22.399Z",
+  "fetchedAt": "2026-11-23T00:07:15.968Z",
   "query": "(\"Jensen Huang\" OR Nvidia OR OpenAI OR \"Sam Altman\" OR Anthropic OR \"Elon Musk\" OR Solana) lang:en",
   "settlementWeight": 0,
   "posts": [
@@ -367,7 +367,7 @@
           "author": "atrupar.com",
           "text": "Sen. John Kennedy on Jensen Huang: \"It was the most expensive sex since Helen of Troy\" (Note how he goes on to sharply criticize Howard Lutnick)",
           "createdAt": "2026-11-22T14:43:25.259Z",
-          "likes": 1693,
+          "likes": 1697,
           "views": null,
           "url": "https://bsky.app/profile/atrupar.com/post/3n2vtzymfck2q",
           "source": "bluesky"
@@ -505,7 +505,7 @@
       ],
       "totals": {
         "posts": 18,
-        "likes": 23120,
+        "likes": 23124,
         "views": 0
       }
     },
@@ -518,7 +518,7 @@
           "author": "edzitron.com",
           "text": "NVIDIA replaced Enron on November 28 2001",
           "createdAt": "2026-11-22T00:13:22.096Z",
-          "likes": 5881,
+          "likes": 5884,
           "views": null,
           "url": "https://bsky.app/profile/edzitron.com/post/3n2udg7scw22y",
           "source": "bluesky"
@@ -528,7 +528,7 @@
           "author": "xelahart.bsky.social",
           "text": "Meanwhile, the representatives Raskin of Maryland, Meeks of New York and Kamlager-Dove of California havelaunched an inquiry into whether Lutnick used his office to help Cantor Fitzgerald, now controlled by his sons, avoid losses connected to scrutiny of Nvidia. www.theguardian.com/us-news/2026...",
           "createdAt": "2026-11-22T13:21:50.140Z",
-          "likes": 3559,
+          "likes": 3568,
           "views": null,
           "url": "https://bsky.app/profile/xelahart.bsky.social/post/3n2vpi4bbmc2m",
           "source": "bluesky"
@@ -558,7 +558,7 @@
           "author": "leftistwonk.bsky.social",
           "text": "NVIDIA has lost $2.55 TRILLION in 45 days",
           "createdAt": "2026-11-20T18:05:43.807Z",
-          "likes": 1915,
+          "likes": 1916,
           "views": null,
           "url": "https://bsky.app/profile/leftistwonk.bsky.social/post/3n2r6fvvz2s2e",
           "source": "bluesky"
@@ -736,7 +736,7 @@
       ],
       "totals": {
         "posts": 22,
-        "likes": 26196,
+        "likes": 26209,
         "views": 0
       }
     },
@@ -779,7 +779,7 @@
           "author": "emilymbender.bsky.social",
           "text": "Remember folks that Anthropic & OpenAI are only going after famous math problems because they want you to believe that they're building machine gods. Meanwhile, they're burning untold amounts of carbon to do so and I'm reminded of this:",
           "createdAt": "2026-11-22T00:04:38.349Z",
-          "likes": 534,
+          "likes": 536,
           "views": null,
           "url": "https://bsky.app/profile/emilymbender.bsky.social/post/3n2ucwmctac2c",
           "source": "bluesky"
@@ -869,7 +869,7 @@
           "author": "gleemie.bsky.social",
           "text": "UC signed an OpenAI contract which includes provisions that prohibits the use of ChatGPT to develop AI models that compete with OpenAI products. You can't openly research without violating the ToS! Leadership so out of touch with actual research and teaching. 🤦🏻‍♀️ www.latimes.com/california/s...",
           "createdAt": "2026-11-22T04:32:51.141Z",
-          "likes": 88,
+          "likes": 89,
           "views": null,
           "url": "https://bsky.app/profile/gleemie.bsky.social/post/3n2urw7lth22u",
           "source": "bluesky"
@@ -987,7 +987,7 @@
       ],
       "totals": {
         "posts": 24,
-        "likes": 14949,
+        "likes": 14952,
         "views": 0
       }
     },
@@ -1191,7 +1191,7 @@
           "author": "adamchristopher.me",
           "text": "Hey you want to get angry? Some rough maths: Anthropic IPO: $1.3 trillion Anthropic copyright settlement: $1.5 billion If Anthropic paid $150,000 per title like they should have instead of $3,000, the settlement would be $75 billion. After that, the company would only be worth… $1.225 trillion.",
           "createdAt": "2026-11-20T12:36:27.878Z",
-          "likes": 4259,
+          "likes": 4260,
           "views": null,
           "url": "https://bsky.app/profile/adamchristopher.me/post/3n2qlz574ic2x",
           "source": "bluesky"
@@ -1294,16 +1294,6 @@
           "likes": 221,
           "views": null,
           "url": "https://bsky.app/profile/chuckwendig.bsky.social/post/3n2ozsrets22e",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:mlabzvj2dn2ynqufgidmh2i4/app.bsky.feed.post/3n2r7p36ix32r",
-          "author": "quadraticink.bsky.social",
-          "text": "It was shaky after election, but looks like everyone was waiting to see how Anthropic IPO would go. Anthropic lost a quarter of its value since opening and falling. And that's naturally pulling the whole ouroboros down.",
-          "createdAt": "2026-11-20T18:28:45.059Z",
-          "likes": 212,
-          "views": null,
-          "url": "https://bsky.app/profile/quadraticink.bsky.social/post/3n2r7p36ix32r",
           "source": "bluesky"
         },
         {
@@ -1415,11 +1405,21 @@
           "views": null,
           "url": "https://bsky.app/profile/jpohlmanwriting.com/post/3n2pkcyvxjc2z",
           "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:lezqbovtbztdt3spwhcpz6vr/app.bsky.feed.post/3n2qoekzna22a",
+          "author": "readingtheend.bsky.social",
+          "text": "Fuck Anthropic.",
+          "createdAt": "2026-11-20T13:18:38.968Z",
+          "likes": 33,
+          "views": null,
+          "url": "https://bsky.app/profile/readingtheend.bsky.social/post/3n2qoekzna22a",
+          "source": "bluesky"
         }
       ],
       "totals": {
         "posts": 23,
-        "likes": 13889,
+        "likes": 13711,
         "views": 0
       }
     },
@@ -1462,7 +1462,7 @@
           "author": "internethippo.bsky.social",
           "text": "Elon Musk has been so depressed he's stopped actively offering his semen to women. \"It's over there\" he indifferently motions to his refrigerator",
           "createdAt": "2026-11-21T22:56:45.969Z",
-          "likes": 3699,
+          "likes": 3702,
           "views": null,
           "url": "https://bsky.app/profile/internethippo.bsky.social/post/3n2u75almo22p",
           "source": "bluesky"
@@ -1502,7 +1502,7 @@
           "author": "cwebbonline.com",
           "text": "ELON MUSK 2026: “I'm not MAGA.” ELON MUSK 2024: “As you can see, I'm not just MAGA, I'm dark MAGA.” Funny how quickly a billionaire tries to rewrite history when the political winds change.",
           "createdAt": "2026-11-22T01:31:03.834Z",
-          "likes": 2110,
+          "likes": 2112,
           "views": null,
           "url": "https://bsky.app/profile/cwebbonline.com/post/3n2uhr5lfdk2g",
           "source": "bluesky"
@@ -1612,7 +1612,7 @@
           "author": "thebeaverton.com",
           "text": "Elon Musk insists Nazi salute was actually him making “D” for “Democrat”",
           "createdAt": "2026-11-22T23:07:48.363Z",
-          "likes": 438,
+          "likes": 521,
           "views": null,
           "url": "https://bsky.app/profile/thebeaverton.com/post/3n2wq7vr2rs2m",
           "source": "bluesky"
@@ -1620,7 +1620,7 @@
       ],
       "totals": {
         "posts": 19,
-        "likes": 51150,
+        "likes": 51238,
         "views": 0
       }
     },
@@ -1628,36 +1628,6 @@
       "label": "Solana",
       "query": "\"Solana\" lang:en",
       "posts": [
-        {
-          "id": "at://did:plc:lykwf42l72dqohbwf2c3vmnk/app.bsky.feed.post/3n2myto67qc2v",
-          "author": "foxlover91.bsky.social",
-          "text": "Meet 2 new additions to the Blazin' Drakes kahuna crew, Solana & Comet!😎🏄‍♂️ Creation/Inks by @babsiwuff.bsky.social 🥰",
-          "createdAt": "2026-11-19T02:15:24.035Z",
-          "likes": 8,
-          "views": null,
-          "url": "https://bsky.app/profile/foxlover91.bsky.social/post/3n2myto67qc2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:7ydb33jp6e4j3vgf24o3vt7i/app.bsky.feed.post/3n2ps65vubs22",
-          "author": "minty-the-meowstic.bsky.social",
-          "text": "Sniper secretly likes it when Solana is overprotective #selfship #yumeship #selfinsertxcanon #selfshipart #yumeshipart #tf2sniper #digitalart",
-          "createdAt": "2026-11-20T04:53:59.108Z",
-          "likes": 7,
-          "views": null,
-          "url": "https://bsky.app/profile/minty-the-meowstic.bsky.social/post/3n2ps65vubs22",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ctkllubiej7ob4ye2crpwtee/app.bsky.feed.post/3n2qlpebgyc2c",
-          "author": "vlatkoc.eurosky.social",
-          "text": "Tuzla je kamen. Neslana. Paška solana navodno zna popuniti zalihe uvozom iz Tunisa. Dakle pušiona. Priznajem jedino jadransku sol. Salinitet mora po svijetu je 1025. Salinitet Jadtanskog mora je 1038. Samo solana Nin. Rasprava završila.",
-          "createdAt": "2026-11-20T12:30:59.731Z",
-          "likes": 6,
-          "views": null,
-          "url": "https://bsky.app/profile/vlatkoc.eurosky.social/post/3n2qlpebgyc2c",
-          "source": "bluesky"
-        },
         {
           "id": "at://did:plc:ajbsnuwf4z4pxpr4q2lq266u/app.bsky.feed.post/3n2nyoc5c5k2k",
           "author": "maheshkale.bsky.social",
@@ -1676,6 +1646,16 @@
           "likes": 4,
           "views": null,
           "url": "https://bsky.app/profile/meme331.bsky.social/post/3n2w3bm6pis2j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wktb72gs2d",
+          "author": "zombcash.bsky.social",
+          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
+          "createdAt": "2026-11-22T21:31:15.438Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wktb72gs2d",
           "source": "bluesky"
         },
         {
@@ -1699,23 +1679,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wktb72gs2d",
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wkuyt3es2d",
           "author": "zombcash.bsky.social",
           "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
-          "createdAt": "2026-11-22T21:31:15.438Z",
+          "createdAt": "2026-11-22T21:32:13.767Z",
           "likes": 2,
           "views": null,
-          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wktb72gs2d",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ijnshrl5az5jr7yt757yswz5/app.bsky.feed.post/3n2s7pbxwls2z",
-          "author": "hauge319.bsky.social",
-          "text": "Ethereum? Solana? We need answers.",
-          "createdAt": "2026-11-21T04:01:31.924Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/hauge319.bsky.social/post/3n2s7pbxwls2z",
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wkuyt3es2d",
           "source": "bluesky"
         },
         {
@@ -1739,13 +1709,23 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wkuyt3es2d",
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wljxgdo22d",
           "author": "zombcash.bsky.social",
           "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
-          "createdAt": "2026-11-22T21:32:13.767Z",
+          "createdAt": "2026-11-22T21:43:56.938Z",
           "likes": 1,
           "views": null,
-          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wkuyt3es2d",
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wljxgdo22d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wkr7ekac2d",
+          "author": "zombcash.bsky.social",
+          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
+          "createdAt": "2026-11-22T21:30:06.410Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wkr7ekac2d",
           "source": "bluesky"
         },
         {
@@ -1767,21 +1747,11 @@
           "views": null,
           "url": "https://bsky.app/profile/tmlnews.bsky.social/post/3n2wnpylfth2m",
           "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2ugul6tpo2z",
-          "author": "btcwhalealerts.com",
-          "text": "🟢 10.00M USDC ($10.0M) ← Coinbase To 7ERkLs…Xz11. Often routes to Solana DEXs (Jupiter, Raydium) — deployed capital, not HODL. ◎ https://swisswhaleintelligence.com/sol/ #Solana #USDC #Crypto",
-          "createdAt": "2026-11-22T01:15:04.940340+00:00",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2ugul6tpo2z",
-          "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 15,
-        "likes": 48,
+        "posts": 12,
+        "likes": 28,
         "views": 0
       }
     },
@@ -1794,7 +1764,7 @@
           "author": "acollierastro.bsky.social",
           "text": "My 'AI' solved the Riemann Hypothesis I cannot check it nor do I understand it It's 250,000 pages so you cannot check it Please give me credit for 'my' work",
           "createdAt": "2026-11-22T15:51:21.701Z",
-          "likes": 1771,
+          "likes": 1780,
           "views": null,
           "url": "https://bsky.app/profile/acollierastro.bsky.social/post/3n2vxti7lnk27",
           "source": "bluesky"
@@ -1877,16 +1847,6 @@
           "likes": 183,
           "views": null,
           "url": "https://bsky.app/profile/astrokatie.com/post/3n2unmafbjk2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:wamidydbgu3u6fk3yckaglnz/app.bsky.feed.post/3n2tjkt7scs2l",
-          "author": "philpax.me",
-          "text": "\"We have full confidence that Alpöge's proof of the Riemann Hypothesis is correct, and we congratulate him on this achievement.\"",
-          "createdAt": "2026-11-21T16:30:39.392Z",
-          "likes": 175,
-          "views": null,
-          "url": "https://bsky.app/profile/philpax.me/post/3n2tjkt7scs2l",
           "source": "bluesky"
         },
         {
@@ -1980,6 +1940,16 @@
           "source": "bluesky"
         },
         {
+          "id": "at://did:plc:5boijynjbphhn7nqbc55wt4w/app.bsky.feed.post/3n2whazu7zs2c",
+          "author": "rivertam.bsky.social",
+          "text": "Where is the proof they didn't brute force the Riemann Hypothesis.",
+          "createdAt": "2026-11-22T20:27:22.540Z",
+          "likes": 76,
+          "views": null,
+          "url": "https://bsky.app/profile/rivertam.bsky.social/post/3n2whazu7zs2c",
+          "source": "bluesky"
+        },
+        {
           "id": "at://did:plc:6rdthm3ihpqfd7vn2q2ktjrz/app.bsky.feed.post/3n2u7nmrlbc2y",
           "author": "colin-fraser.net",
           "text": "The actual Riemann Hypothesis catastrophe ended up being, you ask a friendly AI to prove the Riemann Hypothesis and it just does it with ease and you have to go, shit, now what",
@@ -1987,16 +1957,6 @@
           "likes": 76,
           "views": null,
           "url": "https://bsky.app/profile/colin-fraser.net/post/3n2u7nmrlbc2y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:5boijynjbphhn7nqbc55wt4w/app.bsky.feed.post/3n2whazu7zs2c",
-          "author": "rivertam.bsky.social",
-          "text": "Where is the proof they didn't brute force the Riemann Hypothesis.",
-          "createdAt": "2026-11-22T20:27:22.540Z",
-          "likes": 75,
-          "views": null,
-          "url": "https://bsky.app/profile/rivertam.bsky.social/post/3n2whazu7zs2c",
           "source": "bluesky"
         },
         {
@@ -2018,11 +1978,21 @@
           "views": null,
           "url": "https://bsky.app/profile/quilling.dev/post/3n2w625benk2r",
           "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:vfktz6qe6vy7serr3wqutpzt/app.bsky.feed.post/3n2rei463ls2m",
+          "author": "quantamagazine.org",
+          "text": "From the Quanta YouTube channel: Explore the Riemann hypothesis: www.youtube.com/watch?v=zlm1...",
+          "createdAt": "2026-11-20T19:54:19.923Z",
+          "likes": 38,
+          "views": null,
+          "url": "https://bsky.app/profile/quantamagazine.org/post/3n2rei463ls2m",
+          "source": "bluesky"
         }
       ],
       "totals": {
         "posts": 23,
-        "likes": 6983,
+        "likes": 6856,
         "views": 0
       }
     },
@@ -2253,6 +2223,16 @@
           "source": "bluesky"
         },
         {
+          "id": "at://did:plc:iv3xwg2zf4tpnbhbhqhyt3sq/app.bsky.feed.post/3n2u7uhgyb22v",
+          "author": "miraclemoveondrug.swifties.social",
+          "text": "I just saw sunrise on the reaping Francis Lawrence when I catch you Suzanne Collins when i catch you Joseph Zada was phenomenal as Haymitch but Kelvin Harrison Jr as Beetee really stole the show for me he did so well it really felt like I was watching a younger Beetee!! 10/10 movie",
+          "createdAt": "2026-11-21T23:09:44.893Z",
+          "likes": 11,
+          "views": null,
+          "url": "https://bsky.app/profile/miraclemoveondrug.swifties.social/post/3n2u7uhgyb22v",
+          "source": "bluesky"
+        },
+        {
           "id": "at://did:plc:m2332hczi66qv47jgbhujvpi/app.bsky.feed.post/3n2s5ucdqys2y",
           "author": "lacymb.bsky.social",
           "text": "Late posting this, but I found The Hunger Games: Sunrise on the Reaping to be both surprisingly moving and uncannily timely. Joseph Zada deserves to be a big movie star. My review at @wcp.bsky.social:",
@@ -2393,16 +2373,6 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:i2ihqrybl4hl2kpkic4ohbpq/app.bsky.feed.post/3n2sng32ups2d",
-          "author": "karalambo.bsky.social",
-          "text": "Waiting for the colourism to start as soon as a certain country finds out the lead of the new hunger games movie Joseph Zada is Aboriginal.",
-          "createdAt": "2026-11-21T08:06:55.074Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/karalambo.bsky.social/post/3n2sng32ups2d",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:qkhfzwpymn4j5aasjvnkmlch/app.bsky.feed.post/3n2v6q3ztuk23",
           "author": "iheartlaz.bsky.social",
           "text": "joseph zada fan 45",
@@ -2465,7 +2435,7 @@
       ],
       "totals": {
         "posts": 23,
-        "likes": 121,
+        "likes": 130,
         "views": 0
       }
     },
@@ -2478,9 +2448,19 @@
           "author": "discussingfilm.net",
           "text": "‘THE HUNGER GAMES: SUNRISE ON THE REAPING’ debuts on CinemaScore with an A- Read our review: bit.ly/SunriseDF",
           "createdAt": "2026-11-21T06:50:35.852Z",
-          "likes": 178,
+          "likes": 179,
           "views": null,
           "url": "https://bsky.app/profile/discussingfilm.net/post/3n2sj5ly57k2i",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:yfyg7lj7atao6krdbaqaci35/app.bsky.feed.post/3n2wqz7v44k2v",
+          "author": "billcorbett.bsky.social",
+          "text": "Paul Blart 3: Sunrise on the Reaping",
+          "createdAt": "2026-11-22T23:21:57.841Z",
+          "likes": 135,
+          "views": null,
+          "url": "https://bsky.app/profile/billcorbett.bsky.social/post/3n2wqz7v44k2v",
           "source": "bluesky"
         },
         {
@@ -2501,16 +2481,6 @@
           "likes": 126,
           "views": null,
           "url": "https://bsky.app/profile/discussingfilm.net/post/3n2ud6tw6us2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:yfyg7lj7atao6krdbaqaci35/app.bsky.feed.post/3n2wqz7v44k2v",
-          "author": "billcorbett.bsky.social",
-          "text": "Paul Blart 3: Sunrise on the Reaping",
-          "createdAt": "2026-11-22T23:21:57.841Z",
-          "likes": 125,
-          "views": null,
-          "url": "https://bsky.app/profile/billcorbett.bsky.social/post/3n2wqz7v44k2v",
           "source": "bluesky"
         },
         {
@@ -2571,6 +2541,16 @@
           "likes": 29,
           "views": null,
           "url": "https://bsky.app/profile/ooccouchgags.bsky.social/post/3n2qsapucuk2z",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:oou7l65l5zjaceknel7zdhzk/app.bsky.feed.post/3n2s755r3wc24",
+          "author": "huskyfit.bsky.social",
+          "text": "I AM NEVER WATCHING SUNRISE ON THE REAPING EVER AGAIN I CRIED FOR 3 HOURS",
+          "createdAt": "2026-11-21T03:51:23.524Z",
+          "likes": 29,
+          "views": null,
+          "url": "https://bsky.app/profile/huskyfit.bsky.social/post/3n2s755r3wc24",
           "source": "bluesky"
         },
         {
@@ -2664,16 +2644,6 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:qxnuvs65f7bselrr7c4eqykw/app.bsky.feed.post/3n2wapb2b3k22",
-          "author": "barbieghoul.bsky.social",
-          "text": "Off to see sunrise on the reaping in imax, sorry ear drums",
-          "createdAt": "2026-11-22T18:30:03.647Z",
-          "likes": 16,
-          "views": null,
-          "url": "https://bsky.app/profile/barbieghoul.bsky.social/post/3n2wapb2b3k22",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:ucogwfp44ku4asx7qddv5e7o/app.bsky.feed.post/3n2wcd6mvzk2e",
           "author": "marquis.bsky.social",
           "text": "Seated for Sunrise on the Reaping",
@@ -2696,7 +2666,7 @@
       ],
       "totals": {
         "posts": 22,
-        "likes": 1069,
+        "likes": 1093,
         "views": 0
       }
     }

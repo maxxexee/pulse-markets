@@ -14,6 +14,13 @@ export interface EntityDefinition {
   readonly wikipediaArticle: string;
   /** Hacker News full-text query for story mentions. */
   readonly hackerNewsQuery: string;
+  /**
+   * Words a social post must also carry to be shown on this entity's page.
+   *
+   * Only needed where the label is an ordinary word too: "Solana" is a person's
+   * name, and without this the page shows posts about a dog.
+   */
+  readonly socialTerms?: readonly string[];
 }
 
 /** Index basket version 1. Changing membership changes the index, so it is versioned. */
@@ -59,5 +66,8 @@ export const ENTITY_BASKET: readonly EntityDefinition[] = [
     label: 'Solana',
     wikipediaArticle: 'Solana_(blockchain_platform)',
     hackerNewsQuery: 'Solana',
+    // Not the ticker: "sol" is also the Croatian and Spanish word for sun and
+    // salt, which put a salt-field post on the page.
+    socialTerms: ['blockchain', 'crypto', 'defi', 'wallet', 'token', 'chain', 'web3'],
   },
 ];

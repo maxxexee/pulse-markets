@@ -187,7 +187,7 @@ export async function fetchBlueskyTopics(
         continue;
       }
     }
-    const mentions = posts.filter((post) => mentionsTopic(post.text, topic.label));
+    const mentions = posts.filter((post) => mentionsTopic(post.text, topic.label, topic.requires));
     if (mentions.length === 0) {
       continue;
     }

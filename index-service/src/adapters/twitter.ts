@@ -293,7 +293,7 @@ export async function fetchSocialTopics(options: {
     panels[topic.key] = summarizeTopic({
       label: topic.label,
       query: topic.query,
-      posts: posts.filter((post) => mentionsTopic(post.text, topic.label)),
+      posts: posts.filter((post) => mentionsTopic(post.text, topic.label, topic.requires)),
     });
   }
   return panels;
