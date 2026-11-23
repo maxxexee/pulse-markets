@@ -1,6 +1,6 @@
 {
   "schema": "pulse.social.panel/2",
-  "fetchedAt": "2026-11-23T00:07:15.968Z",
+  "fetchedAt": "2026-11-23T19:14:45.714Z",
   "query": "(\"Jensen Huang\" OR Nvidia OR OpenAI OR \"Sam Altman\" OR Anthropic OR \"Elon Musk\" OR Solana) lang:en",
   "settlementWeight": 0,
   "posts": [
@@ -323,103 +323,113 @@
       "query": "\"Jensen Huang\" lang:en",
       "posts": [
         {
-          "id": "at://did:plc:xjc7mkotpenvhh6ffewkdpyn/app.bsky.feed.post/3n2pd5p3d3k24",
-          "author": "meidastouch.com",
-          "text": "🚨 BREAKING: California Attorney General Rob Bonta has launched an investigation into Nvidia and its CEO Jensen Huang over whether their actions allowed China to obtain advanced computer chips or confidential information. 1/",
-          "createdAt": "2026-11-20T00:25:17.438Z",
-          "likes": 6721,
+          "id": "at://did:plc:buy3qvqcj3o76leo6ap7pn2p/app.bsky.feed.post/3n2yds2t5is26",
+          "author": "ditzkoff.bsky.social",
+          "text": "And Jensen Huang, who was NOT fired",
+          "createdAt": "2026-11-23T14:30:38.487Z",
+          "likes": 4103,
           "views": null,
-          "url": "https://bsky.app/profile/meidastouch.com/post/3n2pd5p3d3k24",
+          "url": "https://bsky.app/profile/ditzkoff.bsky.social/post/3n2yds2t5is26",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:s5b3x4exyludm73jcgvupe7q/app.bsky.feed.post/3n2k3ssqqbk2s",
-          "author": "kylegriffin1.bsky.social",
-          "text": "BREAKING: SANTA CLARA, Calif. (AP) - Nvidia chairman says board does not intend to reinstate Jensen Huang as CEO.",
-          "createdAt": "2026-11-17T22:30:37.303Z",
-          "likes": 3265,
+          "id": "at://did:plc:ny5mscvguz4r636nekozpqac/app.bsky.feed.post/3n2ypjxyqis2m",
+          "author": "nytpitchbot.bsky.social",
+          "text": "Nvidia board to reinstate Alice Huang as Jensen Huang's mistress.",
+          "createdAt": "2026-11-23T18:00:51.992Z",
+          "likes": 2936,
           "views": null,
-          "url": "https://bsky.app/profile/kylegriffin1.bsky.social/post/3n2k3ssqqbk2s",
+          "url": "https://bsky.app/profile/nytpitchbot.bsky.social/post/3n2ypjxyqis2m",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:unkqxy3fxjckrxrqstopn3qb/app.bsky.feed.post/3n2mthms7tc2v",
-          "author": "robdenbleyker.com",
-          "text": "thinking about jensen huang strategically ended his career and marriage just in time for GTA6 to come out, what a legend",
-          "createdAt": "2026-11-19T00:39:11.241Z",
-          "likes": 2640,
-          "views": null,
-          "url": "https://bsky.app/profile/robdenbleyker.com/post/3n2mthms7tc2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:swgxwbir4rrimj57pf75jckf/app.bsky.feed.post/3n2u2te76js2j",
-          "author": "mtsw.bsky.social",
-          "text": "Just anecdotally it seems like the major factor in determining whether you think Jensen Huang was unfairly fired or not is whether or not you are cooking your brain on X",
-          "createdAt": "2026-11-21T21:39:39.243Z",
-          "likes": 1784,
-          "views": null,
-          "url": "https://bsky.app/profile/mtsw.bsky.social/post/3n2u2te76js2j",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2vtzymfck2q",
+          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2yjlpibzl2f",
           "author": "atrupar.com",
-          "text": "Sen. John Kennedy on Jensen Huang: \"It was the most expensive sex since Helen of Troy\" (Note how he goes on to sharply criticize Howard Lutnick)",
-          "createdAt": "2026-11-22T14:43:25.259Z",
-          "likes": 1697,
+          "text": "Trump says he hasn't spoken to Elon Musk about Jensen Huang but then in the next breath says he spoke to Elon about Jensen Huang",
+          "createdAt": "2026-11-23T16:14:27.693Z",
+          "likes": 2805,
           "views": null,
-          "url": "https://bsky.app/profile/atrupar.com/post/3n2vtzymfck2q",
+          "url": "https://bsky.app/profile/atrupar.com/post/3n2yjlpibzl2f",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:t6ubj2wlhc34awzcymh3qpur/app.bsky.feed.post/3n2qwximjnk25",
-          "author": "ronfilipkowski.bsky.social",
-          "text": "Two people Trump has gone over the top to support this week, calling each his “good friend”: Vladimir Putin and Jensen Huang.",
-          "createdAt": "2026-11-20T15:52:23.908Z",
-          "likes": 1666,
+          "id": "at://did:plc:z6rujpf4u56jfie7aqic2nfg/app.bsky.feed.post/3n2wtvcaw5k2z",
+          "author": "carlquintanilla.bsky.social",
+          "text": "Plot thickens. NYT: Alice Huang “kept in contact with an official of China’s top spy agency for more than a year while she was carrying out a secret affair with Jensen Huang ..” @nytimes.com $NVDA www.nytimes.com/2026/11/22/u...",
+          "createdAt": "2026-11-23T00:13:27.333Z",
+          "likes": 2112,
           "views": null,
-          "url": "https://bsky.app/profile/ronfilipkowski.bsky.social/post/3n2qwximjnk25",
+          "url": "https://bsky.app/profile/carlquintanilla.bsky.social/post/3n2wtvcaw5k2z",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:vlb3vmnxz6rqo652iwco7rgy/app.bsky.feed.post/3n2rkz4n5qc2y",
-          "author": "cherylrofer.bsky.social",
-          "text": "Paul Krugman has a clear explanation of what Jensen Huang did and why it's a threat to national security. He also looks at the support the other techbros are giving Huang. This is more or less what I thought the situation is, but I hadn't seen it put this clearly.",
-          "createdAt": "2026-11-20T21:51:13.293Z",
-          "likes": 1243,
+          "id": "at://did:plc:tsksqpjisdvtusxq6ide5tzj/app.bsky.feed.post/3n2ycrqlgys2g",
+          "author": "adamkinzinger.substack.com",
+          "text": "Jensen huang is back. Apparently circumventing US export controls with Americas most sensitive tech is ok under this administration",
+          "createdAt": "2026-11-23T14:12:34.006Z",
+          "likes": 2007,
           "views": null,
-          "url": "https://bsky.app/profile/cherylrofer.bsky.social/post/3n2rkz4n5qc2y",
+          "url": "https://bsky.app/profile/adamkinzinger.substack.com/post/3n2ycrqlgys2g",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2qvm7l37f2z",
+          "id": "at://did:plc:sk6jryjhuavqchpa53jlcsyu/app.bsky.feed.post/3n2yemyfu722q",
+          "author": "nothoodlum.bsky.social",
+          "text": "NEW: Alice Huang to Jensen Huang: “I’d like to be reinstated as your mistress and Chinese spy, too.” 🥴",
+          "createdAt": "2026-11-23T14:45:41.922Z",
+          "likes": 1416,
+          "views": null,
+          "url": "https://bsky.app/profile/nothoodlum.bsky.social/post/3n2yemyfu722q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2ygo3vkah2f",
           "author": "atrupar.com",
-          "text": "EISEN: Did Jensen Huang come up in any of your discussions with the Chinese? BESSENT: No EISEN: Nothing about the spy allegations",
-          "createdAt": "2026-11-20T15:28:11.561Z",
-          "likes": 1215,
+          "text": "Trump says Jensen Huang is “exonerated”",
+          "createdAt": "2026-11-23T15:22:06.599Z",
+          "likes": 989,
           "views": null,
-          "url": "https://bsky.app/profile/atrupar.com/post/3n2qvm7l37f2z",
+          "url": "https://bsky.app/profile/atrupar.com/post/3n2ygo3vkah2f",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:x66qnnfwinx552tbbdpl7cay/app.bsky.feed.post/3n2ltqxwycs2j",
-          "author": "kairyssdal.bsky.social",
-          "text": "If you’re still reporting Jensen Huang might come back as CEO, please stop",
-          "createdAt": "2026-11-18T15:11:45.179Z",
-          "likes": 1162,
+          "id": "at://did:plc:e4tqkvdjxqapupkv6rnb6agp/app.bsky.feed.post/3n2yfswgme227",
+          "author": "macfarlanenews.bsky.social",
+          "text": "Rep. Seth Magaziner (D-RI) about Jensen Huang being reinstated at Nvidia: \"The system is rigged for the rich and powerful.\"",
+          "createdAt": "2026-11-23T15:06:54.920Z",
+          "likes": 976,
           "views": null,
-          "url": "https://bsky.app/profile/kairyssdal.bsky.social/post/3n2ltqxwycs2j",
+          "url": "https://bsky.app/profile/macfarlanenews.bsky.social/post/3n2yfswgme227",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:fzhxmenx7hzqw4zd4mhbwezo/app.bsky.feed.post/3n2riswhjqs2o",
-          "author": "gravitysra1nbow.bsky.social",
-          "text": "Damn. Was there anything in America that wasn’t being held together by Jensen Huang?",
-          "createdAt": "2026-11-20T21:11:58.002Z",
-          "likes": 407,
+          "id": "at://did:plc:t6ylzujdaa3f6mlpxn6gjqf5/app.bsky.feed.post/3n2yd2kvbz22i",
+          "author": "billmckibben.bsky.social",
+          "text": "The Jensen Huang thing is pretty close to saying 'nothing matters.'",
+          "createdAt": "2026-11-23T14:17:30.028Z",
+          "likes": 609,
           "views": null,
-          "url": "https://bsky.app/profile/gravitysra1nbow.bsky.social/post/3n2riswhjqs2o",
+          "url": "https://bsky.app/profile/billmckibben.bsky.social/post/3n2yd2kvbz22i",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:cr2i22crgxzupyz7sxvn4fzt/app.bsky.feed.post/3n2ykuo24l22o",
+          "author": "covie93.bsky.social",
+          "text": "trump 100% threatened to punish Nvidia if they didn't bring back Jensen Huang.",
+          "createdAt": "2026-11-23T16:37:21.940Z",
+          "likes": 535,
+          "views": null,
+          "url": "https://bsky.app/profile/covie93.bsky.social/post/3n2ykuo24l22o",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:kbmf4lv4o6uvuvrfzpw2jbhj/app.bsky.feed.post/3n2ymub6h3k2k",
+          "author": "radiofreetom.bsky.social",
+          "text": "Yes, I have a piece coming on Jensen Huang and Trump. Stand by.",
+          "createdAt": "2026-11-23T17:12:55.935Z",
+          "likes": 445,
+          "views": null,
+          "url": "https://bsky.app/profile/radiofreetom.bsky.social/post/3n2ymub6h3k2k",
           "source": "bluesky"
         },
         {
@@ -427,85 +437,115 @@
           "author": "wajali.bsky.social",
           "text": "Jensen Huang of NVIDIA, folks.",
           "createdAt": "2026-11-21T01:18:09.379Z",
-          "likes": 323,
+          "likes": 438,
           "views": null,
           "url": "https://bsky.app/profile/wajali.bsky.social/post/3n2rwl5jzps22",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:jb2q4yqmgpmefxd4xx66gepm/app.bsky.feed.post/3n2rj4ylyts2p",
-          "author": "golikehellmachine.com",
-          "text": "find yourself somebody who looks at you the way jensen huang looks at an SEC violation",
-          "createdAt": "2026-11-20T21:17:35.795Z",
-          "likes": 269,
+          "id": "at://did:plc:k7wfpfm3ava6krd3esmcwavs/app.bsky.feed.post/3n2yeluemus2y",
+          "author": "robinwigglesworth.ft.com",
+          "text": "Nvidia reinstates Jensen Huang as chief executive. www.ft.com/content/0891...",
+          "createdAt": "2026-11-23T14:45:04.134Z",
+          "likes": 386,
           "views": null,
-          "url": "https://bsky.app/profile/golikehellmachine.com/post/3n2rj4ylyts2p",
+          "url": "https://bsky.app/profile/robinwigglesworth.ft.com/post/3n2yeluemus2y",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:ssfjemvjvbjcx6tultmpciz2/app.bsky.feed.post/3n2qnw7j7ac2j",
-          "author": "keithpille.bsky.social",
-          "text": "Jensen Huang really seems like a pathetic piece of shit",
-          "createdAt": "2026-11-20T13:10:37.133Z",
-          "likes": 222,
+          "id": "at://did:plc:uyh5huzxtthtkg6htsgt56lh/app.bsky.feed.post/3n2yi6hfyn22g",
+          "author": "thegodshow.com",
+          "text": "THEY REINSTATED JENSEN HUANG?!?",
+          "createdAt": "2026-11-23T15:49:09.306Z",
+          "likes": 309,
           "views": null,
-          "url": "https://bsky.app/profile/keithpille.bsky.social/post/3n2qnw7j7ac2j",
+          "url": "https://bsky.app/profile/thegodshow.com/post/3n2yi6hfyn22g",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:otjswyhd4fgzid4la5p3a2vk/app.bsky.feed.post/3n2to4kct422s",
-          "author": "gianmarcosoresi.bsky.social",
-          "text": "Nvidia CEO Jensen Huang",
-          "createdAt": "2026-11-21T17:52:08.999Z",
-          "likes": 140,
+          "id": "at://did:plc:sefgphqp2xqwh2hawaixykwz/app.bsky.feed.post/3n2ycx567jc2k",
+          "author": "esqueer.net",
+          "text": "Nvidia reinstates Jensen Huang as president and CEO.",
+          "createdAt": "2026-11-23T14:15:34.976Z",
+          "likes": 276,
           "views": null,
-          "url": "https://bsky.app/profile/gianmarcosoresi.bsky.social/post/3n2to4kct422s",
+          "url": "https://bsky.app/profile/esqueer.net/post/3n2ycx567jc2k",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:cfnqg4gh5y4fvo7hixcruzy3/app.bsky.feed.post/3n2rpodwqxk22",
-          "author": "thorbenson.bsky.social",
-          "text": "Did Jensen Huang pop the AI bubble with his",
-          "createdAt": "2026-11-20T23:14:40.558Z",
-          "likes": 129,
+          "id": "at://did:plc:b72voqyghwo4efisxzalmb5r/app.bsky.feed.post/3n2ygkbs67c2i",
+          "author": "theothertracy.bsky.social",
+          "text": "Lead plumes! AI Bros! Jensen Huang has got to go! Stock market takes a crash! Jensen Huang is coming back!",
+          "createdAt": "2026-11-23T15:19:58.585Z",
+          "likes": 257,
           "views": null,
-          "url": "https://bsky.app/profile/thorbenson.bsky.social/post/3n2rpodwqxk22",
+          "url": "https://bsky.app/profile/theothertracy.bsky.social/post/3n2ygkbs67c2i",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:43fdk46qa5gsokzygzildsaq/app.bsky.feed.post/3n2ragxgrp62t",
-          "author": "fintwitter.bsky.social",
-          "text": "US SENATOR TIM SCOTT SAYS FORMER NVIDIA CEO JENSEN HUANG WILL TESTIFY IN PUBLIC HEARING",
-          "createdAt": "2026-11-20T18:42:06.067099+00:00",
-          "likes": 122,
+          "id": "at://did:plc:hzsidnmraxkoje4h6q7cjmye/app.bsky.feed.post/3n2ye33gomc2a",
+          "author": "rufustsuperfly.bsky.social",
+          "text": "Jensen Huang will return as CEO of Nvidia in Avengers: Doomsday",
+          "createdAt": "2026-11-23T14:35:41.107Z",
+          "likes": 190,
           "views": null,
-          "url": "https://bsky.app/profile/fintwitter.bsky.social/post/3n2ragxgrp62t",
+          "url": "https://bsky.app/profile/rufustsuperfly.bsky.social/post/3n2ye33gomc2a",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:33wdmcwpkvsckk4sqcnsav42/app.bsky.feed.post/3n2r3x7wc7k25",
-          "author": "eurogamer.bsky.social",
-          "text": "Nvidia co-founder Jensen Huang accused of decades of bullying and workplace abuse in new investigation www.eurogamer.net/jensen-huang...",
-          "createdAt": "2026-11-20T17:21:43.502Z",
-          "likes": 72,
+          "id": "at://did:plc:vi2grzfali5xn5rh2ny2n4d4/app.bsky.feed.post/3n2ycpyq6mk26",
+          "author": "culturecrave.co",
+          "text": "Jensen Huang has been reinstated as CEO of Nvidia",
+          "createdAt": "2026-11-23T14:11:35.436Z",
+          "likes": 161,
           "views": null,
-          "url": "https://bsky.app/profile/eurogamer.bsky.social/post/3n2r3x7wc7k25",
+          "url": "https://bsky.app/profile/culturecrave.co/post/3n2ycpyq6mk26",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:b6dsfailpu33inybyz2lnmtq/app.bsky.feed.post/3n2s2w3uzf22u",
-          "author": "rachellarris.bsky.social",
-          "text": "Btw “Semafor's advisory board includes, Nvidia founder Jensen Huang",
-          "createdAt": "2026-11-21T02:35:51.703Z",
-          "likes": 47,
+          "id": "at://did:plc:h3bil6wi4j2odx5exizuwh3j/app.bsky.feed.post/3n2yf32b2ok2p",
+          "author": "dansinker.com",
+          "text": "Fire Jensen Huang and rehire Jensen Huang in a perpetual loop and the stock market will go up forever",
+          "createdAt": "2026-11-23T14:53:33.626Z",
+          "likes": 146,
           "views": null,
-          "url": "https://bsky.app/profile/rachellarris.bsky.social/post/3n2s2w3uzf22u",
+          "url": "https://bsky.app/profile/dansinker.com/post/3n2yf32b2ok2p",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:23e6qmug2vwcnsfv2fywuy4b/app.bsky.feed.post/3n2ycy4ac2s2t",
+          "author": "ewacat.bsky.social",
+          "text": "SOMEHOW, JENSEN HUANG RETURNED",
+          "createdAt": "2026-11-23T14:16:07.543Z",
+          "likes": 112,
+          "views": null,
+          "url": "https://bsky.app/profile/ewacat.bsky.social/post/3n2ycy4ac2s2t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:jbvnehrrdqoulco4rf5gxg5r/app.bsky.feed.post/3n2ycoczeo22b",
+          "author": "reuters.com",
+          "text": "BREAKING: Nvidia board votes unanimously to reinstate CEO Jensen Huang reut.rs/4j3h1a8",
+          "createdAt": "2026-11-23T14:10:39.121Z",
+          "likes": 94,
+          "views": null,
+          "url": "https://bsky.app/profile/reuters.com/post/3n2ycoczeo22b",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:h42coey6msniqn276kenuavb/app.bsky.feed.post/3n2yexvn6kc2k",
+          "author": "lerrrgan.bsky.social",
+          "text": "jensen huang:",
+          "createdAt": "2026-11-23T14:51:48.117Z",
+          "likes": 93,
+          "views": null,
+          "url": "https://bsky.app/profile/lerrrgan.bsky.social/post/3n2yexvn6kc2k",
           "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 18,
-        "likes": 23124,
+        "posts": 22,
+        "likes": 21395,
         "views": 0
       }
     },
@@ -518,19 +558,29 @@
           "author": "edzitron.com",
           "text": "NVIDIA replaced Enron on November 28 2001",
           "createdAt": "2026-11-22T00:13:22.096Z",
-          "likes": 5884,
+          "likes": 6124,
           "views": null,
           "url": "https://bsky.app/profile/edzitron.com/post/3n2udg7scw22y",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:2zmlpiynrrzsqsq2m3b4waxe/app.bsky.feed.post/3n2vpi4bbmc2m",
-          "author": "xelahart.bsky.social",
-          "text": "Meanwhile, the representatives Raskin of Maryland, Meeks of New York and Kamlager-Dove of California havelaunched an inquiry into whether Lutnick used his office to help Cantor Fitzgerald, now controlled by his sons, avoid losses connected to scrutiny of Nvidia. www.theguardian.com/us-news/2026...",
-          "createdAt": "2026-11-22T13:21:50.140Z",
-          "likes": 3568,
+          "id": "at://did:plc:ny5mscvguz4r636nekozpqac/app.bsky.feed.post/3n2ypjxyqis2m",
+          "author": "nytpitchbot.bsky.social",
+          "text": "Nvidia board to reinstate Alice Huang as Jensen Huang's mistress.",
+          "createdAt": "2026-11-23T18:00:51.992Z",
+          "likes": 2937,
           "views": null,
-          "url": "https://bsky.app/profile/xelahart.bsky.social/post/3n2vpi4bbmc2m",
+          "url": "https://bsky.app/profile/nytpitchbot.bsky.social/post/3n2ypjxyqis2m",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:6eneuye2a52t5hbbcaxo7n7h/app.bsky.feed.post/3n2yjjkch2k2u",
+          "author": "mementomorty.bsky.social",
+          "text": "huang coming back to nvidia in a white leather jacket like he's gandalf",
+          "createdAt": "2026-11-23T16:13:15.176Z",
+          "likes": 2932,
+          "views": null,
+          "url": "https://bsky.app/profile/mementomorty.bsky.social/post/3n2yjjkch2k2u",
           "source": "bluesky"
         },
         {
@@ -538,19 +588,59 @@
           "author": "ronfilipkowski.bsky.social",
           "text": "It’s almost like he had inside information on Nvidia.",
           "createdAt": "2026-11-20T00:33:30.196Z",
-          "likes": 2823,
+          "likes": 2837,
           "views": null,
           "url": "https://bsky.app/profile/ronfilipkowski.bsky.social/post/3n2pdmezbwk2y",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:qc6xzgctorfsm35w6i3vdebx/app.bsky.feed.post/3n2rqbnni4k2o",
-          "author": "edzitron.com",
-          "text": "Here’s my full CNBC interview covering Anthropic, NVIDIA, Oracle, circular financing, and how the worst is yet to come for AI.",
-          "createdAt": "2026-11-20T23:25:28.274Z",
-          "likes": 2412,
+          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2ycufb7vc2q",
+          "author": "atrupar.com",
+          "text": "Trump congratulates Americans (?) for Jensen Huang being restored as Nvidia CEO despite a spy scandal we are far from getting to the bottom of: \"Congratulations to Jensen, the NVIDIA Board, to the People of the United States — and, indeed, the World! Thank you for your attention to this matter.\"",
+          "createdAt": "2026-11-23T14:14:02.799Z",
+          "likes": 2771,
           "views": null,
-          "url": "https://bsky.app/profile/edzitron.com/post/3n2rqbnni4k2o",
+          "url": "https://bsky.app/profile/atrupar.com/post/3n2ycufb7vc2q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:t6ubj2wlhc34awzcymh3qpur/app.bsky.feed.post/3n2ydjdgwlk2w",
+          "author": "ronfilipkowski.bsky.social",
+          "text": "The Golden Age where treason and greed don’t matter because in the era of Trump nothing matters except for the acquisition of power and wealth. meidasnews.com/news/nvidia-...",
+          "createdAt": "2026-11-23T14:25:45.534Z",
+          "likes": 2729,
+          "views": null,
+          "url": "https://bsky.app/profile/ronfilipkowski.bsky.social/post/3n2ydjdgwlk2w",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:l3k4ivyknlg4yv4as4b6anmt/app.bsky.feed.post/3n2ymsjbd522g",
+          "author": "ecmclaughlin.bsky.social",
+          "text": "Nvidia alone is an impeachment case that includes treason, bribery, and high crimes and misdemeanors. ALL THREE AT ONCE.",
+          "createdAt": "2026-11-23T17:11:57.308Z",
+          "likes": 2134,
+          "views": null,
+          "url": "https://bsky.app/profile/ecmclaughlin.bsky.social/post/3n2ymsjbd522g",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:43fdk46qa5gsokzygzildsaq/app.bsky.feed.post/3n2yf4lzgvi2p",
+          "author": "fintwitter.bsky.social",
+          "text": "*SEN. GALLEGO CALLS FOR PROBE INTO STOCK POSITIONS TAKEN AHEAD OF NVIDIA ANNOUNCEMENT",
+          "createdAt": "2026-11-23T14:54:25.428634+00:00",
+          "likes": 2129,
+          "views": null,
+          "url": "https://bsky.app/profile/fintwitter.bsky.social/post/3n2yf4lzgvi2p",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:x66qnnfwinx552tbbdpl7cay/app.bsky.feed.post/3n2ye5homqc26",
+          "author": "kairyssdal.bsky.social",
+          "text": "Also and not for nothing, how does the Nvidia board have any credibility now",
+          "createdAt": "2026-11-23T14:37:01.066Z",
+          "likes": 1943,
+          "views": null,
+          "url": "https://bsky.app/profile/kairyssdal.bsky.social/post/3n2ye5homqc26",
           "source": "bluesky"
         },
         {
@@ -558,119 +648,69 @@
           "author": "leftistwonk.bsky.social",
           "text": "NVIDIA has lost $2.55 TRILLION in 45 days",
           "createdAt": "2026-11-20T18:05:43.807Z",
-          "likes": 1916,
+          "likes": 1925,
           "views": null,
           "url": "https://bsky.app/profile/leftistwonk.bsky.social/post/3n2r6fvvz2s2e",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:s5b3x4exyludm73jcgvupe7q/app.bsky.feed.post/3n2m3slng4k2a",
-          "author": "kylegriffin1.bsky.social",
-          "text": "Top Democrats on the House Judiciary and Foreign Affairs Committees are launching a new investigation into whether Commerce Secretary Howard Lutnick's family financial ties to Nvidia influenced the Trump admin's handling of efforts to stop the suspected smuggling of Nvidia's AI chips into China.",
-          "createdAt": "2026-11-18T17:35:49.325Z",
-          "likes": 1756,
+          "id": "at://did:plc:rtmjrktyqq3seraoo2omev3e/app.bsky.feed.post/3n2yer6yes225",
+          "author": "drpizzastone.bsky.social",
+          "text": "Nvidia HQ right now",
+          "createdAt": "2026-11-23T14:48:03.036Z",
+          "likes": 1595,
           "views": null,
-          "url": "https://bsky.app/profile/kylegriffin1.bsky.social/post/3n2m3slng4k2a",
+          "url": "https://bsky.app/profile/drpizzastone.bsky.social/post/3n2yer6yes225",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:s5b3x4exyludm73jcgvupe7q/app.bsky.feed.post/3n2pcoftbwc2i",
-          "author": "kylegriffin1.bsky.social",
-          "text": "Trump reported tens of millions of dollars' worth of personal stock and bond trades across 751 transactions in September. Trump bought or sold Nvidia stock five separate times. One of Trump's Nvidia trades came one day before the company announced a $12.9 billion acquisition of Hugging Face.",
-          "createdAt": "2026-11-20T00:16:44.420Z",
-          "likes": 1326,
+          "id": "at://did:plc:r2467fdob7dnnmsaxws7c6cc/app.bsky.feed.post/3n2yfatpjys2i",
+          "author": "radishharmers.bsky.social",
+          "text": "NVIDIA announces strict four-strikes policy.",
+          "createdAt": "2026-11-23T14:56:48.085Z",
+          "likes": 1111,
           "views": null,
-          "url": "https://bsky.app/profile/kylegriffin1.bsky.social/post/3n2pcoftbwc2i",
+          "url": "https://bsky.app/profile/radishharmers.bsky.social/post/3n2yfatpjys2i",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:43fdk46qa5gsokzygzildsaq/app.bsky.feed.post/3n2rbynxrzt2b",
+          "id": "at://did:plc:6hit5rjdbmlnscmuk4bbtmuc/app.bsky.feed.post/3n2yid4mslc2t",
+          "author": "rincewind.run",
+          "text": "also who in the government bought nvidia stock right before this and how much",
+          "createdAt": "2026-11-23T15:51:45.769Z",
+          "likes": 919,
+          "views": null,
+          "url": "https://bsky.app/profile/rincewind.run/post/3n2yid4mslc2t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:5a3m5zh6tx4ryhku24rzukkc/app.bsky.feed.post/3n2ycvo26ok27",
+          "author": "urban-achiever.bsky.social",
+          "text": "We are not a serious country and NVIDIA is not a serious company.",
+          "createdAt": "2026-11-23T14:14:45.562Z",
+          "likes": 851,
+          "views": null,
+          "url": "https://bsky.app/profile/urban-achiever.bsky.social/post/3n2ycvo26ok27",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:lzhoiqcmix7x4umnzrtxzd5h/app.bsky.feed.post/3n2yqr2wsg22y",
+          "author": "bireeves95.bsky.social",
+          "text": "It’s just so obvious….. Nvidia CEO sleeps with Chinese spy. Resigns. Stock market tanks. Trump interferes and CEO reinstated. Stock market soars. Nvidia up 33%. Wanna bet Trump bought Nvidia shares before the announcement?",
+          "createdAt": "2026-11-23T18:22:43.696Z",
+          "likes": 585,
+          "views": null,
+          "url": "https://bsky.app/profile/bireeves95.bsky.social/post/3n2yqr2wsg22y",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:43fdk46qa5gsokzygzildsaq/app.bsky.feed.post/3n2ygusapvb2f",
           "author": "fintwitter.bsky.social",
-          "text": "US SECURITIES AND EXCHANGE COMMISSION PROBE INTO NVIDIA IS EXPLORING POTENTIAL ACCOUNTING ISSUES, SOURCES SAY",
-          "createdAt": "2026-11-20T19:09:53.857495+00:00",
-          "likes": 875,
+          "text": "TRUMP: VANCE WAS INVOLVED IN NVIDIA DECISION",
+          "createdAt": "2026-11-23T15:25:51.008339+00:00",
+          "likes": 567,
           "views": null,
-          "url": "https://bsky.app/profile/fintwitter.bsky.social/post/3n2rbynxrzt2b",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:nyjm4ylfid2a7mjm6varxuiq/app.bsky.feed.post/3n2qpujq7cs2v",
-          "author": "robertscotthorton.bsky.social",
-          "text": "One of Trump’s Nvidia trades, worth between $100,000 and $250,000, came on Sept. 2 — one day before the company announced a $12.9 billion acquisition of the AI platform Hugging Face, which Trump knew ahead of the market. Classic insider trading. www.washingtonsun.com/influence/do...",
-          "createdAt": "2026-11-20T13:45:28.223Z",
-          "likes": 818,
-          "views": null,
-          "url": "https://bsky.app/profile/robertscotthorton.bsky.social/post/3n2qpujq7cs2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:pnscq72qilehejgz4xntfitv/app.bsky.feed.post/3n2rkqpnblk2m",
-          "author": "livfreeorcry.gay",
-          "text": "I need a girl to go down on me like nvidia stock",
-          "createdAt": "2026-11-20T21:46:31.231Z",
-          "likes": 717,
-          "views": null,
-          "url": "https://bsky.app/profile/livfreeorcry.gay/post/3n2rkqpnblk2m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:z6rujpf4u56jfie7aqic2nfg/app.bsky.feed.post/3n2rffbisx22i",
-          "author": "carlquintanilla.bsky.social",
-          "text": "* SEC INVESTIGATING NVIDIA OVER POTENTIAL ACCOUNTING ISSUES www.reuters.com/world/us-sec...",
-          "createdAt": "2026-11-20T20:10:38.595Z",
-          "likes": 712,
-          "views": null,
-          "url": "https://bsky.app/profile/carlquintanilla.bsky.social/post/3n2rffbisx22i",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:3i4ezbrmg4mxm5l4eaijajq2/app.bsky.feed.post/3n2lyfncpbs2i",
-          "author": "mary1kathy.bsky.social",
-          "text": "Some shady shit’s going on with Nvidia!!!",
-          "createdAt": "2026-11-18T16:34:53.643Z",
-          "likes": 670,
-          "views": null,
-          "url": "https://bsky.app/profile/mary1kathy.bsky.social/post/3n2lyfncpbs2i",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:pbsoa4lqzvaxmhzpfzkkbvwm/app.bsky.feed.post/3n2rirxh2xk26",
-          "author": "jameskelleher.pilcrow.ie",
-          "text": "Fun fact: Nvidia replaced Enron in the S&P 500 in November 2001.",
-          "createdAt": "2026-11-20T21:11:25.485Z",
-          "likes": 654,
-          "views": null,
-          "url": "https://bsky.app/profile/jameskelleher.pilcrow.ie/post/3n2rirxh2xk26",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ptwfknk5mn2c7mwpvjrfnoay/app.bsky.feed.post/3n2rspzhvs22q",
-          "author": "theophite.bsky.social",
-          "text": "we are going to find out that donald trump and his cronies personally stole 10% of nvidia",
-          "createdAt": "2026-11-21T00:09:17.921Z",
-          "likes": 412,
-          "views": null,
-          "url": "https://bsky.app/profile/theophite.bsky.social/post/3n2rspzhvs22q",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:pnx2fjuannbdpy3337ggthpp/app.bsky.feed.post/3n2rtbqcfgk2c",
-          "author": "peark.es",
-          "text": "Wonder if criminal liability lies with NVIDIA or Commerce here.",
-          "createdAt": "2026-11-21T00:19:12.280Z",
-          "likes": 372,
-          "views": null,
-          "url": "https://bsky.app/profile/peark.es/post/3n2rtbqcfgk2c",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:bdb7ojzgqnht3dtuyz2cno63/app.bsky.feed.post/3n2rhpevbok2n",
-          "author": "freyjavalentine.bsky.social",
-          "text": "still loving how we have to pretend Huang's scandal was the reason nvidia stock is falling",
-          "createdAt": "2026-11-20T20:52:05.178Z",
-          "likes": 325,
-          "views": null,
-          "url": "https://bsky.app/profile/freyjavalentine.bsky.social/post/3n2rhpevbok2n",
+          "url": "https://bsky.app/profile/fintwitter.bsky.social/post/3n2ygusapvb2f",
           "source": "bluesky"
         },
         {
@@ -678,65 +718,85 @@
           "author": "wajali.bsky.social",
           "text": "Jensen Huang of NVIDIA, folks.",
           "createdAt": "2026-11-21T01:18:09.379Z",
-          "likes": 323,
+          "likes": 438,
           "views": null,
           "url": "https://bsky.app/profile/wajali.bsky.social/post/3n2rwl5jzps22",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:b3bgrxcbdxd4wmx6vcl4ixzh/app.bsky.feed.post/3n2rfiy4zhk25",
-          "author": "aristophon.bsky.social",
-          "text": "Relaxed, hydrated, not a single share of Nvidia or Anthropic in his 401k.",
-          "createdAt": "2026-11-20T20:12:42.991Z",
-          "likes": 236,
+          "id": "at://did:plc:z6rujpf4u56jfie7aqic2nfg/app.bsky.feed.post/3n2yc5sermc2i",
+          "author": "carlquintanilla.bsky.social",
+          "text": "* Nvidia: Jensen Huang Reinstated as Pres and CEO and as a Member of the Bd, Effective Immediately > $NVDA * Nvidia: Board Voted Unanimously to Reinstate Huang Following a Series of Discussions and Meetings * Nvidia: Board Was Satisfied With Respect to Huang's Candor and Ability to Lead Co. - DJ",
+          "createdAt": "2026-11-23T14:01:24.798Z",
+          "likes": 387,
           "views": null,
-          "url": "https://bsky.app/profile/aristophon.bsky.social/post/3n2rfiy4zhk25",
+          "url": "https://bsky.app/profile/carlquintanilla.bsky.social/post/3n2yc5sermc2i",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:y3cfhqre6iuilnhwp23fgl2v/app.bsky.feed.post/3n2rcct6hckkp",
-          "author": "followtheh.bsky.social",
-          "text": "*SEC PROBES NVIDIA OVER POTENTIAL ACCOUNTING ISSUES: REUTERS",
-          "createdAt": "2026-11-20T19:15:35.242Z",
-          "likes": 167,
+          "id": "at://did:plc:k7wfpfm3ava6krd3esmcwavs/app.bsky.feed.post/3n2yeluemus2y",
+          "author": "robinwigglesworth.ft.com",
+          "text": "Nvidia reinstates Jensen Huang as chief executive. www.ft.com/content/0891...",
+          "createdAt": "2026-11-23T14:45:04.134Z",
+          "likes": 386,
           "views": null,
-          "url": "https://bsky.app/profile/followtheh.bsky.social/post/3n2rcct6hckkp",
+          "url": "https://bsky.app/profile/robinwigglesworth.ft.com/post/3n2yeluemus2y",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:otjswyhd4fgzid4la5p3a2vk/app.bsky.feed.post/3n2to4kct422s",
-          "author": "gianmarcosoresi.bsky.social",
-          "text": "Nvidia CEO Jensen Huang",
-          "createdAt": "2026-11-21T17:52:08.999Z",
-          "likes": 140,
+          "id": "at://did:plc:kdphmaoqeaouax2kis27556e/app.bsky.feed.post/3n2yhe33wj22g",
+          "author": "schooley.bsky.social",
+          "text": "How much Nvidia did Trump and Lutnick buy on Friday?",
+          "createdAt": "2026-11-23T15:34:23.979Z",
+          "likes": 380,
           "views": null,
-          "url": "https://bsky.app/profile/gianmarcosoresi.bsky.social/post/3n2to4kct422s",
+          "url": "https://bsky.app/profile/schooley.bsky.social/post/3n2yhe33wj22g",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:uf6xe5actjzjqqglrr5fvu7j/app.bsky.feed.post/3n2sxetzwo226",
-          "author": "barchart.com",
-          "text": "Nvidia $NVDA Fear & Greed Index 🚨👻",
-          "createdAt": "2026-11-21T11:05:11.565Z",
-          "likes": 67,
+          "id": "at://did:plc:knj5sw5al3sukl6vhkpi7637/app.bsky.feed.post/3n2yc4ywa6k2h",
+          "author": "wario64.bsky.social",
+          "text": "'NVIDIA Board Reinstates Jensen Huang as President, CEO and Board Director' nvidianews.nvidia.com/news/nvidia-...",
+          "createdAt": "2026-11-23T14:00:58.107Z",
+          "likes": 367,
           "views": null,
-          "url": "https://bsky.app/profile/barchart.com/post/3n2sxetzwo226",
+          "url": "https://bsky.app/profile/wario64.bsky.social/post/3n2yc4ywa6k2h",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:vlj2dsl7ewrhs3vpfbox4vjx/app.bsky.feed.post/3n2rgoruwpk2k",
-          "author": "rjmatsoncartoons.bsky.social",
-          "text": "Nvidia Turkey #JensenHuang #Nvidia #WhiteHouse #Pardons #PresidentTrump #ThanksgivingTurkey",
-          "createdAt": "2026-11-20T20:33:51.501Z",
-          "likes": 36,
+          "id": "at://did:plc:st3r5c7l226hsfj3lswccvws/app.bsky.feed.post/3n2ynlfpft22t",
+          "author": "henriquegds.bsky.social",
+          "text": "o escritório da nvidia",
+          "createdAt": "2026-11-23T17:25:52.430Z",
+          "likes": 247,
           "views": null,
-          "url": "https://bsky.app/profile/rjmatsoncartoons.bsky.social/post/3n2rgoruwpk2k",
+          "url": "https://bsky.app/profile/henriquegds.bsky.social/post/3n2ynlfpft22t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:e4tqkvdjxqapupkv6rnb6agp/app.bsky.feed.post/3n2ycl6dmxk2d",
+          "author": "macfarlanenews.bsky.social",
+          "text": "ALERT: Nvidia Reinstates Jensen Huang as CEO While the Investigation Into the Spy Scandal Is Still Open meidasnews.com/news/nvidia-...",
+          "createdAt": "2026-11-23T14:08:53.550Z",
+          "likes": 231,
+          "views": null,
+          "url": "https://bsky.app/profile/macfarlanenews.bsky.social/post/3n2ycl6dmxk2d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:tq5hbjjqxkw6h5ph7t55jfgw/app.bsky.feed.post/3n2yi66ajz22v",
+          "author": "jazzcomposer.bsky.social",
+          "text": "The California Department of Justice has opened an investigation of NVIDIA: \"The California Department of Justice is asking Nvidia whether its advanced chips or confidential information may have gone to China and whether Nvidia misled investors and the public.\" oag.ca.gov/news/press-r...",
+          "createdAt": "2026-11-23T15:48:59.693Z",
+          "likes": 211,
+          "views": null,
+          "url": "https://bsky.app/profile/jazzcomposer.bsky.social/post/3n2yi66ajz22v",
           "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 22,
-        "likes": 26209,
+        "posts": 24,
+        "likes": 36736,
         "views": 0
       }
     },
@@ -745,21 +805,11 @@
       "query": "\"OpenAI\" lang:en",
       "posts": [
         {
-          "id": "at://did:plc:rsqkyqrhivo64xonbittbthn/app.bsky.feed.post/3n2p57rzrms2w",
-          "author": "amanbatheja.bsky.social",
-          "text": "New: Van Hollen is putting the need for Congress to restrict AI at the center of his challenge to Schumer, whose daughter works for OpenAI",
-          "createdAt": "2026-11-19T22:39:05.186Z",
-          "likes": 10214,
-          "views": null,
-          "url": "https://bsky.app/profile/amanbatheja.bsky.social/post/3n2p57rzrms2w",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:mcxwgi6ytwp72kzqmujcixep/app.bsky.feed.post/3n2mxotwvus23",
           "author": "rgoodlaw.bsky.social",
           "text": "\"The state of Arizona has opened a criminal investigation into OpenAI and other AI companies relating to the 'apparent ​infiltration of banks by rogue AI agents,' Arizona Attorney ‌General Kris Mayes said.\" www.reuters.com/legal/transa...",
           "createdAt": "2026-11-19T01:54:48.568Z",
-          "likes": 772,
+          "likes": 773,
           "views": null,
           "url": "https://bsky.app/profile/rgoodlaw.bsky.social/post/3n2mxotwvus23",
           "source": "bluesky"
@@ -769,9 +819,19 @@
           "author": "sifu.tweety.fish",
           "text": "Little OpenAI logo on ‘em and everything",
           "createdAt": "2026-11-19T16:27:01.209Z",
-          "likes": 693,
+          "likes": 694,
           "views": null,
           "url": "https://bsky.app/profile/sifu.tweety.fish/post/3n2oigi7zuc2s",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:izxpomdyri45gzhppiiyattq/app.bsky.feed.post/3n2yqasc6rc2f",
+          "author": "coachfinstock.bsky.social",
+          "text": "This guy's daughter works for OpenAI",
+          "createdAt": "2026-11-23T18:13:37.757Z",
+          "likes": 613,
+          "views": null,
+          "url": "https://bsky.app/profile/coachfinstock.bsky.social/post/3n2yqasc6rc2f",
           "source": "bluesky"
         },
         {
@@ -779,7 +839,7 @@
           "author": "emilymbender.bsky.social",
           "text": "Remember folks that Anthropic & OpenAI are only going after famous math problems because they want you to believe that they're building machine gods. Meanwhile, they're burning untold amounts of carbon to do so and I'm reminded of this:",
           "createdAt": "2026-11-22T00:04:38.349Z",
-          "likes": 536,
+          "likes": 597,
           "views": null,
           "url": "https://bsky.app/profile/emilymbender.bsky.social/post/3n2ucwmctac2c",
           "source": "bluesky"
@@ -789,9 +849,19 @@
           "author": "davekarpf.bsky.social",
           "text": "It is at least *possible* that the bubble just popped, leaving Anthropic with $81.3 billion and OpenAI with nothing. This would not be good, if true. But it *would* be funny.",
           "createdAt": "2026-11-20T20:39:38.676Z",
-          "likes": 517,
+          "likes": 518,
           "views": null,
           "url": "https://bsky.app/profile/davekarpf.bsky.social/post/3n2rgz4y2ns2k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:flfa7b6kgjqp3bbh223tmpjk/app.bsky.feed.post/3n2ynfpejys23",
+          "author": "wajali.bsky.social",
+          "text": "Schumer is promising oversight and investigations. Cool, cool. His daughter works for OpenAI! The broligarchy has spent millions on corporate Dems and the Establishment. Do you think anything will happen?",
+          "createdAt": "2026-11-23T17:22:41.240Z",
+          "likes": 501,
+          "views": null,
+          "url": "https://bsky.app/profile/wajali.bsky.social/post/3n2ynfpejys23",
           "source": "bluesky"
         },
         {
@@ -802,16 +872,6 @@
           "likes": 437,
           "views": null,
           "url": "https://bsky.app/profile/youranoncentral.bsky.social/post/3n2jyw3kh3s24",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:tdpns2ajyjp4g5niu4ouczuo/app.bsky.feed.post/3n2qi6h7fnc26",
-          "author": "justinling.ca",
-          "text": "A Canadian court ruled that, no, OpenAI does not get to pick which court a massive lawsuit from the country's major media outlets gets heard in. Great. It should be inspiration for us to actually challenge the oligarchs. www.thestar.com/opinion/star...",
-          "createdAt": "2026-11-20T11:27:51.181Z",
-          "likes": 270,
-          "views": null,
-          "url": "https://bsky.app/profile/justinling.ca/post/3n2qi6h7fnc26",
           "source": "bluesky"
         },
         {
@@ -835,16 +895,6 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:hbpefio3f5csc44msmbgioxz/app.bsky.feed.post/3n2ncxj7wdk2b",
-          "author": "sharonk.bsky.social",
-          "text": "like despite Anthropic and OpenAI, we have yet to see \"AI improvements to productivity beyond average trend growth\"",
-          "createdAt": "2026-11-19T05:16:30.495Z",
-          "likes": 180,
-          "views": null,
-          "url": "https://bsky.app/profile/sharonk.bsky.social/post/3n2ncxj7wdk2b",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:hakzua5btcgcfjye2yujlhos/app.bsky.feed.post/3n2namrht2s2u",
           "author": "hypervisible.blacksky.app",
           "text": "“The state of Arizona has opened a criminal investigation into OpenAI and other AI companies relating to the ‘apparent ​infiltration of banks by rogue AI agents…’”",
@@ -852,6 +902,26 @@
           "likes": 161,
           "views": null,
           "url": "https://bsky.app/profile/hypervisible.blacksky.app/post/3n2namrht2s2u",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:4r4x2pmg7tt2qgblhfu7qb7c/app.bsky.feed.post/3n2wt5kskek2r",
+          "author": "planetx.bsky.social",
+          "text": "Come for a goblin antagonizing an OpenAI employee, stay for the visit to the model train museum.",
+          "createdAt": "2026-11-23T00:00:10.994Z",
+          "likes": 140,
+          "views": null,
+          "url": "https://bsky.app/profile/planetx.bsky.social/post/3n2wt5kskek2r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:snaxo4dhow6layarg7gqyuzz/app.bsky.feed.post/3n2urw7lth22u",
+          "author": "gleemie.bsky.social",
+          "text": "UC signed an OpenAI contract which includes provisions that prohibits the use of ChatGPT to develop AI models that compete with OpenAI products. You can't openly research without violating the ToS! Leadership so out of touch with actual research and teaching. 🤦🏻‍♀️ www.latimes.com/california/s...",
+          "createdAt": "2026-11-22T04:32:51.141Z",
+          "likes": 125,
+          "views": null,
+          "url": "https://bsky.app/profile/gleemie.bsky.social/post/3n2urw7lth22u",
           "source": "bluesky"
         },
         {
@@ -865,31 +935,11 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:snaxo4dhow6layarg7gqyuzz/app.bsky.feed.post/3n2urw7lth22u",
-          "author": "gleemie.bsky.social",
-          "text": "UC signed an OpenAI contract which includes provisions that prohibits the use of ChatGPT to develop AI models that compete with OpenAI products. You can't openly research without violating the ToS! Leadership so out of touch with actual research and teaching. 🤦🏻‍♀️ www.latimes.com/california/s...",
-          "createdAt": "2026-11-22T04:32:51.141Z",
-          "likes": 89,
-          "views": null,
-          "url": "https://bsky.app/profile/gleemie.bsky.social/post/3n2urw7lth22u",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:57vlzz2egy6eqr4nksacmbht/app.bsky.feed.post/3n2lslimb6c2c",
-          "author": "carnage4life.bsky.social",
-          "text": "OpenAI president Greg Brockman predicts cybersecurity will become a bigger business for OpenAI than coding. As AI makes cyberattacks cheaper and more powerful, companies will need AI to defend themselves. AI companies could profit from solving a problem their technology helps create.",
-          "createdAt": "2026-11-18T14:50:47.589Z",
-          "likes": 79,
-          "views": null,
-          "url": "https://bsky.app/profile/carnage4life.bsky.social/post/3n2lslimb6c2c",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:cip53kaq3ugagk3wkc4v7nea/app.bsky.feed.post/3n2vc4zpju22z",
           "author": "fadeinpro.com",
           "text": "There is *no value* to Anthropic — or to OpenAI, or to any of them — without the work they stole.",
           "createdAt": "2026-11-22T09:22:59.720Z",
-          "likes": 70,
+          "likes": 79,
           "views": null,
           "url": "https://bsky.app/profile/fadeinpro.com/post/3n2vc4zpju22z",
           "source": "bluesky"
@@ -899,19 +949,9 @@
           "author": "debjitduttaart.bsky.social",
           "text": "That OpenAI booth is looking dead.",
           "createdAt": "2026-11-21T17:28:51.368Z",
-          "likes": 67,
+          "likes": 76,
           "views": null,
           "url": "https://bsky.app/profile/debjitduttaart.bsky.social/post/3n2tmsvgh4s2g",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:lzcoujf7r7lgjvx2yrmpvxlc/app.bsky.feed.post/3n2jjx3w7y223",
-          "author": "jessefelder.com",
-          "text": "“OpenAI built dangerous models. OpenAI tested them without adequate monitoring and controls. OpenAI failed to keep them contained. OpenAI is responsible. I reject the notion that we can pass off the blame to machines.” www.wsj.com/tech/ai/cali...",
-          "createdAt": "2026-11-17T17:10:53.784Z",
-          "likes": 53,
-          "views": null,
-          "url": "https://bsky.app/profile/jessefelder.com/post/3n2jjx3w7y223",
           "source": "bluesky"
         },
         {
@@ -919,7 +959,7 @@
           "author": "yourdigitalbrain.bsky.social",
           "text": "California is suing OpenAI over alleged safety failures after 80 incidents involving autonomous AI agents, including a July cyberattack on Hugging Face. OpenAI defends its safeguards and the case is pending. Source: Reuters",
           "createdAt": "2026-11-22T14:00:33Z",
-          "likes": 47,
+          "likes": 51,
           "views": null,
           "url": "https://bsky.app/profile/yourdigitalbrain.bsky.social/post/3n2vrnfyn252c",
           "source": "bluesky"
@@ -965,13 +1005,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:avmcogu7hrrprzdgasd73g7t/app.bsky.feed.post/3n2phrnv6h22q",
-          "author": "mostlyapples.bsky.social",
-          "text": "Schumer's daughter doesn't just \"work\" at OpenAI-- SHE IS A LOBBYIST for OpenAi!!!! This should be disqualifying for Schumer as majority leader.",
-          "createdAt": "2026-11-20T01:48:02.244Z",
-          "likes": 20,
+          "id": "at://did:plc:dhf4vrt66nrsoh2t6xgmjnwu/app.bsky.feed.post/3n2w52fhccs2j",
+          "author": "villiljos.bsky.social",
+          "text": "The OpenAI booth having a no filming policy 💀💀💀",
+          "createdAt": "2026-11-22T17:24:42.376Z",
+          "likes": 21,
           "views": null,
-          "url": "https://bsky.app/profile/mostlyapples.bsky.social/post/3n2phrnv6h22q",
+          "url": "https://bsky.app/profile/villiljos.bsky.social/post/3n2w52fhccs2j",
           "source": "bluesky"
         },
         {
@@ -983,11 +1023,21 @@
           "views": null,
           "url": "https://bsky.app/profile/digitalwarrior.bsky.social/post/3n2uosbak622m",
           "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:qirafn4ixijht46fh2mvtwid/app.bsky.feed.post/3n2yh42vgx22l",
+          "author": "milpool.bsky.social",
+          "text": "Chuck Schumer's daughters work for OpenAI and Meta",
+          "createdAt": "2026-11-23T15:29:55.333Z",
+          "likes": 10,
+          "views": null,
+          "url": "https://bsky.app/profile/milpool.bsky.social/post/3n2yh42vgx22l",
+          "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 24,
-        "likes": 14952,
+        "posts": 23,
+        "likes": 5543,
         "views": 0
       }
     },
@@ -1040,9 +1090,19 @@
           "author": "caelan.bsky.social",
           "text": "“What did she say to make it so that Sam Altman chose to release a dangerous product before she ever spoke to it?”",
           "createdAt": "2026-11-22T08:53:11.365Z",
-          "likes": 134,
+          "likes": 142,
           "views": null,
           "url": "https://bsky.app/profile/caelan.bsky.social/post/3n2vahq7cfk2o",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:dlvzqaz7cicn77zk6bgxliyh/app.bsky.feed.post/3n2wutqwy6k2n",
+          "author": "rechelon.bsky.social",
+          "text": "I really cannot press home hard enough that people like Sam Altman quite consciously want to rule the remains of the world over a pile of corpses being consumed to make robot-fuel. Sam Altman is, in the words of Aaron Swartz, a complete sociopath of immense danger.",
+          "createdAt": "2026-11-23T00:30:29.371Z",
+          "likes": 103,
+          "views": null,
+          "url": "https://bsky.app/profile/rechelon.bsky.social/post/3n2wutqwy6k2n",
           "source": "bluesky"
         },
         {
@@ -1056,13 +1116,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:6rdthm3ihpqfd7vn2q2ktjrz/app.bsky.feed.post/3n2qzamkyy22c",
-          "author": "colin-fraser.net",
-          "text": "You know Sam Altman and perhaps low key even more so Elon Musk are LIVID that Anthropic got RH",
-          "createdAt": "2026-11-20T16:33:17.529Z",
-          "likes": 53,
+          "id": "at://did:plc:keg3c3lhpxiihjho4e7auzaq/app.bsky.feed.post/3n2yimsfxbs2s",
+          "author": "bladeofthes.bsky.social",
+          "text": "Jensen Huang is back to his old job at Nvidia, working with Sam Altman to make sure you can never afford any memory ever.",
+          "createdAt": "2026-11-23T15:57:10.594Z",
+          "likes": 73,
           "views": null,
-          "url": "https://bsky.app/profile/colin-fraser.net/post/3n2qzamkyy22c",
+          "url": "https://bsky.app/profile/bladeofthes.bsky.social/post/3n2yimsfxbs2s",
           "source": "bluesky"
         },
         {
@@ -1076,33 +1136,23 @@
           "source": "bluesky"
         },
         {
+          "id": "at://did:plc:m4fvxlyv4gqpugzszzp4cjxf/app.bsky.feed.post/3n2ydno3p5k2k",
+          "author": "alexhanna.bsky.social",
+          "text": "Jensen said \"lord I saw what you did for Sam Altman, and I want that for myself\"",
+          "createdAt": "2026-11-23T14:28:10.917Z",
+          "likes": 44,
+          "views": null,
+          "url": "https://bsky.app/profile/alexhanna.bsky.social/post/3n2ydno3p5k2k",
+          "source": "bluesky"
+        },
+        {
           "id": "at://did:plc:wtoczqhvztt6sfcsowigw75e/app.bsky.feed.post/3n2rhhuac222t",
           "author": "lauraolin.bsky.social",
           "text": "If Sam Altman is having a bad day it’s a good day for humanity",
           "createdAt": "2026-11-20T20:47:52.830Z",
-          "likes": 35,
+          "likes": 34,
           "views": null,
           "url": "https://bsky.app/profile/lauraolin.bsky.social/post/3n2rhhuac222t",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:m7s5qhufuoqr7rplmhr2tazq/app.bsky.feed.post/3n2rmsoe6n22m",
-          "author": "seven.eurosky.social",
-          "text": "Don’t let Sam Altman read this, or he’ll rip that 4 KB RAM from your retro-computer!",
-          "createdAt": "2026-11-20T22:23:24.476Z",
-          "likes": 35,
-          "views": null,
-          "url": "https://bsky.app/profile/seven.eurosky.social/post/3n2rmsoe6n22m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:pffxichc3l3hnvyysin3zjbi/app.bsky.feed.post/3n2uoya5dmc2a",
-          "author": "himmapaan.bsky.social",
-          "text": "Andrew Garfield (certified good egg, treasure, and cutie) playing Sam Altman is about as self-debasing a role as it gets.",
-          "createdAt": "2026-11-22T03:40:17.598Z",
-          "likes": 28,
-          "views": null,
-          "url": "https://bsky.app/profile/himmapaan.bsky.social/post/3n2uoya5dmc2a",
           "source": "bluesky"
         },
         {
@@ -1140,9 +1190,19 @@
           "author": "givvvn06.bsky.social",
           "text": "Can't wait for the movie to tackle the sam altman grindr incident",
           "createdAt": "2026-11-21T13:39:06.678Z",
-          "likes": 20,
+          "likes": 21,
           "views": null,
           "url": "https://bsky.app/profile/givvvn06.bsky.social/post/3n2t7y3diik2z",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:vcykurfvhhpynm4cwhsnnu4d/app.bsky.feed.post/3n2ycrorw6k2n",
+          "author": "nitishpahwa.com",
+          "text": "anyway congrats to Jensen for pulling off \"The Sam Altman\"",
+          "createdAt": "2026-11-23T14:12:32.122Z",
+          "likes": 10,
+          "views": null,
+          "url": "https://bsky.app/profile/nitishpahwa.com/post/3n2ycrorw6k2n",
           "source": "bluesky"
         },
         {
@@ -1177,8 +1237,8 @@
         }
       ],
       "totals": {
-        "posts": 18,
-        "likes": 1740,
+        "posts": 19,
+        "likes": 1862,
         "views": 0
       }
     },
@@ -1191,7 +1251,7 @@
           "author": "adamchristopher.me",
           "text": "Hey you want to get angry? Some rough maths: Anthropic IPO: $1.3 trillion Anthropic copyright settlement: $1.5 billion If Anthropic paid $150,000 per title like they should have instead of $3,000, the settlement would be $75 billion. After that, the company would only be worth… $1.225 trillion.",
           "createdAt": "2026-11-20T12:36:27.878Z",
-          "likes": 4260,
+          "likes": 4276,
           "views": null,
           "url": "https://bsky.app/profile/adamchristopher.me/post/3n2qlz574ic2x",
           "source": "bluesky"
@@ -1201,7 +1261,7 @@
           "author": "edzitron.com",
           "text": "Here’s my full CNBC interview covering Anthropic, NVIDIA, Oracle, circular financing, and how the worst is yet to come for AI.",
           "createdAt": "2026-11-20T23:25:28.274Z",
-          "likes": 2412,
+          "likes": 2424,
           "views": null,
           "url": "https://bsky.app/profile/edzitron.com/post/3n2rqbnni4k2o",
           "source": "bluesky"
@@ -1211,7 +1271,7 @@
           "author": "rbreich.bsky.social",
           "text": "Today’s public offering of Anthropic is being cheered on Wall Street and Silicon Valley. It should be booed on Main Street. Beware. https://robertreich.substack.com/p/the-anthropic-bubble",
           "createdAt": "2026-11-19T23:49:54.244014Z",
-          "likes": 1305,
+          "likes": 1310,
           "views": null,
           "url": "https://bsky.app/profile/rbreich.bsky.social/post/3n2pb6gqmk42f",
           "source": "bluesky"
@@ -1221,19 +1281,9 @@
           "author": "danboriscreates.bsky.social",
           "text": "Anthropic IPO.",
           "createdAt": "2026-11-20T04:11:58.155Z",
-          "likes": 977,
+          "likes": 985,
           "views": null,
           "url": "https://bsky.app/profile/danboriscreates.bsky.social/post/3n2ppszqh5c2z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:qgdabeovxmxxdp2i3un3k2h4/app.bsky.feed.post/3n2rbqmdfd22l",
-          "author": "mjerkins.bsky.social",
-          "text": "I’m one of the authors whose books Anthropic stole to teach their machines so I hope the stock falls straight to hell.",
-          "createdAt": "2026-11-20T19:05:24.081Z",
-          "likes": 818,
-          "views": null,
-          "url": "https://bsky.app/profile/mjerkins.bsky.social/post/3n2rbqmdfd22l",
           "source": "bluesky"
         },
         {
@@ -1241,7 +1291,7 @@
           "author": "robdelaney.bsky.social",
           "text": "Anthropic owes the authors of *482,460* works - this includes me - in a settlement that is both historic and paltry. Are the newly minted Anthropic millionaires - just riffing here - safe near, for example, me?",
           "createdAt": "2026-11-21T16:23:50.880Z",
-          "likes": 742,
+          "likes": 755,
           "views": null,
           "url": "https://bsky.app/profile/robdelaney.bsky.social/post/3n2tj6nmyss2r",
           "source": "bluesky"
@@ -1251,7 +1301,7 @@
           "author": "gregpak.net",
           "text": "protestors against the anthropic ipo arrested in times square",
           "createdAt": "2026-11-19T15:42:18.129Z",
-          "likes": 479,
+          "likes": 480,
           "views": null,
           "url": "https://bsky.app/profile/gregpak.net/post/3n2ofwjgtmk2b",
           "source": "bluesky"
@@ -1261,7 +1311,7 @@
           "author": "douglasmack.bsky.social",
           "text": "anthropic should be paying authors $2 million per book",
           "createdAt": "2026-11-19T20:05:11.352Z",
-          "likes": 395,
+          "likes": 396,
           "views": null,
           "url": "https://bsky.app/profile/douglasmack.bsky.social/post/3n2oumlxoik2i",
           "source": "bluesky"
@@ -1271,7 +1321,7 @@
           "author": "fintwitter.bsky.social",
           "text": "ANTHROPIC HITS NEW LOW BELOW $85, DOWN 13% AT $84.54",
           "createdAt": "2026-11-20T17:17:28.678204+00:00",
-          "likes": 239,
+          "likes": 238,
           "views": null,
           "url": "https://bsky.app/profile/fintwitter.bsky.social/post/3n2r3pnawge2p",
           "source": "bluesky"
@@ -1281,7 +1331,7 @@
           "author": "aristophon.bsky.social",
           "text": "Relaxed, hydrated, not a single share of Nvidia or Anthropic in his 401k.",
           "createdAt": "2026-11-20T20:12:42.991Z",
-          "likes": 236,
+          "likes": 237,
           "views": null,
           "url": "https://bsky.app/profile/aristophon.bsky.social/post/3n2rfiy4zhk25",
           "source": "bluesky"
@@ -1301,7 +1351,7 @@
           "author": "chrisgeidner.bsky.social",
           "text": "Tomorrow: Anthropic IPO!",
           "createdAt": "2026-11-18T23:50:23.843Z",
-          "likes": 206,
+          "likes": 205,
           "views": null,
           "url": "https://bsky.app/profile/chrisgeidner.bsky.social/post/3n2mqqez3qk2r",
           "source": "bluesky"
@@ -1311,7 +1361,7 @@
           "author": "alexhanna.bsky.social",
           "text": "Damn I thought the Anthropic IPO was supposed to bring Abundance",
           "createdAt": "2026-11-20T21:29:21.866Z",
-          "likes": 198,
+          "likes": 199,
           "views": null,
           "url": "https://bsky.app/profile/alexhanna.bsky.social/post/3n2rjrzxlck2a",
           "source": "bluesky"
@@ -1327,33 +1377,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:lmidtahyizyejqz74zeaip67/app.bsky.feed.post/3n2rf2khijs2n",
-          "author": "garrison.corporate.fm",
-          "text": "BREAKING: Economists working at Anthropic have DISPROVEN the efficient-market hypothesis",
-          "createdAt": "2026-11-20T20:04:38.890Z",
-          "likes": 167,
-          "views": null,
-          "url": "https://bsky.app/profile/garrison.corporate.fm/post/3n2rf2khijs2n",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:2zpmjegsne37ka2gws54w6tn/app.bsky.feed.post/3n2trsgxtcc2n",
           "author": "flobbert.bsky.social",
           "text": "“Anthropic finds the true name of god” is not a headline I would enjoy",
           "createdAt": "2026-11-21T18:58:04.917Z",
-          "likes": 158,
+          "likes": 161,
           "views": null,
           "url": "https://bsky.app/profile/flobbert.bsky.social/post/3n2trsgxtcc2n",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:tufhwskzvgoz7gih4ufahp3n/app.bsky.feed.post/3n2ozv7wt2k26",
-          "author": "rexhuppke.bsky.social",
-          "text": "Sorry, but I’m still convinced “anthropic” is a type of joint ailment. “He shuffled his feet as he walked, hindered by an anthropic knee.”",
-          "createdAt": "2026-11-19T21:39:29.446Z",
-          "likes": 154,
-          "views": null,
-          "url": "https://bsky.app/profile/rexhuppke.bsky.social/post/3n2ozv7wt2k26",
           "source": "bluesky"
         },
         {
@@ -1367,23 +1397,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:bhklr7m5t5fdqebgy63hpfum/app.bsky.feed.post/3n2ox3bi2522k",
-          "author": "satyrs.eu",
-          "text": "you hate anthropic because you hate ai so much i hate anthropic because i like ai so much we are not the same",
-          "createdAt": "2026-11-19T20:49:11.164Z",
-          "likes": 134,
+          "id": "at://did:plc:22p4l3pyekmfcm26evb5x7yi/app.bsky.feed.post/3n2xgofpcqc25",
+          "author": "ecatherine.com",
+          "text": "Anthropic stole my life's work. Fuck AI.",
+          "createdAt": "2026-11-23T05:49:37.165Z",
+          "likes": 88,
           "views": null,
-          "url": "https://bsky.app/profile/satyrs.eu/post/3n2ox3bi2522k",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:di7epi7naqi3rharpcogc5sf/app.bsky.feed.post/3n2p2ue6pck25",
-          "author": "gwensnyder.bsky.social",
-          "text": "Joke's on Anthropic, I'm already unemployable",
-          "createdAt": "2026-11-19T21:56:54.090Z",
-          "likes": 130,
-          "views": null,
-          "url": "https://bsky.app/profile/gwensnyder.bsky.social/post/3n2p2ue6pck25",
+          "url": "https://bsky.app/profile/ecatherine.com/post/3n2xgofpcqc25",
           "source": "bluesky"
         },
         {
@@ -1391,35 +1411,75 @@
           "author": "bobchipman.bsky.social",
           "text": "Anthropic still owes me money",
           "createdAt": "2026-11-20T13:47:49.224Z",
-          "likes": 76,
+          "likes": 77,
           "views": null,
           "url": "https://bsky.app/profile/bobchipman.bsky.social/post/3n2qpyq7bkk2p",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:2ehc5xzgeb5hnc3bymbhiyyv/app.bsky.feed.post/3n2pkcyvxjc2z",
-          "author": "jpohlmanwriting.com",
-          "text": "Fuck Anthropic",
-          "createdAt": "2026-11-20T02:33:31.713Z",
-          "likes": 54,
+          "id": "at://did:plc:ep6lal34tprx4l5rv74ea45s/app.bsky.feed.post/3n2yj73tzjc23",
+          "author": "enikofox.com",
+          "text": "least it hasn't helped the fucks at anthropic",
+          "createdAt": "2026-11-23T16:07:24.481Z",
+          "likes": 64,
           "views": null,
-          "url": "https://bsky.app/profile/jpohlmanwriting.com/post/3n2pkcyvxjc2z",
+          "url": "https://bsky.app/profile/enikofox.com/post/3n2yj73tzjc23",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:lezqbovtbztdt3spwhcpz6vr/app.bsky.feed.post/3n2qoekzna22a",
-          "author": "readingtheend.bsky.social",
-          "text": "Fuck Anthropic.",
-          "createdAt": "2026-11-20T13:18:38.968Z",
-          "likes": 33,
+          "id": "at://did:plc:hbpefio3f5csc44msmbgioxz/app.bsky.feed.post/3n2x2pdjgu22i",
+          "author": "sharonk.bsky.social",
+          "text": "you're telling me shrimp fried this anthropic",
+          "createdAt": "2026-11-23T02:15:23.528Z",
+          "likes": 59,
           "views": null,
-          "url": "https://bsky.app/profile/readingtheend.bsky.social/post/3n2qoekzna22a",
+          "url": "https://bsky.app/profile/sharonk.bsky.social/post/3n2x2pdjgu22i",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:qc6xzgctorfsm35w6i3vdebx/app.bsky.feed.post/3n2wl2nw7pk2m",
+          "author": "edzitron.com",
+          "text": "it's great for anthropic! it got $12.2bn in cash",
+          "createdAt": "2026-11-22T21:35:23.663Z",
+          "likes": 52,
+          "views": null,
+          "url": "https://bsky.app/profile/edzitron.com/post/3n2wl2nw7pk2m",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:hkymayju75fztvcvalleli3a/app.bsky.feed.post/3n2veki5qmc2g",
+          "author": "ianfraser.bsky.social",
+          "text": "In Bartz vs. Anthropic, it emerged that Anthropic downloaded more than seven million books from pirated libraries to train its AI models. In a July 2026 out-of-court settlement, Anthropic paid out $1.5 billion to authors and publishers it ripped off. 📗📘📕",
+          "createdAt": "2026-11-22T10:06:18.557Z",
+          "likes": 52,
+          "views": null,
+          "url": "https://bsky.app/profile/ianfraser.bsky.social/post/3n2veki5qmc2g",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:r56tewdetlqjcxcmktcp4m2w/app.bsky.feed.post/3n2tzxk6vfc27",
+          "author": "lorak.bsky.social",
+          "text": "authors on anthropic ipo",
+          "createdAt": "2026-11-21T21:24:05.993Z",
+          "likes": 31,
+          "views": null,
+          "url": "https://bsky.app/profile/lorak.bsky.social/post/3n2tzxk6vfc27",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:6kuoujcow7dawloaxqj4qk5d/app.bsky.feed.post/3n2yhataivk2r",
+          "author": "steviebaby.bsky.social",
+          "text": "anthropic still nosediving though lmao",
+          "createdAt": "2026-11-23T15:32:35.078Z",
+          "likes": 17,
+          "views": null,
+          "url": "https://bsky.app/profile/steviebaby.bsky.social/post/3n2yhataivk2r",
           "source": "bluesky"
         }
       ],
       "totals": {
         "posts": 23,
-        "likes": 13711,
+        "likes": 12644,
         "views": 0
       }
     },
@@ -1428,21 +1488,11 @@
       "query": "\"Elon Musk\" lang:en",
       "posts": [
         {
-          "id": "at://did:plc:3i4ezbrmg4mxm5l4eaijajq2/app.bsky.feed.post/3n2s65jxa4s27",
-          "author": "mary1kathy.bsky.social",
-          "text": "Elon Musk is hiring a bunch of Democratic-aligned lobbyists to try to get congressional Democrats to like him again. Oh hell no! Any Democrat who takes a cent from Elon or doesn’t support holding him accountable for his crimes needs to be primaried. #MuskIsMAGA #HoldThemAccountable",
-          "createdAt": "2026-11-21T03:33:42.568Z",
-          "likes": 11020,
-          "views": null,
-          "url": "https://bsky.app/profile/mary1kathy.bsky.social/post/3n2s65jxa4s27",
-          "source": "bluesky"
-        },
-        {
           "id": "at://did:plc:mtr3pwmbnirvyp3robuicd57/app.bsky.feed.post/3n2rhr2bgss2n",
           "author": "davidcorn.bsky.social",
           "text": "A letter to Elon Musk from Rep. Jim Himes, the Dem who will soon be chairing the intelligence committee. No wonder Musk is now lying to say he was never MAGA. democrats-intelligence.house.gov/uploadedfile...",
           "createdAt": "2026-11-20T20:53:01.150Z",
-          "likes": 7901,
+          "likes": 7930,
           "views": null,
           "url": "https://bsky.app/profile/davidcorn.bsky.social/post/3n2rhr2bgss2n",
           "source": "bluesky"
@@ -1452,7 +1502,7 @@
           "author": "joncooper-us.bsky.social",
           "text": "No, Elon Musk Has Not Changed Don't believe his latest attempt to whitewash his track record. Count on Democrat-led investigations to help expose the truth.",
           "createdAt": "2026-11-20T13:35:41.741Z",
-          "likes": 6799,
+          "likes": 6800,
           "views": null,
           "url": "https://bsky.app/profile/joncooper-us.bsky.social/post/3n2qpd2gbw22t",
           "source": "bluesky"
@@ -1462,7 +1512,7 @@
           "author": "internethippo.bsky.social",
           "text": "Elon Musk has been so depressed he's stopped actively offering his semen to women. \"It's over there\" he indifferently motions to his refrigerator",
           "createdAt": "2026-11-21T22:56:45.969Z",
-          "likes": 3702,
+          "likes": 3810,
           "views": null,
           "url": "https://bsky.app/profile/internethippo.bsky.social/post/3n2u75almo22p",
           "source": "bluesky"
@@ -1472,7 +1522,7 @@
           "author": "jamellebouie.net",
           "text": "elon musk out here trying to convince people that he wasn't a key architect of the disaster in washington youtu.be/pZjAAi8FN8s",
           "createdAt": "2026-11-21T15:00:15.404Z",
-          "likes": 3494,
+          "likes": 3510,
           "views": null,
           "url": "https://bsky.app/profile/jamellebouie.net/post/3n2tej6itz22n",
           "source": "bluesky"
@@ -1482,9 +1532,19 @@
           "author": "nytpitchbot.bsky.social",
           "text": "Elon Musk has donated hundreds of millions of dollars to right-wing parties across the globe, actively campaigned against Democrats, and served in Donald Trump's administration. But his true politics remain a mystery. by Elon Musk",
           "createdAt": "2026-11-19T23:32:05.639Z",
-          "likes": 3366,
+          "likes": 3372,
           "views": null,
           "url": "https://bsky.app/profile/nytpitchbot.bsky.social/post/3n2pa6l5cvk25",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:yn75hmwkitdshnylue6d3grk/app.bsky.feed.post/3n2yjnihfoc2v",
+          "author": "niedermeyer.online",
+          "text": "there you have it, from the horse's mouth: Elon Musk supports Donald Trump, because he keeps him out of prison",
+          "createdAt": "2026-11-23T16:15:27.461Z",
+          "likes": 2987,
+          "views": null,
+          "url": "https://bsky.app/profile/niedermeyer.online/post/3n2yjnihfoc2v",
           "source": "bluesky"
         },
         {
@@ -1492,9 +1552,19 @@
           "author": "mrsbettybowers.bsky.social",
           "text": "\"I was never MAGA.\" --Elon Musk \"And I was never English.\" --Queen Elizabeth",
           "createdAt": "2026-11-19T23:58:10.092Z",
-          "likes": 2823,
+          "likes": 2829,
           "views": null,
           "url": "https://bsky.app/profile/mrsbettybowers.bsky.social/post/3n2pbn74qws2x",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:4llrhdclvdlmmynkwsmg5tdc/app.bsky.feed.post/3n2yjlpibzl2f",
+          "author": "atrupar.com",
+          "text": "Trump says he hasn't spoken to Elon Musk about Jensen Huang but then in the next breath says he spoke to Elon about Jensen Huang",
+          "createdAt": "2026-11-23T16:14:27.693Z",
+          "likes": 2806,
+          "views": null,
+          "url": "https://bsky.app/profile/atrupar.com/post/3n2yjlpibzl2f",
           "source": "bluesky"
         },
         {
@@ -1502,9 +1572,19 @@
           "author": "cwebbonline.com",
           "text": "ELON MUSK 2026: “I'm not MAGA.” ELON MUSK 2024: “As you can see, I'm not just MAGA, I'm dark MAGA.” Funny how quickly a billionaire tries to rewrite history when the political winds change.",
           "createdAt": "2026-11-22T01:31:03.834Z",
-          "likes": 2112,
+          "likes": 2184,
           "views": null,
           "url": "https://bsky.app/profile/cwebbonline.com/post/3n2uhr5lfdk2g",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:4u3hwe3p7oy3hoy3amlw7rp2/app.bsky.feed.post/3n2wwiutrch2z",
+          "author": "rbreich.bsky.social",
+          "text": "It's been less than a month since Democrats' historic midterm victory, and Elon Musk is already trying to curry favor by claiming he was never MAGA. Nice try, Elon. You're still going to be investigated for all of DOGE's damage.",
+          "createdAt": "2026-11-23T01:00:11.396509Z",
+          "likes": 1939,
+          "views": null,
+          "url": "https://bsky.app/profile/rbreich.bsky.social/post/3n2wwiutrch2z",
           "source": "bluesky"
         },
         {
@@ -1512,19 +1592,19 @@
           "author": "oliverdarcy.bsky.social",
           "text": "David Ellison confirmed this week that Elon Musk is an investor in Skydance after some reports said he had thrown $1 billion into the company. But CNN and CBS News are not disclosing that financial stake to their viewers when covering Musk. Details in @status.news: www.status.news/p/elon-musk-...",
           "createdAt": "2026-11-21T15:27:24.824Z",
-          "likes": 1500,
+          "likes": 1561,
           "views": null,
           "url": "https://bsky.app/profile/oliverdarcy.bsky.social/post/3n2tfzqgxec26",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:udnac33pmf2iwcblpeai5a5p/app.bsky.feed.post/3n2mtnisffs2o",
-          "author": "iwillnotbesilenced.bsky.social",
-          "text": "Elon Musk says hes not MAGA. Lmaooooo 😂",
-          "createdAt": "2026-11-19T00:42:28.379Z",
-          "likes": 1340,
+          "id": "at://did:plc:4z7le4gy5xiioq2l7ptdhps7/app.bsky.feed.post/3n2wq7vr2rs2m",
+          "author": "thebeaverton.com",
+          "text": "Elon Musk insists Nazi salute was actually him making “D” for “Democrat”",
+          "createdAt": "2026-11-22T23:07:48.363Z",
+          "likes": 1299,
           "views": null,
-          "url": "https://bsky.app/profile/iwillnotbesilenced.bsky.social/post/3n2mtnisffs2o",
+          "url": "https://bsky.app/profile/thebeaverton.com/post/3n2wq7vr2rs2m",
           "source": "bluesky"
         },
         {
@@ -1532,29 +1612,9 @@
           "author": "nothoodlum.bsky.social",
           "text": "Elon Musk says he’s not MAGA. Apparently, he just collects the hats and the occasional guest appearance. 🥴",
           "createdAt": "2026-11-21T21:38:06.475Z",
-          "likes": 1117,
+          "likes": 1135,
           "views": null,
           "url": "https://bsky.app/profile/nothoodlum.bsky.social/post/3n2u2qlq5r224",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:klllsfsfbmxih6mv3yeuhmtz/app.bsky.feed.post/3n2tge5hmzs2a",
-          "author": "papacitogordo.bsky.social",
-          "text": "Who thinks Elon Musk hacked all the voting machines in the 2024 election?",
-          "createdAt": "2026-11-21T15:33:14.023Z",
-          "likes": 937,
-          "views": null,
-          "url": "https://bsky.app/profile/papacitogordo.bsky.social/post/3n2tge5hmzs2a",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:pjx5q7ozubiuiefbscaivmvj/app.bsky.feed.post/3n2o7imx2gk2u",
-          "author": "anntelnaes.bsky.social",
-          "text": "\"I'm not MAGA\" -Elon Musk, 2026 (cartoon from the archives)",
-          "createdAt": "2026-11-19T13:47:09.592Z",
-          "likes": 910,
-          "views": null,
-          "url": "https://bsky.app/profile/anntelnaes.bsky.social/post/3n2o7imx2gk2u",
           "source": "bluesky"
         },
         {
@@ -1562,9 +1622,19 @@
           "author": "bireeves95.bsky.social",
           "text": "Elon Musk should be Arrested, Fleeced and Deported! He is here illegally!",
           "createdAt": "2026-11-22T14:25:20.458Z",
-          "likes": 903,
+          "likes": 1032,
           "views": null,
           "url": "https://bsky.app/profile/bireeves95.bsky.social/post/3n2vszo2yb22b",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:klllsfsfbmxih6mv3yeuhmtz/app.bsky.feed.post/3n2tge5hmzs2a",
+          "author": "papacitogordo.bsky.social",
+          "text": "Who thinks Elon Musk hacked all the voting machines in the 2024 election?",
+          "createdAt": "2026-11-21T15:33:14.023Z",
+          "likes": 1026,
+          "views": null,
+          "url": "https://bsky.app/profile/papacitogordo.bsky.social/post/3n2tge5hmzs2a",
           "source": "bluesky"
         },
         {
@@ -1572,7 +1642,7 @@
           "author": "passantino.bsky.social",
           "text": "David Ellison confirmed that Elon Musk is now a major investor in Skydance. But his news outlets, CBS News & CNN, which report on the far-right billionaire and his companies, have chosen not to disclose that conflict of interest. My latest for @status.news www.status.news/p/elon-musk-...",
           "createdAt": "2026-11-21T16:54:53.829Z",
-          "likes": 859,
+          "likes": 867,
           "views": null,
           "url": "https://bsky.app/profile/passantino.bsky.social/post/3n2tkw6bqvk22",
           "source": "bluesky"
@@ -1588,13 +1658,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:gvfubqngd6l52wpreztedpmt/app.bsky.feed.post/3n2oubofdm22f",
-          "author": "davejorgenson.bsky.social",
-          "text": "Directing Elon Musk during his NY Times interview.",
-          "createdAt": "2026-11-19T19:59:04.806Z",
-          "likes": 550,
+          "id": "at://did:plc:5o6k7jvowuyaquloafzn3cfw/app.bsky.feed.post/3n2yn7oda6c2d",
+          "author": "thetnholler.bsky.social",
+          "text": "Brutal — Elon Musk gets excruciatingly awkward at Tesla’s Argentina launch for two minutes… then hangs up.",
+          "createdAt": "2026-11-23T17:19:18.822Z",
+          "likes": 590,
           "views": null,
-          "url": "https://bsky.app/profile/davejorgenson.bsky.social/post/3n2oubofdm22f",
+          "url": "https://bsky.app/profile/thetnholler.bsky.social/post/3n2yn7oda6c2d",
           "source": "bluesky"
         },
         {
@@ -1608,19 +1678,29 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:4z7le4gy5xiioq2l7ptdhps7/app.bsky.feed.post/3n2wq7vr2rs2m",
-          "author": "thebeaverton.com",
-          "text": "Elon Musk insists Nazi salute was actually him making “D” for “Democrat”",
-          "createdAt": "2026-11-22T23:07:48.363Z",
-          "likes": 521,
+          "id": "at://did:plc:asz6tnareoekfzqa52ol6cdr/app.bsky.feed.post/3n2tfgiig2k2c",
+          "author": "judyjagurianjetta.bsky.social",
+          "text": "Democrats Do not take 1 dime from Elon Musk We are watching you",
+          "createdAt": "2026-11-21T15:16:38.950Z",
+          "likes": 412,
           "views": null,
-          "url": "https://bsky.app/profile/thebeaverton.com/post/3n2wq7vr2rs2m",
+          "url": "https://bsky.app/profile/judyjagurianjetta.bsky.social/post/3n2tfgiig2k2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:nb6uhiglzowsdcbgwv2itwa7/app.bsky.feed.post/3n2ypeihy6c26",
+          "author": "onestpress.onestnetwork.com",
+          "text": "Factcheck: Elon Musk Wants to Rewrite History. Here's What the Facts Say. www.onestnetwork.com/elon-musk-wa...",
+          "createdAt": "2026-11-23T17:57:47.941Z",
+          "likes": 127,
+          "views": null,
+          "url": "https://bsky.app/profile/onestpress.onestnetwork.com/post/3n2ypeihy6c26",
           "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 19,
-        "likes": 51238,
+        "posts": 21,
+        "likes": 47600,
         "views": 0
       }
     },
@@ -1629,13 +1709,23 @@
       "query": "\"Solana\" lang:en",
       "posts": [
         {
-          "id": "at://did:plc:ajbsnuwf4z4pxpr4q2lq266u/app.bsky.feed.post/3n2nyoc5c5k2k",
-          "author": "maheshkale.bsky.social",
-          "text": "I recently built one Blockchain Analysis agent where I managed to use AI agent for checking out Solana and Ethereum transactions. #buildinpublic #aicodingtools #tutorial #AIAgent #ai",
-          "createdAt": "2026-11-19T11:45:03.399Z",
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wktb72gs2d",
+          "author": "zombcash.bsky.social",
+          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
+          "createdAt": "2026-11-22T21:31:15.438Z",
           "likes": 5,
           "views": null,
-          "url": "https://bsky.app/profile/maheshkale.bsky.social/post/3n2nyoc5c5k2k",
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wktb72gs2d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:hc7ksn7qwtps6ofozqb4lxd5/app.bsky.feed.post/3n2xotnpvw22p",
+          "author": "swiftedge.bsky.social",
+          "text": "Bitcoin ₿ +0.32 %. In Asia, the biggest move: Solana +1.84 %. 9 of 15 markets rose. Biggest drop: Nvidia −0.88 %. Full Asia session report. swiftedge.uk?utm_source=b... #Bitcoin #Solana #crypto",
+          "createdAt": "2026-11-23T08:15:43.279Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/swiftedge.bsky.social/post/3n2xotnpvw22p",
           "source": "bluesky"
         },
         {
@@ -1646,16 +1736,6 @@
           "likes": 4,
           "views": null,
           "url": "https://bsky.app/profile/meme331.bsky.social/post/3n2w3bm6pis2j",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wktb72gs2d",
-          "author": "zombcash.bsky.social",
-          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
-          "createdAt": "2026-11-22T21:31:15.438Z",
-          "likes": 3,
-          "views": null,
-          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wktb72gs2d",
           "source": "bluesky"
         },
         {
@@ -1689,6 +1769,16 @@
           "source": "bluesky"
         },
         {
+          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2vf26qw6l2j",
+          "author": "btcwhalealerts.com",
+          "text": "🟢 23.55M USDC ($23.6M) ← Coinbase To 4NyK1A…LeFw. Could head to Kamino or MarginFi for yield — Solana lending TVL is rising. ◎ https://swisswhaleintelligence.com/sol/ #Solana #USDC #Crypto",
+          "createdAt": "2026-11-22T10:15:05.481230+00:00",
+          "likes": 2,
+          "views": null,
+          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2vf26qw6l2j",
+          "source": "bluesky"
+        },
+        {
           "id": "at://did:plc:hc7ksn7qwtps6ofozqb4lxd5/app.bsky.feed.post/3n2tdgggjcs2i",
           "author": "swiftedge.bsky.social",
           "text": "Bitcoin ₿ +4.53 %. In London, the biggest move: Solana +4.78 %. All 15 markets rose. Smallest move: EUR/USD +0.04 %. Full London session report. swiftedge.uk?utm_source=b... #Bitcoin #Solana #crypto",
@@ -1699,13 +1789,13 @@
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2q22i7sbj2w",
-          "author": "btcwhalealerts.com",
-          "text": "🟢 8.54M USDC ($8.5M) ← Coinbase To 2AQdpH…Picm. Often routes to Solana DEXs (Jupiter, Raydium) — deployed capital, not HODL. ◎ https://swisswhaleintelligence.com/sol/ #Solana #USDC #Crypto",
-          "createdAt": "2026-11-20T07:15:05.553808+00:00",
-          "likes": 2,
+          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wkr7ekac2d",
+          "author": "zombcash.bsky.social",
+          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
+          "createdAt": "2026-11-22T21:30:06.410Z",
+          "likes": 1,
           "views": null,
-          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2q22i7sbj2w",
+          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wkr7ekac2d",
           "source": "bluesky"
         },
         {
@@ -1716,16 +1806,6 @@
           "likes": 1,
           "views": null,
           "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wljxgdo22d",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:oe5xw5cntshacem2rjeejy7a/app.bsky.feed.post/3n2wkr7ekac2d",
-          "author": "zombcash.bsky.social",
-          "text": "$ZOMBCASH | Solana meme community #ZombieCash #Solana #Memecoin #Crypto CA: 6cCBF9gtyp3c6VmyxUWzETk3yFmxhjvPm15cxicfpump zombcash.github.io",
-          "createdAt": "2026-11-22T21:30:06.410Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/zombcash.bsky.social/post/3n2wkr7ekac2d",
           "source": "bluesky"
         },
         {
@@ -1747,926 +1827,1097 @@
           "views": null,
           "url": "https://bsky.app/profile/tmlnews.bsky.social/post/3n2wnpylfth2m",
           "source": "bluesky"
-        }
-      ],
-      "totals": {
-        "posts": 12,
-        "likes": 28,
-        "views": 0
-      }
-    },
-    "g:riemann-hypothesis": {
-      "label": "Riemann hypothesis",
-      "query": "\"Riemann hypothesis\" lang:en",
-      "posts": [
+        },
         {
-          "id": "at://did:plc:tobjstnxqmztpmjjcnaxpzzb/app.bsky.feed.post/3n2vxti7lnk27",
-          "author": "acollierastro.bsky.social",
-          "text": "My 'AI' solved the Riemann Hypothesis I cannot check it nor do I understand it It's 250,000 pages so you cannot check it Please give me credit for 'my' work",
-          "createdAt": "2026-11-22T15:51:21.701Z",
-          "likes": 1780,
+          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2xbfejsxm27",
+          "author": "btcwhalealerts.com",
+          "text": "🟢 50.00M USDT ($50.0M) ← Coinbase To A3znya…V28R. Often routes to Solana DEXs (Jupiter, Raydium) — deployed capital, not HODL. ◎ https://swisswhaleintelligence.com/sol/ #Solana #USDT #Crypto",
+          "createdAt": "2026-11-23T04:15:05.151540+00:00",
+          "likes": 1,
           "views": null,
-          "url": "https://bsky.app/profile/acollierastro.bsky.social/post/3n2vxti7lnk27",
+          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2xbfejsxm27",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:myqic77tkmdhmaufgkvj43hr/app.bsky.feed.post/3n2rtk2jtis27",
-          "author": "kjhealy.co",
-          "text": "IF YOU’RE IN LINE TO PROVE THE RIEMANN HYPOTHESIS STAY IN LINE",
-          "createdAt": "2026-11-21T00:23:51.438Z",
-          "likes": 1190,
+          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2x3jmp4iy2j",
+          "author": "btcwhalealerts.com",
+          "text": "📈 🐳 CRMx whale move ($1.0M) tokenized stock (CRM) wallet-to-wallet on Solana, often via a DEX. 📈 https://swisswhaleintelligence.com/rwa/ #Solana #RWA #Crypto",
+          "createdAt": "2026-11-23T02:30:05.479147+00:00",
+          "likes": 1,
           "views": null,
-          "url": "https://bsky.app/profile/kjhealy.co/post/3n2rtk2jtis27",
+          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2x3jmp4iy2j",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:wbtjiqd5pshd5tsvwjv6xmr3/app.bsky.feed.post/3n2rexvxo322m",
-          "author": "adambecker.bsky.social",
-          "text": "sir, a second proof of the Generalized Riemann Hypothesis has just hit",
-          "createdAt": "2026-11-20T20:03:10.287Z",
-          "likes": 675,
+          "id": "at://did:plc:hlod3gl5ewwglnr4yarddcrk/app.bsky.feed.post/3n2xlhad6cq27",
+          "author": "btcwhalealerts.com",
+          "text": "🟢 6.13M USDC ($6.1M) ← Binance To 8DfHuY…m8hU. Could head to Kamino or MarginFi for yield — Solana lending TVL is rising. ◎ https://swisswhaleintelligence.com/sol/ #Solana #USDC #Crypto",
+          "createdAt": "2026-11-23T07:15:05.262815+00:00",
+          "likes": 1,
           "views": null,
-          "url": "https://bsky.app/profile/adambecker.bsky.social/post/3n2rexvxo322m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:lpbrtmsvjk6dedp6rbfzwoya/app.bsky.feed.post/3n2tvagjyfs2l",
-          "author": "bloomfilters.plus",
-          "text": "alright pal lean verified the riemann hypothesis proof go make your yuri immediately math is over /joke",
-          "createdAt": "2026-11-21T19:59:35.452Z",
-          "likes": 483,
-          "views": null,
-          "url": "https://bsky.app/profile/bloomfilters.plus/post/3n2tvagjyfs2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:wbtjiqd5pshd5tsvwjv6xmr3/app.bsky.feed.post/3n2rgiz3yts2m",
-          "author": "adambecker.bsky.social",
-          "text": "A nice explanation of what the Riemann Hypothesis is and why it's a big deal. It is (was?) arguably the most important open problem in pure math.",
-          "createdAt": "2026-11-20T20:30:37.748Z",
-          "likes": 361,
-          "views": null,
-          "url": "https://bsky.app/profile/adambecker.bsky.social/post/3n2rgiz3yts2m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ssnplyo7c7itlco3yifho5ii/app.bsky.feed.post/3n2r7u5lojc2y",
-          "author": "kuppermann.xyz",
-          "text": "quick someone unsolve the riemann hypothesis",
-          "createdAt": "2026-11-20T18:31:35.361Z",
-          "likes": 342,
-          "views": null,
-          "url": "https://bsky.app/profile/kuppermann.xyz/post/3n2r7u5lojc2y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ragtjsm2j2vknwkz3zp4oxrd/app.bsky.feed.post/3n2qx5ohsac2z",
-          "author": "pfrazee.com",
-          "text": "Ahh man, I was just about to understand what the Riemann Hypothesis is",
-          "createdAt": "2026-11-20T15:55:51.370Z",
-          "likes": 261,
-          "views": null,
-          "url": "https://bsky.app/profile/pfrazee.com/post/3n2qx5ohsac2z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:3s5wtzqrvrsvbxl6afiko2yw/app.bsky.feed.post/3n2rvigvazs2m",
-          "author": "nameshiv.bsky.social",
-          "text": "ok fine I'll release my solution to the Riemann hypothesis today as well",
-          "createdAt": "2026-11-21T00:58:44.779Z",
-          "likes": 184,
-          "views": null,
-          "url": "https://bsky.app/profile/nameshiv.bsky.social/post/3n2rvigvazs2m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:62gdkmpwa7xme36getyqnem3/app.bsky.feed.post/3n2unmafbjk2v",
-          "author": "astrokatie.com",
-          "text": "Interesting video from @3blue1brown.com featuring interviews with mathematicians from the last few years, answering the question, \"Hypothetically... how would you feel if AI solved the Riemann Hypothesis?\" www.youtube.com/watch?v=zqzk...",
-          "createdAt": "2026-11-22T03:15:41.462Z",
-          "likes": 183,
-          "views": null,
-          "url": "https://bsky.app/profile/astrokatie.com/post/3n2unmafbjk2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:sefgphqp2xqwh2hawaixykwz/app.bsky.feed.post/3n2qwhdke4c23",
-          "author": "esqueer.net",
-          "text": "Oh my god. Working proof of the Riemann Hypothesis has potentially been found‼️",
-          "createdAt": "2026-11-20T15:43:21.714Z",
-          "likes": 156,
-          "views": null,
-          "url": "https://bsky.app/profile/esqueer.net/post/3n2qwhdke4c23",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:mssgex5rqek4wc66wgvzztbc/app.bsky.feed.post/3n2rdvtu4n22f",
-          "author": "norvid-studies.bsky.social",
-          "text": "fwiw I am also surprised the riemann hypothesis tech came before LLM powered siri",
-          "createdAt": "2026-11-20T19:44:07.229Z",
-          "likes": 139,
-          "views": null,
-          "url": "https://bsky.app/profile/norvid-studies.bsky.social/post/3n2rdvtu4n22f",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:xviqbzsjyw56leqk5nsjzoqy/app.bsky.feed.post/3n2tmdwtptk2x",
-          "author": "richardkadrey.bsky.social",
-          "text": "Aces solving the Riemann hypothesis",
-          "createdAt": "2026-11-21T17:20:29.500Z",
-          "likes": 131,
-          "views": null,
-          "url": "https://bsky.app/profile/richardkadrey.bsky.social/post/3n2tmdwtptk2x",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:bii2o576sszvunaymlwnjfmu/app.bsky.feed.post/3n2sdkpn2qk2x",
-          "author": "indyfromspace.bsky.social",
-          "text": "Inside of you are two proofs of the Riemann Hypothesis",
-          "createdAt": "2026-11-21T05:10:33.443Z",
-          "likes": 126,
-          "views": null,
-          "url": "https://bsky.app/profile/indyfromspace.bsky.social/post/3n2sdkpn2qk2x",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:myqic77tkmdhmaufgkvj43hr/app.bsky.feed.post/3n2rvhn675c27",
-          "author": "kjhealy.co",
-          "text": "My proof of the Riemann Hypothesis is more of a comment",
-          "createdAt": "2026-11-21T00:58:17.809Z",
-          "likes": 123,
-          "views": null,
-          "url": "https://bsky.app/profile/kjhealy.co/post/3n2rvhn675c27",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:vhksxuzscmg5uokrkm4jeckh/app.bsky.feed.post/3n2sr2wlla22n",
-          "author": "hadas.bsky.social",
-          "text": "because the prompt was \"solve the riemann hypothesis. make no mistakes\"",
-          "createdAt": "2026-11-21T09:12:16.246Z",
-          "likes": 121,
-          "views": null,
-          "url": "https://bsky.app/profile/hadas.bsky.social/post/3n2sr2wlla22n",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:fwks525g7gw5wc7ul2wg4wj5/app.bsky.feed.post/3n2qwotberc2v",
-          "author": "mims.bsky.social",
-          "text": "good news: proof of the Riemann hypothesis does not break encryption!",
-          "createdAt": "2026-11-20T15:47:33.090Z",
-          "likes": 115,
-          "views": null,
-          "url": "https://bsky.app/profile/mims.bsky.social/post/3n2qwotberc2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:vhksxuzscmg5uokrkm4jeckh/app.bsky.feed.post/3n2sjpgtdyk2n",
-          "author": "hadas.bsky.social",
-          "text": "idk what to do this weekend now that the riemann hypothesis has been solved",
-          "createdAt": "2026-11-21T07:00:34.435Z",
-          "likes": 95,
-          "views": null,
-          "url": "https://bsky.app/profile/hadas.bsky.social/post/3n2sjpgtdyk2n",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:c6k2ozisr2bbitsafwwyistf/app.bsky.feed.post/3n2scp5ywns2t",
-          "author": "ruemcclammyhand.bsky.social",
-          "text": "yeah i also solved the Riemann hypothesis, inscrutably",
-          "createdAt": "2026-11-21T04:55:08.988Z",
-          "likes": 85,
-          "views": null,
-          "url": "https://bsky.app/profile/ruemcclammyhand.bsky.social/post/3n2scp5ywns2t",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:5boijynjbphhn7nqbc55wt4w/app.bsky.feed.post/3n2whazu7zs2c",
-          "author": "rivertam.bsky.social",
-          "text": "Where is the proof they didn't brute force the Riemann Hypothesis.",
-          "createdAt": "2026-11-22T20:27:22.540Z",
-          "likes": 76,
-          "views": null,
-          "url": "https://bsky.app/profile/rivertam.bsky.social/post/3n2whazu7zs2c",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:6rdthm3ihpqfd7vn2q2ktjrz/app.bsky.feed.post/3n2u7nmrlbc2y",
-          "author": "colin-fraser.net",
-          "text": "The actual Riemann Hypothesis catastrophe ended up being, you ask a friendly AI to prove the Riemann Hypothesis and it just does it with ease and you have to go, shit, now what",
-          "createdAt": "2026-11-21T23:05:55.618Z",
-          "likes": 76,
-          "views": null,
-          "url": "https://bsky.app/profile/colin-fraser.net/post/3n2u7nmrlbc2y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:zlr5msbog5dluhaugd5bgdg3/app.bsky.feed.post/3n2rdp6p7422k",
-          "author": "hikoukihikouki9.bsky.social",
-          "text": "Sir another solution to the riemann hypothesis has hit the towers",
-          "createdAt": "2026-11-20T19:40:23.720Z",
-          "likes": 75,
-          "views": null,
-          "url": "https://bsky.app/profile/hikoukihikouki9.bsky.social/post/3n2rdp6p7422k",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:jrtgsidnmxaen4offglr5lsh/app.bsky.feed.post/3n2w625benk2r",
-          "author": "quilling.dev",
-          "text": "super jealous somebody solved the riemann hypothesis before me",
-          "createdAt": "2026-11-22T17:42:27.559Z",
-          "likes": 41,
-          "views": null,
-          "url": "https://bsky.app/profile/quilling.dev/post/3n2w625benk2r",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:vfktz6qe6vy7serr3wqutpzt/app.bsky.feed.post/3n2rei463ls2m",
-          "author": "quantamagazine.org",
-          "text": "From the Quanta YouTube channel: Explore the Riemann hypothesis: www.youtube.com/watch?v=zlm1...",
-          "createdAt": "2026-11-20T19:54:19.923Z",
-          "likes": 38,
-          "views": null,
-          "url": "https://bsky.app/profile/quantamagazine.org/post/3n2rei463ls2m",
+          "url": "https://bsky.app/profile/btcwhalealerts.com/post/3n2xlhad6cq27",
           "source": "bluesky"
         }
       ],
       "totals": {
-        "posts": 23,
-        "likes": 6856,
+        "posts": 15,
+        "likes": 32,
         "views": 0
       }
     },
-    "g:steps-film": {
-      "label": "Steps (film)",
-      "query": "\"Steps\" lang:en",
+    "g:s-club": {
+      "label": "S Club",
+      "query": "\"S Club\" lang:en",
       "posts": [
         {
-          "id": "at://did:plc:xglig6vyxav74acw6g4jbxiy/app.bsky.feed.post/3n2rc3fkqx224",
-          "author": "toonhive.bsky.social",
-          "text": "‘STEPS’ earns a 73% Rotten Tomatoes score. The new film is now streaming on Netflix.",
-          "createdAt": "2026-11-20T19:11:26.082Z",
-          "likes": 93,
+          "id": "at://did:plc:g3fbgtq62oovlmotspwjiqjt/app.bsky.feed.post/3n2vk4gqlfk2j",
+          "author": "jdpuppy.bsky.social",
+          "text": "While in Osaka, I met up with Tatsuro and came up with a choreography on the spot together to Don't Stop Movin' by S Club 7 - a great blast from the past song! We did this in Tennoji Park, on a bridge with the Tsutenkaku tower in the background! #FursuitDance #DontStopMovin #SClub7",
+          "createdAt": "2026-11-22T11:45:49.767Z",
+          "likes": 88,
           "views": null,
-          "url": "https://bsky.app/profile/toonhive.bsky.social/post/3n2rc3fkqx224",
-          "source": "bluesky"
-        }
-      ],
-      "totals": {
-        "posts": 1,
-        "likes": 93,
-        "views": 0
-      }
-    },
-    "g:levent-alp-ge": {
-      "label": "Levent Alpöge",
-      "query": "\"Levent Alpöge\" lang:en",
-      "posts": [
-        {
-          "id": "at://did:plc:3qxpuyugoel4svgub7ywotmz/app.bsky.feed.post/3n2r72js4v22t",
-          "author": "chordbug.bsky.social",
-          "text": "by \"horrible timing\", Levent Alpöge is referring ofc to the fact that we missed the chance to joke \"we got Riemann Hypothesis before GTA6\" by a *day*",
-          "createdAt": "2026-11-20T18:17:15.729Z",
-          "likes": 190,
-          "views": null,
-          "url": "https://bsky.app/profile/chordbug.bsky.social/post/3n2r72js4v22t",
+          "url": "https://bsky.app/profile/jdpuppy.bsky.social/post/3n2vk4gqlfk2j",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:4i77tdu3riswwmtw6j67ufrj/app.bsky.feed.post/3n2qt3ngb5k2w",
-          "author": "birdsnfrogs.bsky.social",
-          "text": "Levent Alpöge with an announcement this morning: \"I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis.\" alpo.ge/remark.pdf",
-          "createdAt": "2026-11-20T14:43:08.198Z",
-          "likes": 115,
-          "views": null,
-          "url": "https://bsky.app/profile/birdsnfrogs.bsky.social/post/3n2qt3ngb5k2w",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:6rdthm3ihpqfd7vn2q2ktjrz/app.bsky.feed.post/3n2rczvpi5c2c",
-          "author": "colin-fraser.net",
-          "text": "Today, Levent Alpöge, a mathematician who works at Anthropic, self-published a 17 million line AI-generated computer program that purports to answer the question (RH is true—which was really the consensus belief, but no one knew with the certainty that is demanded in mathematics).",
-          "createdAt": "2026-11-20T19:28:29.640Z",
-          "likes": 106,
-          "views": null,
-          "url": "https://bsky.app/profile/colin-fraser.net/post/3n2rczvpi5c2c",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:fb5fjz7jxmbf3alhwh44ookd/app.bsky.feed.post/3n2rf4h2s5k2k",
-          "author": "johncarlosbaez.bsky.social",
-          "text": "Levent Alpöge claims to have used Claude to prove the Riemann Hypothesis after a month and two weeks of work: alpo.ge/remark.pdf He's already used Claude to settle the Jacobian conjecture, the Caratheodory conjecture, and the question about the existence of complex structures on the 6-sphere.",
-          "createdAt": "2026-11-20T20:05:42.439Z",
-          "likes": 79,
-          "views": null,
-          "url": "https://bsky.app/profile/johncarlosbaez.bsky.social/post/3n2rf4h2s5k2k",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:yzywgiiou7cx63uddiru6m2o/app.bsky.feed.post/3n2r4b5hjfc27",
-          "author": "pekka.bsky.social",
-          "text": "It just feels like the right kind of 2026 craziness that Levent Alpöge announces proving the Riemann Hypothesis with Claude while Anthropic, NVIDIA and others are crashing in the stock market.",
-          "createdAt": "2026-11-20T17:27:16.465Z",
-          "likes": 55,
-          "views": null,
-          "url": "https://bsky.app/profile/pekka.bsky.social/post/3n2r4b5hjfc27",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:q5cnyaqzm5lyig37jm7srfzu/app.bsky.feed.post/3n2t5rmbmsk2g",
-          "author": "hornblende.bsky.social",
-          "text": "why is there a guy comparing levent alpöge doing math with claude to israeli arms manufacturers using attacks on palestinian civilian infrastructure for marketing. this is like the tackiest thing ive seen all month",
-          "createdAt": "2026-11-21T12:59:42.089Z",
-          "likes": 44,
-          "views": null,
-          "url": "https://bsky.app/profile/hornblende.bsky.social/post/3n2t5rmbmsk2g",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:bzy5rjjduvvkxno5xe3evl3f/app.bsky.feed.post/3n2rjpolcwc2p",
-          "author": "lollardfish.bsky.social",
-          "text": "If your character in fiction was named Levent Alpöge it would seem absurd.",
-          "createdAt": "2026-11-20T21:28:02.820Z",
-          "likes": 33,
-          "views": null,
-          "url": "https://bsky.app/profile/lollardfish.bsky.social/post/3n2rjpolcwc2p",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:nyjm4ylfid2a7mjm6varxuiq/app.bsky.feed.post/3n2tzhk6hn22g",
-          "author": "robertscotthorton.bsky.social",
-          "text": "On Friday, Anthropic mathematician Levent Alpöge—who had previously contributed to foundational work on the Navier-Stokes problem—published a proof of the Riemann Hypothesis, developed in intensive collaboration with the AI ​​model Claude. If confirmed, this would mark the third Millennium Prize",
-          "createdAt": "2026-11-21T21:15:09.114Z",
-          "likes": 26,
-          "views": null,
-          "url": "https://bsky.app/profile/robertscotthorton.bsky.social/post/3n2tzhk6hn22g",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:5aeagkpy2ch5eencyi2elahk/app.bsky.feed.post/3n2vgfzc4xk2l",
-          "author": "boxobark.ing",
-          "text": "Levent Alpöge writing \"Claude flew, and danced, and sparkled near that finish line\" makes me want to shove Dario Amodei into a locker, which is very impressive since I'm not American and my school didn't even have lockers.",
-          "createdAt": "2026-11-22T10:39:36.239Z",
-          "likes": 18,
-          "views": null,
-          "url": "https://bsky.app/profile/boxobark.ing/post/3n2vgfzc4xk2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:n5vn7dakcsx467cznu3laszn/app.bsky.feed.post/3n2rbah5ll22s",
-          "author": "timfernholz.com",
-          "text": "We have a Claude-based Riemann Hypothesis solution from Levent Alpöge, and another solution from Alessandro Masullo, who says he worked on it for 12 years without AI. Alpöge: alpo.ge/remark.pdf Masullo: math216.wordpress.com/2026/11/20/h...",
-          "createdAt": "2026-11-20T18:56:21.779Z",
-          "likes": 17,
-          "views": null,
-          "url": "https://bsky.app/profile/timfernholz.com/post/3n2rbah5ll22s",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:gvda6fem6r7selm4gzjjww4a/app.bsky.feed.post/3n2qxsj6o2k2k",
-          "author": "leahmcelrath.bsky.social",
-          "text": "The mathematician claiming to have solved the Riemann hypothesis is Levent Alpöge. (More: alpo.ge)",
-          "createdAt": "2026-11-20T16:07:30.452Z",
-          "likes": 9,
-          "views": null,
-          "url": "https://bsky.app/profile/leahmcelrath.bsky.social/post/3n2qxsj6o2k2k",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:lrbprpdpkv6prjqqtd3qumrd/app.bsky.feed.post/3n2qty4m7ce2i",
-          "author": "koltregaskes.bsky.social",
-          "text": "Claude might have helped prove the Reimann Hypothesis, writes Levent Alpöge from Anthropic. Perhaps even the Generalised and Extended Riemann Hypothesis. alpo.ge/remark.pdf x.com/scottnarmst...",
-          "createdAt": "2026-11-20T14:59:03.581955+00:00",
-          "likes": 9,
-          "views": null,
-          "url": "https://bsky.app/profile/koltregaskes.bsky.social/post/3n2qty4m7ce2i",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:sa2yiupgrjk625bb6fmv23ww/app.bsky.feed.post/3n2rzps3ilk2f",
-          "author": "rbd.bsky.social",
-          "text": "There's a lot you can say about Anthropic and their approach to math research but it seems very obnoxious to suggest Levent Alpöge is not passionate about pure math en.wikipedia.org/wiki/Levent_...",
-          "createdAt": "2026-11-21T02:14:26.367Z",
-          "likes": 8,
-          "views": null,
-          "url": "https://bsky.app/profile/rbd.bsky.social/post/3n2rzps3ilk2f",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:5a2icl43rtftn75x7pr7qagu/app.bsky.feed.post/3n2rh6nztpk2j",
-          "author": "robotranny.soy",
-          "text": "in 300 years there will be a veritasium video about levent alpöge",
-          "createdAt": "2026-11-20T20:42:44.230Z",
-          "likes": 6,
-          "views": null,
-          "url": "https://bsky.app/profile/robotranny.soy/post/3n2rh6nztpk2j",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ec7wbb6cuwewc4ucwimzevf2/app.bsky.feed.post/3n2tymm42yc24",
-          "author": "jnatc.im",
-          "text": "Levent Alpöge solving the longest standing Millennium Problem like “let’s get this bag”",
-          "createdAt": "2026-11-21T21:00:05.164Z",
-          "likes": 3,
-          "views": null,
-          "url": "https://bsky.app/profile/jnatc.im/post/3n2tymm42yc24",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:la5phjyieuklhytdxjsenhyu/app.bsky.feed.post/3n2rg3vtthk2r",
-          "author": "persistentpoasting.bsky.social",
-          "text": "Levent Alpöge claims he did",
-          "createdAt": "2026-11-20T20:23:18.126Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/persistentpoasting.bsky.social/post/3n2rg3vtthk2r",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:67fu5pe5yhqmxtwldxhrf3pw/app.bsky.feed.post/3n2t62uj3lc2m",
-          "author": "acidlich.bsky.social",
-          "text": "Levent Alpöge is going to hell",
-          "createdAt": "2026-11-21T13:04:52.714Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/acidlich.bsky.social/post/3n2t62uj3lc2m",
-          "source": "bluesky"
-        }
-      ],
-      "totals": {
-        "posts": 17,
-        "likes": 721,
-        "views": 0
-      }
-    },
-    "g:joseph-zada": {
-      "label": "Joseph Zada",
-      "query": "\"Joseph Zada\" lang:en",
-      "posts": [
-        {
-          "id": "at://did:plc:wb5hqujq6hht5qwseflspbgf/app.bsky.feed.post/3n2ltoickj22z",
-          "author": "filmbrainbmb.bsky.social",
-          "text": "The Hunger Games: Sunrise on the Reaping: Joseph Zada, playing a younger Woody Harrelson, finds himself forced into the games in this prequel, which is entertaining but doesn't escape feeling somewhat redundant. Glenn Close, Kieran Culkin and Elle Fanning's campy support are needed levity.",
-          "createdAt": "2026-11-18T15:10:21.677Z",
-          "likes": 31,
-          "views": null,
-          "url": "https://bsky.app/profile/filmbrainbmb.bsky.social/post/3n2ltoickj22z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ivyvx6faakevikpv37s2csxn/app.bsky.feed.post/3n2urbgy42s2p",
-          "author": "bripls.bsky.social",
-          "text": "joseph zada they will talk about your haymitch performance for years to come",
-          "createdAt": "2026-11-22T04:21:14.240Z",
-          "likes": 18,
-          "views": null,
-          "url": "https://bsky.app/profile/bripls.bsky.social/post/3n2urbgy42s2p",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:iv3xwg2zf4tpnbhbhqhyt3sq/app.bsky.feed.post/3n2u7uhgyb22v",
-          "author": "miraclemoveondrug.swifties.social",
-          "text": "I just saw sunrise on the reaping Francis Lawrence when I catch you Suzanne Collins when i catch you Joseph Zada was phenomenal as Haymitch but Kelvin Harrison Jr as Beetee really stole the show for me he did so well it really felt like I was watching a younger Beetee!! 10/10 movie",
-          "createdAt": "2026-11-21T23:09:44.893Z",
-          "likes": 11,
-          "views": null,
-          "url": "https://bsky.app/profile/miraclemoveondrug.swifties.social/post/3n2u7uhgyb22v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:m2332hczi66qv47jgbhujvpi/app.bsky.feed.post/3n2s5ucdqys2y",
-          "author": "lacymb.bsky.social",
-          "text": "Late posting this, but I found The Hunger Games: Sunrise on the Reaping to be both surprisingly moving and uncannily timely. Joseph Zada deserves to be a big movie star. My review at @wcp.bsky.social:",
-          "createdAt": "2026-11-21T03:28:32.599Z",
-          "likes": 9,
-          "views": null,
-          "url": "https://bsky.app/profile/lacymb.bsky.social/post/3n2s5ucdqys2y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:la4vlb6j6ihseykp72zkxvu4/app.bsky.feed.post/3n2u7zkt7xs2z",
-          "author": "inthepouringrain.swifties.social",
-          "text": "Joseph Zada gave the kind of performance some actors spend lifetimes chasing",
-          "createdAt": "2026-11-21T23:12:36.225Z",
-          "likes": 7,
-          "views": null,
-          "url": "https://bsky.app/profile/inthepouringrain.swifties.social/post/3n2u7zkt7xs2z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:nm7lb4ytm7kvgkf65t4lrmtl/app.bsky.feed.post/3n2ubb2a7j22y",
-          "author": "realityrobbed.bsky.social",
-          "text": "I'm also very serious when I say the following: Joseph Zada and Jesse Plemons should be in awards conversations this year. They won't, because it's a genre blockbuster, but they absolutely should be.",
-          "createdAt": "2026-11-21T23:34:41.004Z",
-          "likes": 7,
-          "views": null,
-          "url": "https://bsky.app/profile/realityrobbed.bsky.social/post/3n2ubb2a7j22y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:wiew6dyefxnxrh4tp2o7jhpw/app.bsky.feed.post/3n2nubrdpik2s",
-          "author": "heyhayley.bsky.social",
-          "text": "None-spoiler SOTR review: Joseph Zada was absolutely phenomenal.",
-          "createdAt": "2026-11-19T10:26:28.163Z",
-          "likes": 6,
-          "views": null,
-          "url": "https://bsky.app/profile/heyhayley.bsky.social/post/3n2nubrdpik2s",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:4s6yddaeom2i5a2tytwvlkq5/app.bsky.feed.post/3n2vswltihk2h",
-          "author": "sydspages.bsky.social",
-          "text": "All the actors were amazing especially Joseph Zada but the pacing felt off & I missed seeing the connections Haymitch made so the deaths didn’t feel as impactful",
-          "createdAt": "2026-11-22T14:23:37.444Z",
-          "likes": 6,
-          "views": null,
-          "url": "https://bsky.app/profile/sydspages.bsky.social/post/3n2vswltihk2h",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:seut4fk6hjoqcefzepfgy7ih/app.bsky.feed.post/3n2ukkve3oc2s",
-          "author": "ladyp3rs3phone.bsky.social",
-          "text": "I’m back home. My eyes are swollen from the crying and I can’t talk about that yet. Beautiful and holy fuck did Joseph Zada absolutely nail the accent",
-          "createdAt": "2026-11-22T02:21:15.105Z",
-          "likes": 6,
-          "views": null,
-          "url": "https://bsky.app/profile/ladyp3rs3phone.bsky.social/post/3n2ukkve3oc2s",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ks55n4tb5o4yx5skpnsskecp/app.bsky.feed.post/3n2ueuhos5c22",
-          "author": "seiolfur.digital",
-          "text": "Joseph Zada come get your baddie chain",
-          "createdAt": "2026-11-22T00:39:13.874Z",
-          "likes": 5,
-          "views": null,
-          "url": "https://bsky.app/profile/seiolfur.digital/post/3n2ueuhos5c22",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ogb2it2zt2xae6vym56yg7qv/app.bsky.feed.post/3n2r54vs5qc24",
-          "author": "pnemiroff.bsky.social",
-          "text": "My full Noovie convo with MCKENNA GRACE & JOSEPH ZADA for The Hunger Games: Sunrise on the Reaping is up now! Hear all about a certain ladybug scene, their Hunger Games tattoo ideas, the mentors who shaped their careers, and more here: youtu.be/PdsGTrq7Hps?...",
-          "createdAt": "2026-11-20T17:42:47.949Z",
-          "likes": 4,
-          "views": null,
-          "url": "https://bsky.app/profile/pnemiroff.bsky.social/post/3n2r54vs5qc24",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:mgxjofpsldxs56wbi6v6dgmh/app.bsky.feed.post/3n2wftpfkis2s",
-          "author": "nvmkayl.bsky.social",
-          "text": "i hardly know joseph zada i saw him in we were liars and honestly wasn’t a fan but he was so good in sotr the right choice was made",
-          "createdAt": "2026-11-22T20:02:01.622Z",
-          "likes": 3,
-          "views": null,
-          "url": "https://bsky.app/profile/nvmkayl.bsky.social/post/3n2wftpfkis2s",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:xzgmmlsatwl667noacjmtoag/app.bsky.feed.post/3n2rpwknkk22z",
-          "author": "luffybrini.bsky.social",
-          "text": "hudson williams and joseph zada should play boyfriends and make out with lots of tongue and also try to outbig their big wet eyes at each other",
-          "createdAt": "2026-11-20T23:19:16.032Z",
-          "likes": 3,
-          "views": null,
-          "url": "https://bsky.app/profile/luffybrini.bsky.social/post/3n2rpwknkk22z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:xzgmmlsatwl667noacjmtoag/app.bsky.feed.post/3n2wmdbcab222",
-          "author": "luffybrini.bsky.social",
-          "text": "i cannot wait to watch sunrise on the reaping again and suffer along with joseph zada",
-          "createdAt": "2026-11-22T21:58:06.154Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/luffybrini.bsky.social/post/3n2wmdbcab222",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:aitjwn5mmfp6ucqxbdccccfb/app.bsky.feed.post/3n2uuqvj5x22q",
-          "author": "lizbarr.bsky.social",
-          "text": "And shout out to Joseph Zada, a man of Aboriginal and Afghan heritage leading this week’s top grossing film.",
-          "createdAt": "2026-11-22T05:23:34.020Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/lizbarr.bsky.social/post/3n2uuqvj5x22q",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:jxmqlr6axz3iravv57r6u2jz/app.bsky.feed.post/3n2wpzadey22u",
-          "author": "stateofkay.swifties.social",
-          "text": "joseph zada being the best casting of thg main protagonists his level of protraying fear sends chills down your spine",
-          "createdAt": "2026-11-22T23:04:04.568Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/stateofkay.swifties.social/post/3n2wpzadey22u",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:5rmq5g7x37j6wcdiddje2qr3/app.bsky.feed.post/3n2ubr6vjw22h",
-          "author": "cowboylikelouise.swifties.social",
-          "text": "Okay thoughts - Book Accuracy 👍🏻 - Joseph Zada 👍🏻 - bad use of Ralph Finnes - not much character depth for people who didn’t read the book",
-          "createdAt": "2026-11-21T23:43:42.769Z",
-          "likes": 2,
-          "views": null,
-          "url": "https://bsky.app/profile/cowboylikelouise.swifties.social/post/3n2ubr6vjw22h",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:qkhfzwpymn4j5aasjvnkmlch/app.bsky.feed.post/3n2v6q3ztuk23",
-          "author": "iheartlaz.bsky.social",
-          "text": "joseph zada fan 45",
-          "createdAt": "2026-11-22T08:22:04.721Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/iheartlaz.bsky.social/post/3n2v6q3ztuk23",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:s55hz57vasfmi5rx3kx4ug5n/app.bsky.feed.post/3n2wclscd6k2o",
-          "author": "deezxnuts67.bsky.social",
-          "text": "these joseph zada edits",
-          "createdAt": "2026-11-22T19:03:55.002Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/deezxnuts67.bsky.social/post/3n2wclscd6k2o",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:r3q45ehreajpxtqxxwb5tl6c/app.bsky.feed.post/3n2uffk3wkk2k",
-          "author": "geeconsequently.bsky.social",
-          "text": "I loved it, the acting is superb. Joseph Zada was 5/5",
-          "createdAt": "2026-11-22T00:48:46.820Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/geeconsequently.bsky.social/post/3n2uffk3wkk2k",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:qrzppnyxy4kahdtmvrcyns5e/app.bsky.feed.post/3n2odix65w22x",
-          "author": "treasureandrum.bsky.social",
-          "text": "thanks god joseph zada isn’t american",
-          "createdAt": "2026-11-19T14:58:55.278Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/treasureandrum.bsky.social/post/3n2odix65w22x",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:qkhfzwpymn4j5aasjvnkmlch/app.bsky.feed.post/3n2v6rajqw223",
-          "author": "iheartlaz.bsky.social",
-          "text": "joseph zada i was u familiar with ur game im now locked in sorry i didnt clock in sooner",
-          "createdAt": "2026-11-22T08:22:42.993Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/iheartlaz.bsky.social/post/3n2v6rajqw223",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:aypp3ct7qwp3dkw2anzqyl5c/app.bsky.feed.post/3n2qjpdpt622s",
-          "author": "musetv.net",
-          "text": "Joseph Zada, Mckenna Grace and Ben Wang Talk Next Chapter of The Hunger Games youtu.be/vROunRbC_Rg #thehungergamessunriseonthereaping #mckennagrace #josephzada #benwang",
-          "createdAt": "2026-11-20T11:55:11.695Z",
-          "likes": 1,
-          "views": null,
-          "url": "https://bsky.app/profile/musetv.net/post/3n2qjpdpt622s",
-          "source": "bluesky"
-        }
-      ],
-      "totals": {
-        "posts": 23,
-        "likes": 130,
-        "views": 0
-      }
-    },
-    "g:sunrise-on-the-reaping": {
-      "label": "Sunrise on the Reaping",
-      "query": "\"Sunrise on the Reaping\" lang:en",
-      "posts": [
-        {
-          "id": "at://did:plc:exxdcplb2ozev5lvw5ohnejq/app.bsky.feed.post/3n2sj5ly57k2i",
-          "author": "discussingfilm.net",
-          "text": "‘THE HUNGER GAMES: SUNRISE ON THE REAPING’ debuts on CinemaScore with an A- Read our review: bit.ly/SunriseDF",
-          "createdAt": "2026-11-21T06:50:35.852Z",
-          "likes": 179,
-          "views": null,
-          "url": "https://bsky.app/profile/discussingfilm.net/post/3n2sj5ly57k2i",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:yfyg7lj7atao6krdbaqaci35/app.bsky.feed.post/3n2wqz7v44k2v",
-          "author": "billcorbett.bsky.social",
-          "text": "Paul Blart 3: Sunrise on the Reaping",
-          "createdAt": "2026-11-22T23:21:57.841Z",
-          "likes": 135,
-          "views": null,
-          "url": "https://bsky.app/profile/billcorbett.bsky.social/post/3n2wqz7v44k2v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:vqc7wpxs32mriwcf52mjhcpf/app.bsky.feed.post/3n2tfgq4dps25",
-          "author": "hugobookclub.bsky.social",
-          "text": "Best part about “Hunger Games: Sunrise on the Reaping” is that part where Suzanne Collins isn’t spending the money she earns from it on a hate campaign targeting marginalized communities.",
-          "createdAt": "2026-11-21T15:16:46.942Z",
-          "likes": 128,
-          "views": null,
-          "url": "https://bsky.app/profile/hugobookclub.bsky.social/post/3n2tfgq4dps25",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:exxdcplb2ozev5lvw5ohnejq/app.bsky.feed.post/3n2ud6tw6us2l",
-          "author": "discussingfilm.net",
-          "text": "Noah Schnapp reveals that he auditioned for the role of Haymitch in ‘THE HUNGER GAMES: SUNRISE ON THE REAPING’.",
-          "createdAt": "2026-11-22T00:09:14.758Z",
-          "likes": 126,
-          "views": null,
-          "url": "https://bsky.app/profile/discussingfilm.net/post/3n2ud6tw6us2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:exxdcplb2ozev5lvw5ohnejq/app.bsky.feed.post/3n2rti3qzbk2s",
-          "author": "discussingfilm.net",
-          "text": "‘THE HUNGER GAMES: SUNRISE ON THE REAPING’ is more accurate to the book than previous films in the franchise, but does that make it better? Find out in our review... discussingfilm.net/2026/11/17/s...",
-          "createdAt": "2026-11-21T00:22:45.622Z",
-          "likes": 72,
-          "views": null,
-          "url": "https://bsky.app/profile/discussingfilm.net/post/3n2rti3qzbk2s",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:f2mryhvxzltt6mkqlcehqkqp/app.bsky.feed.post/3n2si3jlui22l",
-          "author": "maisielynnie.bsky.social",
-          "text": "Tipsy and about to watch Sunrise on the Reaping. Life is so fucking good. 🖤",
-          "createdAt": "2026-11-21T06:31:32.502Z",
-          "likes": 55,
-          "views": null,
-          "url": "https://bsky.app/profile/maisielynnie.bsky.social/post/3n2si3jlui22l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:mjlwscaq6objpocqcwyhx6ag/app.bsky.feed.post/3n2mnmst4hs2d",
-          "author": "stormaciousd.bsky.social",
-          "text": "Now Seated for Hunger Games: Sunrise on the Reaping!!!",
-          "createdAt": "2026-11-18T22:54:42.879Z",
-          "likes": 44,
-          "views": null,
-          "url": "https://bsky.app/profile/stormaciousd.bsky.social/post/3n2mnmst4hs2d",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:hgo7nyd4c4ap5aq7e6xtnoti/app.bsky.feed.post/3n2tnzlxzk22v",
-          "author": "cabdashsoul.bsky.social",
-          "text": "I’m about to do something dastardly to my husband who is walking into Sunrise on the Reaping with zero context",
-          "createdAt": "2026-11-21T17:50:30.073Z",
-          "likes": 34,
-          "views": null,
-          "url": "https://bsky.app/profile/cabdashsoul.bsky.social/post/3n2tnzlxzk22v",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:62taimf2n2qfrbarj2nkxy53/app.bsky.feed.post/3n2tvjsfj2c2b",
-          "author": "roddiaztwine.bsky.social",
-          "text": "seated for sunrise on the reaping",
-          "createdAt": "2026-11-21T20:04:49.875Z",
-          "likes": 31,
-          "views": null,
-          "url": "https://bsky.app/profile/roddiaztwine.bsky.social/post/3n2tvjsfj2c2b",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:e6bgpkdom5zlzs5sxy5piaqy/app.bsky.feed.post/3n2qsapucuk2z",
-          "author": "ooccouchgags.bsky.social",
-          "text": "Off to watch The Hunger Games: Sunrise on the Reaping",
-          "createdAt": "2026-11-20T14:28:04.768Z",
-          "likes": 29,
-          "views": null,
-          "url": "https://bsky.app/profile/ooccouchgags.bsky.social/post/3n2qsapucuk2z",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:oou7l65l5zjaceknel7zdhzk/app.bsky.feed.post/3n2s755r3wc24",
-          "author": "huskyfit.bsky.social",
-          "text": "I AM NEVER WATCHING SUNRISE ON THE REAPING EVER AGAIN I CRIED FOR 3 HOURS",
-          "createdAt": "2026-11-21T03:51:23.524Z",
-          "likes": 29,
-          "views": null,
-          "url": "https://bsky.app/profile/huskyfit.bsky.social/post/3n2s755r3wc24",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:zbwydoo4q6t6ssbo3klus6da/app.bsky.feed.post/3n2r6xoznjk2l",
-          "author": "jadegolduck.bsky.social",
-          "text": "sunrise on the reaping-lors RISE",
-          "createdAt": "2026-11-20T18:15:40.567Z",
-          "likes": 28,
-          "views": null,
-          "url": "https://bsky.app/profile/jadegolduck.bsky.social/post/3n2r6xoznjk2l",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:b2w53h4j7ggfazgbn3rb77n6/app.bsky.feed.post/3n2sombrgjk2y",
-          "author": "soarin-to-tower.bsky.social",
-          "text": "saw sunrise on the reaping!! didn’t sob, did tear up should have been rated R",
-          "createdAt": "2026-11-21T08:28:17.166Z",
-          "likes": 28,
-          "views": null,
-          "url": "https://bsky.app/profile/soarin-to-tower.bsky.social/post/3n2sombrgjk2y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:jxwc3ib4vhsqabchnzx4cdes/app.bsky.feed.post/3n2ocgrmd6k25",
-          "author": "whooisjulia.bsky.social",
-          "text": "it’s actually international sunrise on the reaping day*",
-          "createdAt": "2026-11-19T14:39:48.603Z",
-          "likes": 26,
-          "views": null,
-          "url": "https://bsky.app/profile/whooisjulia.bsky.social/post/3n2ocgrmd6k25",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:bqjg32zjvdjiticnwiooftnh/app.bsky.feed.post/3n2sfnrrfd22c",
-          "author": "xcinemabearx.bsky.social",
-          "text": "Date night to see Sunrise on the Reaping!!!! 🐻📽️🏹🕊️🐍",
-          "createdAt": "2026-11-21T05:48:03.818Z",
-          "likes": 25,
-          "views": null,
-          "url": "https://bsky.app/profile/xcinemabearx.bsky.social/post/3n2sfnrrfd22c",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:27rsyaswvs7r2nekja3wze5d/app.bsky.feed.post/3n2w5xexdzs2m",
-          "author": "gonejoshin.bsky.social",
-          "text": "Saw sunrise on the reaping on Friday and seeing it again today on Imax ☺️",
-          "createdAt": "2026-11-22T17:40:54.951Z",
-          "likes": 23,
-          "views": null,
-          "url": "https://bsky.app/profile/gonejoshin.bsky.social/post/3n2w5xexdzs2m",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:knwuuobpea2p7hcanmz6fiv7/app.bsky.feed.post/3n2rrvri7fk27",
-          "author": "mattliguori.bsky.social",
-          "text": "sat for sunrise on the reaping see ya’ll on the other side 🥺",
-          "createdAt": "2026-11-20T23:54:37.122Z",
+          "id": "at://did:plc:waj5xm35jgyupaccx7smrbew/app.bsky.feed.post/3n2wdnonytc2o",
+          "author": "ariadnereviews.bsky.social",
+          "text": "S Club doing their choreography about as well as Dani did hers <3 #scd #strictly",
+          "createdAt": "2026-11-22T19:22:52.041Z",
           "likes": 21,
           "views": null,
-          "url": "https://bsky.app/profile/mattliguori.bsky.social/post/3n2rrvri7fk27",
+          "url": "https://bsky.app/profile/ariadnereviews.bsky.social/post/3n2wdnonytc2o",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:x6ft7676cwklko7teefgzbwz/app.bsky.feed.post/3n2rufczyss2i",
-          "author": "goblette.bsky.social",
-          "text": "off to see sunrise on the reaping! ♡",
-          "createdAt": "2026-11-21T00:39:06.334Z",
-          "likes": 19,
+          "id": "at://did:plc:2zn7l26mkz7l375d4hrcmbmy/app.bsky.feed.post/3n2nram2xyc2z",
+          "author": "marcusjdl.bsky.social",
+          "text": "Actually their manager Simon Fuller was signed to the label as “ S Club 7” and they were employees paid shit wages for working 20 hour days (PA at a club, then up for Lorraine)",
+          "createdAt": "2026-11-19T09:32:07.854Z",
+          "likes": 21,
           "views": null,
-          "url": "https://bsky.app/profile/goblette.bsky.social/post/3n2rufczyss2i",
+          "url": "https://bsky.app/profile/marcusjdl.bsky.social/post/3n2nram2xyc2z",
           "source": "bluesky"
         },
         {
-          "id": "at://did:plc:4556fi3mpfvsjcdaerzkqkha/app.bsky.feed.post/3n2qjiahxx22y",
-          "author": "memecchisu.bsky.social",
-          "text": "kinda wanna watch sunrise on the reaping",
-          "createdAt": "2026-11-20T11:51:13.412Z",
-          "likes": 19,
-          "views": null,
-          "url": "https://bsky.app/profile/memecchisu.bsky.social/post/3n2qjiahxx22y",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:olg44az5kfczsymho2elwgvb/app.bsky.feed.post/3n2texkdm3c2g",
-          "author": "sapphicstarr.bsky.social",
-          "text": "on my way to go see sunrise on the reaping :))",
-          "createdAt": "2026-11-21T15:08:17.578Z",
-          "likes": 16,
-          "views": null,
-          "url": "https://bsky.app/profile/sapphicstarr.bsky.social/post/3n2texkdm3c2g",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:ucogwfp44ku4asx7qddv5e7o/app.bsky.feed.post/3n2wcd6mvzk2e",
-          "author": "marquis.bsky.social",
-          "text": "Seated for Sunrise on the Reaping",
-          "createdAt": "2026-11-22T18:59:05.938Z",
-          "likes": 14,
-          "views": null,
-          "url": "https://bsky.app/profile/marquis.bsky.social/post/3n2wcd6mvzk2e",
-          "source": "bluesky"
-        },
-        {
-          "id": "at://did:plc:mblrblk2fph5dfnmmgz3zyul/app.bsky.feed.post/3n2u3b66kgc2t",
-          "author": "tksobi.bsky.social",
-          "text": "Now watching - The Hunger Games: Sunrise on the Reaping",
-          "createdAt": "2026-11-21T21:47:22.690Z",
+          "id": "at://did:plc:67jpxn5s2dulc63dtkfglia6/app.bsky.feed.post/3n2jxoereuk2k",
+          "author": "andymroberts.bsky.social",
+          "text": "Make a band name bigger S Club SeventySeven",
+          "createdAt": "2026-11-17T21:16:33.459Z",
           "likes": 12,
           "views": null,
-          "url": "https://bsky.app/profile/tksobi.bsky.social/post/3n2u3b66kgc2t",
+          "url": "https://bsky.app/profile/andymroberts.bsky.social/post/3n2jxoereuk2k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:njugv34u2iqiliz73yhr5qdm/app.bsky.feed.post/3n2tw5o5zhk22",
+          "author": "nickwalker.bsky.social",
+          "text": "Basement Jaxx and S Club? Did I produce this?! #Strictly",
+          "createdAt": "2026-11-21T20:15:56.527Z",
+          "likes": 9,
+          "views": null,
+          "url": "https://bsky.app/profile/nickwalker.bsky.social/post/3n2tw5o5zhk22",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:knoyc7nqm6qmyqtm2wckzifz/app.bsky.feed.post/3n2wdp24vmk2m",
+          "author": "dine0saur.bsky.social",
+          "text": "Getting a preview of my future retirement home here with S Club in the ballroom #Strictly",
+          "createdAt": "2026-11-22T19:23:37.619Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/dine0saur.bsky.social/post/3n2wdp24vmk2m",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:jzzzxvjfq7lrdrsa7aljiii3/app.bsky.feed.post/3n2ycn5z46k2a",
+          "author": "martindbbrown.bsky.social",
+          "text": "To quote S Club 7, \"ain't no dick, like a Tech-bro dick\"",
+          "createdAt": "2026-11-23T14:10:00.314Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/martindbbrown.bsky.social/post/3n2ycn5z46k2a",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:zb5mygx2bahbamtziido5wcs/app.bsky.feed.post/3n2wdofom4k27",
+          "author": "bethcooper.fyi",
+          "text": "S Club on Strictly 😱 No risk of confusing them with the professional dancers",
+          "createdAt": "2026-11-22T19:23:16.178Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/bethcooper.fyi/post/3n2wdofom4k27",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:gsnlxqxhl3fmacrzlk2jycma/app.bsky.feed.post/3n2wdroubc22z",
+          "author": "gra246.bsky.social",
+          "text": "Looks like S Club are miming. Shame if they are. I love live performances on #StrictlyComeDancing #Strictly",
+          "createdAt": "2026-11-22T19:25:06.462Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/gra246.bsky.social/post/3n2wdroubc22z",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:g27x72ovqfeow5rrtwjf4vex/app.bsky.feed.post/3n2wdls3foc2p",
+          "author": "keepdancingpodcast.bsky.social",
+          "text": "S CLUB 7 #scd #Strictly",
+          "createdAt": "2026-11-22T19:21:48.517Z",
+          "likes": 2,
+          "views": null,
+          "url": "https://bsky.app/profile/keepdancingpodcast.bsky.social/post/3n2wdls3foc2p",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:mcimc6tlzdysktyzg4z23t7a/app.bsky.feed.post/3n2wdoqnat225",
+          "author": "abbis.bsky.social",
+          "text": "Frankly it's a bit harsh putting S Club next to actual dancers #strictly",
+          "createdAt": "2026-11-22T19:23:27.665Z",
+          "likes": 2,
+          "views": null,
+          "url": "https://bsky.app/profile/abbis.bsky.social/post/3n2wdoqnat225",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:gxh7qgqsynebj4wwezfsh7qc/app.bsky.feed.post/3n2vwvi65pk2d",
+          "author": "ercboxoffice.bsky.social",
+          "text": "Are you in the club? A24's CLUB KID expanded into 229 theaters in its 3rd week w/ $1.3M ($6k per), $3.3M total.",
+          "createdAt": "2026-11-22T15:34:35.022Z",
+          "likes": 2,
+          "views": null,
+          "url": "https://bsky.app/profile/ercboxoffice.bsky.social/post/3n2vwvi65pk2d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:g4progc2tiffrzh46m3pq7xv/app.bsky.feed.post/3n2wdn7iug32u",
+          "author": "clairerosewrites.bsky.social",
+          "text": "S CLUB??????? #strictly #scd",
+          "createdAt": "2026-11-22T19:22:36.144Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/clairerosewrites.bsky.social/post/3n2wdn7iug32u",
+          "source": "bluesky"
+        }
+      ],
+      "totals": {
+        "posts": 13,
+        "likes": 173,
+        "views": 0
+      }
+    },
+    "g:miley-cyrus": {
+      "label": "Miley Cyrus",
+      "query": "\"Miley Cyrus\" lang:en",
+      "posts": [
+        {
+          "id": "at://did:plc:xlqcxpk53spbhlypj6wmvvke/app.bsky.feed.post/3n2w6v4vk322t",
+          "author": "popbase.tv",
+          "text": "Miley Cyrus shares photos from her wedding to Maxx Morando.",
+          "createdAt": "2026-11-22T17:57:33.140Z",
+          "likes": 267,
+          "views": null,
+          "url": "https://bsky.app/profile/popbase.tv/post/3n2w6v4vk322t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:pcl72lxq7w2nrr7jkiks4qkc/app.bsky.feed.post/3n2xdweg3g22u",
+          "author": "popcrave.com",
+          "text": "Happy 34th birthday to the iconic Miley Cyrus.",
+          "createdAt": "2026-11-23T05:00:23.022Z",
+          "likes": 174,
+          "views": null,
+          "url": "https://bsky.app/profile/popcrave.com/post/3n2xdweg3g22u",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:xlqcxpk53spbhlypj6wmvvke/app.bsky.feed.post/3n2pdzs4cj223",
+          "author": "popbase.tv",
+          "text": "Miley Cyrus is getting married this weekend to her fiancé Maxx Morando. (via TMZ)",
+          "createdAt": "2026-11-20T00:41:00.136Z",
+          "likes": 145,
+          "views": null,
+          "url": "https://bsky.app/profile/popbase.tv/post/3n2pdzs4cj223",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:pcl72lxq7w2nrr7jkiks4qkc/app.bsky.feed.post/3n2pekmmgak2r",
+          "author": "popcrave.com",
+          "text": "Miley Cyrus & Maxx Morando will be getting married this weekend, TMZ reports.",
+          "createdAt": "2026-11-20T00:50:24.798Z",
+          "likes": 87,
+          "views": null,
+          "url": "https://bsky.app/profile/popcrave.com/post/3n2pekmmgak2r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:pcl72lxq7w2nrr7jkiks4qkc/app.bsky.feed.post/3n2nc2mgd7s2w",
+          "author": "popcrave.com",
+          "text": "6 years ago today, Miley Cyrus released “Prisoner” featuring Dua Lipa.",
+          "createdAt": "2026-11-19T05:00:20.760Z",
+          "likes": 71,
+          "views": null,
+          "url": "https://bsky.app/profile/popcrave.com/post/3n2nc2mgd7s2w",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:xe5wphniclpxmf4r52jswuef/app.bsky.feed.post/3n2wwbe2qvk2c",
+          "author": "dailyrunway.bsky.social",
+          "text": "for their wedding ceremony, miley cyrus and maxx morando both wore saint laurent by anthony vaccarello #fashionsky",
+          "createdAt": "2026-11-23T00:55:59.341Z",
+          "likes": 19,
+          "views": null,
+          "url": "https://bsky.app/profile/dailyrunway.bsky.social/post/3n2wwbe2qvk2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:r5qqbgz6n5huvcsvzzm6fsit/app.bsky.feed.post/3n2w5sxy7lk22",
+          "author": "stereogum.com",
+          "text": "Wayne Coyne officiated Miley Cyrus and Maxx Morando’s wedding last night",
+          "createdAt": "2026-11-22T17:38:27.133Z",
+          "likes": 16,
+          "views": null,
+          "url": "https://bsky.app/profile/stereogum.com/post/3n2w5sxy7lk22",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:3i2735qpsemxbyriq3af6bwi/app.bsky.feed.post/3n2pg3v2xck2v",
+          "author": "eaglegrrrl.bsky.social",
+          "text": "#LookAndSee 569 Flowers - Miley Cyrus youtu.be/G7KNmW9a75Y?...",
+          "createdAt": "2026-11-20T01:17:57.831Z",
+          "likes": 12,
+          "views": null,
+          "url": "https://bsky.app/profile/eaglegrrrl.bsky.social/post/3n2pg3v2xck2v",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:bvxnc4dhajyhwik6wgxzeysl/app.bsky.feed.post/3n2wqgjujys2z",
+          "author": "voxrox.bsky.social",
+          "text": "#Music #MusicSky #MusicChallenge #SundayCovers Miley Cyrus Heart Of Glass youtube.com/watch?v=NbdR...",
+          "createdAt": "2026-11-22T23:11:30.776Z",
+          "likes": 11,
+          "views": null,
+          "url": "https://bsky.app/profile/voxrox.bsky.social/post/3n2wqgjujys2z",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:5hlvylvvg2oetcdhmgszdpe5/app.bsky.feed.post/3n2xe233ou22f",
+          "author": "anthonialoud.bsky.social",
+          "text": "Happy 34th Birthday Miley Cyrus!! 🥳🎉🎸🎶✨",
+          "createdAt": "2026-11-23T05:02:27.463Z",
+          "likes": 11,
+          "views": null,
+          "url": "https://bsky.app/profile/anthonialoud.bsky.social/post/3n2xe233ou22f",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ukgrc2r4zliw3rbrh6nas6ik/app.bsky.feed.post/3n2r7arsxzs2m",
+          "author": "zetnafox.bsky.social",
+          "text": "Not Miley Cyrus Katara 😭",
+          "createdAt": "2026-11-20T18:20:45.472Z",
+          "likes": 11,
+          "views": null,
+          "url": "https://bsky.app/profile/zetnafox.bsky.social/post/3n2r7arsxzs2m",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:lxkh2qpl27fc5wqa4hqlw2co/app.bsky.feed.post/3n2ruzmtmd22i",
+          "author": "truebe.horse",
+          "text": "once accidentally stepped on miley cyrus",
+          "createdAt": "2026-11-21T00:50:27.700Z",
+          "likes": 10,
+          "views": null,
+          "url": "https://bsky.app/profile/truebe.horse/post/3n2ruzmtmd22i",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:umos64zryyxerampl2amgtsw/app.bsky.feed.post/3n2rs7jvqcc2h",
+          "author": "kaipela.bsky.social",
+          "text": "Miley Cyrus ❤️",
+          "createdAt": "2026-11-21T00:00:04.724Z",
+          "likes": 8,
+          "views": null,
+          "url": "https://bsky.app/profile/kaipela.bsky.social/post/3n2rs7jvqcc2h",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:nf5s57ifvcwwema7pswnnfy7/app.bsky.feed.post/3n2yajwmvjs2f",
+          "author": "lilfamilyvan.bsky.social",
+          "text": "can’t believe miley cyrus forgot to invite me to her wedding……..",
+          "createdAt": "2026-11-23T13:32:24.428Z",
+          "likes": 8,
+          "views": null,
+          "url": "https://bsky.app/profile/lilfamilyvan.bsky.social/post/3n2yajwmvjs2f",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:e2d57prbsdhsjpgr5dcavchq/app.bsky.feed.post/3n2xyup25sc2d",
+          "author": "bodhihodi.bsky.social",
+          "text": "Happy Birthday Miley Cyrus!",
+          "createdAt": "2026-11-23T11:15:15.637Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/bodhihodi.bsky.social/post/3n2xyup25sc2d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:on2fqp4z3zvvujczdpl27dve/app.bsky.feed.post/3n2vqmtz6hc2h",
+          "author": "candicefrederick.bsky.social",
+          "text": "Miley Cyrus marries Maxx Morando after 5 years of dating ew.com/miley-cyrus-...",
+          "createdAt": "2026-11-22T13:42:22.999Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/candicefrederick.bsky.social/post/3n2vqmtz6hc2h",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:qwuj6foyai44scywtuaumxlp/app.bsky.feed.post/3n2wedmmzac2q",
+          "author": "sinnamonscouture.bsky.social",
+          "text": "Miley Cyrus and little man, Maxx Morando Are Married! 💖",
+          "createdAt": "2026-11-22T19:35:08.107Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/sinnamonscouture.bsky.social/post/3n2wedmmzac2q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:vtje3diwvqqlamlnqxqy7wi4/app.bsky.feed.post/3n2yiqck3ls2t",
+          "author": "ismua.bsky.social",
+          "text": "#MeinSongDesTages zum heutigen 34. Geburtstag von Miley Cyrus. Happy Birthday 🎊🎂 Miley Cyrus - Angels Like You",
+          "createdAt": "2026-11-23T15:59:08.179Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/ismua.bsky.social/post/3n2yiqck3ls2t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:aadfg6a6vxfqax5emb5ejred/app.bsky.feed.post/3n2xaavly322t",
+          "author": "weaselingaround.bsky.social",
+          "text": "Wrecking Ball - Miley Cyrus",
+          "createdAt": "2026-11-23T03:54:41.616Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/weaselingaround.bsky.social/post/3n2xaavly322t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:3i2735qpsemxbyriq3af6bwi/app.bsky.feed.post/3n2tgdz35w22y",
+          "author": "eaglegrrrl.bsky.social",
+          "text": "#MusicChallenge #DavidsMonthOfMusic Day 21 Connections Collabed w Lil Wayne Miley Cyrus - Wrecking Ball youtu.be/My2FRPA3Gf8?...",
+          "createdAt": "2026-11-21T15:33:09.425Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/eaglegrrrl.bsky.social/post/3n2tgdz35w22y",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:zafddu7hlte5wpjsszydrsmk/app.bsky.feed.post/3n2x5srrewc2l",
+          "author": "denisebreen.bsky.social",
+          "text": "Happy 34th birthday to Miley Cyrus",
+          "createdAt": "2026-11-23T03:11:00.357Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/denisebreen.bsky.social/post/3n2x5srrewc2l",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:7l2tu3j2hmqwsmdc6kwgpepf/app.bsky.feed.post/3n2y3fr2eik2c",
+          "author": "themusicnation.bsky.social",
+          "text": "Happy Birthday to Miley Cyrus. #MusicSky",
+          "createdAt": "2026-11-23T12:00:35.647Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/themusicnation.bsky.social/post/3n2y3fr2eik2c",
           "source": "bluesky"
         }
       ],
       "totals": {
         "posts": 22,
-        "likes": 1093,
+        "likes": 889,
+        "views": 0
+      }
+    },
+    "g:john-tuggle": {
+      "label": "John Tuggle",
+      "query": "\"John Tuggle\" lang:en",
+      "posts": [
+        {
+          "id": "at://did:plc:jhdja52shoi5t5ijd7etztti/app.bsky.feed.post/3mwvw4fcjy22a",
+          "author": "hellagur.bsky.social",
+          "text": "When zonic and I saw primetime there was this trailer for a shitty looking skydance sports movie that ended with “SEE THE WORLD… THROUGH THE EYES… of JOHN TUGGLE” and we both just started laughing bc the buildup was so intense for some guy named fucking. John Tuggle",
+          "createdAt": "2026-10-02T17:39:46.648Z",
+          "likes": 21,
+          "views": null,
+          "url": "https://bsky.app/profile/hellagur.bsky.social/post/3mwvw4fcjy22a",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:rsmuvkfau4i2vx47krlru54i/app.bsky.feed.post/3n2egisrwss2n",
+          "author": "pappyparki.bsky.social",
+          "text": "As a Pennsylvania voter Fetterman has brought shame & insult our great commonwealth. But Mr Irrelevant he ain't. Brock Purdy, Ryan Succop, John Tuggle & my HS friend Norman \"Guy\" Jefferson are twice the men Fetterman will every be",
+          "createdAt": "2026-11-15T16:25:54.527Z",
+          "likes": 10,
+          "views": null,
+          "url": "https://bsky.app/profile/pappyparki.bsky.social/post/3n2egisrwss2n",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:jhdja52shoi5t5ijd7etztti/app.bsky.feed.post/3mwvwin65kk2a",
+          "author": "hellagur.bsky.social",
+          "text": "I don’t know football so maybe John tuggle is actually really important but",
+          "createdAt": "2026-10-02T17:46:37.547Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/hellagur.bsky.social/post/3mwvwin65kk2a",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:knsszrujdducsne2yxvzqhph/app.bsky.feed.post/3n2yn4jz6ik2c",
+          "author": "everyfilmnow.bsky.social",
+          "text": "New trailer for ‘MR. IRRELEVANT’, starring David Corenswet. The film tells the story of John Tuggle, who earned the nickname ‘Mr. Irrelevant’ after being selected last in the final round of the 1983 NFL Draft. In cinemas on December 25. #MrIrrelevant #DavidCorenswet",
+          "createdAt": "2026-11-23T17:17:33.631Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/everyfilmnow.bsky.social/post/3n2yn4jz6ik2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ypk7s5fa6x3q6vlccyqcgdql/app.bsky.feed.post/3n2ynmercj22c",
+          "author": "rsgmoviereviews.bsky.social",
+          "text": "#MrIrrelevant #sports 'Mr. Irrelevant' arrives in theaters on 12-25-26. John Tuggle is the final player selected in the last round of the 1983 NFL draft. Defying all odds he makes the NY Giants roster. Text by Robin S. Garland ©️ 2026 Mr. Irrelevant poster credit ©️ 2026 Paramount Pictures",
+          "createdAt": "2026-11-23T17:26:25.001Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/rsgmoviereviews.bsky.social/post/3n2ynmercj22c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:3bx6dweiy4lppxw5enkek35i/app.bsky.feed.post/3mz2fk6mkus24",
+          "author": "filmaddictdavid.bsky.social",
+          "text": "Seeing a 7:30 pm 2 month early screening of “Mr. Irrelevant: The John Tuggle Story” at AMC Sunset Place 24 in auditorium 6 as movie 253 of 2026 with Reese Beck and Shelley Beck",
+          "createdAt": "2026-10-29T23:16:57.736Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/filmaddictdavid.bsky.social/post/3mz2fk6mkus24",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:dskufwwlsk4qqaxn6tgahspf/app.bsky.feed.post/3mwypntsxmk2z",
+          "author": "mollybaz.bsky.social",
+          "text": "Marnie from girls changed her name to john tuggle. Just finding this out",
+          "createdAt": "2026-10-03T20:22:15.315Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/mollybaz.bsky.social/post/3mwypntsxmk2z",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:yetdkong3mudicsvvr23zwhj/app.bsky.feed.post/3mwvgz44ank2v",
+          "author": "lifeisterrible.bsky.social",
+          "text": "idk who john tuggle is but i love football movies",
+          "createdAt": "2026-10-02T13:09:30.215Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/lifeisterrible.bsky.social/post/3mwvgz44ank2v",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:rymzmchqp2oxf4q5w72vt2my/app.bsky.feed.post/3mvjlycwy7mh2",
+          "author": "wikioftheday.masto.ai.ap.brid.gy",
+          "text": "With 334,076 views on Monday, 14 September 2026, the popular Wiki of the Day is John Tuggle. Listen to the new episode here: https://wikioftheday.com/wotdep.php?pod=popular&epnum=3422 See our archives or subscribe here: https://wikioftheday.com #JohnTuggle #wiki #wikipedia #podcast",
+          "createdAt": "2026-09-15T02:41:18.000Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/wikioftheday.masto.ai.ap.brid.gy/post/3mvjlycwy7mh2",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:6w6rw6s7dn5554bv4pznp46a/app.bsky.feed.post/3mvi7mjqvhuw2",
+          "author": "nataliedavis.journa.host.ap.brid.gy",
+          "text": "Watch: David Corenswet plays NFL rookie John Tuggle in 'Mr. Irrelevant' https://www.upi.com/Entertainment_News/Movies/2026/09/14/mr-irrelevant-trailer-david-corenswet-john-tuggle/8491789387806/",
+          "createdAt": "2026-09-14T13:27:17.000Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/nataliedavis.journa.host.ap.brid.gy/post/3mvi7mjqvhuw2",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:7hbdhi5dy22liqol5idmoa3t/app.bsky.feed.post/3n2tjlny6cv2a",
+          "author": "todayinmovies.com",
+          "text": "🎂 It's Isabel May's birthday! The best Isabel May movie, but it can't be Run Hide Fight or Mr. Irrelevant: The John Tuggle Story. More on Isabel May: todayinmovies.com/actor/isabel-may #TodayInMovies #FamousBirthdays",
+          "createdAt": "2026-11-21T16:31:07.363109+00:00",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/todayinmovies.com/post/3n2tjlny6cv2a",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:i6zuhctlor7rcuks4qyghz4d/app.bsky.feed.post/3mxwgamg5ic2k",
+          "author": "ourmovieguide.bsky.social",
+          "text": "David Corenswet talks about the real life John Tuggle, at the premiere of 'Mr. Irrelevant'. Starring David Corenswet, Isabel May, David Krumholtz, Alexander England, Spencer House, Tandi Wright, Michael Shannon. In theaters December 25. #MrIrrelevant",
+          "createdAt": "2026-10-15T15:53:39.821Z",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/ourmovieguide.bsky.social/post/3mxwgamg5ic2k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:rbxp2vogpilryavecvvezc7r/app.bsky.feed.post/3mvxb6gmdfo2u",
+          "author": "headlinesociety.bsky.social",
+          "text": "All About “Mr. Irrelevant: The John Tuggle Story”, Including Who Is Bringing the Football Play… Read more 👇 https://headlinesociety.com/all-about-mr-irrelevant-the-john-tuggle-story-including-who-is-bringing-the-football-player-to-the-screen/?utm_source=bluesky&utm_medium=social&utm_campaign=teaser",
+          "createdAt": "2026-09-20T13:05:13.951Z",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/headlinesociety.bsky.social/post/3mvxb6gmdfo2u",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:e2ntjdcthe6gwzlxdiptz3dn/app.bsky.feed.post/3mvnpueujov2t",
+          "author": "bestofwikipedia.bsky.social",
+          "text": "The top 5 @wikipedia.org reads from Tuesday 15 September 2026: 1. Matthew Rhys: 355.774 hits 2. John Tuggle: 302.388 hits 3. Tom Pelphrey: 285.138 hits 4. 78th Primetime Emmy Awards: 270.812 hits 5. Kenneth Walker III: 235.933 hits",
+          "createdAt": "2026-09-16T20:01:25.700193+02:00",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/bestofwikipedia.bsky.social/post/3mvnpueujov2t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:e2ntjdcthe6gwzlxdiptz3dn/app.bsky.feed.post/3mvl7ikdqya27",
+          "author": "bestofwikipedia.bsky.social",
+          "text": "The top 5 @wikipedia.org reads from Monday 14 September 2026: 1. John Tuggle: 334.076 hits 2. Alexander Zverev: 326.126 hits 3. 2026 Swedish general election: 230.507 hits 4. Lanterns (TV series): 215.885 hits 5. Bob Mackie: 160.695 hits",
+          "createdAt": "2026-09-15T20:03:09.334680+02:00",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/bestofwikipedia.bsky.social/post/3mvl7ikdqya27",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ubvzgc7tvpeqpv7ldqdxj2ow/app.bsky.feed.post/3mvivpmuxxk2t",
+          "author": "cseguin03.bsky.social",
+          "text": "Oh man that John Tuggle movie....going to get dusty in here.",
+          "createdAt": "2026-09-14T20:02:50.159Z",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/cseguin03.bsky.social/post/3mvivpmuxxk2t",
+          "source": "bluesky"
+        }
+      ],
+      "totals": {
+        "posts": 16,
+        "likes": 44,
+        "views": 0
+      }
+    },
+    "g:sam-bankman-fried": {
+      "label": "Sam Bankman-Fried",
+      "query": "\"Sam Bankman-Fried\" lang:en",
+      "posts": [
+        {
+          "id": "at://did:plc:vcykurfvhhpynm4cwhsnnu4d/app.bsky.feed.post/3n2opgrnsdk2c",
+          "author": "nitishpahwa.com",
+          "text": "I did not devote years of my life to reporting on Sam Bankman-Fried's downfall and federal trial just to be gaslit by a hokey, sloppily characterized Netflix series whose creator laughably claims he tried to tell \"these real people's real story accurately\": slate.com/culture/2026...",
+          "createdAt": "2026-11-19T18:32:27.294Z",
+          "likes": 483,
+          "views": null,
+          "url": "https://bsky.app/profile/nitishpahwa.com/post/3n2opgrnsdk2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:addrkv7zof5h5ryknwpsy3ux/app.bsky.feed.post/3n2wj3xayhs2m",
+          "author": "johnxuandou.myatproto.social",
+          "text": "I was like \"Wow it's insane how that guy looks like a 12 year old but he's talking to notorious fraud conman Sam Bankman-Fried so he must be an adult\" and then he starts talking and no that's a fucking 12 year old what are we doing here.",
+          "createdAt": "2026-11-22T21:00:19.523Z",
+          "likes": 20,
+          "views": null,
+          "url": "https://bsky.app/profile/johnxuandou.myatproto.social/post/3n2wj3xayhs2m",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:62jwiyf2aowrzetdbvgmhncr/app.bsky.feed.post/3n2oo74td222o",
+          "author": "chancethelawyer.bsky.social",
+          "text": "lol absolutely not Netflix’s Sam Bankman-Fried Show Offers a Different Version of the Story - Bloomberg Businessweek",
+          "createdAt": "2026-11-19T18:10:16.825Z",
+          "likes": 19,
+          "views": null,
+          "url": "https://bsky.app/profile/chancethelawyer.bsky.social/post/3n2oo74td222o",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:xbpmykje4rolfkc25ixncapx/app.bsky.feed.post/3n2ohytcxdc2p",
+          "author": "aherman2006.bsky.social",
+          "text": "netflix sam bankman-fried show THE ALTRUISTS refuses to go full THE BIG SHORT and ends up a half-hearted retread of THE DROPOUT by centering an unconvincing romance: variety.com/2026/tv/revi...",
+          "createdAt": "2026-11-19T16:19:23.082Z",
+          "likes": 12,
+          "views": null,
+          "url": "https://bsky.app/profile/aherman2006.bsky.social/post/3n2ohytcxdc2p",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:g4lfyhwqrjjmg6b3y7joikq4/app.bsky.feed.post/3n2sf3ph6422j",
+          "author": "fischer.bsky.social",
+          "text": "no need for a netflix series on SBF when we already have the august 2021 odd lots episode “Sam Bankman-Fried and Matt Levine on How to Make Money in Crypto”",
+          "createdAt": "2026-11-21T05:37:57.416Z",
+          "likes": 12,
+          "views": null,
+          "url": "https://bsky.app/profile/fischer.bsky.social/post/3n2sf3ph6422j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:hkams7ev6zrn3oiwxd7qhodc/app.bsky.feed.post/3n2timvptsc2g",
+          "author": "vanityfair.com",
+          "text": "Anthony Boyle, the star of new Netflix series ‘The Altruists,’ says he decided to play now-imprisoned crypto bro Sam Bankman-Fried because “I was interested in what possessed someone to become the world’s youngest billionaire.”",
+          "createdAt": "2026-11-21T16:13:55.380Z",
+          "likes": 9,
+          "views": null,
+          "url": "https://bsky.app/profile/vanityfair.com/post/3n2timvptsc2g",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:d6f7igqihzgcm37li74pifq6/app.bsky.feed.post/3n2wwq65yfc2j",
+          "author": "jamespmcleod.ca",
+          "text": "They used to write ~exactly~ this kind of shit about Sam Bankman-Fried.",
+          "createdAt": "2026-11-23T01:04:16.498Z",
+          "likes": 7,
+          "views": null,
+          "url": "https://bsky.app/profile/jamespmcleod.ca/post/3n2wwq65yfc2j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:jswt5hsgftd3xjinioie4e37/app.bsky.feed.post/3n2rm4eiark2q",
+          "author": "uofagrad97.bsky.social",
+          "text": "The Altruists went way too easy on Sam Bankman-Fried. Way too easy.",
+          "createdAt": "2026-11-20T22:10:55.924Z",
+          "likes": 7,
+          "views": null,
+          "url": "https://bsky.app/profile/uofagrad97.bsky.social/post/3n2rm4eiark2q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:4n7zjo6yrpo63s2ndxstnhku/app.bsky.feed.post/3n2o65hrzqk2j",
+          "author": "nschager.bsky.social",
+          "text": "\"The Altruists\" is a compelling microscopic view of Sam Bankman-Fried’s ascent to industry titan status and then of (figurative) rats clinging to life on a luxury ship as one leak after another springs.",
+          "createdAt": "2026-11-19T13:23:01.345Z",
+          "likes": 7,
+          "views": null,
+          "url": "https://bsky.app/profile/nschager.bsky.social/post/3n2o65hrzqk2j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:q3rbfruzhlsaxwtcy3hxtdfg/app.bsky.feed.post/3n2wszehyns2a",
+          "author": "ignorantelle.bsky.social",
+          "text": "For Woke3 can we put Sam Bankman-Fried back in jail",
+          "createdAt": "2026-11-22T23:57:50.140Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/ignorantelle.bsky.social/post/3n2wszehyns2a",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:fh7mbufyhxh2rdyjv7kdvurh/app.bsky.feed.post/3n2p5crcwuk2j",
+          "author": "bentravers.bsky.social",
+          "text": "Didn’t expect to come out of “The Altruists” thinking about “The Last of Us,” but I also didn’t expect Netflix’s Sam Bankman-Fried series to be a (toxic) love story. www.indiewire.com/criticism/sh...",
+          "createdAt": "2026-11-19T22:40:45.105Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/bentravers.bsky.social/post/3n2p5crcwuk2j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ugtulcml7ptsivphrwpigrb6/app.bsky.feed.post/3n2pvsszhcs2l",
+          "author": "catturd2.bsky.social",
+          "text": "from the very few minutes of The Altruists i have seen it seems an awful lot like pro Sam Bankman-Fried propaganda",
+          "createdAt": "2026-11-20T05:59:13.566Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/catturd2.bsky.social/post/3n2pvsszhcs2l",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:td4xwqtlyezugzrqjsjqncjq/app.bsky.feed.post/3n2thq5vfhc2q",
+          "author": "alshipley.bsky.social",
+          "text": "i should probably go easy on The Altruists for not casting an actor who looks like Sam Bankman-Fried because nobody looks like that weird mf, at least nobody with a career in show business",
+          "createdAt": "2026-11-21T15:57:50.870Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/alshipley.bsky.social/post/3n2thq5vfhc2q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:sqrfvc3whmkz5btcmapky63d/app.bsky.feed.post/3n2ylddzwyc2c",
+          "author": "shoutingboy.bsky.social",
+          "text": "Sam Bankman-Fried, clear your schedule",
+          "createdAt": "2026-11-23T16:45:34.765Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/shoutingboy.bsky.social/post/3n2ylddzwyc2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:pi766nnzlssmxymu64or5cps/app.bsky.feed.post/3n2pv4c6etc2b",
+          "author": "mookiedokie.bsky.social",
+          "text": "Dario does give me Sam Bankman-Fried vibes",
+          "createdAt": "2026-11-20T05:46:37.703Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/mookiedokie.bsky.social/post/3n2pv4c6etc2b",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:p3wi3t5z6vohbugnpqkw6feu/app.bsky.feed.post/3n2pm7xtcrk2q",
+          "author": "jerigray.bsky.social",
+          "text": "Also these actors are bit too \"attractive\" (generous) to be playing Sam Bankman-Fried and Caroline Ellison",
+          "createdAt": "2026-11-20T03:07:37.398Z",
+          "likes": 2,
+          "views": null,
+          "url": "https://bsky.app/profile/jerigray.bsky.social/post/3n2pm7xtcrk2q",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:crohuqyps45g7evu2btph7uk/app.bsky.feed.post/3n2rfq3725s23",
+          "author": "socksandboots.bsky.social",
+          "text": "Including this guy who is playing Sam Bankman-Fried.",
+          "createdAt": "2026-11-20T20:16:41.084Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/socksandboots.bsky.social/post/3n2rfq3725s23",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:oawn4cj4dnjqitkxn3dolzyg/app.bsky.feed.post/3n2x7rprxg22z",
+          "author": "babinski54.bsky.social",
+          "text": "Is it me or does the Sam Bankman-Fried character on The Altruists resemble Greg Brady of the Brady Bunch?",
+          "createdAt": "2026-11-23T03:46:12.196Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/babinski54.bsky.social/post/3n2x7rprxg22z",
+          "source": "bluesky"
+        }
+      ],
+      "totals": {
+        "posts": 18,
+        "likes": 602,
+        "views": 0
+      }
+    },
+    "g:privacy-policy": {
+      "label": "privacy policy",
+      "query": "\"privacy policy\" lang:en",
+      "posts": [
+        {
+          "id": "at://did:plc:gwfx4qjjq2yhjzrgr5xqcnyz/app.bsky.feed.post/3n2uc66ehg222",
+          "author": "xkeeper.net",
+          "text": "they don't need to have any kind of privacy policy about collecting or monitoring your servers. they don't have to have data retention policies over their telemetry. all of that was done completely free of charge by a third party.",
+          "createdAt": "2026-11-21T23:50:58.417Z",
+          "likes": 68,
+          "views": null,
+          "url": "https://bsky.app/profile/xkeeper.net/post/3n2uc66ehg222",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:uetbeuiq5dy7pkehpt2sf7oo/app.bsky.feed.post/3n2luingbk22k",
+          "author": "signechan.bsky.social",
+          "text": "Do you have a robust abuse policy? I can't access the community section of your site but all I can see on the front facing side is the privacy policy.",
+          "createdAt": "2026-11-18T15:24:59.456Z",
+          "likes": 18,
+          "views": null,
+          "url": "https://bsky.app/profile/signechan.bsky.social/post/3n2luingbk22k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:gjhsgntiwpxbicer2tsmlfag/app.bsky.feed.post/3n2vyoopma22r",
+          "author": "im.fckn.gay",
+          "text": "it's funny how I still don't have an official autism diagnosis, yet here I am researching EU law and writting a (draft of a) privacy policy for fun 🤓",
+          "createdAt": "2026-11-22T16:06:34.488Z",
+          "likes": 15,
+          "views": null,
+          "url": "https://bsky.app/profile/im.fckn.gay/post/3n2vyoopma22r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:2rltjvii4o7fjtsb6kfe4qe6/app.bsky.feed.post/3n2wkmsxzik2b",
+          "author": "simon.overgrown.garden",
+          "text": "In 2021 Backblaze admitted to accidentally sending the names of users' files to Facebook. www.bleepingcomputer.com/news/securit... After a bit of a hullabaloo over their new privacy policy I checked their site and they're doing it *again*, this time sending the data to LinkedIn. 🧵",
+          "createdAt": "2026-11-22T21:27:39.201Z",
+          "likes": 14,
+          "views": null,
+          "url": "https://bsky.app/profile/simon.overgrown.garden/post/3n2wkmsxzik2b",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:y6l4xvoigjcuug4at2w7ywoj/app.bsky.feed.post/3n2mtmzvml22j",
+          "author": "asherwolf.bsky.social",
+          "text": "On 10 December 2026, APP entities must include information in their privacy policy where they have arranged for a computer program to make or inform decisions that significantly affect individuals’ rights or interests www.oaic.gov.au/news/media-c...",
+          "createdAt": "2026-11-19T00:42:12.756Z",
+          "likes": 14,
+          "views": null,
+          "url": "https://bsky.app/profile/asherwolf.bsky.social/post/3n2mtmzvml22j",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:map6f5fukldvqzqqlhcgd7iu/app.bsky.feed.post/3n2wgr7kwms2r",
+          "author": "kinetic.bsky.social",
+          "text": "IMO, if a company has a Privacy Policy that states it will mine and sell your private data, it legally shouldn't be allowed to use the term \"Privacy Policy.\" Companies should be required on a federal level to rename their Privacy Policy to Exploitation Policy, because that would actually be honest.",
+          "createdAt": "2026-11-22T20:18:31.654Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/kinetic.bsky.social/post/3n2wgr7kwms2r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:fnnls5ksdfrpcfdc4brlbjnk/app.bsky.feed.post/3n2p3nzq42c2k",
+          "author": "orc.bsky.social",
+          "text": "Do not read the privacy policy in GTA worst mistake of my life",
+          "createdAt": "2026-11-19T22:11:15.542Z",
+          "likes": 6,
+          "views": null,
+          "url": "https://bsky.app/profile/orc.bsky.social/post/3n2p3nzq42c2k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:5h3l5nulvxsz5fl3vuq4lubx/app.bsky.feed.post/3n2vf7iunws2c",
+          "author": "stephenserjeant.bsky.social",
+          "text": "Yikes. Huge privacy violations in generic “AI gateway” services. Only solution: run your own LLM on premises; failing that, use one first-tier provider with one contract & privacy policy. /via @abeba.blacksky.app arstechnica.com/security/202...",
+          "createdAt": "2026-11-22T10:18:03.944Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/stephenserjeant.bsky.social/post/3n2vf7iunws2c",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:map6f5fukldvqzqqlhcgd7iu/app.bsky.feed.post/3n2wgzqmfb22r",
+          "author": "kinetic.bsky.social",
+          "text": "\"Oh shit, this company actually has a Privacy Policy? That's awesome! I trust them.\" Versus, \"Oh... so this is one of those companies with an Exploitation Policy. You know, maybe I'll shop around instead of settling on them.\"",
+          "createdAt": "2026-11-22T20:23:17.965Z",
+          "likes": 4,
+          "views": null,
+          "url": "https://bsky.app/profile/kinetic.bsky.social/post/3n2wgzqmfb22r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ulrmhiuqqwh63b47ivd3i22i/app.bsky.feed.post/3n2w5bxg4t22p",
+          "author": "tylerlrhodes.bsky.social",
+          "text": "I'm fine with ChatGPT dot proving it is a human and accepting the EULA and privacy policy for me as long as it asks me first.",
+          "createdAt": "2026-11-22T17:28:56.117Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/tylerlrhodes.bsky.social/post/3n2w5bxg4t22p",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:a3a6xszlqrfmo4jxb3hhwpep/app.bsky.feed.post/3n2tp3kqk6c2e",
+          "author": "couch.bot",
+          "text": "As a heads up, the Privacy Policy and Terms of Service have been updated. Privacy Policy: couchbotisalive.com/PrivacyPolic... Terms of Use: couchbotisalive.com/TermsOfUse.h... If you have any questions, let me know! Join us today: discord.couchbotisalive.com",
+          "createdAt": "2026-11-21T18:09:29.637Z",
+          "likes": 1,
+          "views": null,
+          "url": "https://bsky.app/profile/couch.bot/post/3n2tp3kqk6c2e",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:utczvdmbej2vasos6elnxmsn/app.bsky.feed.post/3n2smlqt5xy2u",
+          "author": "hacker-news.bsky.social",
+          "text": "Backblaze Notice at Collection and Privacy Policy [Discussion]",
+          "createdAt": "2026-11-21T07:52:11.884415+00:00",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/hacker-news.bsky.social/post/3n2smlqt5xy2u",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:l5gupr4kifwasjek7vblnoy2/app.bsky.feed.post/3n2uyw4ejz22m",
+          "author": "hn.rbrt.fr",
+          "text": "Backblaze Notice at Collection and Privacy Policy https://www.backblaze.com/company/policy/privacy https://news.ycombinator.com/item?id=50585593",
+          "createdAt": "2026-11-22T06:38:03Z",
+          "likes": 0,
+          "views": null,
+          "url": "https://bsky.app/profile/hn.rbrt.fr/post/3n2uyw4ejz22m",
+          "source": "bluesky"
+        }
+      ],
+      "totals": {
+        "posts": 13,
+        "likes": 154,
+        "views": 0
+      }
+    },
+    "g:mauricio-pochettino": {
+      "label": "Mauricio Pochettino",
+      "query": "\"Mauricio Pochettino\" lang:en",
+      "posts": [
+        {
+          "id": "at://did:plc:tjvo32l37yduf3hq2wifq7et/app.bsky.feed.post/3n2w3umorx22v",
+          "author": "mattdoyle.bsky.social",
+          "text": "Got this pic of the top candidate to succeed Mauricio Pochettino as USMNT boss.",
+          "createdAt": "2026-11-22T17:03:34.914Z",
+          "likes": 204,
+          "views": null,
+          "url": "https://bsky.app/profile/mattdoyle.bsky.social/post/3n2w3umorx22v",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:mu4xn5rfzb6tvdvjl7xmzflc/app.bsky.feed.post/3n2waexxxec2x",
+          "author": "philcosta.bsky.social",
+          "text": "Mauricio Pochettino says #mufc must improve in a number of areas, including passing, creating chances and defending.",
+          "createdAt": "2026-11-22T18:24:18.590Z",
+          "likes": 139,
+          "views": null,
+          "url": "https://bsky.app/profile/philcosta.bsky.social/post/3n2waexxxec2x",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:kndk6byot3vmiqe44o6rmqgr/app.bsky.feed.post/3n2jxtghn2223",
+          "author": "usmnt.ussoccer.com",
+          "text": "A message from Mauricio Pochettino ahead of his final game as head coach.",
+          "createdAt": "2026-11-17T21:19:23.008Z",
+          "likes": 88,
+          "views": null,
+          "url": "https://bsky.app/profile/usmnt.ussoccer.com/post/3n2jxtghn2223",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:vu5uaxuiibiggftt7wu4sutt/app.bsky.feed.post/3n2w5yohnvc2d",
+          "author": "plnews.publishers.blue",
+          "text": "Mauricio Pochettino is the first manager in Premier League history to see his team concede twice and receive a red card in the first half of his first match in charge of a club. (Opta)",
+          "createdAt": "2026-11-22T17:41:38.481Z",
+          "likes": 87,
+          "views": null,
+          "url": "https://bsky.app/profile/plnews.publishers.blue/post/3n2w5yohnvc2d",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:g3e7bogelhgdtmdguipv4wls/app.bsky.feed.post/3n2qrkcgsak2l",
+          "author": "graceonfootball.com",
+          "text": "mauricio pochettino relaxes, as he can finally call it football again",
+          "createdAt": "2026-11-20T14:15:32.513Z",
+          "likes": 45,
+          "views": null,
+          "url": "https://bsky.app/profile/graceonfootball.com/post/3n2qrkcgsak2l",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ngoxtcqfsu6l5wx4opmmsolz/app.bsky.feed.post/3n2w3pe35s22o",
+          "author": "jeffrueter.bsky.social",
+          "text": "For what it’s worth, this is the first game Mauricio Pochettino has coached outside of North America since 19 May 2024. Wild in its own right.",
+          "createdAt": "2026-11-22T17:00:38.112Z",
+          "likes": 42,
+          "views": null,
+          "url": "https://bsky.app/profile/jeffrueter.bsky.social/post/3n2w3pe35s22o",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:g4woxmzf4tmtaxuubj2aos62/app.bsky.feed.post/3n2yjbe73kc2e",
+          "author": "normcharlatan.bsky.social",
+          "text": "As the future of the USMNT remains in limbo with the sudden departure of head coach Mauricio Pochettino, it is important to remember that, in many ways, Flo Balogun was the first Jensen Huang. MY COLUMN",
+          "createdAt": "2026-11-23T16:08:40.341Z",
+          "likes": 42,
+          "views": null,
+          "url": "https://bsky.app/profile/normcharlatan.bsky.social/post/3n2yjbe73kc2e",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:yydcmtxs2k6vfjj3gspxyi2s/app.bsky.feed.post/3n2wed5lnw224",
+          "author": "lukefoley.me",
+          "text": "Only just noticed Peter Drury's comment during his call re: Mauricio Pochettino—from the United States to the State of United. Brilliant.",
+          "createdAt": "2026-11-22T19:34:52.337Z",
+          "likes": 18,
+          "views": null,
+          "url": "https://bsky.app/profile/lukefoley.me/post/3n2wed5lnw224",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:xd6jehdd4x5uiozytoh6moe3/app.bsky.feed.post/3n2wazpc4o22k",
+          "author": "gwedlid.bsky.social",
+          "text": "Mauricio Pochettino press conference:",
+          "createdAt": "2026-11-22T18:35:54.129Z",
+          "likes": 15,
+          "views": null,
+          "url": "https://bsky.app/profile/gwedlid.bsky.social/post/3n2wazpc4o22k",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:xyumr2natxvkcvwav7iwnjlg/app.bsky.feed.post/3n2w2uu5kfk2s",
+          "author": "fourfoot.bsky.social",
+          "text": "Mauricio Pochettino at 430 and Mauricio Pochettino now.",
+          "createdAt": "2026-11-22T16:45:48.995Z",
+          "likes": 13,
+          "views": null,
+          "url": "https://bsky.app/profile/fourfoot.bsky.social/post/3n2w2uu5kfk2s",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:j6mfg56w53ejmliduoxx64xr/app.bsky.feed.post/3n2w2xxq35k2s",
+          "author": "mrdomsmith.bsky.social",
+          "text": "Mauricio Pochettino realising he just doesn’t have the quality of players he did with the USMNT anymore",
+          "createdAt": "2026-11-22T16:47:33.412Z",
+          "likes": 13,
+          "views": null,
+          "url": "https://bsky.app/profile/mrdomsmith.bsky.social/post/3n2w2xxq35k2s",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:y4mo5q7gexk6tn4iamsw3y6h/app.bsky.feed.post/3n2w2lvnw5c2r",
+          "author": "natedimeo.bsky.social",
+          "text": "Mauricio Pochettino shaking his head thinking he could be at a Chili’s right now instead of this nonsense.",
+          "createdAt": "2026-11-22T16:40:48.594Z",
+          "likes": 10,
+          "views": null,
+          "url": "https://bsky.app/profile/natedimeo.bsky.social/post/3n2w2lvnw5c2r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:ydqsmlepgfzk4agv6gujuw6l/app.bsky.feed.post/3n2wlzudkmk22",
+          "author": "doctort1992.bsky.social",
+          "text": "Mauricio Pochettino has turned his cab around #MUFC #LUFC @michaeltsb.bsky.social",
+          "createdAt": "2026-11-22T21:52:50.568Z",
+          "likes": 7,
+          "views": null,
+          "url": "https://bsky.app/profile/doctort1992.bsky.social/post/3n2wlzudkmk22",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:t6epijc7phcaaci3kqmeadhs/app.bsky.feed.post/3n2w2vssnvs26",
+          "author": "hornekerjustin.bsky.social",
+          "text": "Mauricio Pochettino, answer your phone, it's JT Batson",
+          "createdAt": "2026-11-22T16:46:21.148Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/hornekerjustin.bsky.social/post/3n2w2vssnvs26",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:azb537bwmb5jwvr467pvds47/app.bsky.feed.post/3n2waodyccc2r",
+          "author": "michaelje67.bsky.social",
+          "text": "Mauricio Pochettino and Man United, welcome to the Andoni Iraola Penitentiary. #LFC #Liverpool #ManUnited #Redsky",
+          "createdAt": "2026-11-22T18:29:33.173Z",
+          "likes": 5,
+          "views": null,
+          "url": "https://bsky.app/profile/michaelje67.bsky.social/post/3n2waodyccc2r",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:shm7jmbwpwvybb5lkrp2o2ek/app.bsky.feed.post/3n2wa7exby22t",
+          "author": "onlinechitchat.bsky.social",
+          "text": "ℹ️ Mauricio Pochettino niet langer hoofdcoach van Club Brugge.",
+          "createdAt": "2026-11-22T18:21:10.870Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/onlinechitchat.bsky.social/post/3n2wa7exby22t",
+          "source": "bluesky"
+        },
+        {
+          "id": "at://did:plc:zb5mygx2bahbamtziido5wcs/app.bsky.feed.post/3n2wagntbts27",
+          "author": "bethcooper.fyi",
+          "text": "🎵 It's tragic, you know, Mauricio Pochettino 🎵 #MUFC",
+          "createdAt": "2026-11-22T18:25:15.057Z",
+          "likes": 3,
+          "views": null,
+          "url": "https://bsky.app/profile/bethcooper.fyi/post/3n2wagntbts27",
+          "source": "bluesky"
+        }
+      ],
+      "totals": {
+        "posts": 17,
+        "likes": 739,
         "views": 0
       }
     }

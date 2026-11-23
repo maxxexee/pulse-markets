@@ -1,8 +1,8 @@
 {
   "trends": {
     "schema": "pulse-trends/1",
-    "epochDay": "2026-11-21",
-    "generatedAt": "2026-11-22T17:20:02.507Z",
+    "epochDay": "2026-11-22",
+    "generatedAt": "2026-11-23T19:14:45.479Z",
     "method": "wikipedia-top-v1",
     "definitionId": "discovery-v1",
     "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
@@ -24,103 +24,103 @@
     },
     "entries": [
       {
-        "article": "Riemann_hypothesis",
-        "topic": "Riemann hypothesis",
-        "views": 388288,
-        "baseline": 43185,
+        "article": "S_Club",
+        "topic": "S Club",
+        "views": 104957,
+        "baseline": 2012,
         "baselineDays": 7,
-        "momentum": 799.1,
+        "momentum": 5117.7,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Riemann_hypothesis/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "b93f43c8f982bb7eb33ace48e3a41063d20a6a89b9bae5a23723236ef7ace881"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/S_Club/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "017cc5a1bcfcd33042f37cf90dfb1ba2737368f44ea7e7c092928f8fd5e486e7"
           }
         ]
       },
       {
-        "article": "Steps_(film)",
-        "topic": "Steps (film)",
-        "views": 67976,
-        "baseline": 10376,
+        "article": "Miley_Cyrus",
+        "topic": "Miley Cyrus",
+        "views": 170642,
+        "baseline": 8601,
         "baselineDays": 7,
-        "momentum": 555.1,
+        "momentum": 1883.9,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Steps_(film)/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "915bf1f06b7fa18700fdad81d83bd6dc5eaa62d30edd8abee64313097c3d1233"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miley_Cyrus/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "f42ff79de2c45daf5a149a8b06418cff7b8afd3c8d60a6a33a03ae8dd93ee758"
           }
         ]
       },
       {
-        "article": "Levent_Alpöge",
-        "topic": "Levent Alpöge",
-        "views": 102891,
-        "baseline": 18168,
+        "article": "John_Tuggle",
+        "topic": "John Tuggle",
+        "views": 71317,
+        "baseline": 8948,
         "baselineDays": 7,
-        "momentum": 466.3,
+        "momentum": 697,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Levent_Alp%C3%B6ge/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "1d540d47d6333ffb620f1c6b496840b709b9a315639829a5046335e70334ddba"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/John_Tuggle/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "6f2f3fda9b72ee61e1404c6c9a01fcb121acabe5131730a762f7ae26f861cd0f"
           }
         ]
       },
       {
-        "article": "Joseph_Zada",
-        "topic": "Joseph Zada",
-        "views": 82604,
-        "baseline": 27549,
+        "article": "Sam_Bankman-Fried",
+        "topic": "Sam Bankman-Fried",
+        "views": 74746,
+        "baseline": 22524,
         "baselineDays": 7,
-        "momentum": 199.8,
+        "momentum": 231.9,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joseph_Zada/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "815a3f1e9e315c1404ce56f1cc892cbd85602b6ae7cd5fabf127c77a79b5b5e5"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sam_Bankman-Fried/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "670faaeff92bfb81a03d053ea7b78ae7ff168f610489c78384b27e19b22b0301"
           }
         ]
       },
       {
-        "article": "XXX_(2002_film)",
-        "topic": "XXX (2002 film)",
-        "views": 92338,
-        "baseline": 33303,
-        "baselineDays": 7,
-        "momentum": 177.3,
+        "article": "privacy_policy",
+        "topic": "privacy policy",
+        "views": 71801,
+        "baseline": 22616,
+        "baselineDays": 6,
+        "momentum": 217.5,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/XXX_(2002_film)/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "709cda0fad6ad1438801fae71af2223d4b584fc55a0ce3085c536ac2a61858de"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/privacy_policy/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "3f03ea1be7ed4f546bc331990599fc24679e8ef1ef5e9dd05a89e1b3d7e8d6d9"
           }
         ]
       },
       {
-        "article": "Sunrise_on_the_Reaping",
-        "topic": "Sunrise on the Reaping",
-        "views": 71460,
-        "baseline": 33417,
+        "article": "Mauricio_Pochettino",
+        "topic": "Mauricio Pochettino",
+        "views": 77374,
+        "baseline": 29269,
         "baselineDays": 7,
-        "momentum": 113.8,
+        "momentum": 164.4,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Sunrise_on_the_Reaping/daily/20261114/20261121",
-            "retrievedAt": "2026-11-22T17:19:55.149Z",
-            "payloadSha256": "fb8e730c61e630d2c74df06c3be463672401b57bdc8f5a01654d35ed07199637"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mauricio_Pochettino/daily/20261115/20261122",
+            "retrievedAt": "2026-11-23T19:14:39.954Z",
+            "payloadSha256": "599f59760b723767d6f4c49c1149dcd254fb451912a6b7fd3c00c9fdec8ca5bc"
           }
         ]
       }
     ],
-    "prevDigest": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+    "prevDigest": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
   },
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "dyLd00qNZ4CL0BJefRjT4nItvvicg0TxHnnB/B7EzrlBfLpKRQvEdrLo0FYdqWIDZ1XE7EVpxtL9D2lhoeEqBQ==",
-    "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a",
+    "signature": "H8oQTiBXn2xSlY5PVwInKIf8+HvbsIuhFEsl8TJ9Koj1lfkymdY2Lg6s6zMQopj3SqT1ZGKbom8eyRNgXxAzBA==",
+    "payloadSha256": "23bbea799ed083e0bb3c05de7886b3ab74b087154a78b90af8a8240f7c4e080c",
     "canonicalization": "json-sorted-keys-v1"
   }
 }
