@@ -1,0 +1,263 @@
+{
+  "day": "2026-11-23",
+  "generatedAt": "2026-11-24T18:54:01.845Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": null,
+  "entries": [
+    {
+      "article": "Fred_Warner_(American_football)",
+      "topic": "Fred Warner (American football)",
+      "views": 107625,
+      "baseline": 1838,
+      "baselineDays": 7,
+      "momentum": 5755.1,
+      "link": "https://en.wikipedia.org/wiki/Fred_Warner_(American_football)",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/49ers_LB_Fred_Warner_Super_Bowl_LIV_Interview_%28cropped%29.png/330px-49ers_LB_Fred_Warner_Super_Bowl_LIV_Interview_%28cropped%29.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Fred_Warner_(American_football)/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "3c1b92e75ffe3cf6406442218ed2c4d9133b9221cceaa858341c9b7e9bb427ff"
+        }
+      ]
+    },
+    {
+      "article": "Linux",
+      "topic": "Linux",
+      "views": 177023,
+      "baseline": 4738,
+      "baselineDays": 7,
+      "momentum": 3635.9,
+      "link": "https://en.wikipedia.org/wiki/Linux",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/330px-Tux.svg.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Linux/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "b7def327abc5d70fd8e04bb1f2e2e855182d509dc27e0b371d0fdbea27a8b557"
+        }
+      ]
+    },
+    {
+      "article": "Moon",
+      "topic": "Moon",
+      "views": 180275,
+      "baseline": 6125,
+      "baselineDays": 7,
+      "momentum": 2843.3,
+      "link": "https://en.wikipedia.org/wiki/Moon",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/330px-FullMoon2010.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Moon/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "5bd33059b3893ac4df34f42c43ef97b29f4d72f81da27e7cdd5282a9e321ab93"
+        }
+      ]
+    },
+    {
+      "article": "Molly_Meldrum",
+      "topic": "Molly Meldrum",
+      "views": 112186,
+      "baseline": 5415,
+      "baselineDays": 7,
+      "momentum": 1971.7,
+      "link": "https://en.wikipedia.org/wiki/Molly_Meldrum",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Molly_Meldrum_%288182225200%29_%28cropped%29.jpg/330px-Molly_Meldrum_%288182225200%29_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Molly_Meldrum/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "76fb2b72a4cd571b168feb9bf9762c4a3726c719ac094d7d32f32964d4e34a8e"
+        }
+      ]
+    },
+    {
+      "article": "Russian_corvette_Merkury",
+      "topic": "Russian corvette Merkury",
+      "views": 124318,
+      "baseline": 8839,
+      "baselineDays": 7,
+      "momentum": 1306.4,
+      "link": "https://en.wikipedia.org/wiki/Russian_corvette_Merkury",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Corvette_Mercury_at_the_naval_parade_in_St._Petersburg._July_2022.png/330px-Corvette_Mercury_at_the_naval_parade_in_St._Petersburg._July_2022.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Russian_corvette_Merkury/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "87774d202239c4a22f46bec84341443a98c7ce84acd4140d31719cbe4f92fe89"
+        }
+      ]
+    },
+    {
+      "article": "Miley_Cyrus",
+      "topic": "Miley Cyrus",
+      "views": 116713,
+      "baseline": 31854,
+      "baselineDays": 7,
+      "momentum": 266.4,
+      "link": "https://en.wikipedia.org/wiki/Miley_Cyrus",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Miley_Cyrus_Grammy_Awards_2024_%28cropped%29.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miley_Cyrus/daily/20261116/20261123",
+          "retrievedAt": "2026-11-24T18:54:01.845Z",
+          "payloadSha256": "dd9075462e4c019e19020775d47761875fec21d54670570abfd733c9212efcc8"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 266240,
+      "baseline": 396083,
+      "baselineDays": 7,
+      "momentum": -32.8
+    },
+    {
+      "article": "Blood",
+      "topic": "Blood",
+      "reason": "baseline-below-floor",
+      "views": 174912,
+      "baseline": 686,
+      "baselineDays": 7,
+      "momentum": 25408
+    },
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "reason": "momentum-below-floor",
+      "views": 157845,
+      "baseline": 127707,
+      "baselineDays": 7,
+      "momentum": 23.6
+    },
+    {
+      "article": "Experience_machine",
+      "topic": "Experience machine",
+      "reason": "baseline-below-floor",
+      "views": 135474,
+      "baseline": 172,
+      "baselineDays": 7,
+      "momentum": 78598.6
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 111570,
+      "baseline": 135776,
+      "baselineDays": 7,
+      "momentum": -17.8
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 110614,
+      "baseline": 55898,
+      "baselineDays": 7,
+      "momentum": 97.9
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 93405,
+      "baseline": 118246,
+      "baselineDays": 7,
+      "momentum": -21
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 79724,
+      "baseline": 87897,
+      "baselineDays": 7,
+      "momentum": -9.3
+    },
+    {
+      "article": "Joseph_Zada",
+      "topic": "Joseph Zada",
+      "reason": "momentum-below-floor",
+      "views": 79266,
+      "baseline": 50106,
+      "baselineDays": 7,
+      "momentum": 58.2
+    },
+    {
+      "article": "XXX_(film_series)",
+      "topic": "XXX (film series)",
+      "reason": "momentum-below-floor",
+      "views": 78216,
+      "baseline": 46241,
+      "baselineDays": 7,
+      "momentum": 69.1
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 69565,
+      "baseline": 96324,
+      "baselineDays": 7,
+      "momentum": -27.8
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 69395,
+      "baseline": 70107,
+      "baselineDays": 7,
+      "momentum": -1
+    },
+    {
+      "article": "XXX_(2002_film)",
+      "topic": "XXX (2002 film)",
+      "reason": "momentum-below-floor",
+      "views": 68418,
+      "baseline": 47260,
+      "baselineDays": 7,
+      "momentum": 44.8
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 67489,
+      "baseline": 60172,
+      "baselineDays": 7,
+      "momentum": 12.2
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 67113,
+      "baseline": 49507,
+      "baselineDays": 7,
+      "momentum": 35.6
+    }
+  ]
+}
