@@ -1,0 +1,126 @@
+{
+  "trends": {
+    "schema": "pulse-trends/1",
+    "epochDay": "2026-11-24",
+    "generatedAt": "2026-11-25T17:58:38.639Z",
+    "method": "wikipedia-top-v1",
+    "definitionId": "discovery-v1",
+    "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
+    "settings": {
+      "candidateLimit": 24,
+      "baselineWindowDays": 7,
+      "minBaselineDays": 3,
+      "minBaselineViews": 1000,
+      "minViews": 20000,
+      "minMomentum": 100,
+      "maxResults": 6,
+      "excludedTopicPrefixes": [
+        "List_of_",
+        "Lists_of_",
+        "Deaths_in_",
+        "Timeline_of_",
+        "Index_of_"
+      ]
+    },
+    "entries": [
+      {
+        "article": "Anthony_Russell_(murderer)",
+        "topic": "Anthony Russell (murderer)",
+        "views": 79697,
+        "baseline": 2646,
+        "baselineDays": 7,
+        "momentum": 2911.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Anthony_Russell_(murderer)/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "04195745da292d5776f37fe993b2b78bdb7792223f740d4cc49b5f67e27e2ada"
+          }
+        ]
+      },
+      {
+        "article": "Soham_murders",
+        "topic": "Soham murders",
+        "views": 87021,
+        "baseline": 3006,
+        "baselineDays": 7,
+        "momentum": 2794.5,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Soham_murders/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "3c421309099e8731e7c816d00f308ac87015bf88524c1c772999422b541a1252"
+          }
+        ]
+      },
+      {
+        "article": "Killing_of_JonBenét_Ramsey",
+        "topic": "Killing of JonBenét Ramsey",
+        "views": 64731,
+        "baseline": 8442,
+        "baselineDays": 7,
+        "momentum": 666.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Killing_of_JonBen%C3%A9t_Ramsey/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "009c054ffcf7d8159856895192491ffb1255afe08a234a73d0c6b63d23f27308"
+          }
+        ]
+      },
+      {
+        "article": "Maxx_Morando",
+        "topic": "Maxx Morando",
+        "views": 55624,
+        "baseline": 17808,
+        "baselineDays": 7,
+        "momentum": 212.4,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Maxx_Morando/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "c6e77b70c0ff44614031a902e9077189bd965e1df94f9b254aea8450a4a85a88"
+          }
+        ]
+      },
+      {
+        "article": "Miss_Universe_2026",
+        "topic": "Miss Universe 2026",
+        "views": 59793,
+        "baseline": 19474,
+        "baselineDays": 7,
+        "momentum": 207,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miss_Universe_2026/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "0a8ffa7e8b1fe6ad005dfee64fdb779e5fbb25c5352574d74c66df58c1c8e8fc"
+          }
+        ]
+      },
+      {
+        "article": "Blood",
+        "topic": "Blood",
+        "views": 75798,
+        "baseline": 25577,
+        "baselineDays": 7,
+        "momentum": 196.3,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Blood/daily/20261117/20261124",
+            "retrievedAt": "2026-11-25T17:58:33.457Z",
+            "payloadSha256": "2a0952adf9e9d327ca5400c90ab79585add130deff1bf5e70f662a599973b272"
+          }
+        ]
+      }
+    ],
+    "prevDigest": "c67513e1f2867aa090507c17686fd0ab5b92870fcee6045a1708a18bfcbd8d6d"
+  },
+  "attestation": {
+    "alg": "ed25519",
+    "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
+    "signature": "JskE6FdVJpA6ZVeICsQkxoupUBohheXv5V5SK4w6ETBkAsfTUzYQ94Iop6cVBw00ucg6am9F0U5fnE571G+zAw==",
+    "payloadSha256": "9bb41b648153143b707659dd92af39093a72a4387171c9094b443f00a5b9e180",
+    "canonicalization": "json-sorted-keys-v1"
+  }
+}
