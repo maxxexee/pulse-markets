@@ -1,0 +1,209 @@
+{
+  "day": "2026-11-25",
+  "generatedAt": "2026-11-26T17:43:50.520Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": null,
+  "entries": [
+    {
+      "article": "Mike_McCarthy",
+      "topic": "Mike McCarthy",
+      "views": 128019,
+      "baseline": 1007,
+      "baselineDays": 7,
+      "momentum": 12611.1,
+      "link": "https://en.wikipedia.org/wiki/Mike_McCarthy",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Mike_McCarthy_%28cropped%29.jpg/330px-Mike_McCarthy_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mike_McCarthy/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "d399f01560b3234585ff7088f3d45a80320a8344ad6b2cc135a3aa49b8df4c41"
+        }
+      ]
+    },
+    {
+      "article": "Jennifer_Barreto",
+      "topic": "Jennifer Barreto",
+      "views": 149785,
+      "baseline": 1918,
+      "baselineDays": 7,
+      "momentum": 7708.3,
+      "link": "https://en.wikipedia.org/wiki/Jennifer_Barreto",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Miss_Universe_Puerto_Rico_2026_Jennifer_Barreto_%28July_2026%29_%28cropped%29.jpg/330px-Miss_Universe_Puerto_Rico_2026_Jennifer_Barreto_%28July_2026%29_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jennifer_Barreto/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "cb74cd23c4fc80600fb951fc115e311163aee7e6fc0255a8f55666392e281175"
+        }
+      ]
+    },
+    {
+      "article": "Miss_International_2026",
+      "topic": "Miss International 2026",
+      "views": 93312,
+      "baseline": 1935,
+      "baselineDays": 7,
+      "momentum": 4723.4,
+      "link": "https://en.wikipedia.org/wiki/Miss_International_2026",
+      "imageUrl": null,
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miss_International_2026/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "640ccdb0a15a05d931f7ec465c8d3aa79f240081ea7ce5d035ac5b4c862160c3"
+        }
+      ]
+    },
+    {
+      "article": "Raheem_Sterling",
+      "topic": "Raheem Sterling",
+      "views": 71889,
+      "baseline": 2069,
+      "baselineDays": 7,
+      "momentum": 3374.8,
+      "link": "https://en.wikipedia.org/wiki/Raheem_Sterling",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Raheem_Sterling_2018.jpg/330px-Raheem_Sterling_2018.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Raheem_Sterling/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "3a06b830a6ddc86476c96b3e58f3b05f879b5d6efba500acc7b2e934d1c656eb"
+        }
+      ]
+    },
+    {
+      "article": "Ezra_Frech",
+      "topic": "Ezra Frech",
+      "views": 260732,
+      "baseline": 9221,
+      "baselineDays": 7,
+      "momentum": 2727.5,
+      "link": "https://en.wikipedia.org/wiki/Ezra_Frech",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/51/Ezra_Frech_Milan_2026.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ezra_Frech/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "a9d5b6336f32590f67f48d1ebab535adf4f4d0c0044c81d233cc2c55d6e61e46"
+        }
+      ]
+    },
+    {
+      "article": "Aaron_Rodgers",
+      "topic": "Aaron Rodgers",
+      "views": 120910,
+      "baseline": 6259,
+      "baselineDays": 7,
+      "momentum": 1831.8,
+      "link": "https://en.wikipedia.org/wiki/Aaron_Rodgers",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Aaron_Rodgers_OCT2022_%28cropped%29.jpg/330px-Aaron_Rodgers_OCT2022_%28cropped%29.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Aaron_Rodgers/daily/20261118/20261125",
+          "retrievedAt": "2026-11-26T17:43:50.520Z",
+          "payloadSha256": "6cd2328b78502ca097b291f24fcdb7a232ddd245e84a296339bf8c5e374b70ab"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 151092,
+      "baseline": 425348,
+      "baselineDays": 7,
+      "momentum": -64.5
+    },
+    {
+      "article": "Andy_Taylor_(guitarist)",
+      "topic": "Andy Taylor (guitarist)",
+      "reason": "baseline-below-floor",
+      "views": 135665,
+      "baseline": 531,
+      "baselineDays": 7,
+      "momentum": 25449
+    },
+    {
+      "article": "Martha_Firestone_Ford",
+      "topic": "Martha Firestone Ford",
+      "reason": "baseline-below-floor",
+      "views": 111793,
+      "baseline": 236,
+      "baselineDays": 7,
+      "momentum": 47269.9
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 111592,
+      "baseline": 70258,
+      "baselineDays": 7,
+      "momentum": 58.8
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 106458,
+      "baseline": 64053,
+      "baselineDays": 7,
+      "momentum": 66.2
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 80686,
+      "baseline": 88480,
+      "baselineDays": 7,
+      "momentum": -8.8
+    },
+    {
+      "article": "Iowa_lead_azide_detonation",
+      "topic": "Iowa lead azide detonation",
+      "reason": "too-few-baseline-days",
+      "views": 78852,
+      "baseline": 1457,
+      "baselineDays": 1,
+      "momentum": null
+    },
+    {
+      "article": "Zyri",
+      "topic": "Zyri",
+      "reason": "too-few-baseline-days",
+      "views": 72484,
+      "baseline": null,
+      "baselineDays": 0,
+      "momentum": null
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 72249,
+      "baseline": 105949,
+      "baselineDays": 7,
+      "momentum": -31.8
+    }
+  ]
+}
