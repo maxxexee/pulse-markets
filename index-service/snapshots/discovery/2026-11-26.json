@@ -1,0 +1,194 @@
+{
+  "day": "2026-11-26",
+  "generatedAt": "2026-11-27T17:28:04.301Z",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "contextModel": null,
+  "entries": [
+    {
+      "article": "Wu-Tang_Clan",
+      "topic": "Wu-Tang Clan",
+      "views": 147607,
+      "baseline": 3394,
+      "baselineDays": 7,
+      "momentum": 4248.9,
+      "link": "https://en.wikipedia.org/wiki/Wu-Tang_Clan",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Wu-Tang_Clan_at_Exit_festival_2023.jpg/330px-Wu-Tang_Clan_at_Exit_festival_2023.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Wu-Tang_Clan/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "7863ce4154365089a3daa25db45fe32b1bd0be8c0c9ec00b30f65b80d8f34b6e"
+        }
+      ]
+    },
+    {
+      "article": "Chad_Smith",
+      "topic": "Chad Smith",
+      "views": 69113,
+      "baseline": 3820,
+      "baselineDays": 7,
+      "momentum": 1709.3,
+      "link": "https://en.wikipedia.org/wiki/Chad_Smith",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/2016_RiP_Red_Hot_Chili_Peppers_-_Chad_Smith_-_by_2eight_-_DSC0184.jpg/330px-2016_RiP_Red_Hot_Chili_Peppers_-_Chad_Smith_-_by_2eight_-_DSC0184.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Chad_Smith/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "afa265901e53843e0531ef12218660d74f3a07f339127682627880a5423f773f"
+        }
+      ]
+    },
+    {
+      "article": "Veruschka",
+      "topic": "Veruschka",
+      "views": 81230,
+      "baseline": 4840,
+      "baselineDays": 7,
+      "momentum": 1578.4,
+      "link": "https://en.wikipedia.org/wiki/Veruschka",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Veruschka_1968.jpg/330px-Veruschka_1968.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Veruschka/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "9e33ea14c9dc04222b119175a8fb3bdb357fda2b2f176af2088deec82e135b8d"
+        }
+      ]
+    },
+    {
+      "article": "Andy_Taylor_(guitarist)",
+      "topic": "Andy Taylor (guitarist)",
+      "views": 318400,
+      "baseline": 19840,
+      "baselineDays": 7,
+      "momentum": 1504.8,
+      "alsoRanked": [
+        "John Taylor (bass guitarist)"
+      ],
+      "link": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Andy_Taylor_-_Duran_Duran_1983.jpg/330px-Andy_Taylor_-_Duran_Duran_1983.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Andy_Taylor_(guitarist)/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "6c32e5ed2ee192548d73ce246e2cfafae635fc0aa9d6208aa3dfcfac9619c60f"
+        }
+      ]
+    },
+    {
+      "article": "Duran_Duran",
+      "topic": "Duran Duran",
+      "views": 164045,
+      "baseline": 11200,
+      "baselineDays": 7,
+      "momentum": 1364.7,
+      "link": "https://en.wikipedia.org/wiki/Duran_Duran",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Duran_Duran_1983.jpg/330px-Duran_Duran_1983.jpg",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Duran_Duran/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "8b7f652469c6641d1719ebcaf20fde7a004603da786e654166e636de0f0fb0b2"
+        }
+      ]
+    },
+    {
+      "article": "Joe_Milton",
+      "topic": "Joe Milton",
+      "views": 75672,
+      "baseline": 5875,
+      "baselineDays": 7,
+      "momentum": 1188.1,
+      "link": "https://en.wikipedia.org/wiki/Joe_Milton",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Joe_Milton_Senior_Bowl.png/330px-Joe_Milton_Senior_Bowl.png",
+      "sources": [
+        {
+          "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joe_Milton/daily/20261119/20261126",
+          "retrievedAt": "2026-11-27T17:28:04.301Z",
+          "payloadSha256": "68f4fad44dd784e1980d5a49e42041264ded908cb4b1fceedc12ddbbe1869370"
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 123574,
+      "baseline": 372699,
+      "baselineDays": 7,
+      "momentum": -66.8
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 109388,
+      "baseline": 77818,
+      "baselineDays": 7,
+      "momentum": 40.6
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 96770,
+      "baseline": 72422,
+      "baselineDays": 7,
+      "momentum": 33.6
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 89101,
+      "baseline": 108410,
+      "baselineDays": 7,
+      "momentum": -17.8
+    },
+    {
+      "article": "Iowa_lead_azide_detonation",
+      "topic": "Iowa lead azide detonation",
+      "reason": "too-few-baseline-days",
+      "views": 88544,
+      "baseline": 40155,
+      "baselineDays": 2,
+      "momentum": null
+    },
+    {
+      "article": "Zyri",
+      "topic": "Zyri",
+      "reason": "too-few-baseline-days",
+      "views": 88538,
+      "baseline": 72484,
+      "baselineDays": 1,
+      "momentum": null
+    },
+    {
+      "article": "John_Madden",
+      "topic": "John Madden",
+      "reason": "momentum-below-floor",
+      "views": 74597,
+      "baseline": 63803,
+      "baselineDays": 7,
+      "momentum": 16.9
+    }
+  ]
+}

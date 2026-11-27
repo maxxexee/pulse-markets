@@ -1,8 +1,8 @@
 {
   "trends": {
     "schema": "pulse-trends/1",
-    "epochDay": "2026-11-25",
-    "generatedAt": "2026-11-26T17:43:55.576Z",
+    "epochDay": "2026-11-26",
+    "generatedAt": "2026-11-27T17:28:08.835Z",
     "method": "wikipedia-top-v1",
     "definitionId": "discovery-v1",
     "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
@@ -24,103 +24,103 @@
     },
     "entries": [
       {
-        "article": "Mike_McCarthy",
-        "topic": "Mike McCarthy",
-        "views": 128019,
-        "baseline": 1007,
+        "article": "Wu-Tang_Clan",
+        "topic": "Wu-Tang Clan",
+        "views": 147607,
+        "baseline": 3394,
         "baselineDays": 7,
-        "momentum": 12611.1,
+        "momentum": 4248.9,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mike_McCarthy/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "d399f01560b3234585ff7088f3d45a80320a8344ad6b2cc135a3aa49b8df4c41"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Wu-Tang_Clan/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "7863ce4154365089a3daa25db45fe32b1bd0be8c0c9ec00b30f65b80d8f34b6e"
           }
         ]
       },
       {
-        "article": "Jennifer_Barreto",
-        "topic": "Jennifer Barreto",
-        "views": 149785,
-        "baseline": 1918,
+        "article": "Chad_Smith",
+        "topic": "Chad Smith",
+        "views": 69113,
+        "baseline": 3820,
         "baselineDays": 7,
-        "momentum": 7708.3,
+        "momentum": 1709.3,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jennifer_Barreto/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "cb74cd23c4fc80600fb951fc115e311163aee7e6fc0255a8f55666392e281175"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Chad_Smith/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "afa265901e53843e0531ef12218660d74f3a07f339127682627880a5423f773f"
           }
         ]
       },
       {
-        "article": "Miss_International_2026",
-        "topic": "Miss International 2026",
-        "views": 93312,
-        "baseline": 1935,
+        "article": "Veruschka",
+        "topic": "Veruschka",
+        "views": 81230,
+        "baseline": 4840,
         "baselineDays": 7,
-        "momentum": 4723.4,
+        "momentum": 1578.4,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miss_International_2026/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "640ccdb0a15a05d931f7ec465c8d3aa79f240081ea7ce5d035ac5b4c862160c3"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Veruschka/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "9e33ea14c9dc04222b119175a8fb3bdb357fda2b2f176af2088deec82e135b8d"
           }
         ]
       },
       {
-        "article": "Raheem_Sterling",
-        "topic": "Raheem Sterling",
-        "views": 71889,
-        "baseline": 2069,
+        "article": "Andy_Taylor_(guitarist)",
+        "topic": "Andy Taylor (guitarist)",
+        "views": 318400,
+        "baseline": 19840,
         "baselineDays": 7,
-        "momentum": 3374.8,
+        "momentum": 1504.8,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Raheem_Sterling/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "3a06b830a6ddc86476c96b3e58f3b05f879b5d6efba500acc7b2e934d1c656eb"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Andy_Taylor_(guitarist)/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "6c32e5ed2ee192548d73ce246e2cfafae635fc0aa9d6208aa3dfcfac9619c60f"
           }
         ]
       },
       {
-        "article": "Ezra_Frech",
-        "topic": "Ezra Frech",
-        "views": 260732,
-        "baseline": 9221,
+        "article": "Duran_Duran",
+        "topic": "Duran Duran",
+        "views": 164045,
+        "baseline": 11200,
         "baselineDays": 7,
-        "momentum": 2727.5,
+        "momentum": 1364.7,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ezra_Frech/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "a9d5b6336f32590f67f48d1ebab535adf4f4d0c0044c81d233cc2c55d6e61e46"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Duran_Duran/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "8b7f652469c6641d1719ebcaf20fde7a004603da786e654166e636de0f0fb0b2"
           }
         ]
       },
       {
-        "article": "Aaron_Rodgers",
-        "topic": "Aaron Rodgers",
-        "views": 120910,
-        "baseline": 6259,
+        "article": "Joe_Milton",
+        "topic": "Joe Milton",
+        "views": 75672,
+        "baseline": 5875,
         "baselineDays": 7,
-        "momentum": 1831.8,
+        "momentum": 1188.1,
         "sources": [
           {
-            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Aaron_Rodgers/daily/20261118/20261125",
-            "retrievedAt": "2026-11-26T17:43:50.520Z",
-            "payloadSha256": "6cd2328b78502ca097b291f24fcdb7a232ddd245e84a296339bf8c5e374b70ab"
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joe_Milton/daily/20261119/20261126",
+            "retrievedAt": "2026-11-27T17:28:04.301Z",
+            "payloadSha256": "68f4fad44dd784e1980d5a49e42041264ded908cb4b1fceedc12ddbbe1869370"
           }
         ]
       }
     ],
-    "prevDigest": "9bb41b648153143b707659dd92af39093a72a4387171c9094b443f00a5b9e180"
+    "prevDigest": "b88b873526365f36e39abc36184821634b90e975fc357df501bf8ce067eef2ee"
   },
   "attestation": {
     "alg": "ed25519",
     "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
-    "signature": "URYmNp3M0G18/zq/YxfE2oVHJY4S5qwbbqNS7eQu+gNDfP31a6Ql4If8slc89/Z4TjgBJolariVXcikNaE/hAQ==",
-    "payloadSha256": "b88b873526365f36e39abc36184821634b90e975fc357df501bf8ce067eef2ee",
+    "signature": "EwRSveYfwPA6eYFp1gw9UNEoOhhHyNWpwa+h36p/5MxA38s/Ai+obCtdsAq8WhxEAYWHMzOuQ0g+EyEJzCtEDg==",
+    "payloadSha256": "93e2666942ead55fe4386aa3b05cb87bfe2254ae46393e45d808dcc202165603",
     "canonicalization": "json-sorted-keys-v1"
   }
 }
