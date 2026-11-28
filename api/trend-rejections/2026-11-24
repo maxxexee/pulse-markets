@@ -1,0 +1,184 @@
+{
+  "day": "2026-11-24",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 198339,
+      "baseline": 418876,
+      "baselineDays": 7,
+      "momentum": -52.6
+    },
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "reason": "momentum-below-floor",
+      "views": 102084,
+      "baseline": 150039,
+      "baselineDays": 7,
+      "momentum": -32
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 83971,
+      "baseline": 129807,
+      "baselineDays": 7,
+      "momentum": -35.3
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 83943,
+      "baseline": 112140,
+      "baselineDays": 7,
+      "momentum": -25.1
+    },
+    {
+      "article": "Miley_Cyrus",
+      "topic": "Miley Cyrus",
+      "reason": "momentum-below-floor",
+      "views": 81270,
+      "baseline": 47472,
+      "baselineDays": 7,
+      "momentum": 71.2
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 80552,
+      "baseline": 67252,
+      "baselineDays": 7,
+      "momentum": 19.8
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 80252,
+      "baseline": 67949,
+      "baselineDays": 7,
+      "momentum": 18.1
+    },
+    {
+      "article": "XXX_(2002_film)",
+      "topic": "XXX (2002 film)",
+      "reason": "momentum-below-floor",
+      "views": 79165,
+      "baseline": 52621,
+      "baselineDays": 7,
+      "momentum": 50.4
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 77398,
+      "baseline": 88128,
+      "baselineDays": 7,
+      "momentum": -12.2
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 75535,
+      "baseline": 60972,
+      "baselineDays": 7,
+      "momentum": 23.9
+    },
+    {
+      "article": "Sam_Bankman-Fried",
+      "topic": "Sam Bankman-Fried",
+      "reason": "momentum-below-floor",
+      "views": 65539,
+      "baseline": 41694,
+      "baselineDays": 7,
+      "momentum": 57.2
+    },
+    {
+      "article": "Tom_Jackson_(American_football,_born_1951)",
+      "topic": "Tom Jackson (American football, born 1951)",
+      "reason": "momentum-below-floor",
+      "views": 64851,
+      "baseline": 56208,
+      "baselineDays": 7,
+      "momentum": 15.4
+    },
+    {
+      "article": "XXX_(film_series)",
+      "topic": "XXX (film series)",
+      "reason": "momentum-below-floor",
+      "views": 61796,
+      "baseline": 52646,
+      "baselineDays": 7,
+      "momentum": 17.4
+    },
+    {
+      "article": "Eternal_September",
+      "topic": "Eternal September",
+      "reason": "baseline-below-floor",
+      "views": 61273,
+      "baseline": 322,
+      "baselineDays": 7,
+      "momentum": 18920.4
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 60494,
+      "baseline": 55345,
+      "baselineDays": 7,
+      "momentum": 9.3
+    },
+    {
+      "article": "Joseph_Zada",
+      "topic": "Joseph Zada",
+      "reason": "momentum-below-floor",
+      "views": 59239,
+      "baseline": 59887,
+      "baselineDays": 7,
+      "momentum": -1.1
+    },
+    {
+      "article": "XXX_(soundtrack)",
+      "topic": "XXX (soundtrack)",
+      "reason": "momentum-below-floor",
+      "views": 57632,
+      "baseline": 29927,
+      "baselineDays": 7,
+      "momentum": 92.6
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 55412,
+      "baseline": 101519,
+      "baselineDays": 7,
+      "momentum": -45.4
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "trends": {
+    "schema": "pulse-trends/1",
+    "epochDay": "2026-11-27",
+    "generatedAt": "2026-11-28T09:15:19.311Z",
+    "method": "wikipedia-top-v1",
+    "definitionId": "discovery-v1",
+    "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
+    "settings": {
+      "candidateLimit": 24,
+      "baselineWindowDays": 7,
+      "minBaselineDays": 3,
+      "minBaselineViews": 1000,
+      "minViews": 20000,
+      "minMomentum": 100,
+      "maxResults": 6,
+      "excludedTopicPrefixes": [
+        "List_of_",
+        "Lists_of_",
+        "Deaths_in_",
+        "Timeline_of_",
+        "Index_of_"
+      ]
+    },
+    "entries": [
+      {
+        "article": "Alice_Walker",
+        "topic": "Alice Walker",
+        "views": 84827,
+        "baseline": 1822,
+        "baselineDays": 7,
+        "momentum": 4556.4,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Alice_Walker/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "87f10ee18a2243778cb4d3f864e81b5520cde2a5a19fae0fc3f5da33f694bd10"
+          }
+        ]
+      },
+      {
+        "article": "Joe_Milton",
+        "topic": "Joe Milton",
+        "views": 385182,
+        "baseline": 16436,
+        "baselineDays": 7,
+        "momentum": 2243.6,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Joe_Milton/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "0aec89cc31532c8633b14e167893aece1fc844cdf98936daee01a0b8ef97d247"
+          }
+        ]
+      },
+      {
+        "article": "Mason_Rudolph_(American_football)",
+        "topic": "Mason Rudolph (American football)",
+        "views": 117924,
+        "baseline": 10361,
+        "baselineDays": 7,
+        "momentum": 1038.2,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mason_Rudolph_(American_football)/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "f2373a34081613389efd45561e808697268700e851ec43f53e827ce9ad12d1b8"
+          }
+        ]
+      },
+      {
+        "article": "Josh_Allen",
+        "topic": "Josh Allen",
+        "views": 61088,
+        "baseline": 8409,
+        "baselineDays": 7,
+        "momentum": 626.4,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Josh_Allen/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "4d76b45db9b2b8ab1a7ec139a52cc95e203670dcc6762e1fe060c3f0ac723664"
+          }
+        ]
+      },
+      {
+        "article": "Marc_Márquez",
+        "topic": "Marc Márquez",
+        "views": 86276,
+        "baseline": 15338,
+        "baselineDays": 7,
+        "momentum": 462.5,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Marc_M%C3%A1rquez/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "63b4338e3325d113368464c0a2a6bb02601d9295435eac5615d2c05b31142dfb"
+          }
+        ]
+      },
+      {
+        "article": "The_Hunting_Wives",
+        "topic": "The Hunting Wives",
+        "views": 62529,
+        "baseline": 11293,
+        "baselineDays": 7,
+        "momentum": 453.7,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/The_Hunting_Wives/daily/20261120/20261127",
+            "retrievedAt": "2026-11-28T09:15:10.744Z",
+            "payloadSha256": "0d29b3d96fc66fd70fca38bc237f6e6e09888337db00e46ff01f253da917907e"
+          }
+        ]
+      }
+    ],
+    "prevDigest": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+  },
+  "attestation": {
+    "alg": "ed25519",
+    "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
+    "signature": "pLN7DuC/mKjKYTl2DY9BJkI4qUEq57E17DN0+ZvqL5miQc6BlqYXvh5/BzIP06ABW/3bBxqngyijSlsj5oH9Ag==",
+    "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f",
+    "canonicalization": "json-sorted-keys-v1"
+  }
+}

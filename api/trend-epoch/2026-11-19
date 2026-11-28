@@ -1,0 +1,126 @@
+{
+  "trends": {
+    "schema": "pulse-trends/1",
+    "epochDay": "2026-11-19",
+    "generatedAt": "2026-11-20T13:10:58.779Z",
+    "method": "wikipedia-top-v1",
+    "definitionId": "discovery-v1",
+    "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
+    "settings": {
+      "candidateLimit": 24,
+      "baselineWindowDays": 7,
+      "minBaselineDays": 3,
+      "minBaselineViews": 1000,
+      "minViews": 20000,
+      "minMomentum": 100,
+      "maxResults": 6,
+      "excludedTopicPrefixes": [
+        "List_of_",
+        "Lists_of_",
+        "Deaths_in_",
+        "Timeline_of_",
+        "Index_of_"
+      ]
+    },
+    "entries": [
+      {
+        "article": "Stephen_Wilson_Jr.",
+        "topic": "Stephen Wilson Jr.",
+        "views": 327962,
+        "baseline": 4298,
+        "baselineDays": 7,
+        "momentum": 7531.1,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Stephen_Wilson_Jr./daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "07612631d553b25e1897d3bb8f5a1eb525a59d7f0f0b2426496aedcdc27b7948"
+          }
+        ]
+      },
+      {
+        "article": "Fiona_(hippopotamus)",
+        "topic": "Fiona (hippopotamus)",
+        "views": 83965,
+        "baseline": 1149,
+        "baselineDays": 7,
+        "momentum": 7206.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Fiona_(hippopotamus)/daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "e9a89d7c05e88ec1ea49ec17624c97e1e3bb8f7dba43f5e60fa2197a0fb5c896"
+          }
+        ]
+      },
+      {
+        "article": "Leigh_Nash",
+        "topic": "Leigh Nash",
+        "views": 95384,
+        "baseline": 2126,
+        "baselineDays": 7,
+        "momentum": 4386.2,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Leigh_Nash/daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "83669eefd88515537b1e0b9a9646e126d52662fba0dced5e453ab23587fe2abb"
+          }
+        ]
+      },
+      {
+        "article": "International_Men's_Day",
+        "topic": "International Men's Day",
+        "views": 118074,
+        "baseline": 4113,
+        "baselineDays": 7,
+        "momentum": 2770.7,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/International_Men's_Day/daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "9854faefd0ac6791171922152e8d2133bad2e87d8e797c85d2b8209f4564b73a"
+          }
+        ]
+      },
+      {
+        "article": "Ella_Langley",
+        "topic": "Ella Langley",
+        "views": 189264,
+        "baseline": 11415,
+        "baselineDays": 7,
+        "momentum": 1558.1,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ella_Langley/daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "69bd930b41a43dc5b999ae06d67eee45646fe3f469943ce268acc2bfa95ba57e"
+          }
+        ]
+      },
+      {
+        "article": "Susan_Smith",
+        "topic": "Susan Smith",
+        "views": 81561,
+        "baseline": 7211,
+        "baselineDays": 7,
+        "momentum": 1031.1,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Susan_Smith/daily/20261112/20261119",
+            "retrievedAt": "2026-11-20T13:10:35.142Z",
+            "payloadSha256": "b7f2d1e9d25bae7390204d1ac41f84ddd02a51dd5040c97d53f9bedcc9543b67"
+          }
+        ]
+      }
+    ],
+    "prevDigest": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+  },
+  "attestation": {
+    "alg": "ed25519",
+    "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
+    "signature": "75xksz59zTPlfO1atilLp3wZfDqABrBivX0L0nfMqB/K3ULBU3XYQr7SO9U5oVXW9lKWXvNyFxMGzBiWqoA2AA==",
+    "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223",
+    "canonicalization": "json-sorted-keys-v1"
+  }
+}

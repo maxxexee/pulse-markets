@@ -1,0 +1,85 @@
+{
+  "day": "2026-11-26",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 123574,
+      "baseline": 372699,
+      "baselineDays": 7,
+      "momentum": -66.8
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 109388,
+      "baseline": 77818,
+      "baselineDays": 7,
+      "momentum": 40.6
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 96770,
+      "baseline": 72422,
+      "baselineDays": 7,
+      "momentum": 33.6
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 89101,
+      "baseline": 108410,
+      "baselineDays": 7,
+      "momentum": -17.8
+    },
+    {
+      "article": "Iowa_lead_azide_detonation",
+      "topic": "Iowa lead azide detonation",
+      "reason": "too-few-baseline-days",
+      "views": 88544,
+      "baseline": 40155,
+      "baselineDays": 2,
+      "momentum": null
+    },
+    {
+      "article": "Zyri",
+      "topic": "Zyri",
+      "reason": "too-few-baseline-days",
+      "views": 88538,
+      "baseline": 72484,
+      "baselineDays": 1,
+      "momentum": null
+    },
+    {
+      "article": "John_Madden",
+      "topic": "John Madden",
+      "reason": "momentum-below-floor",
+      "views": 74597,
+      "baseline": 63803,
+      "baselineDays": 7,
+      "momentum": 16.9
+    }
+  ]
+}

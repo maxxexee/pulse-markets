@@ -1,0 +1,33 @@
+{
+  "schema": "pulse-methodology/1",
+  "definitionId": "discovery-v1",
+  "epochSchema": "pulse-trends/1",
+  "digest": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "bars": [
+    "the article is in the day's top 24 by views, outside the signed basket",
+    "page titles matching List_of_, Lists_of_, Deaths_in_, Timeline_of_, Index_of_ are not topics",
+    "views on the day are at least 20,000",
+    "at least 3 of the preceding 7 days have a figure",
+    "the baseline is at least 1,000 views a day",
+    "views are at least 100% above the baseline",
+    "pages telling one story collapse to the most read, then the top 6 by momentum remain"
+  ],
+  "changelogSha256": "2306328e9cabbc75e6def1475a9743eb3108b0d9463e219976f43ca2b642a3c6",
+  "changelogUrl": "api/methodology-changelog"
+}

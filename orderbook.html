@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PULSE demo orderbook</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0c0e;
+        --panel: #131518;
+        --line: #23262b;
+        --text: #e8eaed;
+        --muted: #8b9099;
+        --accent: #5eead4;
+        --yes: #5eead4;
+        --no: #fca5a5;
+        --wait: #fcd34d;
+        --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 24px 64px;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-variant-numeric: tabular-nums;
+      }
+      main { max-width: 1040px; margin: 0 auto; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+      h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
+      .nav { font-size: 13px; color: var(--muted); }
+      .demo {
+        margin: 22px 0 0;
+        padding: 12px 14px;
+        border: 1px solid #4f4520;
+        border-radius: 8px;
+        background: #17150c;
+        color: #e7d9a8;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .demo strong { color: var(--wait); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+      .market-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; margin: 30px 0 16px; flex-wrap: wrap; }
+      .question { font-size: 19px; font-weight: 500; max-width: 64ch; }
+      .sub { color: var(--muted); font-size: 13px; margin-top: 5px; }
+      .controls { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+      select {
+        background: var(--panel); color: var(--text); border: 1px solid var(--line);
+        border-radius: 6px; padding: 6px 8px; font: inherit; font-size: 13px; letter-spacing: 0;
+        text-transform: none;
+      }
+      .grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 14px; }
+      @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+      .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+      .panel-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+      .hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+      .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      .hero-value { font-size: 58px; line-height: 0.95; font-weight: 600; letter-spacing: -0.035em; margin-top: 6px; }
+      .hero-side { text-align: right; padding-bottom: 4px; }
+      .hero-delta { font-size: 13px; font-weight: 500; }
+      .hero-delta.up { color: var(--yes); }
+      .hero-delta.down { color: var(--no); }
+      .hero-note { color: var(--muted); font-size: 12px; margin-top: 5px; max-width: 30ch; }
+      svg { display: block; width: 100%; height: auto; margin-top: 6px; overflow: visible; }
+      .caption { color: var(--muted); font-size: 11.5px; margin-top: 4px; }
+      .book-head { display: flex; justify-content: space-between; align-items: baseline; }
+      .book-meta { color: var(--muted); font-size: 12px; }
+      .quote { display: flex; align-items: flex-end; gap: 12px; margin: 14px 0 12px; }
+      .big { font-size: 44px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; }
+      .qmeta { color: var(--muted); font-size: 12px; padding-bottom: 5px; line-height: 1.45; }
+      table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
+      th { color: var(--muted); font-weight: 500; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; text-align: right; padding: 4px 6px; }
+      th:first-child { text-align: left; }
+      td { padding: 3px 6px; text-align: right; white-space: nowrap; }
+      td:first-child { text-align: left; }
+      tr.ask td:first-child { color: var(--no); }
+      tr.bid td:first-child { color: var(--yes); }
+      tr { position: relative; }
+      .bar { position: relative; }
+      .bar span {
+        position: absolute; inset: 1px 0 1px auto; width: var(--w); border-radius: 2px; z-index: -1;
+      }
+      tr.ask .bar span { background: rgba(252, 165, 165, 0.14); }
+      tr.bid .bar span { background: rgba(94, 234, 212, 0.14); }
+      .spread td { color: var(--muted); font-size: 11px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 5px; }
+      .state { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+      .state b { font-weight: 500; }
+      .state .yes { color: var(--yes); }
+      .state .no { color: var(--no); }
+      .state .wait { color: var(--wait); }
+      .derivation { margin-top: 14px; }
+      h2 { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 0 0 10px; }
+      .derivation p { margin: 0 0 8px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+      .derivation code { font-family: var(--mono); font-size: 12px; color: var(--text); word-break: break-all; }
+      footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+      .empty { padding: 28px 16px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PULSE demo orderbook</h1>
+        <div class="nav">
+          <a href="./markets.html">markets</a> &middot; <a href="./index.html">index method</a>
+        </div>
+      </header>
+
+      <div class="demo" role="note">
+        <strong>Demo.</strong> The depth, sizes and quote below are generated from the published
+        index so the layout can be reviewed. Nothing here is a live book or a quote, no orders are
+        accepted, and this page cannot settle or create a market. The chart is real published data.
+      </div>
+
+      <div class="market-head">
+        <div>
+          <div class="question" id="question">Loading markets.</div>
+          <div class="sub" id="sub"></div>
+        </div>
+        <div class="controls">
+          <label for="picker">market</label>
+          <select id="picker" aria-label="market"></select>
+        </div>
+      </div>
+
+      <section class="grid">
+        <div class="panel">
+          <div class="hero">
+            <div>
+              <div class="hero-label">attention index</div>
+              <div class="hero-value" id="hero-value">--</div>
+            </div>
+            <div class="hero-side">
+              <div class="hero-delta" id="hero-delta"></div>
+              <div class="hero-note" id="hero-note"></div>
+            </div>
+          </div>
+          <svg id="chart" viewBox="0 0 720 250" role="img" aria-label="published index against the market threshold"></svg>
+          <div class="caption" id="chart-caption"></div>
+        </div>
+
+        <div class="panel">
+          <div class="book-head">
+            <span class="panel-title">YES book, demo depth</span>
+            <span class="book-meta" id="book-meta"></span>
+          </div>
+          <div class="quote">
+            <div class="big" id="quote">--</div>
+            <div class="qmeta" id="quote-meta"></div>
+          </div>
+          <table aria-label="demo order book">
+            <thead>
+              <tr><th>price</th><th>size</th><th>total</th></tr>
+            </thead>
+            <tbody id="asks"></tbody>
+            <tbody id="spread"><tr class="spread"><td colspan="3">spread</td></tr></tbody>
+            <tbody id="bids"></tbody>
+          </table>
+          <div class="state" id="state"></div>
+        </div>
+      </section>
+
+      <section class="panel derivation">
+        <h2>How this demo is produced</h2>
+        <p>
+          The quote is a logistic function of the latest published index against this market's
+          threshold: <code>yes = 1 / (1 + exp(-(index - threshold) / scale))</code>, clipped to
+          2 to 98 cents. <code>scale</code> is the standard deviation of day over day index
+          changes inside this definition, clamped to 1 to 5.
+        </p>
+        <p>
+          Depth is a fixed ladder of one cent levels, eight a side, sized by a seeded generator so
+          the same market and day always draw the same book. Seed:
+          <code id="seed">--</code>.
+        </p>
+        <p>
+          The published evidence for this market's epoch:
+          <a id="snapshot-link" href="./markets.html">snapshot</a>. The index chart reads
+          <a href="./api/index/history">api/index/history</a>.
+        </p>
+      </section>
+
+      <footer>
+        Demo only. The settlement preview follows the resolver's checks where it can, but it does
+        not verify signatures, and it is not a settlement.
+      </footer>
+    </main>
+
+    <script>
+      const fmt = (value, digits = 2) =>
+        value === null || value === undefined ? '--' : Number(value).toFixed(digits);
+
+      const esc = (value) =>
+        String(value).replace(/[&<>"']/g, (character) => `&#${character.charCodeAt(0)};`);
+
+      async function getJson(path) {
+        const response = await fetch(path, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} for ${path}`);
+        }
+        return response.json();
+      }
+
+      // Snapshots signed before the rename recorded the same ratio as `confidence`.
+      function coverageRatioOf(coverage) {
+        const ratio = coverage && (coverage.coverageRatio ?? coverage.confidence);
+        return typeof ratio === 'number' ? ratio : 0;
+      }
+
+      const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+
+      function question(market) {
+        const side = market.comparison === 'below' ? 'below' : 'above';
+        return `Will the PULSE attention index close ${side} ${fmt(market.threshold)} ` +
+          `at the epoch ending ${esc(market.epochDay)}?`;
+      }
+
+      /** Days this market's terms can be measured over. */
+      function daysFor(market, history) {
+        return history
+          .filter((day) =>
+            typeof day.index === 'number' &&
+            day.definitionId === market.definitionId &&
+            day.day <= market.epochDay)
+          .sort((left, right) => left.day.localeCompare(right.day));
+      }
+
+      /** Every published day up to the settlement day, whatever terms it was measured on. */
+      function publishedUntil(market, history) {
+        return history
+          .filter((day) => typeof day.index === 'number' && day.day <= market.epochDay)
+          .sort((left, right) => left.day.localeCompare(right.day));
+      }
+
+      /** Day over day variability of the index, used as the price scale. */
+      function scaleFor(days) {
+        const deltas = [];
+        for (let index = 1; index < days.length; index += 1) {
+          deltas.push(days[index].index - days[index - 1].index);
+        }
+        if (deltas.length < 2) {
+          return 2.5;
+        }
+        const mean = deltas.reduce((sum, value) => sum + value, 0) / deltas.length;
+        const variance =
+          deltas.reduce((sum, value) => sum + (value - mean) ** 2, 0) / deltas.length;
+        return clamp(Math.sqrt(variance), 1, 5);
+      }
+
+      function yesPrice(score, market, scale) {
+        const above = market.comparison !== 'below';
+        const chance = 1 / (1 + Math.exp(-(score - market.threshold) / scale));
+        const yes = above ? chance : 1 - chance;
+        return clamp(yes * 100, 2, 98);
+      }
+
+      function seedFrom(text) {
+        let hash = 2166136261;
+        for (let index = 0; index < text.length; index += 1) {
+          hash ^= text.charCodeAt(index);
+          hash = Math.imul(hash, 16777619);
+        }
+        return hash >>> 0;
+      }
+
+      function mulberry32(seed) {
+        let state = seed;
+        return () => {
+          state = (state + 0x6d2b79f5) | 0;
+          let t = Math.imul(state ^ (state >>> 15), 1 | state);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function ladder(price, seedText) {
+        const random = mulberry32(seedFrom(seedText));
+        const asks = [];
+        const bids = [];
+        let askTotal = 0;
+        let bidTotal = 0;
+        for (let level = 1; level <= 8; level += 1) {
+          const growth = 1 + (level - 1) * 0.18;
+          const askSize = Math.round((70 + random() * 260) * growth);
+          const bidSize = Math.round((70 + random() * 260) * growth);
+          askTotal += askSize;
+          bidTotal += bidSize;
+          asks.push({ price: price + level, size: askSize, total: askTotal });
+          bids.push({ price: price - level, size: bidSize, total: bidTotal });
+        }
+        return { asks, bids, maxTotal: Math.max(askTotal, bidTotal) };
+      }
+
+      function drawChart(days, market) {
+        const svg = document.getElementById('chart');
+        const caption = document.getElementById('chart-caption');
+        if (days.length === 0) {
+          svg.innerHTML = '';
+          caption.textContent =
+            `No epoch published at or before ${market.epochDay} for ${market.definitionId}.`;
+          return;
+        }
+        const width = 720;
+        const height = 250;
+        const pad = { left: 6, right: 48, top: 18, bottom: 26 };
+        const base = height - pad.bottom;
+        const values = days.map((day) => day.index).concat([market.threshold]);
+        const low = Math.max(0, Math.min(...values) - 4);
+        const high = Math.min(100, Math.max(...values) + 4);
+        const span = high - low || 1;
+        const xOf = (offset) => days.length === 1
+          ? pad.left + (width - pad.left - pad.right) / 2
+          : pad.left + (offset / (days.length - 1)) * (width - pad.left - pad.right);
+        const yOf = (value) => base - ((value - low) / span) * (height - pad.top - pad.bottom);
+
+        // One shape per definition version, so no line joins days measured on different
+        // terms. The market's own terms are solid; earlier ones are faded.
+        const segments = [];
+        days.forEach((day, offset) => {
+          const last = segments[segments.length - 1];
+          if (last !== undefined && last.definitionId === day.definitionId) {
+            last.points.push([offset, day]);
+          } else {
+            segments.push({ definitionId: day.definitionId, points: [[offset, day]] });
+          }
+        });
+
+        const shapes = segments.map((segment) => {
+          if (segment.points.length === 1) {
+            return '';
+          }
+          const own = segment.definitionId === market.definitionId;
+          const points = segment.points
+            .map(([offset, day]) => `${xOf(offset).toFixed(1)},${yOf(day.index).toFixed(1)}`)
+            .join(' ');
+          const start = xOf(segment.points[0][0]).toFixed(1);
+          const end = xOf(segment.points[segment.points.length - 1][0]).toFixed(1);
+          return `<path d="M${points.replace(/ /g, ' L')} L${end},${base} L${start},${base} Z" ` +
+            `fill="url(#areaFill)" opacity="${own ? 1 : 0.22}" />` +
+            `<polyline points="${points}" fill="none" stroke="#5eead4" ` +
+            `stroke-width="${own ? 2.2 : 1.4}" stroke-linejoin="round" ` +
+            `stroke-linecap="round" opacity="${own ? 1 : 0.22}" />`;
+        }).join('');
+
+        const ownPoints = days
+          .map((day, offset) => ({ day, offset }))
+          .filter((entry) => entry.day.definitionId === market.definitionId);
+        const latestOwn = ownPoints[ownPoints.length - 1];
+        const dots = ownPoints.map(({ day, offset }) => {
+          const x = xOf(offset).toFixed(1);
+          const y = yOf(day.index).toFixed(1);
+          const last = latestOwn !== undefined && day === latestOwn.day;
+          return (last
+            ? `<circle cx="${x}" cy="${y}" r="9" fill="#5eead4" opacity="0.16" />`
+            : '') +
+            `<circle cx="${x}" cy="${y}" r="${last ? 4 : 2.4}" fill="#5eead4">` +
+            `<title>${esc(day.day)}: ${fmt(day.index)}</title></circle>`;
+        }).join('');
+
+        const thresholdY = yOf(market.threshold).toFixed(1);
+        const threshold = `<line x1="${pad.left}" x2="${width - pad.right}" y1="${thresholdY}" ` +
+          `y2="${thresholdY}" stroke="#fcd34d" stroke-width="1" opacity="0.55" />` +
+          `<text x="${width - pad.right + 10}" y="${Number(thresholdY) + 3.5}" ` +
+          `fill="#fcd34d" font-size="11">${fmt(market.threshold, 0)}</text>`;
+
+        const firstDay = days[0].day;
+        const lastDay = days[days.length - 1].day;
+        const axis = `<text x="${pad.left}" y="${height - 6}" fill="#6b7280" font-size="10">` +
+          `${esc(firstDay)}</text>` +
+          `<text x="${width - pad.right}" y="${height - 6}" fill="#6b7280" font-size="10" ` +
+          `text-anchor="end">${esc(lastDay)}</text>`;
+
+        svg.innerHTML =
+          '<defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0" stop-color="#5eead4" stop-opacity="0.32" />' +
+          '<stop offset="1" stop-color="#5eead4" stop-opacity="0" /></linearGradient></defs>' +
+          shapes + threshold + dots + axis;
+        const otherCount = days.length - ownPoints.length;
+        caption.textContent = otherCount > 0
+          ? `${days.length} epochs to ${lastDay}. Solid is ${market.definitionId}; the ` +
+            'faded stretch is earlier terms and is not comparable.'
+          : `${days.length} epochs on ${market.definitionId}, ${firstDay} to ${lastDay}.`;
+      }
+
+      function bookRows(rows, side) {
+        return rows.map((row) => (
+          `<tr class="${side}"><td>${fmt(row.price, 1)}</td>` +
+          `<td class="bar"><span style="--w:${((row.total / rows.at(-1).total) * 100).toFixed(1)}%">` +
+          `</span>${row.size}</td><td>${row.total}</td></tr>`
+        )).join('');
+      }
+
+      function renderBook(market, latest) {
+        const meta = document.getElementById('book-meta');
+        const quote = document.getElementById('quote');
+        const quoteMeta = document.getElementById('quote-meta');
+        const state = document.getElementById('state');
+        const score = latest === null ? null : latest.snapshot && latest.snapshot.index.score;
+        if (typeof score !== 'number') {
+          meta.textContent = '';
+          quote.textContent = '--';
+          quoteMeta.textContent = 'No published index yet.';
+          document.getElementById('asks').innerHTML = '';
+          document.getElementById('bids').innerHTML = '';
+          state.textContent = '';
+          return;
+        }
+        // The hero follows the latest published day, which can be later than this
+        // market's settlement day.
+        const ordered = HISTORY
+          .filter((day) => typeof day.index === 'number')
+          .sort((left, right) => left.day.localeCompare(right.day));
+        const currentOffset = ordered.findIndex((day) => day.day === latest.snapshot.epochDay);
+        const current = currentOffset === -1 ? undefined : ordered[currentOffset];
+        const previous = currentOffset > 0 ? ordered[currentOffset - 1] : undefined;
+        document.getElementById('hero-value').textContent = fmt(current === undefined ? score : current.index);
+        const delta = current === undefined || previous === undefined ? null : current.index - previous.index;
+        const deltaNode = document.getElementById('hero-delta');
+        deltaNode.className = `hero-delta${delta === null ? '' : delta >= 0 ? ' up' : ' down'}`;
+        deltaNode.textContent = delta === null
+          ? ''
+          : `${delta >= 0 ? '+' : ''}${fmt(delta)} since ${previous.day}`;
+        const gap = score - market.threshold;
+        document.getElementById('hero-note').textContent =
+          `${fmt(Math.abs(gap))} points ${gap >= 0 ? 'above' : 'below'} this market's ` +
+          `${fmt(market.threshold, 0)} line`;
+
+        const days = daysFor(market, HISTORY);
+        const scale = scaleFor(days);
+        const price = Math.round(yesPrice(score, market, scale) * 10) / 10;
+        const book = ladder(price, `${market.id}|${latest.snapshot.epochDay}`);
+        meta.textContent = `reference index ${fmt(score)}`;
+        quote.textContent = `${fmt(price, 1)}c`;
+        quoteMeta.innerHTML =
+          `implied YES from index ${fmt(score)} against ${fmt(market.threshold)}<br>` +
+          `scale ${fmt(scale)} points, seed ${String(seedFrom(`${market.id}|${latest.snapshot.epochDay}`)).slice(0, 8)}`;
+        document.getElementById('asks').innerHTML = bookRows([...book.asks].reverse(), 'ask');
+        document.getElementById('bids').innerHTML = bookRows(book.bids, 'bid');
+        document.getElementById('spread').innerHTML =
+          `<tr class="spread"><td colspan="3">1c wide demo spread, not a quote</td></tr>`;
+
+        const snapshot = SNAPSHOTS[market.epochDay] || null;
+        state.innerHTML = settlementLine(market, snapshot, score);
+      }
+
+      function settlementLine(market, snapshot, score) {
+        if (snapshot === null || snapshot.snapshot === undefined) {
+          return `<span class="wait">open</span> No snapshot for ${esc(market.epochDay)} yet; ` +
+            'the book is a re-creation on the latest index.';
+        }
+        const published = snapshot.snapshot;
+        if (published.definitionId !== market.definitionId) {
+          return `<span class="wait">terms differ</span> The snapshot for ` +
+            `${esc(market.epochDay)} is ${esc(published.definitionId)}.`;
+        }
+        const ratio = coverageRatioOf(published.coverage);
+        const value = published.index && published.index.score;
+        if (typeof value !== 'number') {
+          return `<span class="wait">no score</span> The snapshot has no headline index.`;
+        }
+        const above = market.comparison !== 'below';
+        const yes = above ? value > market.threshold : value < market.threshold;
+        const kind = yes ? 'yes' : 'no';
+        const label = yes ? 'YES' : 'NO';
+        return `<b class="${kind}">settled ${label}</b> at ${fmt(value)} against ` +
+          `${fmt(market.threshold)}, coverage ${fmt(ratio, 4)}. This book is a re-creation on the ` +
+          `latest index ${fmt(score)}, not liquidity at the close.`;
+      }
+
+      let HISTORY = [];
+      let SNAPSHOTS = {};
+      let MARKETS = [];
+
+      function selectMarket(id) {
+        const market = MARKETS.find((entry) => entry.id === id) || MARKETS[0];
+        if (market === undefined) {
+          return;
+        }
+        document.getElementById('question').innerHTML = question(market);
+        document.getElementById('sub').innerHTML =
+          `${esc(market.definitionId)} &middot; coverage floor ${fmt(market.minConfidence, 2)}` +
+          ` &middot; id ${esc(String(market.id).slice(0, 16))}&hellip;`;
+        document.getElementById('seed').textContent =
+          `${market.id}|${LATEST_DAY}`;
+        document.getElementById('snapshot-link').href =
+          `./api/index/snapshot/${encodeURIComponent(market.epochDay)}`;
+        document.getElementById('snapshot-link').textContent = market.epochDay;
+        drawChart(publishedUntil(market, HISTORY), market);
+        renderBook(market, LATEST);
+      }
+
+      let LATEST = null;
+      let LATEST_DAY = 'none';
+
+      async function main() {
+        const [latest, history, marketList] = await Promise.all([
+          getJson('./api/index/latest').catch(() => null),
+          getJson('./api/index/history').catch(() => ({ days: [] })),
+          getJson('./api/markets').catch(() => ({ markets: [], unreadable: [] })),
+        ]);
+        LATEST = latest;
+        LATEST_DAY = latest && latest.snapshot ? latest.snapshot.epochDay : 'none';
+        HISTORY = history.days || [];
+        MARKETS = (marketList.markets || []).filter((market) => market && market.id);
+
+        const picker = document.getElementById('picker');
+        if (MARKETS.length === 0) {
+          document.getElementById('question').textContent =
+            'No market specs published, so there is no book to draw.';
+          return;
+        }
+        picker.innerHTML = MARKETS.map((market) =>
+          `<option value="${esc(market.id)}">${fmt(market.threshold)} ` +
+          `${esc(market.comparison)} ${esc(market.epochDay)}</option>`).join('');
+        const uniqueDays = [...new Set(MARKETS.map((market) => market.epochDay))];
+        const loaded = await Promise.all(uniqueDays.map(async (day) => {
+          try {
+            return [day, await getJson(`./api/index/snapshot/${encodeURIComponent(day)}`)];
+          } catch {
+            return [day, null];
+          }
+        }));
+        SNAPSHOTS = Object.fromEntries(loaded.filter(([, value]) => value !== null));
+
+        // Open on the market with the most chart to show, then the newest epoch and the
+        // highest line, so the first view is not a single point.
+        const chosen = [...MARKETS].sort((left, right) =>
+          daysFor(right, HISTORY).length - daysFor(left, HISTORY).length ||
+          String(right.epochDay).localeCompare(String(left.epochDay)) ||
+          right.threshold - left.threshold)[0];
+        picker.value = chosen.id;
+        picker.addEventListener('change', () => selectMarket(picker.value));
+        selectMarket(chosen.id);
+      }
+
+      main().catch((error) => {
+        document.getElementById('question').textContent =
+          `Could not load the demo: ${error.message}`;
+      });
+    </script>
+  </body>
+</html>

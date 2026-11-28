@@ -1,0 +1,157 @@
+{
+  "day": "2026-11-22",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 308867,
+      "baseline": 363695,
+      "baselineDays": 7,
+      "momentum": -15.1
+    },
+    {
+      "article": "Tom_Jackson_(American_football,_born_1951)",
+      "topic": "Tom Jackson (American football, born 1951)",
+      "reason": "baseline-below-floor",
+      "views": 263973,
+      "baseline": 235,
+      "baselineDays": 7,
+      "momentum": 112365.7
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 113918,
+      "baseline": 134560,
+      "baselineDays": 7,
+      "momentum": -15.3
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 112346,
+      "baseline": 119416,
+      "baselineDays": 7,
+      "momentum": -5.9
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 106888,
+      "baseline": 89094,
+      "baselineDays": 7,
+      "momentum": 20
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "reason": "momentum-below-floor",
+      "views": 96131,
+      "baseline": 426029,
+      "baselineDays": 7,
+      "momentum": -77.4
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 89425,
+      "baseline": 73868,
+      "baselineDays": 7,
+      "momentum": 21.1
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 85598,
+      "baseline": 87988,
+      "baselineDays": 7,
+      "momentum": -2.7
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 79779,
+      "baseline": 43652,
+      "baselineDays": 7,
+      "momentum": 82.8
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 79673,
+      "baseline": 58667,
+      "baselineDays": 7,
+      "momentum": 35.8
+    },
+    {
+      "article": "Sunrise_on_the_Reaping",
+      "topic": "Sunrise on the Reaping",
+      "reason": "momentum-below-floor",
+      "views": 78767,
+      "baseline": 41334,
+      "baselineDays": 7,
+      "momentum": 90.6
+    },
+    {
+      "article": "John_Madden",
+      "topic": "John Madden",
+      "reason": "momentum-below-floor",
+      "views": 76290,
+      "baseline": 45256,
+      "baselineDays": 7,
+      "momentum": 68.6
+    },
+    {
+      "article": "The_Odyssey_(2026_film)",
+      "topic": "The Odyssey (2026 film)",
+      "reason": "momentum-below-floor",
+      "views": 75108,
+      "baseline": 65191,
+      "baselineDays": 7,
+      "momentum": 15.2
+    },
+    {
+      "article": "Maxx_Morando",
+      "topic": "Maxx Morando",
+      "reason": "baseline-below-floor",
+      "views": 70652,
+      "baseline": 37,
+      "baselineDays": 7,
+      "momentum": 190116.9
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 70535,
+      "baseline": 46194,
+      "baselineDays": 7,
+      "momentum": 52.7
+    }
+  ]
+}

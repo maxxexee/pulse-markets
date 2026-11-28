@@ -1,0 +1,166 @@
+{
+  "day": "2026-11-21",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 393338,
+      "baseline": 317906,
+      "baselineDays": 7,
+      "momentum": 23.7
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 148049,
+      "baseline": 145139,
+      "baselineDays": 7,
+      "momentum": 2
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 121328,
+      "baseline": 89998,
+      "baselineDays": 7,
+      "momentum": 34.8
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "reason": "momentum-below-floor",
+      "views": 119357,
+      "baseline": 413166,
+      "baselineDays": 7,
+      "momentum": -71.1
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 109819,
+      "baseline": 116680,
+      "baselineDays": 7,
+      "momentum": -5.9
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 103318,
+      "baseline": 76457,
+      "baselineDays": 7,
+      "momentum": 35.1
+    },
+    {
+      "article": "Nikhil_Chaudhary_(cricketer)",
+      "topic": "Nikhil Chaudhary (cricketer)",
+      "reason": "baseline-below-floor",
+      "views": 100364,
+      "baseline": 195,
+      "baselineDays": 7,
+      "momentum": 51482.1
+    },
+    {
+      "article": "Jeff_Bezos",
+      "topic": "Jeff Bezos",
+      "reason": "momentum-below-floor",
+      "views": 86703,
+      "baseline": 67987,
+      "baselineDays": 7,
+      "momentum": 27.5
+    },
+    {
+      "article": "Rockstar_Games",
+      "topic": "Rockstar Games",
+      "reason": "momentum-below-floor",
+      "views": 77791,
+      "baseline": 53125,
+      "baselineDays": 7,
+      "momentum": 46.4
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 76587,
+      "baseline": 74450,
+      "baselineDays": 7,
+      "momentum": 2.9
+    },
+    {
+      "article": "The_Odyssey_(2026_film)",
+      "topic": "The Odyssey (2026 film)",
+      "reason": "momentum-below-floor",
+      "views": 73833,
+      "baseline": 62047,
+      "baselineDays": 7,
+      "momentum": 19
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 71854,
+      "baseline": 57386,
+      "baselineDays": 7,
+      "momentum": 25.2
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 69610,
+      "baseline": 38194,
+      "baselineDays": 7,
+      "momentum": 82.3
+    },
+    {
+      "article": "Lewis_Moody",
+      "topic": "Lewis Moody",
+      "reason": "baseline-below-floor",
+      "views": 69243,
+      "baseline": 862,
+      "baselineDays": 7,
+      "momentum": 7934.2
+    },
+    {
+      "article": "Grand_Theft_Auto_V",
+      "topic": "Grand Theft Auto V",
+      "reason": "momentum-below-floor",
+      "views": 67990,
+      "baseline": 54936,
+      "baselineDays": 7,
+      "momentum": 23.8
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 63411,
+      "baseline": 37344,
+      "baselineDays": 7,
+      "momentum": 69.8
+    }
+  ]
+}

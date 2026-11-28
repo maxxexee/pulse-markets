@@ -1,0 +1,175 @@
+{
+  "day": "2026-11-19",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Ken_McElroy",
+      "topic": "Ken McElroy",
+      "reason": "baseline-below-floor",
+      "views": 172820,
+      "baseline": 671,
+      "baselineDays": 7,
+      "momentum": 25666.6
+    },
+    {
+      "article": "Robert_Pattinson",
+      "topic": "Robert Pattinson",
+      "reason": "momentum-below-floor",
+      "views": 172742,
+      "baseline": 376711,
+      "baselineDays": 7,
+      "momentum": -54.1
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 128793,
+      "baseline": 215655,
+      "baselineDays": 7,
+      "momentum": -40.3
+    },
+    {
+      "article": "Larry_Poindexter",
+      "topic": "Larry Poindexter",
+      "reason": "baseline-below-floor",
+      "views": 124373,
+      "baseline": 70,
+      "baselineDays": 7,
+      "momentum": 176494.5
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 111521,
+      "baseline": 108665,
+      "baselineDays": 7,
+      "momentum": 2.6
+    },
+    {
+      "article": "Jeff_Bezos",
+      "topic": "Jeff Bezos",
+      "reason": "momentum-below-floor",
+      "views": 93836,
+      "baseline": 64646,
+      "baselineDays": 7,
+      "momentum": 45.2
+    },
+    {
+      "article": "Suki_Waterhouse",
+      "topic": "Suki Waterhouse",
+      "reason": "momentum-below-floor",
+      "views": 75449,
+      "baseline": 122707,
+      "baselineDays": 7,
+      "momentum": -38.5
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 74494,
+      "baseline": 90741,
+      "baselineDays": 7,
+      "momentum": -17.9
+    },
+    {
+      "article": "Music_Station",
+      "topic": "Music Station",
+      "reason": "views-below-floor",
+      "views": 7,
+      "baseline": 17,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Earthquake",
+      "topic": "Earthquake",
+      "reason": "views-below-floor",
+      "views": 942,
+      "baseline": 939,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Good_Friday",
+      "topic": "Good Friday",
+      "reason": "views-below-floor",
+      "views": 296,
+      "baseline": 350,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Raul_(entertainer)",
+      "topic": "Raul (entertainer)",
+      "reason": "views-below-floor",
+      "views": 49,
+      "baseline": 49,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Red_Friday",
+      "topic": "Red Friday",
+      "reason": "views-below-floor",
+      "views": 3,
+      "baseline": 3,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Enhypen",
+      "topic": "Enhypen",
+      "reason": "views-below-floor",
+      "views": 885,
+      "baseline": 949,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Al-Nassr_FC",
+      "topic": "Al-Nassr FC",
+      "reason": "views-below-floor",
+      "views": 1742,
+      "baseline": 1997,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "FX_Fighter_Kurumi-chan",
+      "topic": "FX Fighter Kurumi-chan",
+      "reason": "views-below-floor",
+      "views": 892,
+      "baseline": 912,
+      "baselineDays": 7,
+      "momentum": null
+    },
+    {
+      "article": "Ginny_&_Georgia_season_2",
+      "topic": "Ginny & Georgia season 2",
+      "reason": "views-below-floor",
+      "views": 109,
+      "baseline": 60,
+      "baselineDays": 7,
+      "momentum": null
+    }
+  ]
+}

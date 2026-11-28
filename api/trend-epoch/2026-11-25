@@ -1,0 +1,126 @@
+{
+  "trends": {
+    "schema": "pulse-trends/1",
+    "epochDay": "2026-11-25",
+    "generatedAt": "2026-11-26T09:15:34.020Z",
+    "method": "wikipedia-top-v1",
+    "definitionId": "discovery-v1",
+    "definitionSha256": "e250e2deca5505f8d4bdc2ca36a8cc567111e767c26c25283eb50f2579651fe0",
+    "settings": {
+      "candidateLimit": 24,
+      "baselineWindowDays": 7,
+      "minBaselineDays": 3,
+      "minBaselineViews": 1000,
+      "minViews": 20000,
+      "minMomentum": 100,
+      "maxResults": 6,
+      "excludedTopicPrefixes": [
+        "List_of_",
+        "Lists_of_",
+        "Deaths_in_",
+        "Timeline_of_",
+        "Index_of_"
+      ]
+    },
+    "entries": [
+      {
+        "article": "Mike_McCarthy",
+        "topic": "Mike McCarthy",
+        "views": 128019,
+        "baseline": 1007,
+        "baselineDays": 7,
+        "momentum": 12611.1,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Mike_McCarthy/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "d399f01560b3234585ff7088f3d45a80320a8344ad6b2cc135a3aa49b8df4c41"
+          }
+        ]
+      },
+      {
+        "article": "Jennifer_Barreto",
+        "topic": "Jennifer Barreto",
+        "views": 149785,
+        "baseline": 1918,
+        "baselineDays": 7,
+        "momentum": 7708.3,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Jennifer_Barreto/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "cb74cd23c4fc80600fb951fc115e311163aee7e6fc0255a8f55666392e281175"
+          }
+        ]
+      },
+      {
+        "article": "Miss_International_2026",
+        "topic": "Miss International 2026",
+        "views": 93312,
+        "baseline": 1935,
+        "baselineDays": 7,
+        "momentum": 4723.4,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Miss_International_2026/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "640ccdb0a15a05d931f7ec465c8d3aa79f240081ea7ce5d035ac5b4c862160c3"
+          }
+        ]
+      },
+      {
+        "article": "Raheem_Sterling",
+        "topic": "Raheem Sterling",
+        "views": 71889,
+        "baseline": 2069,
+        "baselineDays": 7,
+        "momentum": 3374.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Raheem_Sterling/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "3a06b830a6ddc86476c96b3e58f3b05f879b5d6efba500acc7b2e934d1c656eb"
+          }
+        ]
+      },
+      {
+        "article": "Ezra_Frech",
+        "topic": "Ezra Frech",
+        "views": 260732,
+        "baseline": 9221,
+        "baselineDays": 7,
+        "momentum": 2727.5,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ezra_Frech/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "a9d5b6336f32590f67f48d1ebab535adf4f4d0c0044c81d233cc2c55d6e61e46"
+          }
+        ]
+      },
+      {
+        "article": "Aaron_Rodgers",
+        "topic": "Aaron Rodgers",
+        "views": 120910,
+        "baseline": 6259,
+        "baselineDays": 7,
+        "momentum": 1831.8,
+        "sources": [
+          {
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Aaron_Rodgers/daily/20261118/20261125",
+            "retrievedAt": "2026-11-26T09:15:17.365Z",
+            "payloadSha256": "6cd2328b78502ca097b291f24fcdb7a232ddd245e84a296339bf8c5e374b70ab"
+          }
+        ]
+      }
+    ],
+    "prevDigest": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+  },
+  "attestation": {
+    "alg": "ed25519",
+    "publicKey": "BDFyypNLd5eGdxSjtCUGasgjZm1MFU6WBAbpt1c6ncmc",
+    "signature": "fjyBx/iaTlVDMAU6Ek42MDiQb9HrUO0eOUAG2/pF2wcluoKfGFyC2j5qKcVc6OtxbLeTFq5zHcvGgf/6ecjiBw==",
+    "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065",
+    "canonicalization": "json-sorted-keys-v1"
+  }
+}

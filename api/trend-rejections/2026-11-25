@@ -1,0 +1,103 @@
+{
+  "day": "2026-11-25",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 151092,
+      "baseline": 425348,
+      "baselineDays": 7,
+      "momentum": -64.5
+    },
+    {
+      "article": "Andy_Taylor_(guitarist)",
+      "topic": "Andy Taylor (guitarist)",
+      "reason": "baseline-below-floor",
+      "views": 135665,
+      "baseline": 531,
+      "baselineDays": 7,
+      "momentum": 25449
+    },
+    {
+      "article": "Martha_Firestone_Ford",
+      "topic": "Martha Firestone Ford",
+      "reason": "baseline-below-floor",
+      "views": 111793,
+      "baseline": 236,
+      "baselineDays": 7,
+      "momentum": 47269.9
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 111592,
+      "baseline": 70258,
+      "baselineDays": 7,
+      "momentum": 58.8
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 106458,
+      "baseline": 64053,
+      "baselineDays": 7,
+      "momentum": 66.2
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 80686,
+      "baseline": 88480,
+      "baselineDays": 7,
+      "momentum": -8.8
+    },
+    {
+      "article": "Iowa_lead_azide_detonation",
+      "topic": "Iowa lead azide detonation",
+      "reason": "too-few-baseline-days",
+      "views": 78852,
+      "baseline": 1457,
+      "baselineDays": 1,
+      "momentum": null
+    },
+    {
+      "article": "Zyri",
+      "topic": "Zyri",
+      "reason": "too-few-baseline-days",
+      "views": 72484,
+      "baseline": null,
+      "baselineDays": 0,
+      "momentum": null
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 72249,
+      "baseline": 105949,
+      "baselineDays": 7,
+      "momentum": -31.8
+    }
+  ]
+}

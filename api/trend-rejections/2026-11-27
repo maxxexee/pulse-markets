@@ -1,0 +1,130 @@
+{
+  "day": "2026-11-27",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 117706,
+      "baseline": 85377,
+      "baselineDays": 7,
+      "momentum": 37.9
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 111201,
+      "baseline": 88050,
+      "baselineDays": 7,
+      "momentum": 26.3
+    },
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 109088,
+      "baseline": 283178,
+      "baselineDays": 7,
+      "momentum": -61.5
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 96240,
+      "baseline": 79688,
+      "baselineDays": 7,
+      "momentum": 20.8
+    },
+    {
+      "article": "Mike_McCarthy",
+      "topic": "Mike McCarthy",
+      "reason": "momentum-below-floor",
+      "views": 84922,
+      "baseline": 44650,
+      "baselineDays": 7,
+      "momentum": 90.2
+    },
+    {
+      "article": "Skeleton",
+      "topic": "Skeleton",
+      "reason": "baseline-below-floor",
+      "views": 79571,
+      "baseline": 994,
+      "baselineDays": 7,
+      "momentum": 7904
+    },
+    {
+      "article": "John_Madden",
+      "topic": "John Madden",
+      "reason": "momentum-below-floor",
+      "views": 76355,
+      "baseline": 59883,
+      "baselineDays": 7,
+      "momentum": 27.5
+    },
+    {
+      "article": "Andy_Taylor_(guitarist)",
+      "topic": "Andy Taylor (guitarist)",
+      "reason": "momentum-below-floor",
+      "views": 69281,
+      "baseline": 65244,
+      "baselineDays": 7,
+      "momentum": 6.2
+    },
+    {
+      "article": "Focker-in-Law",
+      "topic": "Focker-in-Law",
+      "reason": "momentum-below-floor",
+      "views": 66605,
+      "baseline": 38214,
+      "baselineDays": 7,
+      "momentum": 74.3
+    },
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "reason": "momentum-below-floor",
+      "views": 66235,
+      "baseline": 182645,
+      "baselineDays": 7,
+      "momentum": -63.7
+    },
+    {
+      "article": "Hunter_Schafer",
+      "topic": "Hunter Schafer",
+      "reason": "momentum-below-floor",
+      "views": 65287,
+      "baseline": 43478,
+      "baselineDays": 7,
+      "momentum": 50.2
+    },
+    {
+      "article": "P._J._Gallagher_(comedian)",
+      "topic": "P. J. Gallagher (comedian)",
+      "reason": "baseline-below-floor",
+      "views": 62769,
+      "baseline": 67,
+      "baselineDays": 7,
+      "momentum": 93585.1
+    }
+  ]
+}

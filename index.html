@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PULSE attention index</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0c0e;
+        --panel: #131518;
+        --line: #23262b;
+        --text: #e8eaed;
+        --muted: #8b9099;
+        --accent: #5eead4;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 24px 64px;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-variant-numeric: tabular-nums;
+      }
+      main { max-width: 880px; margin: 0 auto; }
+      header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+      h1 { font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; }
+      .epoch { color: var(--muted); font-size: 13px; }
+      .hero { margin: 36px 0 28px; display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+      .score { font-size: 76px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+      .score small { font-size: 20px; color: var(--muted); font-weight: 400; }
+      .coverage { color: var(--muted); font-size: 13px; padding-bottom: 10px; }
+      table { width: 100%; border-collapse: collapse; }
+      th {
+        text-align: right; font-weight: 500; font-size: 12px; letter-spacing: 0.06em;
+        text-transform: uppercase; color: var(--muted);
+        padding: 0 0 10px; border-bottom: 1px solid var(--line);
+      }
+      th:first-child, td:first-child { text-align: left; }
+      td { padding: 13px 0; border-bottom: 1px solid var(--line); text-align: right; }
+      td.name { font-weight: 500; }
+      .bar { width: 132px; height: 6px; background: var(--panel); border-radius: 99px; overflow: hidden; }
+      .bar span { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+      .cell-score { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+      .reason { color: var(--muted); font-size: 13px; }
+      .post-text { margin-bottom: 4px; line-height: 1.45; }
+      h2 {
+        font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); font-weight: 500; margin: 44px 0 14px;
+      }
+      p { margin: 0 0 12px; }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px; color: var(--accent); word-break: break-all;
+      }
+      .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+      dl { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 8px 16px; font-size: 13px; }
+      dt { color: var(--muted); }
+      dd { margin: 0; }
+      ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
+      ul a { color: var(--accent); text-decoration: none; }
+      ul a:hover { text-decoration: underline; }
+      footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+      .empty { padding: 40px 0; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PULSE attention index</h1>
+        <div class="epoch"><a href="./markets.html" style="color: inherit">markets</a> &middot; <span id="epoch">loading</span></div>
+      </header>
+
+      <div class="hero">
+        <div class="score" id="index-score">--</div>
+        <div class="coverage" id="coverage"></div>
+      </div>
+
+      <div id="content"></div>
+
+      <h2>How the number is made</h2>
+      <div class="panel">
+        <p>
+          Independent attention sources are scored separately. Each entity is
+          measured against its own trailing baseline in each source, never against
+          the other entities. Wikipedia uses the median daily pageview count over the
+          30 days before the epoch day. Hacker News uses the smoothed mean daily story
+          count over the same window, because those counts are small and often zero.
+        </p>
+        <p>
+          <code>score = clamp(50 + 12.5 * log2(value / baseline), 0, 100)</code>
+        </p>
+        <p>
+          Attention exactly at baseline scores 50. Every doubling adds 12.5 points,
+          so the scale runs from a sixteenth of baseline at 0 to sixteen times
+          baseline at 100. Each source publishes the mean of its entity scores, and
+          the headline index is the mean of the source indices that scored.
+        </p>
+      </div>
+
+      <h2>Provenance</h2>
+      <div class="panel">
+        <dl id="provenance"></dl>
+      </div>
+
+      <h2>Raw sources</h2>
+      <ul id="sources"></ul>
+
+      <h2>Social talk &middot; display only</h2>
+      <div class="panel" id="social"></div>
+
+      <footer>
+        Every input on this page is a public API response from Wikimedia or Hacker
+        News. The URLs above return the same numbers to anyone, so the score can be
+        recomputed without access to this server.
+      </footer>
+    </main>
+
+    <script>
+      const labels = new Map();
+      const format = new Intl.NumberFormat('en-US');
+
+      /** Post text, handles and urls come from X, so none of them is trusted markup. */
+      function escHtml(value) {
+        return String(value ?? '').replace(
+          /[&<>"']/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
+        );
+      }
+
+      async function loadBasket() {
+        const response = await fetch('./api/basket', { cache: 'no-store' });
+        if (!response.ok) return;
+        const body = await response.json();
+        for (const entity of body.entities) {
+          labels.set(entity.id, entity);
+        }
+      }
+
+      function renderUnscored(entity) {
+        return `<span class="reason">${entity.reason}</span>`;
+      }
+
+      function renderRow(entity) {
+        const label = labels.get(entity.entityId)?.label ?? entity.entityId;
+        const isScored = entity.status === 'scored';
+        const scoreCell = isScored
+          ? `<div class="cell-score">
+               <div class="bar"><span style="width:${entity.score}%"></span></div>
+               <span>${entity.score.toFixed(2)}</span>
+             </div>`
+          : renderUnscored(entity);
+        return `<tr>
+          <td class="name">${label}</td>
+          <td>${isScored ? format.format(entity.value) : "--"}</td>
+          <td>${isScored ? format.format(entity.baseline) : "--"}</td>
+          <td>${isScored ? entity.level.toFixed(2) + "x" : "--"}</td>
+          <td>${scoreCell}</td>
+        </tr>`;
+      }
+
+      function renderSeries(series) {
+        const unit = series.unit.charAt(0).toUpperCase() + series.unit.slice(1);
+        const rows = series.entities.map(renderRow).join('');
+        return `<h2>${series.label} &middot; index ${series.index.score === null ? '--' : series.index.score.toFixed(2)}</h2>
+        <table>
+          <thead><tr>
+            <th>Entity</th><th>${unit}</th><th>Baseline</th><th>Level</th><th>Score</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      }
+
+      function renderProvenance(snapshot, attestation) {
+        const coverage = snapshot.coverage;
+        const momentum = snapshot.momentum;
+        const rows = [
+          ['Epoch day', snapshot.epochDay],
+          ['Generated', snapshot.generatedAt],
+          ['Definition', snapshot.definitionId ?? 'unversioned'],
+          ['Formulas', snapshot.series.map((series) => series.scoring.name).join(', ')],
+          [
+            'Coverage',
+            coverage
+              ? `${coverage.seriesScored}/${coverage.seriesExpected} series across ` +
+                `${coverage.signalsScored}/${coverage.signalsTotal} signals, coverage ${coverage.coverageRatio}, ` +
+                `weight scored ${coverage.weightScored}`
+              : '--',
+          ],
+          ['Oldest source', coverage?.oldestSourceAt ?? '--'],
+          [
+            'Momentum',
+            momentum
+              ? `${momentum.score.toFixed(2)} (${momentum.delta >= 0 ? '+' : ''}${momentum.delta.toFixed(2)} over ` +
+                `${momentum.windowDays}d against ${momentum.referenceDay})`
+              : '--',
+          ],
+          ['Signer', `<code>${attestation.publicKey}</code>`],
+          ['Payload SHA-256', `<code>${attestation.payloadSha256}</code>`],
+          ['Snapshot', `<a href="/api/index/snapshot/${snapshot.epochDay}" style="color:var(--accent)">JSON</a>`],
+        ];
+        return rows.map(([key, value]) => `<dt>${key}</dt><dd>${value}</dd>`).join('');
+      }
+
+      function renderSources(snapshot) {
+        return snapshot.sources
+          .map((source) => {
+            const label = labels.get(source.entityId)?.label ?? source.entityId;
+            const links = source.urls
+              .map((url) => `<a href="${url}">${url}</a>`)
+              .join('<br />');
+            return `<li>${label} (${source.signal}):<br />${links}</li>`;
+          })
+          .join('');
+      }
+
+      async function loadSocial() {
+        const target = document.getElementById('social');
+        const response = await fetch('./api/social/latest', { cache: 'no-store' });
+        // A missing panel answers with the site's own HTML and a 200, so the
+        // content type is what separates "not published" from a real panel.
+        if (!response.ok || (response.headers.get('content-type') ?? '').includes('html')) {
+          target.innerHTML =
+            '<div class="empty">Social panel is not configured. It never affects the score.</div>';
+          return;
+        }
+        const panel = await response.json();
+        const items = panel.posts
+          .slice(0, 20)
+          .map((post) => {
+            const views =
+              post.views === null ? '' : ` &middot; ${format.format(post.views)} views`;
+            const when = post.createdAt.slice(0, 16).replace('T', ' ');
+            const text = post.text.length > 160 ? `${post.text.slice(0, 159)}\u2026` : post.text;
+            return `<li><div class="post-text">${escHtml(text)}</div><a href="${escHtml(post.url)}">@${escHtml(post.author)}</a> ${when} UTC &middot; ${format.format(post.likes)} likes${views}</li>`;
+          })
+          .join('');
+        target.innerHTML =
+          `<p class="reason">Display only, settlement weight ${panel.settlementWeight}. ` +
+          `These posts are not an input to the index.</p><ul>${items}</ul>`;
+      }
+
+      /** Names the epoch by its age: the date alone reads as current either way. */
+      function epochLabel(epochDay) {
+        const then = Date.parse(`${epochDay}T00:00:00Z`);
+        if (Number.isNaN(then)) return `epoch ${epochDay} UTC`;
+        const days = Math.max(0, Math.floor((Date.now() - then) / 86400000));
+        const when = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
+        return `epoch ${epochDay} UTC \u00b7 as of ${when}${days >= 3 ? ' \u2014 stale' : ''}`;
+      }
+
+      async function main() {
+        await loadBasket();
+        loadSocial().catch(() => {
+          document.getElementById('social').textContent = 'Social panel unavailable.';
+        });
+        const response = await fetch('./api/index/latest', { cache: 'no-store' });
+        if (!response.ok) {
+          document.getElementById('epoch').textContent = 'no snapshot';
+          document.getElementById('content').innerHTML =
+            '<div class="empty">No snapshot has been published yet. Run the build command.</div>';
+          return;
+        }
+        const signed = await response.json();
+        const snapshot = signed.snapshot;
+        document.getElementById('epoch').textContent = epochLabel(snapshot.epochDay);
+        document.getElementById('index-score').innerHTML =
+          snapshot.index.score === null ? '--' : snapshot.index.score.toFixed(2);
+        const momentum = snapshot.momentum;
+        const momentumText = momentum
+          ? `momentum ${momentum.score.toFixed(2)} (${momentum.delta >= 0 ? '+' : ''}${momentum.delta.toFixed(2)} over ${momentum.windowDays}d)`
+          : 'momentum not yet available';
+        document.getElementById('coverage').textContent =
+          `${snapshot.index.scoredEntities} of ${snapshot.index.totalEntities} entity series scored` +
+          `, coverage ${snapshot.coverage?.coverageRatio ?? '--'}` +
+          `, weight scored ${snapshot.coverage?.weightScored ?? '--'}, ${momentumText}`;
+        document.getElementById('content').innerHTML = snapshot.series.map(renderSeries).join('');
+        document.getElementById('provenance').innerHTML =
+          renderProvenance(snapshot, signed.attestation);
+        document.getElementById('sources').innerHTML = renderSources(snapshot);
+      }
+
+      main().catch((error) => {
+        document.getElementById('content').innerHTML =
+          `<div class="empty">Could not load the index: ${error.message}</div>`;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<title>Pulse — Dashboard</title>
+<link rel="stylesheet" href="fonts/fonts.css?v=0b05fe7136">
+<style>
+:root{--bg:#070707;--s1:#0f0f0f;--s2:#171717;--ln:#222;--tx:#f4f4f4;--mu:#8d8d8d;--up:#22c55e;--dn:#ef4444;--upd:rgba(34,197,94,.12);--dnd:rgba(239,68,68,.12);--sol:#9945ff;--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--tx);font:14px/1.45 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.bb{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.05em}
+.mono{font-family:'DM Mono',monospace}
+.mu{color:var(--mu);font-size:12px}
+.lbl{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.app{display:flex;height:100dvh}
+/* sidebar */
+/* top nav */
+.logo{display:flex;align-items:center;gap:10px;font:26px 'Bebas Neue';letter-spacing:.12em}
+.ekg{stroke-dasharray:60;stroke-dashoffset:60;animation:ekg 1.4s var(--ease) .2s forwards}
+@keyframes ekg{to{stroke-dashoffset:0}}
+.tnav{display:flex;gap:4px;padding:0 12px;flex-shrink:0;border-bottom:1px solid var(--ln);overflow-x:auto;scrollbar-width:none}
+.tnav::-webkit-scrollbar{display:none}
+.tnav a{position:relative;display:flex;align-items:center;height:44px;padding:0 12px;font-size:13px;font-weight:500;color:var(--mu);white-space:nowrap;transition:color .2s}
+.tnav a:hover{color:var(--tx)}
+.tnav a.on{color:var(--tx)}
+.tnav a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;border-radius:2px 2px 0 0;background:#fff}
+/* main */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{flex-shrink:0;height:calc(62px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tr{display:flex;align-items:center;gap:14px}
+.tb{font:13px 'DM Mono';color:var(--tx)}.tb b{font-weight:500}
+.chip{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font:500 12px 'DM Mono'}
+.chip.up{background:var(--upd)}.chip.dn{background:var(--dnd)}
+.ava{width:34px;height:34px;border-radius:50%;background:var(--s2);border:1px solid #333;display:grid;place-items:center;font:15px 'Bebas Neue';transition:border-color .2s,transform .15s}
+.ava:hover{border-color:#777}.ava:active{transform:scale(.93)}
+.note{font-size:12px;line-height:1.6;color:var(--mu);margin-top:10px;max-width:76ch}
+.eq{display:flex;flex-direction:column}
+.eq .list{flex:1;display:flex;flex-direction:column;justify-content:space-between;margin-top:-4px}
+.eq .list .row{min-height:62px}
+.lr{cursor:default}.lr:hover{background:none}
+.search{flex:1;max-width:320px;margin:0 auto;position:relative;display:flex;align-items:center}
+.search .i{position:absolute;left:11px;width:15px;height:15px;color:var(--mu);pointer-events:none}
+.search input{width:100%;height:36px;padding:0 32px;border-radius:10px;background:var(--s2);border:1px solid var(--ln);color:var(--tx);font:13px 'DM Sans';transition:border-color .2s,background .2s}
+.search input::placeholder{color:var(--mu)}
+.search input:focus{outline:none;border-color:#3a3a3a;background:#1c1c1c}
+.search kbd{position:absolute;right:9px;font:11px 'DM Mono';color:var(--mu);border:1px solid var(--ln);border-radius:5px;padding:0 5px;line-height:16px}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.scr{flex:1;overflow-y:auto;display:none;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
+.scr.on{display:block;animation:in .35s var(--ease)}
+.wrap{max-width:1120px;margin:0 auto;padding:24px}
+/* cards + grid */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.g8,.g4,.g12{grid-column:span 12}
+.c{background:var(--s1);border:1px solid var(--ln);border-radius:16px;padding:20px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cnt{font:12px 'DM Mono';color:var(--mu);background:var(--s2);border-radius:99px;padding:2px 10px}
+.big{font-size:64px;line-height:1;margin:8px 0 12px}.big small{font-size:.55em;color:var(--mu)}
+.cv{display:block;width:100%;height:150px;margin-top:8px}.cv.sm{height:110px}
+.axis{display:flex;justify-content:space-between;margin-top:6px}
+.row{display:flex;align-items:center;gap:12px;padding:12px;margin:0 -12px;border-radius:12px;transition:background .15s,transform .15s}
+.row:hover{background:var(--s2)}.row:active{transform:scale(.99)}
+.th{width:44px;height:44px;border-radius:10px;flex-shrink:0}
+.ri{flex:1;min-width:0}
+.rn{font-size:19px;line-height:1.1}
+.ri .mu{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{font:500 11px 'DM Sans';letter-spacing:.06em;padding:3px 10px;border-radius:99px}
+.pill.ride{background:var(--upd);color:var(--up)}.pill.fade{background:var(--dnd);color:var(--dn)}
+.sp{width:64px;height:24px;flex-shrink:0;fill:none;stroke-width:1.5;stroke-linejoin:round}
+.rp{text-align:right;min-width:78px}
+.rp .mono:first-child{font-size:14px;font-weight:500}
+.empty{padding:28px 0;text-align:center;color:var(--mu)}
+.ph{position:relative;overflow:hidden;background:#141414}
+.ph::before{content:"";position:absolute;inset:0;background:var(--img) center/cover;filter:grayscale(1) brightness(.6);transition:transform .6s var(--ease),filter .3s}
+.ph.n::before{display:none}
+.ph b{position:absolute;inset:0;display:grid;place-items:center;font:400 1.4em 'Bebas Neue';color:#2c2c2c;letter-spacing:.05em}
+.ph:not(.n) b{display:none}
+.ph.lg{background:linear-gradient(160deg,#f2f2f2,#d8d8d8)}
+.ph.lg::before{background-size:clamp(64px,38%,150px);background-repeat:no-repeat;background-position:center;filter:none;opacity:1}
+/* feed */
+.hero{height:min(52vh,440px);display:flex;align-items:flex-end;padding:28px 24px;max-width:none}
+.hero::after,.dh::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(7,7,7,.55) 50%,var(--bg))}
+.hc{position:relative;z-index:1;width:100%;max-width:1072px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mu);margin-bottom:8px}
+.live{width:6px;height:6px;border-radius:50%;background:var(--up)}
+.ht{font-size:clamp(40px,8vw,76px);line-height:.95;margin-bottom:12px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-size:11px;padding:3px 9px;border:1px solid #333;border-radius:6px;color:#bbb}
+.tag.surge{color:var(--up);border-color:rgba(34,197,94,.4)}.tag.cool{color:var(--dn);border-color:rgba(239,68,68,.4)}
+.acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pool{font:12px 'DM Mono';display:flex;gap:8px;color:var(--mu)}
+.sec{margin:28px 0 12px;display:flex;justify-content:space-between;align-items:baseline}
+.rail{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;margin:0 -24px;padding:0 24px}
+.rail::-webkit-scrollbar{display:none}
+.fc{position:relative;flex:0 0 150px;aspect-ratio:2/3;border-radius:14px;border:1px solid var(--ln);scroll-snap-align:start;transition:transform .3s var(--ease),border-color .2s}
+.fc:hover{transform:translateY(-4px);border-color:#444}
+.fc:hover::before{transform:scale(1.06);filter:grayscale(1) brightness(.75)}
+.fc::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.92))}
+.fb{position:absolute;left:12px;right:12px;bottom:12px;z-index:1}
+.fb .rn{font-size:20px}
+.bd{position:absolute;top:10px;right:10px;z-index:1;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
+.bd.hot{color:var(--up)}.bd.cool{color:var(--dn)}.bd.new{color:#fff}
+.add{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:1px dashed #333;border-radius:14px;padding:20px;width:100%}
+/* detail */
+.dh{height:min(48vh,440px);display:flex;align-items:flex-end;padding:24px}
+.dh .hc{max-width:1072px}
+.back{position:absolute;top:calc(16px + env(safe-area-inset-top));left:16px;z-index:2;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid #333;display:grid;place-items:center;transition:transform .2s var(--ease),background .2s}
+.back:hover{background:rgba(40,40,40,.8);transform:translateX(-2px)}
+.dd{color:#bbb;max-width:560px}
+.dbody{max-width:1120px;margin:0 auto;padding:24px;display:grid;gap:16px}
+.dbody .dd{max-width:72ch}
+.dl,.dr{display:flex;flex-direction:column;gap:16px}
+.s3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.s3 .c{padding:14px;text-align:center}.s3 .v{font:26px/1 'Bebas Neue';margin-bottom:4px}
+.track{height:6px;border-radius:3px;background:rgba(239,68,68,.45);overflow:hidden;margin:10px 0 8px}
+.track i{display:block;height:100%;background:var(--up);border-radius:3px}
+.split{display:flex;justify-content:space-between;font:12px 'DM Mono'}
+.hun{display:flex;align-items:center;gap:12px}
+.hun .ava{width:38px;height:38px}
+.hun>div:nth-child(2){flex:1}
+.soc{border-top:1px solid var(--ln);margin-top:14px;padding-top:10px;display:grid;gap:5px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.soc .ch{margin:0 0 3px}
+.tp{display:flex;gap:8px;min-width:0;font-size:11px;line-height:1.45;color:var(--tx);opacity:.8}
+.tp b{font-weight:500}.tp:hover{opacity:1}
+.tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tw{flex-shrink:0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.timer{text-align:center}.timer .bb{font-size:40px;line-height:1.1}
+/* buttons */
+.btn{height:48px;padding:0 22px;border-radius:12px;font:20px 'Bebas Neue';letter-spacing:.1em;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s,border-color .2s,opacity .2s}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn.w{background:#fff;color:#000}.btn.w:hover:not(:disabled){background:#e6e6e6}
+.btn.sm{height:34px;padding:0 14px;border-radius:10px;font:600 12px 'DM Sans';letter-spacing:.02em}
+.btn.glass{background:rgba(255,255,255,.085);border:1px solid rgba(255,255,255,.17);color:#fff;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.btn.glass:hover:not(:disabled){background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.28)}
+.btn.glass:focus-visible{outline:2px solid rgba(255,255,255,.5);outline-offset:2px}
+.btn.o{border:1px solid #333}.btn.o:hover{border-color:#777}
+.btn.r{background:var(--dn)}.btn.p{background:var(--sol)}
+.btn.f{width:100%}
+/* sheets */
+.ov{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .4s}
+.ov.open{opacity:1;visibility:visible;transition-delay:0s}
+.sh{width:100%;max-width:440px;max-height:92dvh;overflow-y:auto;background:var(--s1);border:1px solid var(--ln);border-bottom:0;border-radius:22px 22px 0 0;transform:translateY(100%);transition:transform .45s var(--ease);padding-bottom:env(safe-area-inset-bottom)}
+.ov.open .sh{transform:none}
+.sh-h{display:flex;justify-content:space-between;align-items:center;padding:20px 24px 16px;border-bottom:1px solid var(--ln)}
+.sh-h .bb{font-size:26px;line-height:1.1}
+.x{width:32px;height:32px;border-radius:50%;background:var(--s2);border:1px solid var(--ln);display:grid;place-items:center;transition:background .2s,transform .2s var(--ease)}
+.x:hover{background:#262626;transform:rotate(90deg)}
+.pad{padding:20px 24px}
+.in{width:100%;height:48px;background:var(--s2);border:1px solid #2c2c2c;border-radius:12px;padding:0 14px;font:14px 'DM Mono';color:var(--tx);outline:0;transition:border-color .2s}
+.in:focus{border-color:#777}.in::placeholder{color:#555}
+.fld{margin-bottom:16px}.fld .lbl{display:block;margin-bottom:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.cc{padding:7px 12px;border-radius:8px;border:1px solid #2c2c2c;background:var(--s2);color:#bbb;font-size:12px;transition:all .15s}
+.cc:hover{border-color:#666;color:#fff}.cc[aria-pressed=true]{border-color:#fff;color:#fff;background:#222}
+.wbal{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--ln)}
+.wbal .bb{font-size:42px;line-height:1}
+.sol{font:12px 'DM Mono';color:var(--sol);background:rgba(153,69,255,.12);border-radius:8px;padding:6px 12px}
+.tabs{position:relative;display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--ln)}
+.tabs::after{content:"";position:absolute;bottom:-1px;left:0;width:33.333%;height:2px;background:#fff;transform:translateX(calc(var(--i,0)*100%));transition:transform .35s var(--ease)}
+.tabs button{height:44px;font-size:13px;font-weight:500;color:var(--mu);transition:color .2s}
+.tabs button[aria-selected=true]{color:#fff}
+.pane{display:none}.pane.on{display:block;animation:in .3s var(--ease)}
+.addr{font:13px/1.6 'DM Mono';word-break:break-all;background:var(--s2);border:1px solid #2c2c2c;border-radius:12px;padding:14px;margin-bottom:12px}
+.hr{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--ln);font:13px 'DM Mono'}.hr:last-child{border:0}
+.amt{padding:28px 24px 20px;text-align:center;border-bottom:1px solid var(--ln)}
+.amt label{display:flex;justify-content:center;align-items:center;margin:8px 0;font:56px/1 'Bebas Neue';cursor:text}
+.amt label span{color:#555;transition:color .2s}.amt label span.ride{color:var(--up)}.amt label span.fade{color:var(--dn)}
+.amt input{font:inherit;background:none;border:0;outline:0;color:var(--tx);width:1ch;min-width:1ch;max-width:8ch;caret-color:#888}
+.amt input::placeholder{color:#333}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:16px 24px;border-bottom:1px solid var(--ln)}
+.quick button{height:36px;border-radius:8px;background:var(--s2);border:1px solid #2c2c2c;font:12px 'DM Mono';color:#bbb;transition:all .15s}
+.quick button:hover{border-color:#666;color:#fff}.quick button.on{border-color:currentColor}
+.sum{padding:16px 24px;display:grid;gap:10px;border-bottom:1px solid var(--ln)}
+.sum div{display:flex;justify-content:space-between;font-size:13px}.sum dd{font-family:'DM Mono';color:#ccc}
+.ok{display:grid;justify-items:center;gap:8px;padding:40px 24px 28px;text-align:center}
+.ok-i{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin-bottom:8px;animation:pop .5s var(--ease)}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+/* bottom nav + toast */
+.bn{display:none;position:relative;grid-template-columns:repeat(4,1fr);flex-shrink:0;border-top:1px solid var(--ln);background:rgba(7,7,7,.96);backdrop-filter:blur(16px);padding-bottom:env(safe-area-inset-bottom)}
+.bn a,.bn button{height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:500;color:var(--mu);transition:color .2s,transform .15s}
+.bn .i{width:21px;height:21px;transition:transform .35s var(--ease)}
+.bn a.on{color:#fff}.bn a.on .i{transform:translateY(-2px)}
+.bn a:active,.bn button:active{transform:scale(.92)}
+.bn .plus{width:34px;height:26px;border-radius:9px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.bn .plus .i{width:17px;height:17px;stroke-width:2.2}
+.bn-ind{position:absolute;top:-1px;left:0;width:25%;transform:translateX(calc(var(--i,0)*100%));transition:transform .4s var(--ease)}
+.bn-ind::after{content:"";display:block;width:28px;height:2px;margin:0 auto;border-radius:2px;background:#fff}
+.toast{position:fixed;left:50%;bottom:24px;z-index:300;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--s2);border:1px solid #333;border-radius:10px;padding:10px 18px;font-size:13px;white-space:nowrap;transition:opacity .25s,transform .35s var(--ease)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:768px){.ov{align-items:center}.sh{border-bottom:1px solid var(--ln);border-radius:20px;transform:translateY(16px) scale(.97);opacity:0;transition:transform .4s var(--ease),opacity .25s}.ov.open .sh{transform:none;opacity:1}}
+@media(min-width:960px){.g8{grid-column:span 8}.g4{grid-column:span 4}.dbody{grid-template-columns:1fr 340px;align-items:start}.rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));overflow:visible;margin:0;padding:0}.fc{flex:none}}
+@media(max-width:767px){.tb,.cp-h,.search{display:none}.bn{display:grid}.top{padding-inline:16px;gap:10px}.tnav{padding-inline:4px}.wrap{padding:16px}.big{font-size:56px}.sp{display:none}.toast{bottom:calc(76px + env(safe-area-inset-bottom))}.hero,.dh{padding:20px 16px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20M16 14h2"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+<symbol id="i-dn" viewBox="0 0 24 24"><path d="M7 7l10 10m0-9v9H8"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+</defs></svg>
+
+<div class="app">
+  <div class="main">
+    <header class="top">
+      <a class="logo" href="#/" aria-label="Pulse home">PULSE<svg width="38" height="15" viewBox="0 0 44 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path class="ekg" d="M0 9h7l3-6 4 12 3-8 3 2h24"/></svg></a>
+      <form class="search" role="search" onsubmit="return false"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Search pulses…" aria-label="Search pulses" autocomplete="off"><kbd>/</kbd></form>
+      <div class="tr"><div class="tb"><b data-bal></b></div><span class="chip up" data-plc></span>
+        <button class="btn glass sm cp-h" data-open="cp"><svg class="i" style="width:14px;height:14px"><use href="#i-plus"/></svg>Create pulse</button>
+        <button class="ava" data-open="wl" aria-label="Open wallet"><span id="ini">M</span></button></div>
+    </header>
+    <nav class="tnav" id="nav" aria-label="Main">
+      <a href="#/" data-i="0">Portfolio</a>
+      <a href="#/trending" data-i="1">Trending</a>
+    </nav>
+    <section class="scr on" id="dash">
+      <div class="wrap"><div class="grid">
+        <div class="c g12"><div class="lbl">Portfolio value</div><div class="big bb" data-bal="big"></div>
+          <div><span class="chip up" data-plc></span> <span class="mu">&nbsp;All time</span></div>
+          <canvas class="cv" id="pc" role="img" aria-label="Portfolio value, last 7 days"></canvas>
+          <div class="axis mu"><span>7 days ago</span><span>Now</span></div></div>
+        <div class="c g8 eq"><div class="ch"><h2 class="lbl">Active positions</h2><span class="cnt" id="cnt"></span></div><div id="plist" class="list"></div></div>
+        <div class="c g4 eq"><div class="ch"><h2 class="lbl">Trending now</h2><a class="mu" href="#/trending">View all</a></div><div id="mini" class="list"></div></div>
+        <div class="c g12"><div class="ch"><h2 class="lbl">Live markets</h2><span class="mu mono" id="mkcount"></span></div><div id="mlist" class="list"></div></div>
+      </div></div>
+    </section>
+    <section class="scr" id="feed"></section>
+    <section class="scr" id="detail"></section>
+    <section class="scr" id="market"></section>
+    <section class="scr" id="trend"></section>
+    <nav class="bn" id="bnav" aria-label="Main"><i class="bn-ind"></i>
+      <a href="#/" data-i="0"><svg class="i"><use href="#i-grid"/></svg>Portfolio</a>
+      <a href="#/trending" data-i="1"><svg class="i"><use href="#i-trend"/></svg>Trending</a>
+      <button data-open="cp"><span class="plus"><svg class="i"><use href="#i-plus"/></svg></span>Create</button>
+      <button data-open="wl"><svg class="i"><use href="#i-wallet"/></svg>Wallet</button>
+    </nav>
+  </div>
+</div>
+
+<!-- Create pulse -->
+<div class="ov" id="cp" role="dialog" aria-modal="true" aria-labelledby="cp-t"><div class="sh">
+  <div class="sh-h"><div><div class="bb" id="cp-t">CREATE PULSE</div><div class="mu">Turn a moment into a market</div></div><button class="x" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="pad">
+    <div class="lbl" style="margin-bottom:10px">Trending suggestions</div><div class="chips" id="cp-sug"></div>
+    <div class="fld"><label class="lbl" for="cp-in">Or name your own</label><input class="in" id="cp-in" maxlength="40" placeholder="e.g. Taylor Swift tour" autocomplete="off"></div>
+    <div class="lbl" style="margin-bottom:10px">Category</div><div class="chips" id="cp-cat"></div>
+    <button class="btn w f" id="cp-go" disabled>LAUNCH PULSE</button>
+  </div>
+</div></div>
+
+<!-- Wallet -->
+<div class="ov" id="wl" role="dialog" aria-modal="true" aria-labelledby="wl-t"><div class="sh">
+  <div class="sh-h"><div class="bb" id="wl-t">WALLET</div><button class="x" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="wbal"><div><div class="lbl">Total balance</div><div class="bb" data-bal></div></div><div class="sol" data-sol></div></div>
+  <div class="tabs" id="wtabs" role="tablist"><button role="tab" aria-selected="true" data-t="0">Deposit</button><button role="tab" aria-selected="false" data-t="1">Withdraw</button><button role="tab" aria-selected="false" data-t="2">History</button></div>
+  <div class="pad pane on" id="wp0"><div class="lbl" style="margin-bottom:8px">Your SOL deposit address</div><div class="addr">3xK9mRvTfWpLbQcNzGhYdUeJoSaKiX1f4Rp</div>
+    <button class="btn o f" id="copy">COPY ADDRESS</button><p class="mu" style="text-align:center;margin-top:12px">Send only SOL to this address.</p></div>
+  <div class="pad pane" id="wp1"><div class="fld"><label class="lbl" for="w-d">Destination address</label><input class="in" id="w-d" placeholder="Solana wallet address" autocomplete="off" spellcheck="false"></div>
+    <div class="fld"><label class="lbl" for="w-a">Amount (SOL)</label><input class="in" id="w-a" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><span class="mu">Available <b data-sol="n"></b></span><button class="cc" id="w-max">MAX</button></div>
+    <button class="btn p f" id="w-go" disabled>WITHDRAW SOL</button></div>
+  <div class="pad pane" id="wp2"></div>
+</div></div>
+
+<!-- Trade -->
+<div class="ov" id="tx" role="dialog" aria-modal="true" aria-labelledby="tx-t"><div class="sh">
+  <div id="tx-f">
+    <div class="sh-h"><div><div class="bb" id="tx-t"></div><div class="mu" id="tx-m"></div></div><button class="x" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="amt"><div class="mu">Amount in USD</div><label><span id="tx-d">$</span><input id="tx-a" inputmode="decimal" placeholder="0" autocomplete="off" aria-label="Amount in USD"></label><div class="mu">Available <b data-cash></b></div></div>
+    <div class="quick" id="quick"><button data-q="10">$10</button><button data-q="25">$25</button><button data-q="50">$50</button><button data-q="100">$100</button><button data-q="max">MAX</button></div>
+    <dl class="sum"><div><dt class="mu">Position</dt><dd id="tx-p">—</dd></div><div><dt class="mu">Est. payout</dt><dd id="tx-e" class="up">—</dd></div><div><dt class="mu">Network fee</dt><dd>~$0.02</dd></div></dl>
+    <div class="pad"><button class="btn f" id="tx-ok" disabled></button></div>
+  </div>
+  <div class="ok" id="tx-s" hidden><div class="ok-i" id="tx-si"></div><div class="bb" style="font-size:32px">POSITION OPEN</div><div class="mono" id="tx-sa"></div><div class="mu" id="tx-ss"></div><button class="btn o f" data-close style="margin-top:12px">DONE</button></div>
+</div></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="pulse-data.js?v=60e1738264"></script>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const usd=n=>'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const sgn=n=>(n<0?'−':'+')+usd(n);
+const ic=n=>`<svg class="i"><use href="#i-${n}"/></svg>`;
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const hash=s=>[...s].reduce((a,c)=>Math.imul(a,31)+c.charCodeAt(0)|0,7);
+function series(seed,n,start,end,vol){const r=rng(hash(seed));let v=start;const o=Array.from({length:n},()=>v+=(r()-.5)*vol),d=end-o[n-1];return o.map((x,i)=>x+d*i/(n-1))}
+
+// ── data: real PULSE index constituents (pulse-data.js); trading state below is demo
+const IX=((window.PULSE_INDEX||{}).snapshot||window.PULSE_INDEX||{}),HIST=window.PULSE_INDEX_HISTORY||[],MKTS=window.PULSE_MARKETS||[];
+const SIG=IX&&IX.series[0],WGT=Object.fromEntries(((IX&&IX.definition.signals[0].constituents)||[]).map(c=>[c.entityId,c.weight]));
+const NAMES={'jensen-huang':'JENSEN HUANG',nvidia:'NVIDIA',openai:'OPENAI','sam-altman':'SAM ALTMAN',anthropic:'ANTHROPIC','elon-musk':'ELON MUSK',solana:'SOLANA'};
+const LGO={'nvidia':'e-nvidia.png'};
+// hand-picked portraits win; anything else falls back to the entity's Wikipedia lead image,
+// which refresh-data.sh downloads as images/e-<id>.jpg, so a new constituent is never blank.
+const DIMGS=window.PULSE_IMGS||{};
+const IMGS={'jensen-huang':'e-jensen-huang.jpg',nvidia:'e-nvidia.jpg',openai:'openai.webp','sam-altman':'e-sam-altman.jpg',anthropic:'e-anthropic-photo.jpg','elon-musk':'elon.webp',solana:'solana.webp'};
+const EH=id=>HIST.filter(h=>h.entities&&h.entities[id]).map(h=>({day:h.day,...h.entities[id]}));
+const activity=l=>l>=10?'Surging':l>=2?'Elevated':l>=1?'Steady':'Quiet';
+const vk=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(n>=1e4?0:1)+'K':String(n);
+const nextEpoch=()=>{const d=new Date();return Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()+1)};
+const M=((SIG&&SIG.entities)||[]).slice().sort((a,b)=>b.score-a.score).map((e,i)=>{
+ const w=(WGT[e.entityId]||0)*100,n=NAMES[e.entityId]||e.entityId.toUpperCase();
+ return {k:e.entityId,n,t:n,g:['Constituent',w.toFixed(1)+'% weight'],v:Math.round(e.value/1000),r:Math.round(e.score),
+  s:e.score>=90?'hot':e.score<60?'cool':'new',rk:i+1,ts:Math.round(e.score),se:activity(e.level),c:0,i:IMGS[e.entityId]||DIMGS[e.entityId]||'',
+  d:`${e.value.toLocaleString('en-US')} Wikipedia pageviews on ${e.day} — ${e.level.toFixed(2)}× the ${e.baselineDays}-day median of ${Math.round(e.baseline).toLocaleString('en-US')}. Level score ${e.score.toFixed(2)}; this entity carries ${w.toFixed(1)}% of index weight.`,
+  value:e.value,baseline:e.baseline,baselineDays:e.baselineDays,level:e.level,weight:w,day:e.day}});
+const MK=Object.fromEntries(M.map(m=>(m.v0=m.v,[m.k,m])));
+const APEX=['jensen-huang','anthropic','solana'];
+const SUG=['TAYLOR SWIFT','TRUMP TARIFFS','COPA AMERICA','PAPAL ELECTION','META AI','BITCOIN 100K','UKRAINE PEACE','APPLE VISION 2'];
+const CATS=['Celebrity','Politics','Sports','Tech','Finance','Culture'];
+const START=1500,now=Date.now();
+M.forEach(m=>m.end=nextEpoch());
+const S={cash:2113.24,sol:2.4,wins:8,losses:3,users:[],hist:[],
+ pos:[{id:'elon-ride',k:'elon-musk',side:'ride',stake:800,pnl:124.4},{id:'openai-fade',k:'openai',side:'fade',stake:600,pnl:88},{id:'nvidia-ride',k:'nvidia',side:'ride',stake:700,pnl:-32.1}]};
+S.pos.forEach(p=>p.h=series(p.id,20,0,p.pnl,Math.max(10,p.stake*.03)));
+const val=()=>S.cash+S.pos.reduce((a,p)=>a+p.stake+p.pnl,0);
+// 7-day portfolio path: 15% growth with two real drawdowns and per-step noise, so the
+// line has texture instead of being a straight ramp. Anchored to end on the live value.
+const pf=(()=>{const r=rng(hash('pf')),n=48,end=val(),step=Math.pow(1/0.855,1/n)-1,o=[];let v=end*0.855;
+ const dip=i=>i===15?-.042:i===16?-.024:i===17?-.008:i===27?-.021:i===28?-.011:0;
+ for(let i=0;i<n;i++){v*=1+step+(r()-.5)*.024+dip(i);o.push(v)}
+ const k=end-o[n-1];return o.map((x,i)=>x+k*Math.pow(i/(n-1),1.5))})();
+
+const img=m=>m.i?`url(images/${m.i})`:'none';
+const ini=m=>m.n.split(' ').map(w=>w[0]).join('').slice(0,2);
+const ph=(m,cls='')=>{const lg=cls==='fc'&&LGO[m.k];return `class="${cls} ph ${m.i||lg?'':'n'}${lg?' lg':''}" style="--img:${lg?'url(images/'+LGO[m.k]+')':img(m)}"`};
+const pts=h=>{const mx=Math.max(...h),mn=Math.min(...h);return h.map((v,i)=>(i/(h.length-1)*64).toFixed(1)+','+(22-(v-mn)/(mx-mn||1)*20).toFixed(1)).join(' ')};
+const clock=end=>{let s=Math.max(0,Math.round((end-Date.now())/1000));return`${s/3600|0}:${String(s/60%60|0).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`};
+
+// ── charts (retina aware, redraw on resize)
+function chart(cv,p){const d=devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;if(!w)return;cv.width=w*d;cv.height=h*d;const x=cv.getContext('2d');x.scale(d,d);
+ const mx=Math.max(...p),mn=Math.min(...p),sx=i=>i/(p.length-1)*w,sy=v=>h-10-(v-mn)/(mx-mn||1)*(h-24);
+ x.strokeStyle='rgba(255,255,255,.055)';x.lineWidth=1;[.34,.67].forEach(f=>{const y=sy(mn+(mx-mn)*f);x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke()});
+ x.beginPath();p.forEach((v,i)=>i?x.lineTo(sx(i),sy(v)):x.moveTo(0,sy(v)));x.strokeStyle='#fff';x.lineWidth=1.8;x.lineJoin='round';x.stroke();
+ x.lineTo(w,h);x.lineTo(0,h);const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(255,255,255,.14)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fill();
+ x.beginPath();x.arc(w-3,sy(p[p.length-1]),3.5,0,7);x.fillStyle='#fff';x.fill()}
+const ro=new ResizeObserver(es=>es.forEach(e=>e.target.id==='pc'?chart(e.target,pf):e.target._p&&chart(e.target,e.target._p)));
+ro.observe($('#pc'));
+
+// ── renders
+const row=p=>{const m=MK[p.k];return`<a class="row" href="${m.href||'#/m/'+m.k}"><div ${ph(m,'th')}><b style="font-size:16px">${ini(m)}</b></div><div class="ri"><div class="rn bb">${esc(m.n)}</div><div class="mu">${esc(m.g.join(' · '))}</div></div><span class="pill ${p.side}">${p.side.toUpperCase()}</span>
+ <svg class="sp" viewBox="0 0 64 24" data-s="${p.id}" stroke="${p.pnl<0?'var(--dn)':'var(--up)'}"><polyline points="${pts(p.h)}"/></svg>
+ <div class="rp"><div class="mono ${p.pnl<0?'dn':'up'}" data-p="${p.id}">${sgn(p.pnl)}</div><div class="mono mu" data-end="${m.end}">${clock(m.end)}</div></div></a>`};
+function renderPos(){$('#plist').innerHTML=S.pos.length?S.pos.map(row).join(''):'<div class="empty">No open positions yet.</div>';$('#cnt').textContent=S.pos.length+' open'}
+// ── discovered trends: every published day, so a topic that drops off stays readable
+const GD=window.PULSE_DISCOVERY||{},gslug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const TD=(window.PULSE_TREND_DAYS&&window.PULSE_TREND_DAYS.length)?window.PULSE_TREND_DAYS:[{day:GD.day,entries:GD.entries||[]}];
+const TODAY=TD[0]||{day:GD.day,entries:[]};
+const G=TD.flatMap(d=>(d.entries||[]).map(e=>({k:gslug(e.topic)+'--'+d.day,n:e.topic,v:e.views,base:e.baseline,mom:e.momentum,day:d.day,live:d.day===TODAY.day,
+ img:'g-'+gslug(e.topic)+'.jpg',ctx:e.context&&e.context.text,model:e.context&&e.context.model,prompt:e.context&&e.context.promptVersion,link:e.link,imgSrc:e.imageSource||e.imageUrl,lead:e.leadSummary,leadSrc:e.leadSource,noimg:!e.imageUrl})));
+const GT=G.filter(g=>g.live),GA=G.filter(g=>!g.live);
+const GM=Object.fromEntries(G.map(g=>[g.k,g]));
+// topics trade like constituents: same MK record, keyed with a g-- prefix
+const trendPrice=g=>Math.max(18,Math.min(92,Math.round(50+Math.log10(Math.max(1,g.mom))*14)));
+G.forEach(g=>{const k='g--'+g.k;
+ MK[k]={k,n:g.n,t:g.n,g:['Trending',g.day],r:trendPrice(g),v:g.v,i:'',se:g.live?'Trending':'Dropped off',
+  s:g.live?'hot':'cool',rk:g.live?GT.indexOf(g)+1:0,ts:Math.round(g.mom),weight:0,level:g.v/g.base,
+  baseline:g.base,baselineDays:7,value:g.v,day:g.day,end:nextEpoch(),href:'#/g/'+g.k}});
+const gini=g=>esc(g.n.split(' ').map(w=>w[0]).join('').slice(0,2));
+const gRow=g=>`<a class="row" href="#/g/${g.k}"><div class="ph th ${g.noimg?'n':''}" style="--img:url(images/${g.img})"><b style="font-size:14px">${gini(g)}</b></div><div class="ri"><div class="rn bb">${esc(g.n)}</div><div class="mu">${g.live?vk(g.v)+' views · '+vk(g.base)+' baseline':g.day+' · '+vk(g.v)+' views'}</div></div><span class="mono ${g.live?'up':'mu'}">+${Math.round(g.mom).toLocaleString('en-US')}%</span></a>`;
+const gCard=g=>`<a href="#/g/${g.k}" class="fc ph ${g.noimg?'n':''}" style="--img:url(images/${g.img})"><b style="font-size:48px">${gini(g)}</b><span class="bd ${g.mom>1000?'hot':'new'}">${g.mom>1000?'Hot':'Rising'}</span><div class="fb"><div class="rn bb">${esc(g.n)}</div><div class="mu">${vk(g.v)} views · +${Math.round(g.mom).toLocaleString('en-US')}%</div></div></a>`;
+function renderLive(){const p=$('#mini');if(!p)return;p.innerHTML=GT.length?GT.slice(0,3).map(gRow).join(''):'<div class="empty">No trend snapshot loaded.</div>'}
+
+// ── tweet support: two posts that mention this entity, shown beside the numbers.
+// Display only and weight zero; an unpublished or unreachable panel simply
+// leaves the strip out rather than claiming a silence.
+const SOC_API='../../api/social/latest';
+// One panel per page, keyed by entity id or g:<topic-slug>. The combined list is
+// no longer read here: a basket-wide query is what put Nvidia posts on a page
+// about Jensen Huang.
+let STOPICS={};
+function ago(iso){const s=Math.max(1,Math.round((Date.now()-Date.parse(iso))/1000));
+ if(s<60)return s+'s ago';const m=Math.floor(s/60);if(m<60)return m+'m ago';
+ const h=Math.floor(m/60);if(h<24)return h+'h ago';return Math.floor(h/24)+'d ago'}
+function socStrip(key){
+ const hits=((STOPICS[key]||{}).posts||[]).slice(0,2);
+ if(!hits.length)return '';
+ // Both networks can land on one page, so the header names what is actually there.
+ const nets=[...new Set(hits.map(p=>p.source||'x'))];
+ const where=nets.length>1?'On social':nets[0]==='bluesky'?'On Bluesky':'On X';
+ return `<div class="soc"><div class="ch"><span class="lbl">${where}</span><span class="mono mu">display only</span></div>${
+  hits.map(p=>`<a class="tp" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="tt"><b>@${esc(p.author)}</b> ${esc(p.text)}</span><span class="mu tw">♥ ${vk(p.likes||0)} · ${ago(p.createdAt)}</span></a>`).join('')}</div>`}
+function loadSocial(){
+ const json={'cache':'no-store'};
+ return fetch(SOC_API,json)
+  // An unpublished panel answers with the site's own HTML and a 200, so the
+  // content type separates "not configured" from a real panel.
+  .then(r=>r.ok&&!(r.headers.get('content-type')||'').includes('html')?r.json():null)
+  .catch(()=>null)
+  .then(p=>{STOPICS=(p&&p.topics)||{}})
+  // The strip only exists on rendered pages, so repaint the one on screen.
+  .then(()=>{if(/^#\/(m|g)\//.test(location.hash))route()})}
+const card=(m,meta,b)=>`<a ${ph(m,'fc')} href="#/m/${m.k}"><b style="font-size:48px">${ini(m)}</b><span class="bd ${b}">${{hot:'Hot',cool:'Cooling',new:'Steady',user:'Live'}[b]}</span><div class="fb"><div class="rn bb">${esc(m.n)}</div><div class="mu">${meta}</div></div></a>`;
+let QG='';
+function renderFeed(){const m=M[0];
+ if(QG){const t=QG.toLowerCase(),hits=M.filter(x=>(x.n+' '+x.g.join(' ')).toLowerCase().includes(t)),lh=GALL.filter(e=>e.n.toLowerCase().includes(t)),n=hits.length+lh.length;
+  $('#feed').innerHTML=`<div class="wrap"><div class="sec" style="margin-top:28px"><h2 class="lbl">${n} result${n===1?'':'s'} for “${esc(QG)}”</h2></div>${lh.length?`<div class="sec" style="margin:0 0 2px"><span class="lbl">Trending today</span></div>${lh.map(gRow).join('')}`:''}
+  ${hits.length?`<div class="rail">${hits.map(x=>card(x,`${vk(x.value)} views · score ${x.r}`,x.s)).join('')}</div>`:n?'':'<div class="add"><div class="mu">Nothing matches that. Try a person, topic or category.</div></div>'}</div>`;return}
+ $('#feed').innerHTML=`<div ${ph(m,'hero')}>${m.i?'':`<b style="font-size:160px">${ini(m)}</b>`}<div class="hc"><div class="eyebrow"><i class="live"></i>Top constituent · <span data-v="${m.k}">${vk(m.value)}</span> views · ${esc(m.day)}</div><h2 class="ht bb">${m.t}</h2>
+  <div class="tags"><span class="tag surge">${esc(m.se)}</span>${m.g.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+  <div class="acts"><button class="btn w" data-tx="ride" data-k="${m.k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${m.k}">${ic('dn')}FADE</button><div class="pool"><span class="up">score ${m.ts}</span>·<span class="mu">${m.weight.toFixed(1)}% weight</span></div></div></div></div>
+ <div class="wrap" style="padding-top:0"><div class="sec"><h2 class="lbl">Live markets</h2><span class="mu mono">pm-AMM · ${MKTS.length} published specs</span></div>${MKTS.length?MKTS.map(mktRow).join(''):'<div class="add"><div class="mu">No market specs found.</div></div>'}<div class="note">Threshold markets on the PULSE Attention Index, created from fixed specs. Each row resolves against the signed epoch snapshot for its day, so the outcome is checkable before trading.</div>
+ <div class="sec"><h2 class="lbl">Index constituents</h2><span class="mu mono">${IX?IX.epochDay+' · '+IX.definitionId:'offline'}</span></div><div class="rail">${M.filter(x=>x.k!==m.k).map(x=>card(x,`${vk(x.value)} views · score ${x.r}`,x.s)).join('')}</div>
+ <div class="sec"><h2 class="lbl">Trending today</h2><span class="mu mono">${TODAY.day||'offline'}${GD.contextModel?' · '+GD.contextModel:' · signed snapshot'}</span></div>${GT.length?`<div class="rail">${GT.map(gCard).join('')}</div>`:'<div class="add"><div class="mu">No discovery snapshot loaded.</div></div>'}
+ <div class="sec"><h2 class="lbl">Archive</h2><span class="mu mono">${GA.length} topics · last ${Math.max(0,TD.length-1)} boards</span></div>${GA.length?GA.slice(0,6).map(gRow).join('')+(GA.length>6?`<div id="arc-more" hidden>${GA.slice(6).map(gRow).join('')}</div><button class="btn glass" id="arc-btn" style="margin-top:12px;width:100%">Show all ${GA.length} archived topics</button>`:''):'<div class="empty">Nothing archived yet.</div>'}<div class="note">A topic that drops off the board keeps its page and the numbers from the last signed snapshot that carried it, so it stays readable after the hype passes.</div><div class="note">Wikipedia pageviews against a 7-day per-article baseline. A topic qualifies at 20K+ views and 100%+ momentum, with at least 3 baseline days and 1K+ baseline views; the top 6 by momentum are published in a signed snapshot, with the image and the summary generated at build time. These are the ones that come and go.</div>
+ <div class="sec" id="mine"><h2 class="lbl">Your pulses</h2></div>${S.users.length?`<div class="rail">${S.users.map(x=>card(x,`${x.v}K · score ${x.r}`,'user')).join('')}</div>`:`<div class="add"><div><div class="rn bb">NO PULSES YET</div><div class="mu">Turn something trending into a market of your own.</div></div><button class="btn glass" data-open="cp">${ic('plus')}CREATE PULSE</button></div>`}</div>`}
+
+// ── threshold markets: real specs from pulse-markets, resolved against the epoch snapshot
+const mktSlug=s=>s.threshold+'-'+s.epochDay;
+const mktKey=s=>'t--'+mktSlug(s);
+const mktHit=m=>{if(m.epochScore==null||!m.definitionMatches)return null;return m.spec.comparison==='above'?m.epochScore>m.spec.threshold:m.epochScore<m.spec.threshold};
+// market specs behave like constituents for trading: same MK shape, same RIDE/FADE path
+MKTS.forEach(x=>{const s=x.spec,k=mktKey(s),h=mktHit(x);
+ MK[k]={k,n:`INDEX ${s.comparison.toUpperCase()} ${s.threshold}`,t:`ATTENTION INDEX ${s.comparison.toUpperCase()} ${s.threshold}`,
+  g:['Market','epoch '+s.epochDay],r:x.epochScore==null?50:Math.round(x.epochScore),v:0,i:'',se:h==null?'Neutral':h?'Yes':'No',
+  s:'new',rk:0,ts:x.epochScore==null?0:Math.round(x.epochScore),weight:0,level:1,baseline:0,baselineDays:0,value:0,
+  day:s.epochDay,end:nextEpoch(),href:'#/t/'+mktSlug(s)}});
+const mktRow=m=>{const h=mktHit(m),s=m.spec;
+ return `<a class="row" href="#/t/${mktSlug(s)}"><div class="ri"><div class="rn bb">INDEX ${s.comparison.toUpperCase()} ${s.threshold} · ${s.epochDay}</div><div class="mu">${s.definitionId} · min confidence ${s.minConfidence}</div></div><span class="pill ${h?'ride':'fade'}">${h==null?'—':h?'YES':'NO'}</span><span class="mono mu" style="min-width:52px;text-align:right">${m.epochScore==null?'—':m.epochScore.toFixed(2)}</span></a>`};
+function renderMarket(slug){const x=MKTS.find(y=>mktSlug(y.spec)===slug);
+ if(!x){$('#market').innerHTML='<div class="wrap"><div class="add"><div class="mu">That market spec is not in the published set.</div></div></div>';return}
+ const s=x.spec,h=mktHit(x),k=mktKey(s),m=MK[k],sc=x.epochScore==null?50:x.epochScore,tp=Math.max(s.threshold*1.6,sc*1.15);
+ $('#market').innerHTML=`<div class="dh ph n" style="--img:none"><b style="font-size:180px">${s.threshold}</b><button class="back" id="back" aria-label="Back">${ic('back')}</button><div class="hc"><div class="eyebrow"><i class="live"></i>pm-AMM market · devnet · epoch ${s.epochDay}</div><h1 class="ht bb">ATTENTION INDEX ${s.comparison.toUpperCase()} ${s.threshold}</h1>
+  <div class="tags"><span class="tag">Market</span><span class="tag ${h?'surge':'cool'}">${h==null?'Undetermined':h?'Yes':'No'}</span><span class="tag">${s.definitionId}</span></div>
+  <p class="dd">${x.definitionMatches?`Threshold spec on the PULSE Attention Index, settled by the signed snapshot published for ${s.epochDay}: the index closed at ${x.epochScore.toFixed(2)}, ${h?'above':'below'} the ${s.threshold} line, so this spec resolves ${h?'YES':'NO'}.`:`No snapshot under ${s.definitionId} for ${s.epochDay} is published, so this spec cannot be previewed.`}</p></div></div>
+ <div class="dbody"><div class="dl"><div class="s3"><div class="c"><div class="v">${x.epochScore==null?'—':x.epochScore.toFixed(2)}</div><div class="lbl">Epoch score</div></div><div class="c"><div class="v">${s.threshold}</div><div class="lbl">Threshold</div></div><div class="c"><div class="v ${h?'up':'dn'}">${h==null?'—':h?'YES':'NO'}</div><div class="lbl">Resolves</div></div></div>
+  <div class="c"><div class="ch"><span class="lbl">Index vs threshold</span><span class="mu mono">${x.epochScore==null?'—':x.epochScore.toFixed(2)} / ${s.threshold}</span></div><div class="track" style="height:6px"><i style="width:${x.epochScore==null?0:Math.min(100,sc/tp*100)}%"></i><span style="position:absolute;left:${Math.min(100,s.threshold/tp*100)}%;top:-4px;width:1px;height:14px;background:var(--fg)"></span></div><div class="split"><span class="up">${x.epochScore==null?'—':x.epochScore.toFixed(2)} closed</span><span class="mu">line ${s.threshold}</span></div></div>
+  <div class="sec" style="margin-top:22px"><h2 class="lbl">Specification</h2><span class="mu mono">fixed at creation</span></div><p class="dd" style="margin-top:0">Created ${esc(s.createdAt)} with a ${s.minConfidence} confidence floor, resolving ${s.comparison} ${s.threshold} against ${s.definitionId}. The spec is signed and immutable, so the outcome is checkable against the snapshot before anyone takes a side.</p>
+  <div class="note mono" style="font-size:11px">spec ${esc(s.id.slice(0,20))}… · signer ${esc(s.signer.slice(0,12))}…</div></div>
+ <div class="dr c"><div><div class="ch" style="margin:0"><span class="lbl">Resolution</span><span class="mono mu">min conf ${s.minConfidence}</span></div><div class="track" style="height:6px"><i style="width:${x.epochScore==null?0:Math.min(100,Math.abs(sc-s.threshold)/Math.max(1,s.threshold)*100)}%"></i></div><div class="split"><span class="${h?'up':'dn'}">${h==null?'—':h?'Yes':'No'}</span><span class="mu">${x.epochScore==null?'no snapshot':Math.abs(sc-s.threshold).toFixed(2)+' from the line'}</span></div></div>
+  <div class="hun"><div class="ava">${esc(s.signer.slice(0,1).toUpperCase())}</div><div><div class="mono" style="font-size:13px">${esc(s.definitionId)}</div><div class="mu">signed spec · ${esc(s.epochDay)}</div></div><div class="mono up">${x.epochScore==null?'—':x.epochScore.toFixed(2)}</div></div>
+  <div class="pair"><button class="btn w" data-tx="ride" data-k="${k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${k}">${ic('dn')}FADE</button></div>
+  <div class="timer"><div class="lbl">Epoch closes in</div><div class="bb" data-end="${m.end}">${clock(m.end)}</div></div>
+  <div class="note">RIDE and FADE open a demo position in your portfolio at score ${m.r}; nothing is sent on chain.</div></div></div>`}
+
+function renderDetail(k){const m=MK[k],sc=m.level>=2?'up':m.level<1.1?'dn':'mu',eh=EH(k);
+ $('#detail').innerHTML=`<div ${ph(m,'dh')}><b style="font-size:120px">${ini(m)}</b><button class="back" id="back" aria-label="Back">${ic('back')}</button><div class="hc"><div class="eyebrow"><i class="live"></i>Constituent #${m.rk} · ${esc(m.day)}</div><h1 class="ht bb">${esc(m.t)}</h1>
+  <div class="tags">${m.g.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}<span class="tag ${m.s==='hot'?'surge':m.s==='cool'?'cool':''}">${esc(m.se)}</span></div><p class="dd">${esc(m.d)}</p></div></div>
+ <div class="dbody"><div class="dl"><div class="s3"><div class="c"><div class="v" data-v="${k}">${vk(m.value)}</div><div class="lbl">Wikipedia views</div></div><div class="c"><div class="v up">${m.ts}</div><div class="lbl">Level score</div></div><div class="c"><div class="v ${sc}">${m.level.toFixed(2)}×</div><div class="lbl">Vs baseline</div></div></div>
+  <div class="c"><div class="ch"><span class="lbl">Wikipedia views · ${eh.length} epochs</span><span class="mu mono">${eh.length?vk(eh[eh.length-1].value):'—'}</span></div><canvas class="cv sm" id="dc" role="img" aria-label="Wikipedia pageviews for ${esc(m.t)} over the last ${eh.length} epochs"></canvas></div></div>
+ <div class="dr c"><div><div class="ch" style="margin:0"><span class="lbl">Index weight</span><span class="mono mu">cap 25%</span></div><div class="track"><i style="width:${Math.min(100,m.weight*4)}%"></i></div><div class="split"><span class="up">${m.weight.toFixed(1)}% of index</span><span class="mu">${Math.round(m.baseline).toLocaleString('en-US')} median</span></div></div>
+  <div class="hun"><div class="ava">${esc((SIG?SIG.label:'—')[0])}</div><div><div class="mono" style="font-size:13px">${esc(SIG?SIG.label:'signal')}</div><div class="mu">${esc(SIG?SIG.unit:'')} · ${m.baselineDays}-day median baseline</div></div><div class="mono up">${m.level.toFixed(2)}×</div></div>
+  ${socStrip(k)}
+  <div class="pair"><button class="btn w" data-tx="ride" data-k="${k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${k}">${ic('dn')}FADE</button></div>
+  <div class="timer"><div class="lbl">Epoch closes in</div><div class="bb" data-end="${m.end}">${clock(m.end)}</div></div></div></div>`;
+ const cv=$('#detail #dc');cv._p=eh.length>1?eh.map(x=>x.value):[m.value];ro.observe(cv);requestAnimationFrame(()=>chart(cv,cv._p))}
+
+// ── global paint: every balance figure derives from one function
+function paint(){const v=val(),pl=v-START,[w,c]=usd(v).split('.');pf[pf.length-1]=v;
+ $$('[data-bal]').forEach(e=>e.innerHTML=e.dataset.bal?`${w}<small>.${c}</small>`:usd(v));
+ $$('[data-plc]').forEach(e=>{e.textContent=`${sgn(pl)} · ${Math.round(pl/START*100)}%`;e.className='chip '+(pl<0?'dn':'up')});
+ $$('[data-cash]').forEach(e=>e.textContent=usd(S.cash));
+ $$('[data-sol]').forEach(e=>e.textContent=S.sol.toFixed(4)+(e.dataset.sol?'':' SOL'));
+ chart($('#pc'),pf)}
+
+// ── router + nav
+let parent=0;
+function renderTrend(slug){const g=GM[slug];
+ if(!g){$('#trend').innerHTML='<div class="wrap"><div class="add"><div class="mu">That topic is not in the published trend snapshot.</div></div></div>';return}
+ const k='g--'+g.k,m=MK[k],series=G.filter(x=>x.n===g.n).sort((a,b)=>a.day<b.day?-1:1),rank=g.live?GT.indexOf(g)+1:0;
+ $('#trend').innerHTML=`<div class="dh ph ${g.noimg?'n':''}" style="--img:url(images/${g.img})"><b style="font-size:120px">${gini(g)}</b><button class="back" id="back" aria-label="Back">${ic('back')}</button><div class="hc"><div class="eyebrow"><i class="live"></i>${g.live?'Trending today':'Archived topic'} · ${vk(g.v)} views · ${esc(g.day)}</div><h1 class="ht bb">${esc(g.n)}</h1>
+  <div class="tags"><span class="tag ${g.live?'surge':'cool'}">${g.live?'On the board':'Dropped off'}</span><span class="tag">${esc(g.day)}</span>${rank?`<span class="tag">#${rank} by momentum</span>`:'<span class="tag">last signed board</span>'}</div>
+  <p class="dd">${vk(g.v)} Wikipedia views on ${esc(g.day)} against a ${vk(g.base)} seven-day baseline, ${Math.round(g.mom).toLocaleString('en-US')}% above it.${g.live?' Published in today\'s signed discovery snapshot.':' It is off the board now; these are the numbers from the last snapshot that carried it.'}</p></div></div>
+ <div class="dbody"><div class="dl"><div class="s3"><div class="c"><div class="v">${vk(g.v)}</div><div class="lbl">Wikipedia views</div></div><div class="c"><div class="v">${vk(g.base)}</div><div class="lbl">7-day baseline</div></div><div class="c"><div class="v up">+${Math.round(g.mom).toLocaleString('en-US')}%</div><div class="lbl">Momentum</div></div></div>
+  ${series.length>1?`<div class="c"><div class="ch"><span class="lbl">Wikipedia views · ${series.length} boards</span><span class="mu mono">${vk(series[series.length-1].v)}</span></div><canvas class="cv sm" id="dc" role="img" aria-label="Wikipedia pageviews for ${esc(g.n)} across the boards that carried it"></canvas></div>`:`<div class="note">This topic has only ever appeared on one published board, so there is no view history to draw yet.</div>`}
+  ${g.ctx?`<div class="sec" style="margin-top:22px"><h2 class="lbl">Summary</h2><span class="mu mono">${esc(g.model||'model')} · ${esc(g.prompt||'')}</span></div><p class="dd" style="margin-top:0">${esc(g.ctx)}</p><div class="note mono" style="font-size:11px">generated at build time · <a class="mu" href="${esc(g.link||'#')}" target="_blank" rel="noopener">source article</a>${g.imgSrc?` · <a class="mu" href="${esc(g.imgSrc)}" target="_blank" rel="noopener">image</a>`:''}</div>`
+   :g.lead?`<div class="sec" style="margin-top:22px"><h2 class="lbl">Summary</h2></div><div class="mu mono" style="font-size:11px;margin:-6px 0 10px">Wikipedia lead · no model summary generated for this topic</div><p class="dd" style="margin-top:0">${esc(g.lead)}</p><div class="note mono" style="font-size:11px">verbatim from the article · <a class="mu" href="${esc(g.leadSrc||g.link||'#')}" target="_blank" rel="noopener">source</a></div>`
+   :'<div class="note">No summary was generated for this topic, and its article has no lead to fall back on. The measured numbers above are unaffected.</div>'}</div>
+ <div class="dr c"><div><div class="ch" style="margin:0"><span class="lbl">Momentum</span><span class="mono mu">baseline +${Math.round(g.mom).toLocaleString('en-US')}%</span></div><div class="track"><i style="width:${Math.min(100,Math.log10(Math.max(2,g.mom))/4*100)}%"></i></div><div class="split"><span class="up">${vk(g.v)} views</span><span class="mu">${vk(g.base)} median</span></div></div>
+  <div class="hun"><div class="ava">${esc(g.lead?'W':'AI')}</div><div><div class="mono" style="font-size:13px">${g.ctx?'model summary':'article lead'}</div><div class="mu">${esc(g.model||'Wikipedia')} · ${esc(g.day)}</div></div><div class="mono up">+${Math.round(g.mom).toLocaleString('en-US')}%</div></div>
+  ${socStrip('g:'+gslug(g.n))}
+  <div class="pair"><button class="btn w" data-tx="ride" data-k="${k}">${ic('up')}RIDE</button><button class="btn o" data-tx="fade" data-k="${k}">${ic('dn')}FADE</button></div>
+  <div class="timer"><div class="lbl">Epoch closes in</div><div class="bb" data-end="${m.end}">${clock(m.end)}</div></div>
+  <div class="note">Discovery topic, not a published threshold spec. RIDE and FADE open a demo position in your portfolio at score ${m.r}; nothing is sent on chain.</div></div></div>`;
+ const cv=$('#trend #dc');
+ if(cv){cv._p=series.map(x=>x.v);ro.observe(cv);requestAnimationFrame(()=>chart(cv,cv._p))}}
+
+function route(){const[a,b]=location.hash.slice(2).split('/');let s='dash',i=0;
+ if(a==='trending'){s='feed';i=1}
+ else if(a==='m'&&MK[b]){s='detail';i=parent;renderDetail(b)}
+ else if(a==='t'){s='market';i=1;renderMarket(b)}
+ else if(a==='g'){s='trend';i=1;renderTrend(b)}
+ if(s!=='detail'&&s!=='market'&&s!=='trend')parent=i;
+ $$('.scr').forEach(e=>e.classList.toggle('on',e.id===s));$('#'+s).scrollTop=0;
+ [$('#nav'),$('#bnav')].forEach(n=>{n.style.setProperty('--i',i);$$('a',n).forEach(l=>l.classList.toggle('on',+l.dataset.i===i))});
+}
+addEventListener('hashchange',route);
+
+// ── modals
+let opener;const topM=()=>$$('.ov.open').pop();
+function openM(id){const o=$('#'+id);opener=document.activeElement;o.classList.add('open');setTimeout(()=>($('input:not([type=hidden])',o)||$('.x',o)).focus({preventScroll:true}),150);paint()}
+function closeM(o){if(!o)return;o.classList.remove('open');opener&&opener.focus&&opener.focus()}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-open],[data-tx],[data-close]');
+ if(e.target.classList.contains('ov'))return closeM(e.target);if(!t)return;
+ if(t.dataset.open){t.dataset.open==='cp'&&cpReset();openM(t.dataset.open)}else if(t.dataset.close!==undefined)closeM(t.closest('.ov'));else tx(t.dataset.tx,t.dataset.k)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM(topM());if(e.key==='Enter'&&e.target.id==='cp-in')$('#cp-go').click()});
+let tt;const toast=m=>{const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3200)};
+
+// ── create pulse
+let cat='Celebrity';
+$('#cp-sug').innerHTML=SUG.map(s=>`<button class="cc" aria-pressed="false">${s}</button>`).join('');
+$('#cp-cat').innerHTML=CATS.map(c=>`<button class="cc" aria-pressed="${c===cat}">${c}</button>`).join('');
+const cpIn=$('#cp-in'),cpOk=()=>$('#cp-go').disabled=cpIn.value.trim().length<2;
+$('#cp-sug').onclick=e=>{const b=e.target.closest('button');if(!b)return;cpIn.value=b.textContent;cpOk();sync()};
+function sync(){$$('#cp-sug button').forEach(b=>b.setAttribute('aria-pressed',b.textContent===cpIn.value.trim().toUpperCase()))}
+cpIn.oninput=()=>{cpOk();sync()};
+$('#cp-cat').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.textContent;$$('#cp-cat button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
+function cpReset(){cpIn.value='';cpOk();sync();$('#cp-go').textContent='LAUNCH PULSE'}
+$('#cp-go').onclick=()=>{const name=cpIn.value.trim().toUpperCase();if(name.length<2)return;const b=$('#cp-go');b.disabled=true;b.textContent='CREATING…';
+ setTimeout(()=>{const r=n=>Math.round(Math.random()*n),v=20+r(40),k='u'+Date.now();
+  const m={k,n:name,t:name,g:[cat,'New'],v,v0:v,r:40+r(20),s:'new',rk:S.users.length+9,ts:30+r(40),se:'Neutral',level:1,weight:0,baselineDays:0,baseline:v*1000,value:v*1000,day:new Date().toISOString().slice(0,10),c:86399,end:Date.now()+86399e3,i:'',d:'Market created by you. Attention tracking runs from creation; there is no pinned snapshot history for it yet.'};
+  M.push(m);MK[k]=m;S.users.push(m);closeM($('#cp'));renderFeed();location.hash='#/trending';toast(`${name} is live`);setTimeout(()=>$('#mine').scrollIntoView({behavior:'smooth'}),350)},650)};
+
+// ── wallet
+function wTab(i){$('#wtabs').style.setProperty('--i',i);$$('#wtabs button').forEach((b,j)=>b.setAttribute('aria-selected',i===j));$$('.pane').forEach((p,j)=>p.classList.toggle('on',i===j))}
+$('#wtabs').onclick=e=>{const b=e.target.closest('button');b&&wTab(+b.dataset.t)};
+$('#copy').onclick=e=>{navigator.clipboard?.writeText('3xK9mRvTfWpLbQcNzGhYdUeJoSaKiX1f4Rp').catch(()=>{});e.target.textContent='COPIED';setTimeout(()=>e.target.textContent='COPY ADDRESS',1800)};
+const wd=$('#w-d'),wa=$('#w-a'),wOk=()=>{const a=parseFloat(wa.value)||0;$('#w-go').disabled=!(a>0&&a<=S.sol&&wd.value.trim().length>=32)};
+wd.oninput=wOk;wa.oninput=()=>{wa.value=wa.value.replace(/[^\d.]/g,'');wOk()};
+$('#w-max').onclick=()=>{wa.value=S.sol.toFixed(4);wOk()};
+function hist(){$('#wp2').innerHTML=S.hist.length?S.hist.map(h=>`<div class="hr"><span>${h.t}<br><span class="mu">${h.when}</span></span><span class="dn">−${h.a} SOL</span></div>`).join(''):'<div class="empty">No transactions yet</div>'}
+$('#w-go').onclick=()=>{const a=parseFloat(wa.value);S.sol-=a;S.hist.unshift({t:'Withdraw',a:a.toFixed(4),when:new Date().toLocaleTimeString()});hist();paint();wTab(2);toast(`Withdrawal of ${a.toFixed(4)} SOL submitted`);wd.value=wa.value='';wOk()};
+hist();
+
+// ── trade
+const T={side:'ride',k:''},ta=$('#tx-a');
+function tx(side,k){Object.assign(T,{side,k});const r=side==='ride';
+ $('#tx-t').textContent=r?'RIDE':'FADE';$('#tx-t').className='bb '+(r?'up':'dn');$('#tx-m').textContent=MK[k].t;
+ const ok=$('#tx-ok');ok.textContent='CONFIRM '+(r?'RIDE':'FADE');ok.className='btn f '+(r?'w':'r');
+ $('#tx-f').hidden=false;$('#tx-s').hidden=true;ta.value='';tAmt();openM('tx')}
+function tAmt(){ta.value=ta.value.replace(/[^\d.]/g,'');const a=parseFloat(ta.value)||0,m=MK[T.k],sh=T.side==='ride'?m.r:100-m.r,x=100/sh;
+ ta.style.width=Math.max(1,ta.value.length)+'ch';$('#tx-d').className=a?T.side:'';
+ $('#tx-ok').disabled=!(a>0&&a<=S.cash);$('#tx-p').textContent=a?`${usd(a)} · ${T.side.toUpperCase()}`:'—';$('#tx-e').textContent=a?`${usd(a*x)} (${x.toFixed(2)}x)`:'—';
+ $$('#quick button').forEach(b=>b.classList.toggle('on',a>0&&(b.dataset.q==='max'?a===Math.floor(S.cash):+b.dataset.q===a)))}
+ta.oninput=tAmt;
+$('#quick').onclick=e=>{const b=e.target.closest('button');if(!b)return;ta.value=b.dataset.q==='max'?Math.floor(S.cash):b.dataset.q;tAmt()};
+$('#tx-ok').onclick=()=>{const a=parseFloat(ta.value),m=MK[T.k],id=T.k+'-'+T.side,x=100/(T.side==='ride'?m.r:100-m.r);
+ S.cash-=a;const p=S.pos.find(p=>p.id===id);p?p.stake+=a:S.pos.push({id,k:T.k,side:T.side,stake:a,pnl:0,h:Array(20).fill(0)});
+ renderPos();paint();const r=T.side==='ride',c=r?'var(--up)':'var(--dn)';
+ $('#tx-si').style.cssText=`background:${r?'var(--upd)':'var(--dnd)'};color:${c}`;$('#tx-si').innerHTML=ic('ok').replace('class="i"','class="i" style="width:28px;height:28px;stroke-width:2.4"');
+ $('#tx-sa').style.color=c;$('#tx-sa').textContent=`${usd(a)} · ${T.side.toUpperCase()}`;$('#tx-ss').innerHTML=`${esc(m.t)}<br>Est. payout ${usd(a*x)}`;
+ $('#tx-f').hidden=true;$('#tx-s').hidden=false;toast('Position added to your portfolio')};
+
+// ── live simulation (balance is always derived, so trades and withdrawals persist)
+setInterval(()=>{S.pos.forEach(p=>{p.pnl+=(Math.random()-.47)*p.stake*.004;p.h.push(p.pnl);p.h.shift();
+  const e=$(`[data-p="${p.id}"]`);if(e){e.textContent=sgn(p.pnl);e.className='mono '+(p.pnl<0?'dn':'up')}
+  const s=$(`[data-s="${p.id}"]`);if(s){s.setAttribute('stroke',p.pnl<0?'var(--dn)':'var(--up)');s.firstElementChild.setAttribute('points',pts(p.h))}});paint()},3000);
+setInterval(()=>$$('[data-end]').forEach(e=>e.textContent=clock(+e.dataset.end)),1000);
+
+// ── boot
+const qEl=$('#q');
+const onQuery=()=>{QG=qEl.value.trim();if(QG&&!location.hash.startsWith('#/trending'))location.hash='#/trending';renderFeed()};
+qEl.addEventListener('input',onQuery);
+addEventListener('keydown',e=>{if(e.key==='/'&&e.target!==qEl&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){e.preventDefault();qEl.focus()}});
+try{const u=JSON.parse(sessionStorage.getItem('pulse_user')||'{}');if(u.name)$('#ini').textContent=u.name[0].toUpperCase()}catch(e){}
+$('#mkcount').textContent=MKTS.length+' published specs · resolves against the signed epoch snapshot';
+$('#mlist').innerHTML=MKTS.length?MKTS.map(mktRow).join(''):'<div class="empty">No market specs published.</div>';
+renderLive();
+renderPos();renderFeed();paint();route();loadSocial();
+// one handler for every detail screen, so a page never steps back twice
+ document.addEventListener('click',e=>{if(!e.target.closest('#back'))return;
+  if(history.length>1)return history.back();
+  const a=location.hash.slice(2).split('/')[0];
+  history.replaceState(null,'',a==='t'||a==='g'?'#/trending':'#/');route();});
+ addEventListener('click',e=>{const b=e.target.closest('#arc-btn');if(!b)return;$('#arc-more').hidden=false;b.remove()});
+</script>
+</body>
+</html>

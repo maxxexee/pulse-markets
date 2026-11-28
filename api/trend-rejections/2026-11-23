@@ -1,0 +1,157 @@
+{
+  "day": "2026-11-23",
+  "method": "wikipedia-top-v1",
+  "settings": {
+    "candidateLimit": 24,
+    "baselineWindowDays": 7,
+    "minBaselineDays": 3,
+    "minBaselineViews": 1000,
+    "minViews": 20000,
+    "minMomentum": 100,
+    "maxResults": 6,
+    "excludedTopicPrefixes": [
+      "List_of_",
+      "Lists_of_",
+      "Deaths_in_",
+      "Timeline_of_",
+      "Index_of_"
+    ]
+  },
+  "rejected": [
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "reason": "momentum-below-floor",
+      "views": 266240,
+      "baseline": 396083,
+      "baselineDays": 7,
+      "momentum": -32.8
+    },
+    {
+      "article": "Blood",
+      "topic": "Blood",
+      "reason": "baseline-below-floor",
+      "views": 174912,
+      "baseline": 686,
+      "baselineDays": 7,
+      "momentum": 25408
+    },
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "reason": "momentum-below-floor",
+      "views": 157845,
+      "baseline": 127707,
+      "baselineDays": 7,
+      "momentum": 23.6
+    },
+    {
+      "article": "Experience_machine",
+      "topic": "Experience machine",
+      "reason": "baseline-below-floor",
+      "views": 135474,
+      "baseline": 172,
+      "baselineDays": 7,
+      "momentum": 78598.6
+    },
+    {
+      "article": ".xxx",
+      "topic": ".xxx",
+      "reason": "momentum-below-floor",
+      "views": 111570,
+      "baseline": 135776,
+      "baselineDays": 7,
+      "momentum": -17.8
+    },
+    {
+      "article": "Mariella_Frostrup",
+      "topic": "Mariella Frostrup",
+      "reason": "momentum-below-floor",
+      "views": 110614,
+      "baseline": 55898,
+      "baselineDays": 7,
+      "momentum": 97.9
+    },
+    {
+      "article": "The_Body_(TV_series)",
+      "topic": "The Body (TV series)",
+      "reason": "momentum-below-floor",
+      "views": 93405,
+      "baseline": 118246,
+      "baselineDays": 7,
+      "momentum": -21
+    },
+    {
+      "article": "Ansel_Adams",
+      "topic": "Ansel Adams",
+      "reason": "momentum-below-floor",
+      "views": 79724,
+      "baseline": 87897,
+      "baselineDays": 7,
+      "momentum": -9.3
+    },
+    {
+      "article": "Joseph_Zada",
+      "topic": "Joseph Zada",
+      "reason": "momentum-below-floor",
+      "views": 79266,
+      "baseline": 50106,
+      "baselineDays": 7,
+      "momentum": 58.2
+    },
+    {
+      "article": "XXX_(film_series)",
+      "topic": "XXX (film series)",
+      "reason": "momentum-below-floor",
+      "views": 78216,
+      "baseline": 46241,
+      "baselineDays": 7,
+      "momentum": 69.1
+    },
+    {
+      "article": "Grand_Theft_Auto",
+      "topic": "Grand Theft Auto",
+      "reason": "momentum-below-floor",
+      "views": 69565,
+      "baseline": 96324,
+      "baselineDays": 7,
+      "momentum": -27.8
+    },
+    {
+      "article": "Elizabeth_Holmes",
+      "topic": "Elizabeth Holmes",
+      "reason": "momentum-below-floor",
+      "views": 69395,
+      "baseline": 70107,
+      "baselineDays": 7,
+      "momentum": -1
+    },
+    {
+      "article": "XXX_(2002_film)",
+      "topic": "XXX (2002 film)",
+      "reason": "momentum-below-floor",
+      "views": 68418,
+      "baseline": 47260,
+      "baselineDays": 7,
+      "momentum": 44.8
+    },
+    {
+      "article": "You_Can_See_Everything",
+      "topic": "You Can See Everything",
+      "reason": "momentum-below-floor",
+      "views": 67489,
+      "baseline": 60172,
+      "baselineDays": 7,
+      "momentum": 12.2
+    },
+    {
+      "article": "Mckenna_Grace",
+      "topic": "Mckenna Grace",
+      "reason": "momentum-below-floor",
+      "views": 67113,
+      "baseline": 49507,
+      "baselineDays": 7,
+      "momentum": 35.6
+    }
+  ]
+}

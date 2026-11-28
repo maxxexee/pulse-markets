@@ -1,0 +1,706 @@
+{
+  "schema": "pulse-trends-coverage/1",
+  "days": [
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-21",
+    "2026-11-22",
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-11-26",
+    "2026-11-27"
+  ],
+  "topics": [
+    {
+      "article": "Joe_Milton",
+      "topic": "Joe Milton",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Joe Milton",
+          "momentum": 1188.1,
+          "views": 75672,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        },
+        {
+          "day": "2026-11-27",
+          "topic": "Joe Milton",
+          "momentum": 2243.6,
+          "views": 385182,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Miley_Cyrus",
+      "topic": "Miley Cyrus",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "Miley Cyrus",
+          "momentum": 1883.9,
+          "views": 170642,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        },
+        {
+          "day": "2026-11-23",
+          "topic": "Miley Cyrus",
+          "momentum": 266.4,
+          "views": 116713,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "Aaron_Rodgers",
+      "topic": "Aaron Rodgers",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Aaron Rodgers",
+          "momentum": 1831.8,
+          "views": 120910,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "Alice_Walker",
+      "topic": "Alice Walker",
+      "entries": [
+        {
+          "day": "2026-11-27",
+          "topic": "Alice Walker",
+          "momentum": 4556.4,
+          "views": 84827,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Andy_Taylor_(guitarist)",
+      "topic": "Andy Taylor (guitarist)",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Andy Taylor (guitarist)",
+          "momentum": 1504.8,
+          "views": 318400,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        }
+      ]
+    },
+    {
+      "article": "Anthony_Russell_(murderer)",
+      "topic": "Anthony Russell (murderer)",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Anthony Russell (murderer)",
+          "momentum": 2911.8,
+          "views": 79697,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Blood",
+      "topic": "Blood",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Blood",
+          "momentum": 196.3,
+          "views": 75798,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Chad_Smith",
+      "topic": "Chad Smith",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Chad Smith",
+          "momentum": 1709.3,
+          "views": 69113,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        }
+      ]
+    },
+    {
+      "article": "Duran_Duran",
+      "topic": "Duran Duran",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Duran Duran",
+          "momentum": 1364.7,
+          "views": 164045,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        }
+      ]
+    },
+    {
+      "article": "Ella_Langley",
+      "topic": "Ella Langley",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "Ella Langley",
+          "momentum": 1558.1,
+          "views": 189264,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Ezra_Frech",
+      "topic": "Ezra Frech",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Ezra Frech",
+          "momentum": 2727.5,
+          "views": 260732,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "Fiona_(hippopotamus)",
+      "topic": "Fiona (hippopotamus)",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "Fiona (hippopotamus)",
+          "momentum": 7206.8,
+          "views": 83965,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Fred_Warner_(American_football)",
+      "topic": "Fred Warner (American football)",
+      "entries": [
+        {
+          "day": "2026-11-23",
+          "topic": "Fred Warner (American football)",
+          "momentum": 5755.1,
+          "views": 107625,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "Grand_Theft_Auto_VI",
+      "topic": "Grand Theft Auto VI",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Grand Theft Auto VI",
+          "momentum": 480.7,
+          "views": 519632,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "Hakeem_Jeffries",
+      "topic": "Hakeem Jeffries",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Hakeem Jeffries",
+          "momentum": 389.9,
+          "views": 92218,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "Hunter_Schafer",
+      "topic": "Hunter Schafer",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Hunter Schafer",
+          "momentum": 463.5,
+          "views": 101368,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "International_Men's_Day",
+      "topic": "International Men's Day",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "International Men's Day",
+          "momentum": 2770.7,
+          "views": 118074,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Jennifer_Barreto",
+      "topic": "Jennifer Barreto",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Jennifer Barreto",
+          "momentum": 7708.3,
+          "views": 149785,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "John_Tuggle",
+      "topic": "John Tuggle",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "John Tuggle",
+          "momentum": 697,
+          "views": 71317,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        }
+      ]
+    },
+    {
+      "article": "Joseph_Zada",
+      "topic": "Joseph Zada",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "Joseph Zada",
+          "momentum": 199.8,
+          "views": 82604,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    },
+    {
+      "article": "Josh_Allen",
+      "topic": "Josh Allen",
+      "entries": [
+        {
+          "day": "2026-11-27",
+          "topic": "Josh Allen",
+          "momentum": 626.4,
+          "views": 61088,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Killing_of_JonBenét_Ramsey",
+      "topic": "Killing of JonBenét Ramsey",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Killing of JonBenét Ramsey",
+          "momentum": 666.8,
+          "views": 64731,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Leigh_Nash",
+      "topic": "Leigh Nash",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "Leigh Nash",
+          "momentum": 4386.2,
+          "views": 95384,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Levent_Alpöge",
+      "topic": "Levent Alpöge",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "Levent Alpöge",
+          "momentum": 466.3,
+          "views": 102891,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    },
+    {
+      "article": "Linux",
+      "topic": "Linux",
+      "entries": [
+        {
+          "day": "2026-11-23",
+          "topic": "Linux",
+          "momentum": 3635.9,
+          "views": 177023,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "Manni_L._Perez",
+      "topic": "Manni L. Perez",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Manni L. Perez",
+          "momentum": 1370.2,
+          "views": 67267,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "Marc_Márquez",
+      "topic": "Marc Márquez",
+      "entries": [
+        {
+          "day": "2026-11-27",
+          "topic": "Marc Márquez",
+          "momentum": 462.5,
+          "views": 86276,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Mary_Peltola",
+      "topic": "Mary Peltola",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Mary Peltola",
+          "momentum": 432.9,
+          "views": 133395,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "Mason_Rudolph_(American_football)",
+      "topic": "Mason Rudolph (American football)",
+      "entries": [
+        {
+          "day": "2026-11-27",
+          "topic": "Mason Rudolph (American football)",
+          "momentum": 1038.2,
+          "views": 117924,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Mauricio_Pochettino",
+      "topic": "Mauricio Pochettino",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "Mauricio Pochettino",
+          "momentum": 164.4,
+          "views": 77374,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        }
+      ]
+    },
+    {
+      "article": "Maxx_Morando",
+      "topic": "Maxx Morando",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Maxx Morando",
+          "momentum": 212.4,
+          "views": 55624,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Mike_McCarthy",
+      "topic": "Mike McCarthy",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Mike McCarthy",
+          "momentum": 12611.1,
+          "views": 128019,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "Miss_International_2026",
+      "topic": "Miss International 2026",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Miss International 2026",
+          "momentum": 4723.4,
+          "views": 93312,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "Miss_Universe_2026",
+      "topic": "Miss Universe 2026",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Miss Universe 2026",
+          "momentum": 207,
+          "views": 59793,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Molly_Meldrum",
+      "topic": "Molly Meldrum",
+      "entries": [
+        {
+          "day": "2026-11-23",
+          "topic": "Molly Meldrum",
+          "momentum": 1971.7,
+          "views": 112186,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "Moon",
+      "topic": "Moon",
+      "entries": [
+        {
+          "day": "2026-11-23",
+          "topic": "Moon",
+          "momentum": 2843.3,
+          "views": 180275,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "privacy_policy",
+      "topic": "privacy policy",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "privacy policy",
+          "momentum": 217.5,
+          "views": 71801,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        }
+      ]
+    },
+    {
+      "article": "Raheem_Sterling",
+      "topic": "Raheem Sterling",
+      "entries": [
+        {
+          "day": "2026-11-25",
+          "topic": "Raheem Sterling",
+          "momentum": 3374.8,
+          "views": 71889,
+          "payloadSha256": "ed5d0419d02c1285e5880f9c7d6f5e8059c88796a3020341f318346d7cf89065"
+        }
+      ]
+    },
+    {
+      "article": "Riemann_hypothesis",
+      "topic": "Riemann hypothesis",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "Riemann hypothesis",
+          "momentum": 799.1,
+          "views": 388288,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    },
+    {
+      "article": "Russian_corvette_Merkury",
+      "topic": "Russian corvette Merkury",
+      "entries": [
+        {
+          "day": "2026-11-23",
+          "topic": "Russian corvette Merkury",
+          "momentum": 1306.4,
+          "views": 124318,
+          "payloadSha256": "02e33633556aea44cd469da8de24dc179e1cb855eb3536bc1ac89d35407e78c6"
+        }
+      ]
+    },
+    {
+      "article": "S_Club",
+      "topic": "S Club",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "S Club",
+          "momentum": 5117.7,
+          "views": 104957,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        }
+      ]
+    },
+    {
+      "article": "Sam_Bankman-Fried",
+      "topic": "Sam Bankman-Fried",
+      "entries": [
+        {
+          "day": "2026-11-22",
+          "topic": "Sam Bankman-Fried",
+          "momentum": 231.9,
+          "views": 74746,
+          "payloadSha256": "ad4e60c92415dc04412dac9ab304ff443fc300da990997e297615a0f3c740677"
+        }
+      ]
+    },
+    {
+      "article": "Soham_murders",
+      "topic": "Soham murders",
+      "entries": [
+        {
+          "day": "2026-11-24",
+          "topic": "Soham murders",
+          "momentum": 2794.5,
+          "views": 87021,
+          "payloadSha256": "5c9f5811b55f71c5b3c4207b243dad60ab1630b85fc9aaf1b406970f389e17c8"
+        }
+      ]
+    },
+    {
+      "article": "Stephen_Wilson_Jr.",
+      "topic": "Stephen Wilson Jr.",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "Stephen Wilson Jr.",
+          "momentum": 7531.1,
+          "views": 327962,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Steps_(film)",
+      "topic": "Steps (film)",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "Steps (film)",
+          "momentum": 555.1,
+          "views": 67976,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    },
+    {
+      "article": "Sunrise_on_the_Reaping",
+      "topic": "Sunrise on the Reaping",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "Sunrise on the Reaping",
+          "momentum": 113.8,
+          "views": 71460,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    },
+    {
+      "article": "Susan_Smith",
+      "topic": "Susan Smith",
+      "entries": [
+        {
+          "day": "2026-11-19",
+          "topic": "Susan Smith",
+          "momentum": 1031.1,
+          "views": 81561,
+          "payloadSha256": "122313b10a7ed3cf13e60de030b02fe98df47824e8cfb697d564fd26ec524223"
+        }
+      ]
+    },
+    {
+      "article": "Tatyana_Ali",
+      "topic": "Tatyana Ali",
+      "entries": [
+        {
+          "day": "2026-11-18",
+          "topic": "Tatyana Ali",
+          "momentum": 380.6,
+          "views": 63987,
+          "payloadSha256": "8ba71aabed7d53563c0beacd659886b1199cbee4d9e41928b21eb2822734ad87"
+        }
+      ]
+    },
+    {
+      "article": "The_Hunting_Wives",
+      "topic": "The Hunting Wives",
+      "entries": [
+        {
+          "day": "2026-11-27",
+          "topic": "The Hunting Wives",
+          "momentum": 453.7,
+          "views": 62529,
+          "payloadSha256": "f002469a340925480a4a85440ab0d4e23e7a6837c504834067c26480ec446b5f"
+        }
+      ]
+    },
+    {
+      "article": "Veruschka",
+      "topic": "Veruschka",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Veruschka",
+          "momentum": 1578.4,
+          "views": 81230,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        }
+      ]
+    },
+    {
+      "article": "Wu-Tang_Clan",
+      "topic": "Wu-Tang Clan",
+      "entries": [
+        {
+          "day": "2026-11-26",
+          "topic": "Wu-Tang Clan",
+          "momentum": 4248.9,
+          "views": 147607,
+          "payloadSha256": "b55ae0c30bd10728b6194744bced8f7f0b0b7d746dcde31cfb1dda71bde066f9"
+        }
+      ]
+    },
+    {
+      "article": "XXX_(2002_film)",
+      "topic": "XXX (2002 film)",
+      "entries": [
+        {
+          "day": "2026-11-21",
+          "topic": "XXX (2002 film)",
+          "momentum": 177.3,
+          "views": 92338,
+          "payloadSha256": "a7f263dab4e6fe689a7b28a94f353df0dd0c47c722026e5d703c4c2cfef32b5a"
+        }
+      ]
+    }
+  ]
+}

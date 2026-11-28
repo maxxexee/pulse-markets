@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080808" />
+  <title>Sign up · PULSE</title>
+  <meta name="description" content="Create a PULSE account to follow the signed daily attention index." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Author display rules would otherwise override the hidden attribute. */
+    [hidden] { display: none !important; }
+
+    :root {
+      --void: #080808;
+      --surface: #101010;
+      --border: #222222;
+      --text: #E8E4DC;
+      /* Both muted tones clear 4.5:1 on --void; --faint is the lighter job of
+         the two (placeholders, axis labels, required markers). */
+      --dim: #9A958B;
+      --faint: #8E8981;
+      --live: #6EE79A;
+      --error: #FF7A7A;
+      --radius: 14px;
+      --font-body: -apple-system, 'SF Pro Text', BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      --font-display: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
+    }
+
+    html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+    body { background: var(--void); color: var(--text); font-family: var(--font-body); min-height: 100dvh; }
+    a { color: var(--text); }
+    :focus-visible { outline: 2px solid var(--text); outline-offset: 2px; border-radius: 4px; }
+
+    .auth { display: grid; grid-template-columns: 1fr; min-height: 100dvh; }
+
+    /* The artwork column is the wide-screen half; below 1024px the form takes the
+       whole page, because a reader on a phone came here to sign up. */
+    .art { display: none; }
+
+    @media (min-width: 1024px) {
+      .auth { grid-template-columns: 48% 52%; }
+      .art { display: block; padding: 20px 0 20px 20px; }
+    }
+
+    .art-frame {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--void);
+    }
+
+    /* The dot field is the card, not a strip inside it: it covers the whole
+       plate and the wordmark sits in the middle of it. */
+    .art-grain { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+    .foot-legal {
+      position: absolute; right: 0; bottom: 0; left: 0;
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 26px 24px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 14px; color: var(--dim);
+      /* Lifts the small print off the grain without hiding the field. */
+      background: linear-gradient(to top, rgba(8, 8, 8, 0.95) 45%, rgba(8, 8, 8, 0));
+    }
+
+    .foot-row {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 10px 24px;
+    }
+
+    .foot-links { display: flex; gap: 24px; }
+    .foot-links a, .foot-fine a { color: inherit; text-decoration: none; }
+    .foot-links a:hover, .foot-fine a:hover { color: var(--text); }
+    .foot-fine { font-size: 12px; color: rgba(232, 228, 220, 0.44); }
+
+    .panel { display: flex; flex-direction: column; padding: 32px 16px; }
+    @media (min-width: 640px) { .panel { padding: 40px; } }
+
+    .panel-inner {
+      display: flex; flex-direction: column; justify-content: center; flex: 1;
+      width: 100%; max-width: 470px; margin: 0 auto;
+    }
+
+    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-size: 15px; font-weight: 600;
+      letter-spacing: -0.01em; text-decoration: none;
+    }
+
+    .brand-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text); box-shadow: 0 0 0 3px rgba(232, 228, 220, 0.08); }
+    .head-step { font-size: 13px; color: var(--dim); }
+    .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+
+    h1 {
+      font-family: var(--font-display); font-size: 26px; line-height: 1.15;
+      font-weight: 600; letter-spacing: -0.02em;
+    }
+
+    .accent-dot { color: var(--live); }
+    .lead { margin-top: 8px; font-size: 14px; color: var(--dim); }
+    .lead a { color: var(--text); text-underline-offset: 2px; }
+    form { margin-top: 28px; }
+
+    .options { display: flex; flex-direction: column; gap: 10px; }
+
+    .option {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; height: 48px;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--text);
+      font-family: inherit; font-size: 15px; cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .option:hover { background: #161616; border-color: #3A3A36; }
+
+    /* Google's mark is only legible on a light fill, so this option is the
+       inverted one and reads as the primary path. */
+    .option-google {
+      background: var(--text); border-color: var(--text);
+      color: var(--void); font-weight: 500;
+    }
+
+    .option-google:hover { background: #FFFFFF; border-color: #FFFFFF; }
+    .option:disabled { opacity: 0.55; cursor: not-allowed; }
+    .option-icon { width: 17px; height: 17px; flex-shrink: 0; }
+
+    .email-block { margin-top: 20px; }
+
+    .back {
+      display: inline-flex; align-items: center; gap: 5px;
+      height: 24px; margin-bottom: 20px;
+      border: 0; padding: 0; background: none;
+      color: var(--dim); font-family: inherit; font-size: 13px; cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .back:hover { color: var(--text); }
+    .back svg { transition: transform 0.15s ease; }
+    .back:hover svg { transform: translateX(-2px); }
+
+    .fields { display: flex; flex-direction: column; gap: 14px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    @media (max-width: 420px) { .row { grid-template-columns: 1fr; } }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .req { color: var(--faint); font-weight: 400; }
+    .input-wrap { position: relative; }
+
+    .input {
+      width: 100%; height: 46px; padding: 0 14px;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--text);
+      /* 16px keeps iOS from zooming the page when the field takes focus. */
+      font-family: inherit; font-size: 16px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .input::placeholder { color: var(--faint); }
+    .input:hover { border-color: #2E2E2A; }
+
+    /* The green focus ring matches the primary button, so the two states read
+       as one surface rather than a form bolted onto the page. */
+    .input:focus {
+      outline: none; border-color: var(--live); background: #141414;
+      box-shadow: 0 0 0 3px rgba(110, 231, 154, 0.16);
+    }
+
+    .input[aria-invalid='true'] { border-color: var(--error); }
+    .input[aria-invalid='true']:hover { border-color: var(--error); }
+
+    .input[aria-invalid='true']:focus {
+      border-color: var(--error); background: #1A1212;
+      box-shadow: 0 0 0 3px rgba(255, 122, 122, 0.18);
+    }
+
+    .has-reveal .input { padding-right: 52px; }
+
+    .reveal {
+      position: absolute; top: 0; right: 0;
+      display: grid; place-items: center; width: 46px; height: 46px;
+      border: 0; border-radius: 10px; background: transparent; color: var(--dim); cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .reveal:hover { color: var(--text); }
+    .hint { font-size: 12.5px; color: var(--dim); }
+
+    /* The hint is redundant once the same rule is stated as an error. */
+    .field:has([aria-invalid='true']) .hint { display: none; }
+
+    .error {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12.5px; color: var(--error);
+    }
+
+    .error::before {
+      content: ''; flex-shrink: 0;
+      width: 4px; height: 4px; border-radius: 50%; background: currentColor;
+    }
+
+    .cta {
+      width: 100%; height: 46px; margin-top: 22px;
+      border: 1px solid var(--live); border-radius: 10px;
+      background: var(--live); color: #07130C;
+      font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cta:hover { background: #86EFAB; border-color: #86EFAB; }
+    .cta:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .mode-switch {
+      display: block; width: 100%; margin-top: 14px;
+      border: 0; background: none; color: var(--dim);
+      font-family: inherit; font-size: 13px; cursor: pointer;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+
+    .mode-switch:hover { color: var(--text); }
+
+    .session {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-top: 28px; padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    }
+
+    .session-text { font-size: 14px; color: var(--text); overflow-wrap: anywhere; }
+
+    .session-out {
+      flex-shrink: 0; height: 32px; padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06); color: var(--text);
+      font-family: inherit; font-size: 13px; cursor: pointer;
+    }
+
+    .session-out:hover { background: rgba(255, 255, 255, 0.14); }
+
+    .form-notice {
+      margin-top: 12px; padding: 10px 12px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--surface); color: var(--dim); font-size: 13px;
+    }
+
+    .limits {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: 12.5px; color: var(--dim);
+    }
+
+    .limits svg { flex-shrink: 0; margin-top: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="auth">
+    <aside class="art">
+      <div class="art-frame">
+        <canvas id="wordmark" class="art-grain" role="img"
+          aria-label="PULSE wordmark formed by a field of dots"></canvas>
+
+        <div class="foot-legal">
+          <div class="foot-row">
+            <span>PULSE publishes a research index, not investment advice.</span>
+            <div class="foot-links">
+              <a href="./risk.html">Risk</a>
+              <a href="./terms.html">Terms</a>
+              <a href="./privacy.html">Privacy</a>
+            </div>
+          </div>
+          <div class="foot-row foot-fine">
+            <span>© 2026 PULSE. All rights reserved.</span>
+            <span>Index <a href="../index.html">pulse-attention-v6</a></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="panel">
+      <div class="panel-inner">
+        <header class="panel-head">
+          <a class="brand" href="./index.html" aria-label="PULSE home">
+            <span class="brand-dot"></span>
+            <span>Pulse</span>
+          </a>
+          <span class="head-step">Get started</span>
+        </header>
+
+        <div class="intro">
+          <p class="eyebrow">Start free</p>
+          <h1>Attention, signed daily<span class="accent-dot">.</span></h1>
+          <p class="lead">Prefer to watch first? <a href="./index.html">See the live index</a></p>
+        </div>
+
+        <div class="session" id="session" hidden>
+          <span class="session-text" id="sessionText"></span>
+          <button type="button" class="session-out" id="signOut">Sign out</button>
+        </div>
+
+        <form id="signupForm" novalidate>
+          <div class="options" id="options">
+            <button type="button" class="option option-google" id="googleOption">
+              <svg class="option-icon" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+            <button type="button" class="option" id="emailOption">
+              <svg class="option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6" aria-hidden="true">
+                <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
+                <path d="m3.5 7 8.5 6 8.5-6" />
+              </svg>
+              <span>Continue with email</span>
+            </button>
+          </div>
+
+          <div class="email-block" id="emailBlock" hidden>
+            <button type="button" class="back" id="backToOptions">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8" aria-hidden="true">
+                <path d="m14.5 6-6 6 6 6" />
+              </svg>
+              All sign-up options
+            </button>
+
+            <div class="fields" id="emailFields">
+              <div class="row">
+                <div class="field">
+                  <label class="field-label" for="firstName">First name</label>
+                  <input class="input" id="firstName" name="firstName" type="text"
+                    autocomplete="given-name" placeholder="Tunde" />
+                </div>
+                <div class="field">
+                  <label class="field-label" for="lastName">Last name</label>
+                  <input class="input" id="lastName" name="lastName" type="text"
+                    autocomplete="family-name" placeholder="Adebayo" />
+                </div>
+              </div>
+  
+              <div class="field">
+                <label class="field-label" for="email">
+                  Email <span class="req">(required)</span>
+                </label>
+                <input class="input" id="email" name="email" type="email" autocomplete="email"
+                  placeholder="tunde@example.com" required aria-describedby="emailError" />
+                <p class="error" id="emailError" hidden></p>
+              </div>
+  
+              <div class="field">
+                <label class="field-label" for="password">
+                  Password <span class="req">(required)</span>
+                </label>
+                <div class="input-wrap has-reveal">
+                  <input class="input" id="password" name="password" type="password"
+                    autocomplete="new-password" placeholder="At least 8 characters" required
+                    aria-describedby="passwordHint passwordError" />
+                  <button type="button" class="reveal" id="revealPassword"
+                    aria-pressed="false" aria-label="Show password">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                      <path d="M2.5 12s3.6-6.5 9.5-6.5S21.5 12 21.5 12s-3.6 6.5-9.5 6.5S2.5 12 2.5 12Z" />
+                      <circle cx="12" cy="12" r="2.6" />
+                    </svg>
+                  </button>
+                </div>
+                <p class="hint" id="passwordHint">At least 8 characters.</p>
+                <p class="error" id="passwordError" hidden></p>
+              </div>
+            </div>
+
+          <button class="cta" id="submitButton" type="submit">Create account</button>
+
+          <button type="button" class="mode-switch" id="modeSwitch">
+            Already have an account? Sign in
+          </button>
+          </div>
+
+          <p class="form-notice" id="formNotice" role="status" hidden></p>
+        </form>
+
+        <div class="limits">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="4.5" y="10.5" width="15" height="9.5" rx="2" />
+            <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
+          </svg>
+          <span>PULSE never asks for a seed phrase or a wallet key. Every epoch is signed and public.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./dot-wordmark.js?v=7edf44f581"></script>
+  <script type="module" src="./signup-form.js?v=87afc21e83"></script>
+</body>
+</html>
